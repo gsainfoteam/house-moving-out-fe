@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/')({
-  component: App,
-});
+import { LoginFrame } from '@/features/auth';
 
-function App() {
-  return <div className="text-center">Hello World!</div>;
-}
+export const Route = createFileRoute('/')({
+  component: LoginFrame,
+});
