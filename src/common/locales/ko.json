@@ -2,7 +2,12 @@
   "auth": {
     "title": "하우스 퇴사 검사",
     "subtitle": "하우스 퇴사 검사 통합 시스템",
-    "loginButton": "인포팀 계정으로 로그인"
+    "loginButton": "인포팀 계정으로 로그인",
+    "error": {
+      "noCode": "인증 코드가 없습니다.",
+      "invalidState": "유효하지 않은 state입니다. CSRF 공격 가능성이 있습니다.",
+      "loginFailed": "로그인에 실패했습니다."
+    }
   },
   "language": {
     "switchToEnglish": "영어로 전환",

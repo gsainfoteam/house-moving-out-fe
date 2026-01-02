@@ -2,7 +2,12 @@
   "auth": {
     "title": "House Moving Out Inspection",
     "subtitle": "House Moving Out Inspection Integrated System",
-    "loginButton": "Login with InfoTeam Account"
+    "loginButton": "Login with InfoTeam Account",
+    "error": {
+      "noCode": "Authentication code is missing.",
+      "invalidState": "Invalid state. Possible CSRF attack.",
+      "loginFailed": "Login failed."
+    }
   },
   "language": {
     "switchToEnglish": "Switch to English",

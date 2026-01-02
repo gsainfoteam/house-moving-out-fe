@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { generateCodeChallenge, generateRandomString } from '../utils';
 
@@ -13,6 +15,7 @@ const AUTHORIZE_URL = import.meta.env.DEV
 export const useOAuthLogin = () => {
   const [recentLogout, setRecentLogout] = useState(false);
   const { mutateAsync: adminLogin } = useAdminLogin();
+  const { t } = useTranslation();
 
   const redirectToProvider = async () => {
     const state = generateRandomString();
@@ -52,14 +55,14 @@ export const useOAuthLogin = () => {
     const receivedState = searchParams.get('state');
 
     if (!code) {
-      throw new Error('인증 코드가 없습니다.');
+      toast.error(t('auth.error.noCode'));
+      throw new Error(t('auth.error.noCode'));
     }
 
     const storedState = useOAuthState.getState().state;
     if (!storedState || storedState !== receivedState) {
-      throw new Error(
-        '유효하지 않은 state입니다. CSRF 공격 가능성이 있습니다.',
-      );
+      toast.error(t('auth.error.invalidState'));
+      throw new Error(t('auth.error.invalidState'));
     }
 
     useOAuthState.getState().clear();
