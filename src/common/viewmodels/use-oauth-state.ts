@@ -4,10 +4,8 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 interface OAuthState {
   state: string | null;
   codeVerifier: string | null;
-  nonce: string | null;
   setState: (state: string | null) => void;
   setCodeVerifier: (codeVerifier: string | null) => void;
-  setNonce: (nonce: string | null) => void;
   clear: () => void;
 }
 
@@ -18,12 +16,10 @@ export const useOAuthState = create<OAuthState>()(
     (set) => ({
       state: null,
       codeVerifier: null,
-      nonce: null,
       setState: (state) => set((prev) => ({ ...prev, state })),
       setCodeVerifier: (codeVerifier) =>
         set((prev) => ({ ...prev, codeVerifier })),
-      setNonce: (nonce) => set((prev) => ({ ...prev, nonce })),
-      clear: () => set({ state: null, codeVerifier: null, nonce: null }),
+      clear: () => set({ state: null, codeVerifier: null }),
     }),
     {
       name: OAUTH_STATE_STORAGE_KEY,

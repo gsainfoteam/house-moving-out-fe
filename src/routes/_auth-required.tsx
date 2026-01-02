@@ -16,7 +16,7 @@ function AuthRequiredLayout() {
   const router = useRouter();
 
   const redirect =
-    router.state.location.pathname + router.state.location.search;
+    router.state.location.pathname + router.state.location.searchStr;
 
   if (token == null) {
     return <Navigate to="/auth/login" search={{ redirect }} replace />;

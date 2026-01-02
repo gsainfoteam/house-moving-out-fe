@@ -3,30 +3,22 @@ import { useTranslation } from 'react-i18next';
 
 import { generateCodeChallenge, generateRandomString } from '../utils';
 
-import { useAdminLogin } from './use-admin-login';
-
-import { useOAuthState } from '@/common/viewmodels';
-
-const AUTHORIZE_URL = import.meta.env.DEV
-  ? 'https://idp.gistory.me/authorize'
-  : 'https://idp.gistory.me/authorize';
+import { api } from '@/common/lib';
+import { useOAuthState, useToken } from '@/common/viewmodels';
 
 export const useOAuthLogin = () => {
   const [recentLogout, setRecentLogout] = useState(false);
-  const { mutateAsync: adminLogin } = useAdminLogin();
   const { t } = useTranslation();
 
   const redirectToProvider = async () => {
-    const state = generateRandomString();
-    const codeVerifier = generateRandomString();
-    const nonce = generateRandomString();
-
-    useOAuthState.setState({ state, codeVerifier, nonce });
-
+    const codeVerifier = generateRandomString(128);
     const codeChallenge = await generateCodeChallenge(codeVerifier);
+    const state = generateRandomString(16);
+
+    useOAuthState.setState({ state, codeVerifier });
+
     const prompt = recentLogout ? 'login' : 'consent';
     const scopes = [
-      'openid',
       'offline_access',
       'profile',
       'email',
@@ -34,18 +26,18 @@ export const useOAuthLogin = () => {
       'student_id',
     ];
 
-    const url = new URL(AUTHORIZE_URL);
-    url.searchParams.set('client_id', import.meta.env.VITE_IDP_CLIENT_ID);
-    url.searchParams.set('redirect_uri', import.meta.env.VITE_IDP_REDIRECT_URI);
-    url.searchParams.set('scope', scopes.join(' '));
-    url.searchParams.set('response_type', 'code');
-    url.searchParams.set('state', state);
-    url.searchParams.set('nonce', nonce);
-    url.searchParams.set('code_challenge', codeChallenge);
-    url.searchParams.set('code_challenge_method', 'S256');
-    url.searchParams.set('prompt', prompt);
+    const params = new URLSearchParams({
+      response_type: 'code',
+      client_id: import.meta.env.VITE_IDP_CLIENT_ID,
+      redirect_uri: import.meta.env.VITE_IDP_REDIRECT_URI,
+      scope: scopes.join(' '),
+      state,
+      code_challenge: codeChallenge,
+      code_challenge_method: 'S256',
+      prompt,
+    });
 
-    window.location.href = url.toString();
+    window.location.href = `${import.meta.env.VITE_IDP_AUTHORIZE_URL}?${params.toString()}`;
   };
 
   const handleOAuthCallback = async () => {
@@ -53,20 +45,34 @@ export const useOAuthLogin = () => {
     const code = searchParams.get('code');
     const receivedState = searchParams.get('state');
 
+    const { state: storedState, codeVerifier } = useOAuthState.getState();
+
     if (!code) {
       throw new Error(t('auth.error.noCode'));
     }
 
-    const storedState = useOAuthState.getState().state;
     if (!storedState || storedState !== receivedState) {
       throw new Error(t('auth.error.invalidState'));
     }
 
-    useOAuthState.getState().clear();
-    const data = await adminLogin(code);
-    setRecentLogout(false);
+    const res = await api.post(
+      import.meta.env.VITE_IDP_TOKEN_URL,
+      {
+        grant_type: 'authorization_code',
+        client_id: import.meta.env.VITE_IDP_CLIENT_ID,
+        code,
+        redirect_uri: import.meta.env.VITE_IDP_REDIRECT_URI,
+        code_verifier: codeVerifier,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
 
-    return data;
+    useToken.getState().saveToken(res.data.access_token);
+    setRecentLogout(false);
   };
 
   return {
