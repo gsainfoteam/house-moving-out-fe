@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { generateCodeChallenge } from '../utils';
+import { generateCodeChallenge, generateRandomString } from '../utils';
 
 import { useAdminLogin } from './use-admin-login';
 
@@ -14,14 +14,12 @@ export const useOAuthLogin = () => {
   const [recentLogout, setRecentLogout] = useState(false);
   const { mutateAsync: adminLogin } = useAdminLogin();
 
-  const redirectToProvider = async (
-    state: string,
-    codeVerifier: string,
-    nonce: string,
-  ) => {
-    useOAuthState.getState().setState(state);
-    useOAuthState.getState().setCodeVerifier(codeVerifier);
-    useOAuthState.getState().setNonce(nonce);
+  const redirectToProvider = async () => {
+    const state = generateRandomString();
+    const codeVerifier = generateRandomString();
+    const nonce = generateRandomString();
+
+    useOAuthState.setState({ state, codeVerifier, nonce });
 
     const codeChallenge = await generateCodeChallenge(codeVerifier);
     const prompt = recentLogout ? 'login' : 'consent';
