@@ -59,6 +59,13 @@ code {
 
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-light-gray: #cecece;
 
   --color-primary: #637457;
+
+  --color-status-pass: #28c76f;
+  --color-status-fail: #ea5455;
+  --color-status-pending: #ff9f43;
+  --color-status-progress: #69c5ff;
+  --color-status-inactive: #a8aaac;
 }

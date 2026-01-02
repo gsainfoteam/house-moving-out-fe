@@ -13,8 +13,10 @@ export function LoginFrame() {
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>
-      <h1>{t('auth.title')}</h1>
-      <p>{t('auth.subtitle')}</p>
+      <div className="flex flex-col items-center justify-center gap-2.5">
+        <h1>{t('auth.title')}</h1>
+        <p>{t('auth.subtitle')}</p>
+      </div>
       <Button className="mt-4" onClick={redirectToProvider}>
         {t('auth.loginButton')}
       </Button>
