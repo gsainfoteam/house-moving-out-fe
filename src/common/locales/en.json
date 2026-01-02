@@ -6,7 +6,8 @@
     "error": {
       "noCode": "Authentication code is missing.",
       "invalidState": "An error occurred during authentication. Please try again.",
-      "loginFailed": "Login failed."
+      "loginFailed": "Login failed.",
+      "callbackFailed": "An error occurred during authentication processing."
     }
   },
   "language": {

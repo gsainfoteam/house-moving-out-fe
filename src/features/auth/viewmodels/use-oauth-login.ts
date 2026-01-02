@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
 import { generateCodeChallenge, generateRandomString } from '../utils';
 
@@ -55,13 +54,11 @@ export const useOAuthLogin = () => {
     const receivedState = searchParams.get('state');
 
     if (!code) {
-      toast.error(t('auth.error.noCode'));
       throw new Error(t('auth.error.noCode'));
     }
 
     const storedState = useOAuthState.getState().state;
     if (!storedState || storedState !== receivedState) {
-      toast.error(t('auth.error.invalidState'));
       throw new Error(t('auth.error.invalidState'));
     }
 

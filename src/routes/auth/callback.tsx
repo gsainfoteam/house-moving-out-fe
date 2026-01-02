@@ -1,5 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { useOAuthLogin } from '@/features/auth';
 
@@ -10,19 +12,22 @@ export const Route = createFileRoute('/auth/callback')({
 function CallbackComponent() {
   const navigate = useNavigate();
   const { handleOAuthCallback } = useOAuthLogin();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleCallback = async () => {
       try {
         await handleOAuthCallback();
       } catch (err) {
-        console.error('로그인 처리 중 오류:', err);
+        const errorMessage =
+          err instanceof Error ? err.message : t('auth.error.callbackFailed');
+        toast.error(errorMessage);
       }
       navigate({ to: '/' });
     };
 
     handleCallback();
-  }, [handleOAuthCallback, navigate]);
+  }, [handleOAuthCallback, navigate, t]);
 
   return null;
 }
