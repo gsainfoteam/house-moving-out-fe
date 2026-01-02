@@ -6,6 +6,31 @@
 - Run lint/format tasks with Bun.
 - `es-toolkit` is available; prefer it when helpful.
 
+## Project Structure
+
+### MVVM & Feature-Based Architecture
+
+This project follows MVVM (Model-View-ViewModel) pattern and feature-based file structure:
+
+- **Features**: `src/features/` - Feature modules organized by domain
+  - Each feature contains: `models/`, `viewmodels/`, `views/`, `utils/`
+- **Common**: `src/common/` - Shared code across features
+  - `components/` - Reusable components
+  - `lib/` - Library configurations and utilities
+  - `utils/` - Utility functions
+  - `viewmodels/` - Shared view models
+
+### Components Structure
+
+Components in `src/common/components/` are organized by type:
+
+- **`ui/`**: Primitive components (e.g., `Button`, `Input`)
+  - Basic, reusable UI elements with minimal dependencies
+  - Can be used as building blocks for other components
+- **Root level**: Composite components (e.g., `LanguageToggle`)
+  - Components that use primitive components or have business logic
+  - Should not be placed in `ui/` folder
+
 ## Commits & PRs
 
 - Title format (both commits and PRs): `<type>: <title>`
