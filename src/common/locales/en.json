@@ -5,7 +5,7 @@
     "loginButton": "Login with InfoTeam Account",
     "error": {
       "noCode": "Authentication code is missing.",
-      "invalidState": "Invalid state. Possible CSRF attack.",
+      "invalidState": "An error occurred during authentication. Please try again.",
       "loginFailed": "Login failed."
     }
   },

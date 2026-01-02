@@ -5,7 +5,7 @@
     "loginButton": "인포팀 계정으로 로그인",
     "error": {
       "noCode": "인증 코드가 없습니다.",
-      "invalidState": "유효하지 않은 state입니다. CSRF 공격 가능성이 있습니다.",
+      "invalidState": "인증 과정에 문제가 발생했습니다. 다시 시도해주세요.",
       "loginFailed": "로그인에 실패했습니다."
     }
   },
