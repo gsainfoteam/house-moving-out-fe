@@ -14,7 +14,8 @@ export const useLanguage = () => {
 
   const toggleLanguage = () => {
     const currentIndex = SUPPORTED_LANGUAGES.indexOf(currentLanguage);
-    const nextIndex = (currentIndex + 1) % SUPPORTED_LANGUAGES.length;
+    const safeIndex = currentIndex !== -1 ? currentIndex : 0;
+    const nextIndex = (safeIndex + 1) % SUPPORTED_LANGUAGES.length;
     changeLanguage(SUPPORTED_LANGUAGES[nextIndex]);
   };
 
