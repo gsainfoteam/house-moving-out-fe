@@ -1,0 +1,13 @@
+{
+  "auth": {
+    "title": "하우스 퇴사 검사",
+    "subtitle": "하우스 퇴사 검사 통합 시스템",
+    "loginButton": "인포팀 계정으로 로그인"
+  },
+  "language": {
+    "switchToEnglish": "영어로 전환",
+    "switchToKorean": "한국어로 전환",
+    "english": "English",
+    "korean": "한국어"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "auth": {
+    "title": "House Moving Out Inspection",
+    "subtitle": "House Moving Out Inspection Integrated System",
+    "loginButton": "Login with InfoTeam Account"
+  },
+  "language": {
+    "switchToEnglish": "Switch to English",
+    "switchToKorean": "Switch to Korean",
+    "english": "English",
+    "korean": "Korean"
+  }
+}
