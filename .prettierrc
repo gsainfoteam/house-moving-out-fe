@@ -2,6 +2,6 @@
   "singleQuote": true,
   "trailingComma": "all",
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindFunctions": ["cn", "cva", "tv"],
+  "tailwindFunctions": ["cn", "cv", "tv"],
   "tailwindPreserveWhitespace": false
 }
