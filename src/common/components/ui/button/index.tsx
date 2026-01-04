@@ -1,6 +1,6 @@
 import type { VariantProps } from 'tailwind-variants';
 
-import { tv } from '@/common/utils';
+import { cv } from '@/common/utils';
 
 export function Button({
   variant = 'primary',
@@ -21,7 +21,7 @@ export namespace Button {
     variant?: VariantProps<typeof Button.styles>['variant'];
     icon?: VariantProps<typeof Button.styles>['icon'];
   };
-  export const styles = tv({
+  export const styles = cv({
     base: [
       'text-body rounded-lg',
       'flex items-center justify-center',

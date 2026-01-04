@@ -1,3 +1,4 @@
+import { Checkbox } from '@/common/components/ui/checkbox';
 import { useToken } from '@/common/viewmodels';
 
 // FIXME: 데모
@@ -9,6 +10,7 @@ export function MainFrame() {
   return (
     <div>
       <div className="mb-4 flex items-center gap-2">
+        <Checkbox />
         <div
           className={`h-2 w-2 rounded-full ${
             isAuthenticated ? 'bg-green-500' : 'bg-gray-300'
