@@ -10,8 +10,6 @@ export function ConsentFrame() {
   const { t } = useTranslation();
   const {
     form: { register, formState },
-    privacyPolicy,
-    termsOfService,
     allChecked,
     handleAllChange,
     onSubmit,
@@ -40,10 +38,7 @@ export function ConsentFrame() {
 
           <div className="flex flex-col gap-3">
             <label className="flex cursor-pointer items-center gap-3">
-              <Checkbox
-                {...register('privacyPolicy')}
-                checked={privacyPolicy}
-              />
+              <Checkbox {...register('privacyPolicy')} />
               <span className="flex-1">{t('consent.privacyPolicy')}</span>
               <Link
                 to="/auth/terms/$type"
@@ -56,10 +51,7 @@ export function ConsentFrame() {
             </label>
 
             <label className="flex cursor-pointer items-center gap-3">
-              <Checkbox
-                {...register('termsOfService')}
-                checked={termsOfService}
-              />
+              <Checkbox {...register('termsOfService')} />
               <span className="flex-1">{t('consent.termsOfService')}</span>
               <Link
                 to="/auth/terms/$type"
