@@ -5,8 +5,8 @@ import UncheckedIcon from '@/assets/unchecked.svg?react';
 import { cn } from '@/common/utils';
 
 const CheckboxRoot = forwardRef<
-  Checkbox.Props & HTMLInputElement,
-  React.ComponentProps<'input'>
+  HTMLInputElement,
+  Checkbox.Props & React.ComponentProps<'input'>
 >(({ className, ...props }, ref) => {
   return (
     <div className="relative inline-flex items-center">
