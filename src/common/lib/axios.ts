@@ -30,10 +30,11 @@ api.interceptors.response.use(
         useToken.getState().saveToken(refreshRes.access_token);
         error.config.retry = true;
         return api.request(error.config);
+      } else {
+        useToken.getState().saveToken(null);
       }
     }
 
-    useToken.getState().saveToken(null);
     return Promise.reject(error);
   },
 );
