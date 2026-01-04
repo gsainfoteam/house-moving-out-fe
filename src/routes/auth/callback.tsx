@@ -18,12 +18,13 @@ function CallbackComponent() {
     const handleCallback = async () => {
       try {
         await handleOAuthCallback();
+        navigate({ to: '/auth/consent' });
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : t('auth.error.callbackFailed');
         toast.error(errorMessage);
+        navigate({ to: '/auth/login' });
       }
-      navigate({ to: '/' });
     };
 
     handleCallback();

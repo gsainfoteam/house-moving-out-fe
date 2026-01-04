@@ -13,7 +13,9 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthRequiredRouteImport } from './routes/_auth-required'
 import { Route as AuthRequiredIndexRouteImport } from './routes/_auth-required/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthConsentRouteImport } from './routes/auth/consent'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as AuthTermsTypeRouteImport } from './routes/auth/terms.$type'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -34,44 +36,74 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthConsentRoute = AuthConsentRouteImport.update({
+  id: '/consent',
+  path: '/consent',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthTermsTypeRoute = AuthTermsTypeRouteImport.update({
+  id: '/terms/$type',
+  path: '/terms/$type',
   getParentRoute: () => AuthRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/consent': typeof AuthConsentRoute
   '/auth/login': typeof AuthLoginRoute
   '/': typeof AuthRequiredIndexRoute
+  '/auth/terms/$type': typeof AuthTermsTypeRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/consent': typeof AuthConsentRoute
   '/auth/login': typeof AuthLoginRoute
   '/': typeof AuthRequiredIndexRoute
+  '/auth/terms/$type': typeof AuthTermsTypeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_auth-required': typeof AuthRequiredRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/consent': typeof AuthConsentRoute
   '/auth/login': typeof AuthLoginRoute
   '/_auth-required/': typeof AuthRequiredIndexRoute
+  '/auth/terms/$type': typeof AuthTermsTypeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/auth' | '/auth/callback' | '/auth/login' | '/'
+  fullPaths:
+    | '/auth'
+    | '/auth/callback'
+    | '/auth/consent'
+    | '/auth/login'
+    | '/'
+    | '/auth/terms/$type'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/auth/callback' | '/auth/login' | '/'
+  to:
+    | '/auth'
+    | '/auth/callback'
+    | '/auth/consent'
+    | '/auth/login'
+    | '/'
+    | '/auth/terms/$type'
   id:
     | '__root__'
     | '/_auth-required'
     | '/auth'
     | '/auth/callback'
+    | '/auth/consent'
     | '/auth/login'
     | '/_auth-required/'
+    | '/auth/terms/$type'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -109,11 +141,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/auth/consent': {
+      id: '/auth/consent'
+      path: '/consent'
+      fullPath: '/auth/consent'
+      preLoaderRoute: typeof AuthConsentRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/auth/callback': {
       id: '/auth/callback'
       path: '/callback'
       fullPath: '/auth/callback'
       preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/auth/terms/$type': {
+      id: '/auth/terms/$type'
+      path: '/terms/$type'
+      fullPath: '/auth/terms/$type'
+      preLoaderRoute: typeof AuthTermsTypeRouteImport
       parentRoute: typeof AuthRoute
     }
   }
@@ -133,12 +179,16 @@ const AuthRequiredRouteWithChildren = AuthRequiredRoute._addFileChildren(
 
 interface AuthRouteChildren {
   AuthCallbackRoute: typeof AuthCallbackRoute
+  AuthConsentRoute: typeof AuthConsentRoute
   AuthLoginRoute: typeof AuthLoginRoute
+  AuthTermsTypeRoute: typeof AuthTermsTypeRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthCallbackRoute: AuthCallbackRoute,
+  AuthConsentRoute: AuthConsentRoute,
   AuthLoginRoute: AuthLoginRoute,
+  AuthTermsTypeRoute: AuthTermsTypeRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)

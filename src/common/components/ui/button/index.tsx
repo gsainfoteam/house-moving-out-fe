@@ -43,6 +43,7 @@ export namespace Button {
           'hover:before:opacity-[0.08]',
           'focus-visible:before:opacity-[0.12]',
           'active:before:opacity-[0.16]',
+          'disabled:bg-gray-400 disabled:text-gray-200',
           'disabled:hover:before:opacity-0',
         ],
         secondary: [
