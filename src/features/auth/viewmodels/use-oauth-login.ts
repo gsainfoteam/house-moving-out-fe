@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { generateCodeChallenge, generateRandomString } from '../utils';
@@ -10,7 +10,7 @@ export const useOAuthLogin = () => {
   const [recentLogout, setRecentLogout] = useState(false);
   const { t } = useTranslation();
 
-  const redirectToProvider = async () => {
+  const redirectToProvider = useCallback(async () => {
     const codeVerifier = generateRandomString(128);
     const codeChallenge = await generateCodeChallenge(codeVerifier);
     const state = generateRandomString(16);
@@ -38,9 +38,9 @@ export const useOAuthLogin = () => {
     });
 
     window.location.href = `${import.meta.env.VITE_IDP_AUTHORIZE_URL}?${params.toString()}`;
-  };
+  }, [recentLogout]);
 
-  const handleOAuthCallback = async () => {
+  const handleOAuthCallback = useCallback(async () => {
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get('code');
     const receivedState = searchParams.get('state');
@@ -48,32 +48,40 @@ export const useOAuthLogin = () => {
     const { state: storedState, codeVerifier } = useOAuthState.getState();
 
     if (!code) {
+      useOAuthState.getState().clear();
       throw new Error(t('auth.error.noCode'));
     }
 
     if (!storedState || storedState !== receivedState) {
+      useOAuthState.getState().clear();
       throw new Error(t('auth.error.invalidState'));
     }
 
-    const res = await api.post(
-      import.meta.env.VITE_IDP_TOKEN_URL,
-      {
-        grant_type: 'authorization_code',
-        client_id: import.meta.env.VITE_IDP_CLIENT_ID,
-        code,
-        redirect_uri: import.meta.env.VITE_IDP_REDIRECT_URI,
-        code_verifier: codeVerifier,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+    try {
+      const res = await api.post(
+        import.meta.env.VITE_IDP_TOKEN_URL,
+        {
+          grant_type: 'authorization_code',
+          client_id: import.meta.env.VITE_IDP_CLIENT_ID,
+          code,
+          redirect_uri: import.meta.env.VITE_IDP_REDIRECT_URI,
+          code_verifier: codeVerifier,
         },
-      },
-    );
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
+      );
 
-    useToken.getState().saveToken(res.data.access_token);
-    setRecentLogout(false);
-  };
+      useOAuthState.getState().clear();
+      useToken.getState().saveToken(res.data.access_token);
+      setRecentLogout(false);
+    } catch (error) {
+      useOAuthState.getState().clear();
+      throw error;
+    }
+  }, [t]);
 
   return {
     redirectToProvider,
