@@ -58,17 +58,22 @@ export const useAdminOAuthLogin = () => {
       throw new Error('인증 상태가 일치하지 않습니다');
     }
 
+    if (!codeVerifier) {
+      useOAuthState.getState().clear();
+      throw new Error('Code verifier가 없습니다');
+    }
+
     try {
-      // IdP에서 access token 받기
+      // IdP에서 access token 받기 
       const idpTokenResponse = await api.post(
         import.meta.env.VITE_IDP_TOKEN_URL,
-        {
+        new URLSearchParams({
           grant_type: 'authorization_code',
           client_id: import.meta.env.VITE_IDP_CLIENT_ID,
           code,
           redirect_uri: import.meta.env.VITE_IDP_REDIRECT_URI,
           code_verifier: codeVerifier,
-        },
+        }).toString(),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
