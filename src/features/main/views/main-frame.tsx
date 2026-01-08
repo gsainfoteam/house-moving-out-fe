@@ -1,10 +1,12 @@
+import { Button } from '@/common/components/ui/button';
 import { Checkbox } from '@/common/components/ui/checkbox';
-import { useToken } from '@/features/auth';
+import { useLogout, useToken } from '@/features/auth';
 
 // FIXME: 데모
 
 export function MainFrame() {
   const { token } = useToken();
+  const { logOut } = useLogout();
   const isAuthenticated = !!token;
 
   return (
@@ -21,6 +23,9 @@ export function MainFrame() {
         </span>
       </div>
       <div>MainFrame</div>
+      <Button variant="secondary" onClick={logOut} className="mt-4">
+        로그아웃
+      </Button>
     </div>
   );
 }

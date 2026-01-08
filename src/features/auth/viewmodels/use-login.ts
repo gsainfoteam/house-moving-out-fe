@@ -16,11 +16,15 @@ interface UseUserLoginOptions {
   onError?: (error: unknown) => void;
 }
 
-export const useUserLogin = (options: UseUserLoginOptions = {}) => {
+export const useLogin = (options: UseUserLoginOptions = {}) => {
   const { showToast = false, onSuccess, onError } = options;
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { token, logOut } = useAuthContext();
+  const {
+    token: idpToken,
+    logOut: idpLogOut,
+    logIn: idpLogIn,
+  } = useAuthContext();
 
   const goToIdpToken = () => navigate({ to: '/auth/login' });
   const goToConsentData = () => navigate({ to: '/auth/consent' });
@@ -28,15 +32,15 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
 
   const mutation = useMutation({
     mutationFn: async (consentData?: UserLoginDto) => {
-      if (!token) {
+      if (!idpToken) {
+        goToIdpToken();
         if (showToast) {
           toast.error(t('auth.error.noIdpToken'));
         }
-        goToIdpToken();
         throw new Error('No IDP token');
       }
 
-      return await authApi.userLogin(token, consentData);
+      return await authApi.userLogin(idpToken, consentData);
     },
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
@@ -51,11 +55,11 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
 
         switch (status) {
           case 401: {
-            logOut();
+            idpLogOut();
+            goToIdpToken();
             if (showToast) {
               toast.error(t('auth.error.invalidIdpToken'));
             }
-            goToIdpToken();
             break;
           }
           case 403: {
@@ -65,30 +69,31 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
             break;
           }
           default: {
+            idpLogOut();
+            goToIdpToken();
             if (showToast) {
               toast.error(t('auth.error.loginFailed'));
             }
-            goToIdpToken();
             break;
           }
         }
       } else {
+        idpLogOut();
+        goToIdpToken();
         if (showToast) {
           toast.error(t('auth.error.loginFailed'));
         }
-        goToIdpToken();
       }
     },
   });
 
-  const performUserLogin = async (
-    consentData?: UserLoginDto,
-  ): Promise<JwtToken> => {
+  const logIn = async (consentData?: UserLoginDto): Promise<JwtToken> => {
     return await mutation.mutateAsync(consentData);
   };
 
   return {
-    performUserLogin,
+    idpLogIn,
+    logIn,
     isLoading: mutation.isPending,
     isError: mutation.isError,
   };

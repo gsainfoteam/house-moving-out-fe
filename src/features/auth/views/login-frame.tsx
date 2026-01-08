@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { useAuthContext } from 'react-oauth2-code-pkce';
+
+import { useLogin } from '../viewmodels';
 
 import { Button, LanguageToggle } from '@/common/components';
 
 export function LoginFrame() {
-  const { logIn } = useAuthContext();
   const { t } = useTranslation();
+  const { idpLogIn } = useLogin();
 
   return (
     <div className="relative flex h-screen flex-col items-center justify-center">
@@ -16,7 +17,7 @@ export function LoginFrame() {
         <h1>{t('auth.title')}</h1>
         <p>{t('auth.subtitle')}</p>
       </div>
-      <Button className="mt-4" onClick={() => logIn()}>
+      <Button className="mt-4" onClick={() => idpLogIn()}>
         {t('auth.loginButton')}
       </Button>
     </div>
