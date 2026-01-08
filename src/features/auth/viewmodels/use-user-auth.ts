@@ -27,9 +27,16 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
   } = useAuthContext();
 
   const logOut = async () => {
-    await authApi.userLogout();
-    useToken.getState().saveToken(null);
-    idpLogOut();
+    try {
+      await authApi.userLogout();
+      useToken.getState().saveToken(null);
+      idpLogOut();
+    } catch (error) {
+      onError?.(error);
+      if (showToast) {
+        toast.error(t('auth.error.logoutFailed'));
+      }
+    }
   };
 
   const goToIdpToken = () => navigate({ to: '/auth/login' });

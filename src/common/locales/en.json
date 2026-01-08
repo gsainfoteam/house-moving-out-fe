@@ -7,6 +7,7 @@
       "noCode": "Authentication code is missing.",
       "invalidState": "An error occurred during authentication. Please try again.",
       "loginFailed": "Login failed.",
+      "logoutFailed": "Logout failed.",
       "callbackFailed": "An error occurred during authentication processing.",
       "noIdpToken": "IDP token is missing.",
       "invalidIdpToken": "IDP token is invalid."
