@@ -38,7 +38,8 @@ const authConfig: TAuthConfig = {
     'phone_number',
     'student_id',
   ].join(' '),
-  onRefreshTokenExpire: (event) => event.logIn(undefined, undefined, 'popup'),
+  onRefreshTokenExpire: (event) =>
+    event.logIn(undefined, undefined, 'redirect'),
   extraAuthParameters: {
     // TODO: 자세하게 이게 뭐하는건지 알아보기, 왜 필요한지 알아보기
     // const prompt = recentLogout ? 'login' : 'consent';
