@@ -1,8 +1,7 @@
 import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 import { z } from 'zod';
 
-import { useToken } from '@/common/viewmodels';
-import { useConsent } from '@/features/auth';
+import { useToken } from '@/features/auth';
 
 export const Route = createFileRoute('/auth')({
   component: AuthLayout,
@@ -21,9 +20,8 @@ export const Route = createFileRoute('/auth')({
 function AuthLayout() {
   const { token } = useToken();
   const { redirect } = Route.useSearch();
-  const { isAllAgreed } = useConsent();
 
-  if (token && isAllAgreed()) {
+  if (token) {
     return <Navigate to={redirect ?? '/'} />;
   }
 

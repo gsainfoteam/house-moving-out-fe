@@ -5,8 +5,7 @@ import {
   useRouter,
 } from '@tanstack/react-router';
 
-import { useToken } from '@/common/viewmodels';
-import { useConsent } from '@/features/auth';
+import { useToken } from '@/features/auth';
 
 export const Route = createFileRoute('/_auth-required')({
   component: AuthRequiredLayout,
@@ -14,7 +13,6 @@ export const Route = createFileRoute('/_auth-required')({
 
 function AuthRequiredLayout() {
   const { token } = useToken();
-  const { isAllAgreed } = useConsent();
   const router = useRouter();
 
   const redirect =
@@ -22,10 +20,6 @@ function AuthRequiredLayout() {
 
   if (!token) {
     return <Navigate to="/auth/login" search={{ redirect }} replace />;
-  }
-
-  if (!isAllAgreed()) {
-    return <Navigate to="/auth/consent" search={{ redirect }} replace />;
   }
 
   return <Outlet />;

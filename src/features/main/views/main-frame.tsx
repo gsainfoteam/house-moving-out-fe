@@ -1,5 +1,5 @@
 import { Checkbox } from '@/common/components/ui/checkbox';
-import { useToken } from '@/common/viewmodels';
+import { useToken } from '@/features/auth';
 
 // FIXME: 데모
 

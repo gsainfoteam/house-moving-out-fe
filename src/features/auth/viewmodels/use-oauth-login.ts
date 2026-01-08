@@ -1,14 +1,20 @@
+import { useNavigate } from '@tanstack/react-router';
+import { isAxiosError } from 'axios';
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useAuthContext } from 'react-oauth2-code-pkce';
+import { toast } from 'sonner';
 
+import { authApi } from '../models';
 import { generateCodeChallenge, generateRandomString } from '../utils';
 
-import { api } from '@/common/lib';
-import { useOAuthState, useToken } from '@/common/viewmodels';
+import { useOAuthState } from './use-oauth-state';
+import { useToken } from './use-token';
 
 export const useOAuthLogin = () => {
-  const [recentLogout, setRecentLogout] = useState(false);
-  const { t } = useTranslation();
+  // TODO: 자세하게 이게 뭐하는건지 알아보기, 왜 필요한지 알아보기
+  const [recentLogout, _] = useState(false);
+  const navigate = useNavigate();
+  const { token, logOut } = useAuthContext();
 
   const redirectToProvider = useCallback(async () => {
     const codeVerifier = generateRandomString(128);
@@ -40,51 +46,50 @@ export const useOAuthLogin = () => {
     window.location.href = `${import.meta.env.VITE_IDP_AUTHORIZE_URL}?${params.toString()}`;
   }, [recentLogout]);
 
-  const handleOAuthCallback = useCallback(async () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = searchParams.get('code');
-    const receivedState = searchParams.get('state');
+  // TODO: onSubmit 측 코드랑 코드 중앙화 필요
 
-    const { state: storedState, codeVerifier } = useOAuthState.getState();
+  const tryLogin = useCallback(async () => {
+    const goToIdpToken = () => navigate({ to: '/auth/login' });
+    const goToConsentData = () => navigate({ to: '/auth/consent' });
+    const goToHome = () => navigate({ to: '/' });
 
-    if (!code) {
-      useOAuthState.getState().clear();
-      throw new Error(t('auth.error.noCode'));
-    }
+    // FIXME: 콘솔, 토스트 로그 지우기
+    toast.info(`token: ${token}`);
 
-    if (!storedState || storedState !== receivedState) {
-      useOAuthState.getState().clear();
-      throw new Error(t('auth.error.invalidState'));
+    // FIXME: 콘솔, 토스트 로그 지우기
+    if (!token) {
+      toast.error('idp token is null, redirect to login');
+      return await goToIdpToken();
     }
 
     try {
-      const res = await api.post(
-        import.meta.env.VITE_IDP_TOKEN_URL,
-        {
-          grant_type: 'authorization_code',
-          client_id: import.meta.env.VITE_IDP_CLIENT_ID,
-          code,
-          redirect_uri: import.meta.env.VITE_IDP_REDIRECT_URI,
-          code_verifier: codeVerifier,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        },
-      );
+      const response = await authApi.userLogin(token);
 
-      useOAuthState.getState().clear();
-      useToken.getState().saveToken(res.data.access_token);
-      setRecentLogout(false);
+      useToken.getState().saveToken(response.access_token);
+      return await goToHome();
     } catch (error) {
-      useOAuthState.getState().clear();
-      throw error;
+      if (isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          logOut();
+          toast.error('idp token is invalid, redirect to login');
+          return await goToIdpToken();
+        } else if (error.response?.status === 403) {
+          // TODO: 약관 버전이 달라져도 403 에러 발생함 - 이 때 에러 스키마를 보고 처리해야 함
+          toast.error('consent required, redirect to consent');
+          return await goToConsentData();
+        } else {
+          toast.error('login failed, redirect to login 1');
+          return await goToIdpToken();
+        }
+      } else {
+        toast.error('login failed, redirect to login 2');
+        return await goToIdpToken();
+      }
     }
-  }, [t]);
+  }, [logOut, navigate, token]);
 
   return {
     redirectToProvider,
-    handleOAuthCallback,
+    tryLogin,
   };
 };
