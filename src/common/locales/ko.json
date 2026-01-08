@@ -7,7 +7,9 @@
       "noCode": "인증 코드가 없습니다.",
       "invalidState": "인증 과정에 문제가 발생했습니다. 다시 시도해주세요.",
       "loginFailed": "로그인에 실패했습니다.",
-      "callbackFailed": "인증 처리 중 오류가 발생했습니다."
+      "callbackFailed": "인증 처리 중 오류가 발생했습니다.",
+      "noIdpToken": "IDP 토큰이 없습니다.",
+      "invalidIdpToken": "IDP 토큰이 유효하지 않습니다."
     }
   },
   "consent": {
