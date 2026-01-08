@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
 import { useToken } from '@/features/auth';
 
@@ -16,24 +16,41 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// TODO: refresh token 인터셉터 추가, idp token과 house token 모두 refresh 필요
-// api.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     if (error.config?.url === '/auth/admin/refresh')
-//       return Promise.reject(error);
+api.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
 
-//     if (error.response?.status === 401 && !error.config?.retry) {
-//       const refreshRes = await authApi.adminRefresh().catch(() => null);
-//       if (refreshRes) {
-//         useToken.getState().saveToken(refreshRes.access_token);
-//         error.config.retry = true;
-//         return api.request(error.config);
-//       } else {
-//         useToken.getState().saveToken(null);
-//       }
-//     }
+    if (
+      error.response?.status === 401 &&
+      originalRequest &&
+      !originalRequest._retry &&
+      originalRequest.url !== '/auth/user/refresh'
+    ) {
+      originalRequest._retry = true;
 
-//     return Promise.reject(error);
-//   },
-// );
+      try {
+        const response = await axios.post<{ access_token: string }>(
+          `${import.meta.env.VITE_API_BASE_URL}/auth/user/refresh`,
+          {},
+          {
+            withCredentials: true,
+          },
+        );
+
+        const newToken = response.data.access_token;
+        useToken.getState().saveToken(newToken);
+
+        // 원래 요청을 토큰 리프레시 후 재시도
+        return api.request(originalRequest);
+      } catch (refreshError) {
+        useToken.getState().saveToken(null);
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);

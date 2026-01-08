@@ -59,7 +59,8 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
             break;
           }
           case 403: {
-            // TODO: 약관 버전이 달라져도 403 에러 발생함 - 이 때 에러 스키마에 나오는 requiredConsents 보고 처리해야 함 -> 에러도 type-safe하게 처리하는 방안 찾아보기
+            // TODO: 약관 버전이 달라져도 403 에러 발생함 -> 이 때 에러 스키마에 나오는 requiredConsents 보고 처리해야 함 -> 에러도 type-safe하게 처리하는 방안 찾아보기
+            // TODO: requiredConsents에 맞게 약관 동의 폼 초깃값 설정
             goToConsentData();
             break;
           }
