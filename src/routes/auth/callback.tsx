@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 
-import { useLogin } from '@/features/auth';
+import { useUserAuth } from '@/features/auth';
 
 export const Route = createFileRoute('/auth/callback')({
   component: CallbackComponent,
@@ -10,7 +10,7 @@ export const Route = createFileRoute('/auth/callback')({
 
 function CallbackComponent() {
   const { token } = useAuthContext();
-  const { logIn } = useLogin({ showToast: false });
+  const { logIn } = useUserAuth({ showToast: false });
 
   useEffect(() => {
     if (token) {

@@ -1,12 +1,15 @@
 import { useTranslation } from 'react-i18next';
 
-import { useLogin } from '../viewmodels';
+import { useUserAuth } from '../viewmodels';
 
 import { Button, LanguageToggle } from '@/common/components';
 
+// TODO: consent 왜 안들어가져? 테스트 필요
+// TODO: 로그아웃 2번 눌러야 되는 거 수정 필요
+
 export function LoginFrame() {
   const { t } = useTranslation();
-  const { idpLogIn } = useLogin();
+  const { idpLogIn } = useUserAuth();
 
   return (
     <div className="relative flex h-screen flex-col items-center justify-center">

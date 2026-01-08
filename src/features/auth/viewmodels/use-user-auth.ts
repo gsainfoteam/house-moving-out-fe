@@ -10,13 +10,13 @@ import { authApi } from '../models';
 
 import { useToken } from './use-token';
 
-interface UseUserLoginOptions {
+interface UseUserAuthOptions {
   showToast?: boolean;
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
 }
 
-export const useLogin = (options: UseUserLoginOptions = {}) => {
+export const useUserAuth = (options: UseUserAuthOptions = {}) => {
   const { showToast = false, onSuccess, onError } = options;
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -25,6 +25,12 @@ export const useLogin = (options: UseUserLoginOptions = {}) => {
     logOut: idpLogOut,
     logIn: idpLogIn,
   } = useAuthContext();
+
+  const logOut = async () => {
+    await authApi.userLogout();
+    useToken.getState().saveToken(null);
+    idpLogOut();
+  };
 
   const goToIdpToken = () => navigate({ to: '/auth/login' });
   const goToConsentData = () => navigate({ to: '/auth/consent' });
@@ -94,6 +100,7 @@ export const useLogin = (options: UseUserLoginOptions = {}) => {
   return {
     idpLogIn,
     logIn,
+    logOut,
     isLoading: mutation.isPending,
     isError: mutation.isError,
   };

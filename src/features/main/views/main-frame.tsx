@@ -1,12 +1,12 @@
 import { Button } from '@/common/components/ui/button';
 import { Checkbox } from '@/common/components/ui/checkbox';
-import { useLogout, useToken } from '@/features/auth';
+import { useToken, useUserAuth } from '@/features/auth';
 
 // FIXME: 데모
 
 export function MainFrame() {
   const { token } = useToken();
-  const { logOut } = useLogout();
+  const { logOut } = useUserAuth();
   const isAuthenticated = !!token;
 
   return (

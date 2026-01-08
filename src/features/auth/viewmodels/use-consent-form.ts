@@ -4,7 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { useLogin } from './use-login';
+import { useUserAuth } from './use-user-auth';
 
 const createConsentSchema = (t: TFunction) =>
   z.object({
@@ -20,7 +20,7 @@ export type ConsentFormData = z.infer<ReturnType<typeof createConsentSchema>>;
 
 export const useConsentForm = () => {
   const { t } = useTranslation();
-  const { logIn } = useLogin({ showToast: true });
+  const { logIn } = useUserAuth({ showToast: true });
 
   const consentSchema = createConsentSchema(t);
 

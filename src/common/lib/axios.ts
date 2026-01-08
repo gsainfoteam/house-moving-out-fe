@@ -42,8 +42,6 @@ api.interceptors.response.use(
 
         const newToken = response.data.access_token;
         useToken.getState().saveToken(newToken);
-
-        // 원래 요청을 토큰 리프레시 후 재시도
         return api.request(originalRequest);
       } catch (refreshError) {
         useToken.getState().saveToken(null);
