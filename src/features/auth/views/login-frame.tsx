@@ -5,7 +5,6 @@ import { useUserAuth } from '../viewmodels';
 import { Button, LanguageToggle } from '@/common/components';
 
 // TODO: consent 왜 안들어가져? 테스트 필요
-// TODO: 로그아웃 2번 눌러야 되는 거 수정 필요 -> 엄청 오래 걸리는(>10s) 로그아웃이 가끔 발생하는데 이 때 에러는 invalid session 401 에러.
 
 export function LoginFrame() {
   const { t } = useTranslation();

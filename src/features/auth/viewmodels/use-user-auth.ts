@@ -30,6 +30,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
   } = useAuthContext();
   const [isLoggingOut, withLogoutLoading] = useLoading();
 
+  // FIXME: 로그아웃 2번 눌러야 되는 거 수정 필요 -> 엄청 오래 걸리는(>10s) 로그아웃이 가끔 발생하는데 이 때 에러는 invalid session 401 에러.
   const logOut = () =>
     withLogoutLoading(async () => {
       try {
@@ -45,7 +46,6 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
 
           // 세션이 이미 무효화된 상태에서 발생하는 401(invalid session)은 서버 기준으로는 이미 로그아웃된 상태이므로 성공으로 간주한다.
           if (!(status === 401 && message === 'invalid session')) {
-            console.log('invalid session not found'); // FIXME
             if (showToast) {
               toast.error(t('auth.error.logoutFailed'));
             }

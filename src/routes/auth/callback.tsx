@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 
@@ -9,14 +9,20 @@ export const Route = createFileRoute('/auth/callback')({
 });
 
 function CallbackComponent() {
-  const { token } = useAuthContext();
+  const { token, loginInProgress } = useAuthContext();
   const { logIn } = useUserAuth({ showToast: false });
+  const router = useRouter();
 
   useEffect(() => {
+    if (loginInProgress) return;
+
     if (token) {
       logIn();
+      return;
     }
-  }, [token, logIn]);
+
+    router.navigate({ to: '/auth/login' });
+  }, [token, logIn, router, loginInProgress]);
 
   return null;
 }
