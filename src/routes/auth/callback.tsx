@@ -17,7 +17,7 @@ function CallbackComponent() {
     if (loginInProgress) return;
 
     if (token) {
-      logIn();
+      logIn().catch();
       return;
     }
 
