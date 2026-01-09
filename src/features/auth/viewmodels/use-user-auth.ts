@@ -37,7 +37,6 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
       try {
         await authApi.userLogout();
       } catch (error) {
-        onError?.(error);
         if (isAxiosError(error)) {
           const status = error.response?.status;
           const data = error.response?.data as
@@ -45,24 +44,24 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
             | undefined;
           const message = data?.message;
 
-          // 세션이 이미 무효화된 상태에서 발생하는 401(invalid session)은 서버 기준으로는 이미 로그아웃된 상태이므로 성공으로 간주한다.
+          // invalid session이 아닌 경우에만 에러 처리
           if (!(status === 401 && message === 'invalid session')) {
+            onError?.(error);
             if (showToast) {
               toast.error(t('auth.error.logoutFailed'));
             }
-            return;
           }
         } else {
+          onError?.(error);
           if (showToast) {
             toast.error(t('auth.error.logoutFailed'));
           }
-          return;
         }
+      } finally {
+        useToken.getState().saveToken(null);
+        useAuthPrompt.getState().setRecentLogout(true);
+        idpLogOut();
       }
-
-      useToken.getState().saveToken(null);
-      useAuthPrompt.getState().setRecentLogout(true);
-      idpLogOut();
     });
 
   const goToIdpToken = () => navigate({ to: '/auth/login' });
