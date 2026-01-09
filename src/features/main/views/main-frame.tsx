@@ -6,7 +6,7 @@ import { useToken, useUserAuth } from '@/features/auth';
 
 export function MainFrame() {
   const { token } = useToken();
-  const { logOut } = useUserAuth();
+  const { logOut, isLoggingOut } = useUserAuth();
   const isAuthenticated = !!token;
 
   return (
@@ -23,7 +23,12 @@ export function MainFrame() {
         </span>
       </div>
       <div>MainFrame</div>
-      <Button variant="secondary" onClick={logOut} className="mt-4">
+      <Button
+        variant="secondary"
+        className="mt-4"
+        onClick={logOut}
+        disabled={isLoggingOut}
+      >
         로그아웃
       </Button>
     </div>

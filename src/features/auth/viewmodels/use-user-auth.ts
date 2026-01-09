@@ -11,6 +11,8 @@ import { authApi } from '../models';
 import { useAuthPrompt } from './use-auth-prompt';
 import { useToken } from './use-token';
 
+import { useLoading } from '@/common/viewmodels';
+
 interface UseUserAuthOptions {
   showToast?: boolean;
   onSuccess?: () => void;
@@ -26,20 +28,41 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
     logOut: idpLogOut,
     logIn: idpLogIn,
   } = useAuthContext();
+  const [isLoggingOut, withLogoutLoading] = useLoading();
 
-  const logOut = async () => {
-    try {
-      await authApi.userLogout();
+  const logOut = () =>
+    withLogoutLoading(async () => {
+      try {
+        await authApi.userLogout();
+      } catch (error) {
+        onError?.(error);
+        if (isAxiosError(error)) {
+          const status = error.response?.status;
+          const data = error.response?.data as
+            | { message?: string; error?: string; statusCode?: number }
+            | undefined;
+          const message = data?.message;
+
+          // 세션이 이미 무효화된 상태에서 발생하는 401(invalid session)은 서버 기준으로는 이미 로그아웃된 상태이므로 성공으로 간주한다.
+          if (!(status === 401 && message === 'invalid session')) {
+            console.log('invalid session not found'); // FIXME
+            if (showToast) {
+              toast.error(t('auth.error.logoutFailed'));
+            }
+            return;
+          }
+        } else {
+          if (showToast) {
+            toast.error(t('auth.error.logoutFailed'));
+          }
+          return;
+        }
+      }
+
       useToken.getState().saveToken(null);
       useAuthPrompt.getState().setRecentLogout(true);
       idpLogOut();
-    } catch (error) {
-      onError?.(error);
-      if (showToast) {
-        toast.error(t('auth.error.logoutFailed'));
-      }
-    }
-  };
+    });
 
   const goToIdpToken = () => navigate({ to: '/auth/login' });
   const goToConsentData = () => navigate({ to: '/auth/consent' });
@@ -111,7 +134,8 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
     idpLogIn,
     logIn,
     logOut,
-    isLoading: mutation.isPending,
+    isLoggingOut,
+    isLoggingIn: mutation.isPending,
     isError: mutation.isError,
   };
 };
