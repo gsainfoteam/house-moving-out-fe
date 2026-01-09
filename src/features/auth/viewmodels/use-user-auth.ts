@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
@@ -126,9 +127,12 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
     },
   });
 
-  const logIn = async (consentData?: UserLoginDto): Promise<JwtToken> => {
-    return await mutation.mutateAsync(consentData);
-  };
+  const logIn = useCallback(
+    async (consentData?: UserLoginDto): Promise<JwtToken> => {
+      return await mutation.mutateAsync(consentData);
+    },
+    [mutation],
+  );
 
   return {
     idpLogIn,
