@@ -35,7 +35,7 @@ const toastOptions = {
 };
 
 export function App() {
-  const recentLogout = useAuthPrompt.getState().recentLogout;
+  const recentLogout = useAuthPrompt((state) => state.recentLogout);
   const authConfig = createAuthConfig(recentLogout);
 
   return (
