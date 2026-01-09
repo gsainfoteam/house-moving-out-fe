@@ -25,6 +25,7 @@ const createAuthConfig = (recentLogout: boolean): TAuthConfig => ({
     prompt: recentLogout ? 'login' : 'consent',
   },
   decodeToken: false,
+  autoLogin: false,
 });
 
 const toastOptions = {
