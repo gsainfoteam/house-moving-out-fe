@@ -1,16 +1,14 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { QueryClient } from '@tanstack/react-query';
+import { createRouter } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { AuthProvider, type TAuthConfig } from 'react-oauth2-code-pkce';
-import { Toaster } from 'sonner';
 
 import './styles.css';
 
-import { cn } from './common/utils';
+import { App } from './app';
 import { routeTree } from './routeTree.gen';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export const router = createRouter({
   routeTree,
@@ -26,45 +24,12 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const authConfig: TAuthConfig = {
-  clientId: import.meta.env.VITE_IDP_CLIENT_ID,
-  authorizationEndpoint: import.meta.env.VITE_IDP_AUTHORIZE_URL,
-  tokenEndpoint: import.meta.env.VITE_IDP_TOKEN_URL,
-  redirectUri: import.meta.env.VITE_IDP_REDIRECT_URI,
-  scope: [
-    'offline_access',
-    'profile',
-    'email',
-    'phone_number',
-    'student_id',
-  ].join(' '),
-  onRefreshTokenExpire: (event) =>
-    event.logIn(undefined, undefined, 'redirect'),
-  extraAuthParameters: {
-    // TODO: 자세하게 이게 뭐하는건지 알아보기, 왜 필요한지 알아보기
-    // const prompt = recentLogout ? 'login' : 'consent';
-    prompt: 'consent',
-  },
-  decodeToken: false,
-};
-
 const rootElement = document.getElementById('app');
 if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <AuthProvider authConfig={authConfig}>
-        <QueryClientProvider client={queryClient}>
-          <Toaster
-            toastOptions={{
-              classNames: {
-                error: cn('bg-status-fail! text-white!'),
-              },
-            }}
-          />
-          <RouterProvider router={router} />
-        </QueryClientProvider>
-      </AuthProvider>
+      <App />
     </StrictMode>,
   );
 }

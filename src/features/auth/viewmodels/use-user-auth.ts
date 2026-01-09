@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import type { JwtToken, UserLoginDto } from '../models';
 import { authApi } from '../models';
 
+import { useAuthPrompt } from './use-auth-prompt';
 import { useToken } from './use-token';
 
 interface UseUserAuthOptions {
@@ -30,6 +31,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
     try {
       await authApi.userLogout();
       useToken.getState().saveToken(null);
+      useAuthPrompt.getState().setRecentLogout(true);
       idpLogOut();
     } catch (error) {
       onError?.(error);
@@ -57,6 +59,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
     },
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
+      useAuthPrompt.getState().setRecentLogout(false);
       onSuccess?.();
       goToHome();
     },
