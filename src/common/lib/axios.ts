@@ -7,6 +7,9 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+// 동시 refresh 요청을 방지하기 위한 공유 promise
+let refreshingTokenPromise: Promise<string> | null = null;
+
 api.interceptors.request.use((config) => {
   const token = useToken.getState().token;
   if (token) {
@@ -32,21 +35,41 @@ api.interceptors.response.use(
     ) {
       originalRequest._retry = true;
 
-      try {
-        const response = await axios.post<{ access_token: string }>(
-          `${import.meta.env.VITE_API_BASE_URL}/auth/user/refresh`,
-          {},
-          {
-            withCredentials: true,
-          },
-        );
+      if (refreshingTokenPromise) {
+        try {
+          await refreshingTokenPromise;
+          return api.request(originalRequest);
+        } catch {
+          return Promise.reject(error);
+        }
+      }
 
-        const newToken = response.data.access_token;
-        useToken.getState().saveToken(newToken);
+      refreshingTokenPromise = (async () => {
+        try {
+          const response = await axios.post<{ access_token: string }>(
+            `${import.meta.env.VITE_API_BASE_URL}/auth/user/refresh`,
+            {},
+            {
+              withCredentials: true,
+            },
+          );
+
+          const newToken = response.data.access_token;
+          useToken.getState().saveToken(newToken);
+          return newToken;
+        } catch (refreshError) {
+          useToken.getState().saveToken(null);
+          throw refreshError;
+        } finally {
+          refreshingTokenPromise = null;
+        }
+      })();
+
+      try {
+        await refreshingTokenPromise;
         return api.request(originalRequest);
-      } catch (refreshError) {
-        useToken.getState().saveToken(null);
-        return Promise.reject(refreshError);
+      } catch {
+        return Promise.reject(error);
       }
     }
 
