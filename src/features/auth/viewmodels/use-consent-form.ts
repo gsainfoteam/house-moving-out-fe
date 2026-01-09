@@ -49,8 +49,8 @@ export const useConsentForm = () => {
     form.trigger();
   };
 
-  const onSubmit = form.handleSubmit((data) => {
-    logIn({
+  const onSubmit = form.handleSubmit(async (data) => {
+    await logIn({
       agreedToPrivacy: data.privacyPolicy,
       agreedToTerms: data.termsOfService,
       privacyVersion: '1.0.0',
