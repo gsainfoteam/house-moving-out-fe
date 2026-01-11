@@ -13,8 +13,10 @@ export const twMergeConfig = {
   },
 };
 
+const twMerge = extendTailwindMerge(twMergeConfig);
+
 export function cn(...classes: ClassValue[]) {
-  return extendTailwindMerge(twMergeConfig)(clsx(classes));
+  return twMerge(clsx(classes));
 }
 
 export const cv = createTV({ twMerge: true, twMergeConfig });
