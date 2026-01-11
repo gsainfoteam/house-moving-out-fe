@@ -10,7 +10,8 @@
       "logoutFailed": "Logout failed.",
       "callbackFailed": "An error occurred during authentication processing.",
       "noIdpToken": "IDP token is missing.",
-      "invalidIdpToken": "IDP token is invalid."
+      "invalidIdpToken": "IDP token is invalid.",
+      "sessionExpired": "Your session has expired. Please log in again."
     },
     "consent": {
       "title": "Please agree to the\nterms of service.",

@@ -1,4 +1,7 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
+import { toast } from 'sonner';
+
+import i18n from './i18n';
 
 import { useToken } from '@/features/auth';
 
@@ -39,8 +42,10 @@ api.interceptors.response.use(
         try {
           await refreshingTokenPromise;
           return api.request(originalRequest);
-        } catch {
-          return Promise.reject(error);
+        } catch (refreshError) {
+          // refresh 실패 시 토큰이 이미 지워졌을 수 있으므로
+          // 토스트와 리다이렉트는 refresh promise 내부에서 처리됨
+          return Promise.reject(refreshError);
         }
       }
 
@@ -60,6 +65,7 @@ api.interceptors.response.use(
           return newToken;
         } catch (refreshError) {
           useToken.getState().saveToken(null);
+          toast.error(i18n.t('auth.error.sessionExpired'));
           throw refreshError;
         } finally {
           refreshingTokenPromise = null;
