@@ -23,7 +23,7 @@ export function ConsentFrame() {
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>
-      <h1 className="mb-6 whitespace-pre-line">{t('consent.title')}</h1>
+      <h1 className="mb-6 whitespace-pre-line">{t('auth.consent.title')}</h1>
       <div className="mt-auto flex flex-col">
         <div className="flex flex-col gap-5">
           <label className="flex cursor-pointer items-center gap-3">
@@ -31,7 +31,7 @@ export function ConsentFrame() {
               checked={allChecked}
               onChange={(e) => handleAllChange(e.target.checked)}
             />
-            <span>{t('consent.agreeAll')}</span>
+            <span>{t('auth.consent.agreeAll')}</span>
           </label>
 
           <div className="h-1 rounded-lg bg-gray-200" />
@@ -39,12 +39,12 @@ export function ConsentFrame() {
           <div className="flex flex-col gap-3">
             <label className="flex cursor-pointer items-center gap-3">
               <Checkbox {...register('privacyPolicy')} />
-              <span className="flex-1">{t('consent.privacyPolicy')}</span>
+              <span className="flex-1">{t('auth.consent.privacyPolicy')}</span>
               <Link
                 to="/auth/terms/$type"
                 params={{ type: 'privacy' }}
                 className="flex items-center"
-                aria-label={t('consent.viewPrivacyPolicy')}
+                aria-label={t('auth.consent.viewPrivacyPolicy')}
               >
                 <ChevronRight size={20} className="text-gray-500" />
               </Link>
@@ -52,12 +52,12 @@ export function ConsentFrame() {
 
             <label className="flex cursor-pointer items-center gap-3">
               <Checkbox {...register('termsOfService')} />
-              <span className="flex-1">{t('consent.termsOfService')}</span>
+              <span className="flex-1">{t('auth.consent.termsOfService')}</span>
               <Link
                 to="/auth/terms/$type"
                 params={{ type: 'terms' }}
                 className="flex items-center"
-                aria-label={t('consent.viewTermsOfService')}
+                aria-label={t('auth.consent.viewTermsOfService')}
               >
                 <ChevronRight size={20} className="text-gray-500" />
               </Link>
@@ -72,7 +72,7 @@ export function ConsentFrame() {
             disabled={!formState.isValid}
             className="w-full"
           >
-            {t('consent.next')}
+            {t('auth.consent.next')}
           </Button>
         </div>
       </div>

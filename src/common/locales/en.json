@@ -11,28 +11,30 @@
       "callbackFailed": "An error occurred during authentication processing.",
       "noIdpToken": "IDP token is missing.",
       "invalidIdpToken": "IDP token is invalid."
-    }
-  },
-  "consent": {
-    "title": "Please agree to the\nterms of service.",
-    "agreeAll": "Agree to all",
-    "privacyPolicy": "[Required] Privacy Policy",
-    "termsOfService": "[Required] Terms of Service",
-    "next": "Next",
-    "back": "Back",
-    "viewPrivacyPolicy": "View Privacy Policy",
-    "viewTermsOfService": "View Terms of Service",
-    "privacyPolicyTitle": "Privacy Policy",
-    "termsOfServiceTitle": "House Moving Out Inspection Service Terms of Use",
-    "termsOfServiceContent": [
-      "Article 1 (Service Purpose)\n1. The \"House Moving Out Inspection Service\" is an integrated service provided by the GIST undergraduate club INFOTEAM (\"INFOTEAM\") for smooth information sharing and service use among GIST members.\n2. \"GIST members\" refers to professors, staff, students, and graduates.\n3. The purpose of these terms is to define the rights and obligations of users, the scope of service provision, and responsibilities when using the House Moving Out Inspection Service.",
-      "Article 2 (Membership and Withdrawal)\n1. The House Moving Out Inspection Service is only available to GIST members aged 14 or older.\n2. Membership can be obtained through IdP (Identity Provider). GIST integrated authentication via IdP allows immediate service use without separate approval (for professors, staff, students, etc.).\n3. Membership may be revoked under the following conditions:\n   a. If found not to be a GIST member\n   b. If confirmed to be under 14 years old\n   c. If the user violates these terms or service-specific terms of use\n   d. If actions contrary to the Act on Promotion of Information and Communications Network Utilization and Information Protection, etc., related laws, or public order and morals are discovered",
-      "Article 3 (Member's Obligations)\n1. Members must not engage in the following actions related to service use:\n   a. Impersonating INFOTEAM, management, or others\n   b. Copying, reproducing, modifying, translating, publishing, broadcasting, or otherwise using information obtained through the House Moving Out Inspection Service without prior consent from the original author or management, or providing it to others\n   c. Unauthorized use of another's account, defamation, or infringement of intellectual property rights\n   d. Hacking, spreading viruses, or continuously sending promotional information\n   e. Unauthorized posting, sharing, distribution, or commercial use of others' photos, videos, images, or other content\n   f. Any act that interferes with or is likely to interfere with the stable operation of the service\n   g. Acts for criminal purposes or related to other criminal acts"
-    ],
-    "privacyPolicyContent": ["Privacy Policy content will be displayed here."],
-    "error": {
-      "privacyPolicyRequired": "Please agree to the Privacy Policy.",
-      "termsOfServiceRequired": "Please agree to the Terms of Service."
+    },
+    "consent": {
+      "title": "Please agree to the\nterms of service.",
+      "agreeAll": "Agree to all",
+      "privacyPolicy": "[Required] Privacy Policy",
+      "termsOfService": "[Required] Terms of Service",
+      "next": "Next",
+      "back": "Back",
+      "viewPrivacyPolicy": "View Privacy Policy",
+      "viewTermsOfService": "View Terms of Service",
+      "privacyPolicyTitle": "Privacy Policy",
+      "termsOfServiceTitle": "House Moving Out Inspection Service Terms of Use",
+      "termsOfServiceContent": [
+        "Article 1 (Service Purpose)\n1. The \"House Moving Out Inspection Service\" is an integrated service provided by the GIST undergraduate club INFOTEAM (\"INFOTEAM\") for smooth information sharing and service use among GIST members.\n2. \"GIST members\" refers to professors, staff, students, and graduates.\n3. The purpose of these terms is to define the rights and obligations of users, the scope of service provision, and responsibilities when using the House Moving Out Inspection Service.",
+        "Article 2 (Membership and Withdrawal)\n1. The House Moving Out Inspection Service is only available to GIST members aged 14 or older.\n2. Membership can be obtained through IdP (Identity Provider). GIST integrated authentication via IdP allows immediate service use without separate approval (for professors, staff, students, etc.).\n3. Membership may be revoked under the following conditions:\n   a. If found not to be a GIST member\n   b. If confirmed to be under 14 years old\n   c. If the user violates these terms or service-specific terms of use\n   d. If actions contrary to the Act on Promotion of Information and Communications Network Utilization and Information Protection, etc., related laws, or public order and morals are discovered",
+        "Article 3 (Member's Obligations)\n1. Members must not engage in the following actions related to service use:\n   a. Impersonating INFOTEAM, management, or others\n   b. Copying, reproducing, modifying, translating, publishing, broadcasting, or otherwise using information obtained through the House Moving Out Inspection Service without prior consent from the original author or management, or providing it to others\n   c. Unauthorized use of another's account, defamation, or infringement of intellectual property rights\n   d. Hacking, spreading viruses, or continuously sending promotional information\n   e. Unauthorized posting, sharing, distribution, or commercial use of others' photos, videos, images, or other content\n   f. Any act that interferes with or is likely to interfere with the stable operation of the service\n   g. Acts for criminal purposes or related to other criminal acts"
+      ],
+      "privacyPolicyContent": [
+        "Privacy Policy content will be displayed here."
+      ],
+      "error": {
+        "privacyPolicyRequired": "Please agree to the Privacy Policy.",
+        "termsOfServiceRequired": "Please agree to the Terms of Service."
+      }
     }
   },
   "language": {
