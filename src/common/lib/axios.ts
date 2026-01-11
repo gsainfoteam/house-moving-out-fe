@@ -51,6 +51,7 @@ api.interceptors.response.use(
             {},
             {
               withCredentials: true,
+              timeout: 10000,
             },
           );
 
