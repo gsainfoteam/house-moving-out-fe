@@ -9,7 +9,7 @@ export const useLanguage = () => {
   const currentLanguage = i18nInstance.language as Language;
 
   const changeLanguage = (lng: Language) => {
-    i18nInstance.changeLanguage(lng);
+    return i18nInstance.changeLanguage(lng);
   };
 
   const toggleLanguage = () => {
