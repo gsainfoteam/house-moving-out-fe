@@ -9,10 +9,10 @@ import { useUserAuth } from './use-user-auth';
 const createConsentSchema = (t: TFunction) =>
   z.object({
     privacyPolicy: z.boolean().refine((val) => val === true, {
-      message: t('consent.error.privacyPolicyRequired'),
+      error: t('auth.consent.error.privacyPolicyRequired'),
     }),
     termsOfService: z.boolean().refine((val) => val === true, {
-      message: t('consent.error.termsOfServiceRequired'),
+      error: t('auth.consent.error.termsOfServiceRequired'),
     }),
   });
 
