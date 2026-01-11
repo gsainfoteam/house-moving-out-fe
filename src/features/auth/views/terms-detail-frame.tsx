@@ -9,11 +9,11 @@ export function TermsDetailFrame() {
 
   const isPrivacy = type === 'privacy';
   const title = isPrivacy
-    ? t('consent.privacyPolicyTitle')
-    : t('consent.termsOfServiceTitle');
+    ? t('auth.consent.privacyPolicyTitle')
+    : t('auth.consent.termsOfServiceTitle');
   const content = isPrivacy
-    ? t('consent.privacyPolicyContent', { returnObjects: true })
-    : t('consent.termsOfServiceContent', { returnObjects: true });
+    ? t('auth.consent.privacyPolicyContent', { returnObjects: true })
+    : t('auth.consent.termsOfServiceContent', { returnObjects: true });
 
   const handleBack = () => {
     navigate({ to: '/auth/consent' });
@@ -26,7 +26,7 @@ export function TermsDetailFrame() {
           type="button"
           onClick={handleBack}
           className="flex items-center"
-          aria-label={t('consent.back')}
+          aria-label={t('auth.consent.back')}
         >
           <ChevronLeft size={24} className="text-gray-700" />
         </button>
