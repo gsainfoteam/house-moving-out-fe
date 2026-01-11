@@ -25,9 +25,14 @@ const CheckboxRoot = forwardRef<
   );
 });
 
-export function Checkbox(props: React.ComponentProps<typeof CheckboxRoot>) {
-  return <CheckboxRoot {...props} />;
-}
+export const Checkbox = forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<typeof CheckboxRoot>
+>((props, ref) => {
+  return <CheckboxRoot {...props} ref={ref} />;
+});
+
+Checkbox.displayName = 'Checkbox';
 
 export namespace Checkbox {
   export type Props = {};
