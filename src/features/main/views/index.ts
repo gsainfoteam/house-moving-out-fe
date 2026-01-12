@@ -1,1 +1,1 @@
-export * from './main-frame';
+export * from './frames';
