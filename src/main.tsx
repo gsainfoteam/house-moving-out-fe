@@ -1,13 +1,14 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createRouter, RouterProvider } from '@tanstack/react-router';
-import ReactDOM from 'react-dom/client';
+import { QueryClient } from '@tanstack/react-query';
+import { createRouter } from '@tanstack/react-router';
 import { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
 
 import './styles.css';
 
+import { App } from './app';
 import { routeTree } from './routeTree.gen';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export const router = createRouter({
   routeTree,
@@ -28,9 +29,7 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <App />
     </StrictMode>,
   );
 }

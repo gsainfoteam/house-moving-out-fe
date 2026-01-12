@@ -64,6 +64,7 @@ export default defineConfig(
           fixStyle: 'inline-type-imports',
         },
       ],
+      '@typescript-eslint/no-namespace': 'off',
     },
   },
   {
