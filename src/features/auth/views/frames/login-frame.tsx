@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { useUserAuth } from '../viewmodels';
+import { useUserAuth } from '../../viewmodels';
 
 import { Button, LanguageToggle } from '@/common/components';
 
