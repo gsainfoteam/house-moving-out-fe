@@ -7,7 +7,7 @@ export type Language = (typeof SUPPORTED_LANGUAGES)[number];
 
 const localeModules = await mapAsync(SUPPORTED_LANGUAGES, async (lang) => ({
   lang,
-  translation: (await import(`../locales/${lang}.json`)).default,
+  translation: (await import(`../../locales/${lang}.json`)).default,
 }));
 
 const resources = Object.fromEntries(
