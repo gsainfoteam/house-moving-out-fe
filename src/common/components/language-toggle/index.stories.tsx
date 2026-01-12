@@ -31,7 +31,7 @@ function InContextContent() {
 
   return (
     <div className="flex flex-col gap-4 p-8">
-      <div className="text-sm text-gray-600">
+      <div className="text-text-gray text-sm">
         {i18nInstance.language === 'ko'
           ? '언어 변경 버튼을 클릭하면 한국어와 영어가 전환됩니다.'
           : 'Click the language toggle button to switch between Korean and English.'}

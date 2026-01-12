@@ -24,7 +24,7 @@ export function MainFrame() {
       </div>
       <div>MainFrame</div>
       <Button
-        variant="secondary"
+        variant="default"
         className="mt-4"
         onClick={logOut}
         disabled={isLoggingOut}

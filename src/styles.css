@@ -49,23 +49,50 @@ code {
 
 @theme {
   --text-h1: 24px;
-  --text-h1--font-weight: 700;
-  --text-h2: 20px;
-  --text-h2--font-weight: 700;
-  --text-body: 16px;
-  --text-body--font-weight: 500;
-  --text-caption: 13px;
-  --text-caption--font-weight: 400;
+  --text-h1--font-weight: 500;
 
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --color-light-gray: #cecece;
+  --text-h2: 16px;
+  --text-h2--font-weight: 500;
 
-  --color-primary: #637457;
+  --text-button: 20px;
+  --text-button--font-weight: 700;
+
+  --text-in-progress: 20px;
+  --text-in-progress--font-weight: 600;
+
+  --text-waiting: 20px;
+  --text-waiting--font-weight: 500;
+
+  --text-sub: 13px;
+  --text-sub--font-weight: 400;
+
+  --text-sub2: 15px;
+  --text-sub2--font-weight: 400;
+
+  --text-box: 16px;
+  --text-box--font-weight: 500;
+
+  --text-box2: 14px;
+  --text-box2--font-weight: 400;
 
   --color-status-pass: #28c76f;
   --color-status-fail: #ea5455;
   --color-status-pending: #ff9f43;
   --color-status-progress: #69c5ff;
   --color-status-inactive: #a8aaac;
+
+  --color-text-black: #1a1a1a;
+  --color-text-gray: #858585;
+  --color-text-white: #ffffff;
+
+  --color-bg-surface: #f1f1f1;
+  --color-bg-white: #ffffff;
+  --color-bg-green: #f3fbee;
+
+  --color-logo-gray: #d9d9d9;
+  --color-logo-white: #ffffff;
+
+  --color-icon-gray: #b4b4b4;
+
+  --color-primary-main: #637457;
 }

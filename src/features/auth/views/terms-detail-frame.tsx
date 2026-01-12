@@ -2,6 +2,8 @@ import { useNavigate, useParams } from '@tanstack/react-router';
 import { ChevronLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+// TODO: 디자인 수정되면 typography, color 토큰 사용해야 함
+
 export function TermsDetailFrame() {
   const navigate = useNavigate();
   const { type } = useParams({ from: '/auth/terms/$type' });
