@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import type { Step } from '.';
 import { Steps } from '.';
 
-const mockSteps: Step[] = [
+const mockSteps: Steps.Step[] = [
   {
     title: '검사 신청',
     description: '하단의 버튼을 통해 퇴사 검사를 신청해주세요.',
