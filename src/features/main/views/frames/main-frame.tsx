@@ -10,6 +10,7 @@ import Passed3d from '@/assets/3d/passed.svg?react';
 import ShortLogo from '@/assets/short-logo.svg?react';
 import { cn } from '@/common/utils';
 
+// FIXME: 모의 유저 정보 제거 후 삭제
 const MOCK_USER = {
   name: '00',
   studentId: '20250000',
@@ -69,10 +70,13 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
 
 function Step3FailedCard() {
   const { t } = useTranslation();
-  const failedReasons = [
-    t('main.result.failed.reasons.deskDrawer'),
-    t('main.result.failed.reasons.bathroom'),
-  ];
+  const failedReasons = useMemo(
+    () => [
+      t('main.result.failed.reasons.deskDrawer'),
+      t('main.result.failed.reasons.bathroom'),
+    ],
+    [t],
+  );
 
   return (
     <StatusCard>

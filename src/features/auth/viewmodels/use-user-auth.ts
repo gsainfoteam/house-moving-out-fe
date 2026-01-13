@@ -31,7 +31,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
   } = useAuthContext();
   const [isLoggingOut, withLogoutLoading] = useLoading();
 
-  // FIXME: 로그아웃 2번 눌러야 되는 거 수정 필요 -> 엄청 오래 걸리는(>10s) 로그아웃이 가끔 발생하는데 이 때 에러는 invalid session 401 에러.
+  // TODO: 로그아웃 2번 눌러야 되는 거 수정 필요 -> 엄청 오래 걸리는(>10s) 로그아웃이 가끔 발생하는데 이 때 에러는 invalid session 401 에러.
   const logOut = () =>
     withLogoutLoading(async () => {
       try {
@@ -103,7 +103,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
           }
           case 403: {
             // TODO: 약관 버전이 달라져도 403 에러 발생함 -> 이 때 에러 스키마에 나오는 requiredConsents 보고 처리해야 함 -> 에러도 type-safe하게 처리하는 방안 찾아보기
-            // TODO: requiredConsents에 맞게 약관 동의 폼 초깃값 설정
+            //  requiredConsents에 맞게 약관 동의 폼 초깃값 설정
             goToConsentData();
             break;
           }

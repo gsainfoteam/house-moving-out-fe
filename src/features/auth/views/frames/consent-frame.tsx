@@ -6,7 +6,7 @@ import { useConsentForm } from '../../viewmodels';
 
 import { Button, Checkbox, LanguageToggle } from '@/common/components';
 
-// TODO: 디자인 수정되면 typography, color 토큰 사용해야 함
+// FIXME: 디자인 수정되면 typography, color 토큰 사용해야 함
 
 export function ConsentFrame() {
   const { t } = useTranslation();
