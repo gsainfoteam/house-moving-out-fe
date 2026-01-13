@@ -48,6 +48,7 @@
       "subtitle": "학번: {{studentId}} | 호실: {{room}}"
     },
     "steps": {
+      "label": "{{number}}단계",
       "step0": {
         "title": "검사 신청",
         "description": "하단의 버튼을 통해\n퇴사 검사를 신청해주세요.",
@@ -55,7 +56,7 @@
       },
       "step1": {
         "title": "검사 대기",
-        "description": "퇴사 검사가 01/12(월) 00시에\n예정되어 있습니다.",
+        "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
         "button": "검사 일정 변경하기"
       },
       "step2": {
@@ -80,7 +81,7 @@
       },
       "notPeriod": {
         "title": "지금은 퇴사 검사 기간이 아닙니다.",
-        "description": "다음 검사 신청은 00월 00일부터 시작됩니다.",
+        "description": "다음 검사 신청은 {{startDate}}부터 시작됩니다.",
         "button": "퇴사 검사 기준 미리보기"
       },
       "passed": {

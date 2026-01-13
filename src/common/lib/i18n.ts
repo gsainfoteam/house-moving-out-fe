@@ -14,6 +14,10 @@ const resources = Object.fromEntries(
   localeModules.map(({ lang, translation }) => [lang, { translation }]),
 );
 
+export function getLocale(): Language {
+  return i18n.language as Language;
+}
+
 await i18n.use(initReactI18next).init({
   resources,
   lng: 'ko',

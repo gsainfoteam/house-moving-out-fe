@@ -2,9 +2,11 @@ import { useSearch } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { formatDate } from '../../utils';
 import { Accordion, StatusCard, Steps, SwitchCase } from '../components';
 
 import ShortLogo from '@/assets/short-logo.svg?react';
+import { getLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
 
 // FIXME: 모의 유저 정보 제거 후 삭제
@@ -13,6 +15,9 @@ const MOCK_USER = {
   studentId: '20250000',
   room: 'T012',
 };
+
+const MOCK_INSPECTION_AT = new Date('2025-01-12T00:00:00');
+const MOCK_NEXT_PERIOD_START_AT = new Date('2025-01-01T00:00:00');
 
 function Step0Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation();
@@ -118,6 +123,12 @@ function Step3FailedCard() {
 
 function Step3NotPeriodCard() {
   const { t } = useTranslation();
+  const locale = getLocale();
+
+  const nextApplicationStartDateText = useMemo(
+    () => formatDate(MOCK_NEXT_PERIOD_START_AT, locale),
+    [locale],
+  );
 
   return (
     <StatusCard>
@@ -131,7 +142,9 @@ function Step3NotPeriodCard() {
               {t('main.result.notPeriod.title')}
             </StatusCard.Title>
             <StatusCard.Description>
-              {t('main.result.notPeriod.description')}
+              {t('main.result.notPeriod.description', {
+                startDate: nextApplicationStartDateText,
+              })}
             </StatusCard.Description>
           </StatusCard.Text>
         </StatusCard.Header>
@@ -177,6 +190,12 @@ function Step3PassedCard() {
 export function MainFrame() {
   const { step, status } = useSearch({ from: '/_auth-required/' });
   const { t } = useTranslation();
+  const locale = getLocale();
+
+  const inspectionDateText = useMemo(
+    () => formatDate(MOCK_INSPECTION_AT, locale),
+    [locale],
+  );
 
   const steps = useMemo(
     () => [
@@ -186,7 +205,9 @@ export function MainFrame() {
       },
       {
         title: t('main.steps.step1.title'),
-        description: t('main.steps.step1.description'),
+        description: t('main.steps.step1.description', {
+          inspectionDate: inspectionDateText,
+        }),
       },
       {
         title: t('main.steps.step2.title'),
@@ -197,7 +218,7 @@ export function MainFrame() {
         description: undefined,
       },
     ],
-    [t],
+    [t, inspectionDateText],
   );
 
   return (

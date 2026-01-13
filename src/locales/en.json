@@ -50,6 +50,7 @@
       "subtitle": "Student ID: {{studentId}} | Room: {{room}}"
     },
     "steps": {
+      "label": "Step {{number}}",
       "step0": {
         "title": "Inspection Application",
         "description": "Please apply for the moving out inspection\nusing the button below.",
@@ -57,7 +58,7 @@
       },
       "step1": {
         "title": "Waiting for Inspection",
-        "description": "Moving out inspection is scheduled\nfor 01/12 (Mon) at 00:00.",
+        "description": "Moving out inspection is scheduled\nfor {{inspectionDate}}.",
         "button": "Change Inspection Schedule"
       },
       "step2": {
@@ -82,7 +83,7 @@
       },
       "notPeriod": {
         "title": "It is not the moving out inspection period.",
-        "description": "The next inspection application will start on the 00th of 00.",
+        "description": "The next inspection application will start on {{startDate}}.",
         "button": "Preview Inspection Criteria"
       },
       "passed": {

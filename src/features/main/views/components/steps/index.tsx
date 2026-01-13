@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { VariantProps } from 'tailwind-variants';
 
 import { cn, cv } from '@/common/utils';
@@ -26,6 +27,8 @@ function StepLine({ status }: { status: Steps.LineStatus }) {
 }
 
 export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
+  const { t } = useTranslation();
+
   const getStepStatus = (index: number): Steps.StepStatus => {
     if (index < activeStepIndex) return 'completed';
     if (index === activeStepIndex) return 'active';
@@ -58,7 +61,7 @@ export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
               <div className="flex flex-col gap-1">
                 <div className="flex flex-col gap-0.5">
                   <div className="text-sub text-text-gray">
-                    Step {index + 1}
+                    {t('main.steps.label', { number: index + 1 })}
                   </div>
                   <div
                     className={Steps.titleStyles({
