@@ -3,11 +3,6 @@ import type { VariantProps } from 'tailwind-variants';
 
 import { cn, cv } from '@/common/utils';
 
-export interface Step {
-  title: string;
-  description?: string;
-}
-
 function StepIcon({
   status,
   stepIndex,
@@ -90,6 +85,11 @@ export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
 }
 
 export namespace Steps {
+  export type Step = {
+    title: string;
+    description?: string;
+  };
+
   export type Props = {
     steps: Step[];
     activeStepIndex: number;

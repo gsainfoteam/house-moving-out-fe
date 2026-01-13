@@ -43,5 +43,53 @@
     "switchToKorean": "Switch to Korean",
     "english": "English",
     "korean": "Korean"
+  },
+  "main": {
+    "header": {
+      "title": "{{name}}'s Moving Out Inspection Status",
+      "subtitle": "Student ID: {{studentId}} | Room: {{room}}"
+    },
+    "steps": {
+      "step0": {
+        "title": "Inspection Application",
+        "description": "Please apply for the moving out inspection\nusing the button below.",
+        "button": "Apply for Moving Out Inspection"
+      },
+      "step1": {
+        "title": "Waiting for Inspection",
+        "description": "Moving out inspection is scheduled\nfor 01/12 (Mon) at 00:00.",
+        "button": "Change Inspection Schedule"
+      },
+      "step2": {
+        "title": "Inspection in Progress",
+        "description": "Moving out inspection is in progress.\nPlease check the results shortly.",
+        "button": "Waiting for Inspection Results"
+      },
+      "step3": {
+        "title": "Inspection Results"
+      }
+    },
+    "result": {
+      "failed": {
+        "title": "Re-inspection Required",
+        "description": "Please check the reasons below and apply again.",
+        "accordionTitle": "Check Reasons for Failure",
+        "button": "Apply for Re-inspection",
+        "reasons": {
+          "deskDrawer": "Insufficient desk drawer organization",
+          "bathroom": "Insufficient bathroom cleaning"
+        }
+      },
+      "notPeriod": {
+        "title": "It is not the moving out inspection period.",
+        "description": "The next inspection application will start on the 00th of 00.",
+        "button": "Preview Inspection Criteria"
+      },
+      "passed": {
+        "title": "Moving Out Inspection Passed",
+        "description": "All procedures have been completed. Thank you for your cooperation.",
+        "button": "Go Home"
+      }
+    }
   }
 }

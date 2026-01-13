@@ -1,3 +1,4 @@
 export * from './steps';
-export * from './result-card';
+export * from './status-card';
 export * from './accordion';
+export * from './switch-case';
