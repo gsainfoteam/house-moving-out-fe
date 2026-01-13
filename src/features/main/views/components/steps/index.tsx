@@ -21,7 +21,6 @@ function StepIcon({
   );
 }
 
-// TODO: dashed line 추가
 function StepLine({ status }: { status: Steps.LineStatus }) {
   return <div className={Steps.lineStyles({ status })} />;
 }
@@ -114,7 +113,7 @@ export namespace Steps {
     variants: {
       status: {
         active: ['bg-primary-main'],
-        inactive: ['bg-icon-gray'],
+        inactive: ['border-icon-gray w-0 border-l-4 border-dashed'],
       },
     },
   });
