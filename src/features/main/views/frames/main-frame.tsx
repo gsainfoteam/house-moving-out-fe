@@ -6,7 +6,7 @@ import { formatDate } from '../../utils';
 import { Accordion, StatusCard, Steps, SwitchCase } from '../components';
 
 import ShortLogo from '@/assets/short-logo.svg?react';
-import { getLocale } from '@/common/lib';
+import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
 
 // FIXME: 모의 유저 정보 제거 후 삭제
@@ -123,7 +123,7 @@ function Step3FailedCard() {
 
 function Step3NotPeriodCard() {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const nextApplicationStartDateText = useMemo(
     () => formatDate(MOCK_NEXT_PERIOD_START_AT, locale),
@@ -190,7 +190,7 @@ function Step3PassedCard() {
 export function MainFrame() {
   const { step, status } = useSearch({ from: '/_auth-required/' });
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const inspectionDateText = useMemo(
     () => formatDate(MOCK_INSPECTION_AT, locale),
