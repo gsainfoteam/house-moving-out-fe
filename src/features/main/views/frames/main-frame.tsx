@@ -1,6 +1,6 @@
 import { useSearch } from '@tanstack/react-router';
 
-import { Steps } from '../components';
+import { Accordion, ResultCard, Steps } from '../components';
 
 import Failed3d from '@/assets/3d/failed.svg?react';
 import NotPeriod3d from '@/assets/3d/not_period.svg?react';
@@ -15,18 +15,20 @@ const MOCK_USER = {
   room: 'T012',
 };
 
+// TODO: 얘도 추후 구조 수정 필요
 const STEP_ITEMS = [
   {
     title: '검사 신청',
-    description: '하단의 버튼을 통해 퇴사 검사를 신청해주세요.',
+    description: '하단의 버튼을 통해\n퇴사 검사를 신청해주세요.',
   },
   {
     title: '검사 대기',
-    description: undefined,
+    description: '퇴사 검사가 01/12(월) 00시에\n예정되어 있습니다.',
   },
   {
     title: '검사 중',
-    description: undefined,
+    description:
+      '퇴사 검사 진행 중입니다.\n잠시 뒤에 검사 결과를 확인해주세요.',
   },
   {
     title: '검사 결과',
@@ -42,87 +44,98 @@ const BUTTON_CONFIG = [
 
 const FAILED_REASONS = ['책상 서랍 정리 미흡', '화장실 청소 미흡'];
 
+function FailedStatusCard() {
+  return (
+    <ResultCard>
+      <ResultCard.Main>
+        <ResultCard.Header>
+          <ResultCard.Media>
+            <Failed3d className="h-70" />
+          </ResultCard.Media>
+          <ResultCard.Text>
+            <ResultCard.Title className="text-status-fail">
+              재검사가 필요합니다.
+            </ResultCard.Title>
+            <ResultCard.Description>
+              아래 사유를 확인하고 다시 신청해주세요.
+            </ResultCard.Description>
+          </ResultCard.Text>
+        </ResultCard.Header>
+        <ResultCard.Details>
+          <Accordion title="불통과 사유 확인하기">
+            <ul className="flex flex-col gap-2">
+              {FAILED_REASONS.map((reason) => (
+                <li
+                  key={reason}
+                  className="text-box2 text-text-black flex items-center gap-2"
+                >
+                  <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
+                  <span>{reason}</span>
+                </li>
+              ))}
+            </ul>
+          </Accordion>
+        </ResultCard.Details>
+      </ResultCard.Main>
+      <ResultCard.Button variant="failed" className="w-full">
+        재검사 신청하기
+      </ResultCard.Button>
+    </ResultCard>
+  );
+}
+
+function NotPeriodStatusCard() {
+  return (
+    <ResultCard>
+      <ResultCard.Main>
+        <ResultCard.Header>
+          <ResultCard.Media>
+            <NotPeriod3d className="h-auto w-full" />
+          </ResultCard.Media>
+          <ResultCard.Text>
+            <ResultCard.Title className="text-text-black">
+              지금은 퇴사 검사 기간이 아닙니다.
+            </ResultCard.Title>
+            <ResultCard.Description>
+              다음 검사 신청은 00월 00일부터 시작됩니다.
+            </ResultCard.Description>
+          </ResultCard.Text>
+        </ResultCard.Header>
+      </ResultCard.Main>
+      <ResultCard.Button variant="change" className="w-full">
+        퇴사 검사 기준 미리보기
+      </ResultCard.Button>
+    </ResultCard>
+  );
+}
+
+function PassedStatusCard() {
+  return (
+    <ResultCard>
+      <ResultCard.Main>
+        <ResultCard.Header>
+          <ResultCard.Media>
+            <Passed3d className="h-auto w-full" />
+          </ResultCard.Media>
+          <ResultCard.Text>
+            <ResultCard.Title className="text-primary-main">
+              퇴사 검사가 통과되었습니다.
+            </ResultCard.Title>
+            <ResultCard.Description>
+              모든 절차가 완료되었습니다. 협조해주셔서 감사합니다.
+            </ResultCard.Description>
+          </ResultCard.Text>
+        </ResultCard.Header>
+      </ResultCard.Main>
+      <ResultCard.Button variant="default" className="w-full">
+        홈으로
+      </ResultCard.Button>
+    </ResultCard>
+  );
+}
+
 export function MainFrame() {
   const { step, status } = useSearch({ from: '/_auth-required/' });
-
-  const renderStep4Card = () => {
-    switch (status) {
-      case 'failed':
-        return (
-          <div className="flex h-full flex-col justify-between gap-6">
-            <div className="flex flex-col gap-6">
-              <div className="mx-auto w-64">
-                <Failed3d className="h-auto w-full" />
-              </div>
-              <div className="flex flex-col gap-3 text-center">
-                <div className="text-h1 text-status-fail font-semibold">
-                  재검사가 필요합니다.
-                </div>
-                <div className="text-sub text-text-gray">
-                  아래 사유를 확인하고 다시 신청해주세요.
-                </div>
-                <div className="border-status-fail/80 rounded-xl border px-4 py-3 text-left">
-                  <div className="text-sub text-status-fail mb-2 font-semibold">
-                    불통과 사유 확인하기
-                  </div>
-                  <ul className="text-sub text-text-black flex list-disc flex-col gap-1 pl-4">
-                    {FAILED_REASONS.map((reason) => (
-                      <li key={reason}>{reason}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <Button variant="failed" className="w-full">
-              재검사 신청하기
-            </Button>
-          </div>
-        );
-      case 'not-period':
-        return (
-          <div className="flex h-full flex-col justify-between gap-6">
-            <div className="flex flex-col gap-6">
-              <div className="mx-auto w-64">
-                <NotPeriod3d className="h-auto w-full" />
-              </div>
-              <div className="flex flex-col gap-3 text-center">
-                <div className="text-h1 text-text-black font-semibold">
-                  지금은 퇴사 검사 기간이 아닙니다.
-                </div>
-                <div className="text-sub text-text-gray">
-                  다음 검사 신청은 00월 00일부터 시작됩니다.
-                </div>
-              </div>
-            </div>
-            <Button variant="change" className="w-full">
-              퇴사 검사 기준 미리보기
-            </Button>
-          </div>
-        );
-      case 'passed':
-      default:
-        return (
-          <div className="flex h-full flex-col justify-between gap-6">
-            <div className="flex flex-col gap-6">
-              <div className="mx-auto w-64">
-                <Passed3d className="h-auto w-full" />
-              </div>
-              <div className="flex flex-col gap-3 text-center">
-                <div className="text-h1 text-text-black font-semibold">
-                  퇴사 검사가 통과되었습니다.
-                </div>
-                <div className="text-sub text-text-black">
-                  모든 절차가 완료되었습니다. 협조해주셔서 감사합니다.
-                </div>
-              </div>
-            </div>
-            <Button variant="default" className="w-full">
-              홈으로
-            </Button>
-          </div>
-        );
-    }
-  };
 
   return (
     <div
@@ -130,24 +143,30 @@ export function MainFrame() {
         status === 'passed' || status === 'not-period'
           ? 'bg-bg-green'
           : 'bg-bg-surface',
-        'min-h-screen px-4 py-6',
+        'h-dvh px-5 py-6',
       )}
     >
-      <div className="mx-auto flex h-screen w-full max-w-100 flex-col gap-6">
-        <div className="relative">
-          <div className="flex flex-col gap-1">
+      <div className="mx-auto flex h-full w-full max-w-100 flex-col gap-5">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2">
             <h1 className="text-h1 text-text-black font-bold">
               {MOCK_USER.name}님의 퇴사 검사 현황
             </h1>
-            <div className="text-sub text-text-gray">
+            <h2 className="text-sub text-text-gray">
               학번: {MOCK_USER.studentId} | 호실: {MOCK_USER.room}
-            </div>
+            </h2>
           </div>
-          <ShortLogo className="absolute top-0 right-0 h-10 w-auto" />
+          <ShortLogo />
         </div>
         <div className="bg-bg-white flex flex-1 flex-col gap-6 rounded-3xl p-6 shadow-lg">
           {step === 3 ? (
-            renderStep4Card()
+            status === 'failed' ? (
+              <FailedStatusCard />
+            ) : status === 'not-period' ? (
+              <NotPeriodStatusCard />
+            ) : (
+              <PassedStatusCard />
+            )
           ) : (
             <div className="flex h-full flex-col justify-between">
               <Steps steps={STEP_ITEMS} activeStepIndex={step} />
