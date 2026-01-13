@@ -4,9 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Accordion, StatusCard, Steps, SwitchCase } from '../components';
 
-import Failed3d from '@/assets/3d/failed.svg?react';
-import NotPeriod3d from '@/assets/3d/not_period.svg?react';
-import Passed3d from '@/assets/3d/passed.svg?react';
 import ShortLogo from '@/assets/short-logo.svg?react';
 import { cn } from '@/common/utils';
 
@@ -83,7 +80,7 @@ function Step3FailedCard() {
       <StatusCard.Content>
         <StatusCard.Header>
           <StatusCard.Media>
-            <Failed3d className="h-70" />
+            <img src="./3d/failed.png" alt="failed" className="h-60" />
           </StatusCard.Media>
           <StatusCard.Text>
             <StatusCard.Title className="text-status-fail">
@@ -127,7 +124,7 @@ function Step3NotPeriodCard() {
       <StatusCard.Content>
         <StatusCard.Header>
           <StatusCard.Media>
-            <NotPeriod3d className="h-auto w-full" />
+            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
           </StatusCard.Media>
           <StatusCard.Text>
             <StatusCard.Title className="text-text-black">
@@ -156,7 +153,7 @@ function Step3PassedCard() {
       <StatusCard.Content>
         <StatusCard.Header>
           <StatusCard.Media>
-            <Passed3d className="h-auto w-full" />
+            <img src="./3d/passed.png" alt="passed" className="h-60" />
           </StatusCard.Media>
           <StatusCard.Text>
             <StatusCard.Title className="text-primary-main">
