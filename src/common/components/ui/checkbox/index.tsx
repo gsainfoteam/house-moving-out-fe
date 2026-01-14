@@ -4,7 +4,7 @@ import CheckedIcon from '@/assets/checked.svg?react';
 import UncheckedIcon from '@/assets/unchecked.svg?react';
 import { cn } from '@/common/utils';
 
-const CheckboxRoot = forwardRef<
+export const Checkbox = forwardRef<
   HTMLInputElement,
   Checkbox.Props & React.ComponentProps<'input'>
 >(({ className, ...props }, ref) => {
@@ -24,15 +24,6 @@ const CheckboxRoot = forwardRef<
     </div>
   );
 });
-
-export const Checkbox = forwardRef<
-  HTMLInputElement,
-  React.ComponentProps<typeof CheckboxRoot>
->((props, ref) => {
-  return <CheckboxRoot {...props} ref={ref} />;
-});
-
-Checkbox.displayName = 'Checkbox';
 
 export namespace Checkbox {
   export type Props = {};

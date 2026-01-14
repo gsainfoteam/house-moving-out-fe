@@ -30,7 +30,7 @@ const createAuthConfig = (recentLogout: boolean): TAuthConfig => ({
 
 const toastOptions = {
   classNames: {
-    error: cn('bg-status-fail! text-white!'),
+    error: cn('bg-status-fail! text-text-white!'),
   },
 };
 

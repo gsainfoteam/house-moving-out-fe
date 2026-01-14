@@ -2,9 +2,11 @@ import { Link } from '@tanstack/react-router';
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { useConsentForm } from '../viewmodels';
+import { useConsentForm } from '../../viewmodels';
 
 import { Button, Checkbox, LanguageToggle } from '@/common/components';
+
+// FIXME: 디자인 수정되면 typography, color 토큰 사용해야 함
 
 export function ConsentFrame() {
   const { t } = useTranslation();
@@ -68,7 +70,7 @@ export function ConsentFrame() {
         <div className="mt-10">
           <Button
             type="submit"
-            variant="primary"
+            variant="default"
             disabled={!formState.isValid}
             className="w-full"
           >
