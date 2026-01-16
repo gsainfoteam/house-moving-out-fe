@@ -11,7 +11,14 @@
     "format": "prettier",
     "check": "prettier --write . && eslint --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "i18n:extract": "i18next-cli extract",
+    "i18n:extract:watch": "i18next-cli extract --watch",
+    "i18n:status": "i18next-cli status",
+    "i18n:sync": "i18next-cli sync",
+    "i18n:lint": "i18next-cli lint",
+    "i18n:types": "i18next-cli types",
+    "i18n:types:watch": "i18next-cli types --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -27,6 +34,7 @@
     "clsx": "^2.1.1",
     "es-toolkit": "^1.43.0",
     "i18next": "^25.7.3",
+    "i18next-http-backend": "^3.0.2",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -58,6 +66,7 @@
     "eslint-plugin-react-refresh": "^0.4.26",
     "eslint-plugin-storybook": "^10.1.10",
     "globals": "^16.5.0",
+    "i18next-cli": "^1.36.1",
     "jsdom": "^27.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.7.2",

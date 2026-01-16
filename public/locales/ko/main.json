@@ -1,0 +1,49 @@
+{
+  "header": {
+    "subtitle": "학번: {{studentId}} | 호실: {{room}}",
+    "title": "{{name}}님의 퇴사 검사 현황"
+  },
+  "result": {
+    "failed": {
+      "accordionTitle": "불통과 사유 확인하기",
+      "button": "재검사 신청하기",
+      "description": "아래 사유를 확인하고 다시 신청해주세요.",
+      "reasons": {
+        "bathroom": "화장실 청소 미흡",
+        "deskDrawer": "책상 서랍 정리 미흡"
+      },
+      "title": "재검사가 필요합니다."
+    },
+    "notPeriod": {
+      "button": "퇴사 검사 기준 미리보기",
+      "description": "다음 검사 신청은 {{startDate}}부터 시작됩니다.",
+      "title": "지금은 퇴사 검사 기간이 아닙니다."
+    },
+    "passed": {
+      "button": "홈으로",
+      "description": "모든 절차가 완료되었습니다. 협조해주셔서 감사합니다.",
+      "title": "퇴사 검사가 통과되었습니다."
+    }
+  },
+  "steps": {
+    "label": "{{number}}단계",
+    "step0": {
+      "button": "퇴사 검사 신청하기",
+      "description": "하단의 버튼을 통해\n퇴사 검사를 신청해주세요.",
+      "title": "검사 신청"
+    },
+    "step1": {
+      "button": "검사 일정 변경하기",
+      "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
+      "title": "검사 대기"
+    },
+    "step2": {
+      "button": "검사 결과 대기 중",
+      "description": "퇴사 검사 진행 중입니다.\n잠시 뒤에 검사 결과를 확인해주세요.",
+      "title": "검사 중"
+    },
+    "step3": {
+      "title": "검사 결과"
+    }
+  }
+}
