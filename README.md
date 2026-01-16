@@ -82,6 +82,9 @@ bun run build-storybook
 # 번역 키 추출 (개발 중 watch 모드 권장)
 bun run i18n:extract:watch
 
+# TypeScript 타입 생성 (개발 중 watch 모드 권장)
+bun run i18n:types:watch
+
 # 번역 상태 확인
 bun run i18n:status
 
@@ -90,13 +93,10 @@ bun run i18n:sync
 
 # 하드코딩된 문자열 검사
 bun run i18n:lint
-
-# TypeScript 타입 생성
-bun run i18n:types
 ```
 
 ### 사용법
 
 - 번역 파일: `public/locales/{language}/{namespace}.json`
 - 코드에서 사용: `useTranslation('namespace')`로 네임스페이스 지정 후 `t('key')` 사용
-- 개발 중에는 `bun run i18n:extract:watch`를 실행하여 번역 키 변경사항을 자동으로 반영
+- 개발 중에는 `bun run i18n:extract:watch`와 `bun run i18n:types:watch`를 함께 실행하여 번역 키 변경사항과 TypeScript 타입을 자동으로 반영
