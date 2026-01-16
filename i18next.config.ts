@@ -9,7 +9,7 @@ export default defineConfig({
     input: ['src/**/*.{ts,tsx}'],
     output: 'public/locales/{{language}}/{{namespace}}.json',
 
-    defaultNS: false,
+    defaultNS: '_',
     nsSeparator: ':',
     keySeparator: '.',
 
@@ -38,6 +38,6 @@ export default defineConfig({
     input: ['public/locales/ko/*.json'],
     output: 'src/@types/i18next.d.ts',
     resourcesFile: 'src/@types/resources.d.ts',
-    enableSelector: true,
+    enableSelector: false,
   },
 });

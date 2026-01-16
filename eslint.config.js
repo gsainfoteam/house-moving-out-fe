@@ -17,7 +17,7 @@ export default defineConfig(
       prettierPlugin,
     ],
     files: ['**/*.{ts,tsx}'],
-    ignores: ['src/gql/*.ts'],
+    ignores: ['src/@types/*.ts'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

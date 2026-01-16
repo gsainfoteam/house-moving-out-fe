@@ -16,8 +16,10 @@ await i18n
   .init({
     lng: 'ko',
     fallbackLng: 'ko',
-    defaultNS: false,
-    ns: ['auth', 'common', 'main'],
+    defaultNS: '_',
+    ns: ['_', 'auth', 'common', 'main'],
+    nsSeparator: ':',
+    keySeparator: '.',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
