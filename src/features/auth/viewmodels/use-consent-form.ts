@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { useUserAuth } from './use-user-auth';
 
-const createConsentSchema = (t: TFunction) =>
+const createConsentSchema = (t: TFunction<'auth'>) =>
   z.object({
     privacyPolicy: z.boolean().refine((val) => val === true, {
       error: t('consent.error.privacyPolicyRequired'),

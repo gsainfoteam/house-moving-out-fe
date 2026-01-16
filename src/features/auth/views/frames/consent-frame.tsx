@@ -10,6 +10,7 @@ import { Button, Checkbox, LanguageToggle } from '@/common/components';
 
 export function ConsentFrame() {
   const { t } = useTranslation('auth');
+
   const {
     form: { register, formState },
     allChecked,
