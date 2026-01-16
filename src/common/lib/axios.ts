@@ -65,7 +65,7 @@ api.interceptors.response.use(
           return newToken;
         } catch (refreshError) {
           useToken.getState().saveToken(null);
-          toast.error(i18n.t('error.sessionExpired', { ns: 'auth' }));
+          toast.error(i18n.t('auth:error.sessionExpired'));
           throw refreshError;
         } finally {
           refreshingTokenPromise = null;
