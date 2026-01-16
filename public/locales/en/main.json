@@ -1,0 +1,49 @@
+{
+  "header": {
+    "subtitle": "Student ID: {{studentId}} | Room: {{room}}",
+    "title": "{{name}}'s Moving Out Inspection Status"
+  },
+  "result": {
+    "failed": {
+      "accordionTitle": "Check Reasons for Failure",
+      "button": "Apply for Re-inspection",
+      "description": "Please check the reasons below and apply again.",
+      "reasons": {
+        "bathroom": "Insufficient bathroom cleaning",
+        "deskDrawer": "Insufficient desk drawer organization"
+      },
+      "title": "Re-inspection Required"
+    },
+    "notPeriod": {
+      "button": "Preview Inspection Criteria",
+      "description": "The next inspection application will start on {{startDate}}.",
+      "title": "It is not the moving out inspection period."
+    },
+    "passed": {
+      "button": "Go Home",
+      "description": "All procedures have been completed. Thank you for your cooperation.",
+      "title": "Moving Out Inspection Passed"
+    }
+  },
+  "steps": {
+    "label": "Step {{number}}",
+    "step0": {
+      "button": "Apply for Moving Out Inspection",
+      "description": "Please apply for the moving out inspection\nusing the button below.",
+      "title": "Inspection Application"
+    },
+    "step1": {
+      "button": "Change Inspection Schedule",
+      "description": "Moving out inspection is scheduled\nfor {{inspectionDate}}.",
+      "title": "Waiting for Inspection"
+    },
+    "step2": {
+      "button": "Waiting for Inspection Results",
+      "description": "Moving out inspection is in progress.\nPlease check the results shortly.",
+      "title": "Inspection in Progress"
+    },
+    "step3": {
+      "title": "Inspection Results"
+    }
+  }
+}

@@ -9,17 +9,17 @@ import { useUserAuth } from './use-user-auth';
 const createConsentSchema = (t: TFunction) =>
   z.object({
     privacyPolicy: z.boolean().refine((val) => val === true, {
-      error: t('auth.consent.error.privacyPolicyRequired'),
+      error: t('consent.error.privacyPolicyRequired'),
     }),
     termsOfService: z.boolean().refine((val) => val === true, {
-      error: t('auth.consent.error.termsOfServiceRequired'),
+      error: t('consent.error.termsOfServiceRequired'),
     }),
   });
 
 export type ConsentFormData = z.infer<ReturnType<typeof createConsentSchema>>;
 
 export const useConsentForm = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('auth');
   const { logIn } = useUserAuth({ showToast: true });
 
   const consentSchema = createConsentSchema(t);

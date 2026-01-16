@@ -5,7 +5,7 @@ import { useLanguage } from '@/common/viewmodels';
 
 export function LanguageToggle() {
   const { toggleLanguage, currentLanguage } = useLanguage();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   const isKorean = currentLanguage === 'ko';
 
@@ -20,7 +20,7 @@ export function LanguageToggle() {
           'text-h2 uppercase transition-colors',
           isKorean ? 'text-primary-main font-bold' : 'text-text-gray',
         )}
-        aria-label={t('language.switchToKorean')}
+        aria-label={t('switchToKorean')}
       >
         KOR
       </button>
@@ -34,7 +34,7 @@ export function LanguageToggle() {
           'text-h2 uppercase transition-colors',
           !isKorean ? 'text-primary-main font-bold' : 'text-text-gray',
         )}
-        aria-label={t('language.switchToEnglish')}
+        aria-label={t('switchToEnglish')}
       >
         ENG
       </button>

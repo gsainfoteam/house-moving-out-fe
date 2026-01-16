@@ -23,7 +23,7 @@ interface UseUserAuthOptions {
 export const useUserAuth = (options: UseUserAuthOptions = {}) => {
   const { showToast = false, onSuccess, onError } = options;
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation('auth');
   const {
     token: idpToken,
     logOut: idpLogOut,
@@ -48,13 +48,13 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
           if (!(status === 401 && message === 'invalid session')) {
             onError?.(error);
             if (showToast) {
-              toast.error(t('auth.error.logoutFailed'));
+              toast.error(t('error.logoutFailed'));
             }
           }
         } else {
           onError?.(error);
           if (showToast) {
-            toast.error(t('auth.error.logoutFailed'));
+            toast.error(t('error.logoutFailed'));
           }
         }
       } finally {
@@ -73,7 +73,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
       if (!idpToken) {
         goToIdpToken();
         if (showToast) {
-          toast.error(t('auth.error.noIdpToken'));
+          toast.error(t('error.noIdpToken'));
         }
         throw new Error('No IDP token');
       }
@@ -97,7 +97,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
             idpLogOut();
             goToIdpToken();
             if (showToast) {
-              toast.error(t('auth.error.invalidIdpToken'));
+              toast.error(t('error.invalidIdpToken'));
             }
             break;
           }
@@ -111,7 +111,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
             idpLogOut();
             goToIdpToken();
             if (showToast) {
-              toast.error(t('auth.error.loginFailed'));
+              toast.error(t('error.loginFailed'));
             }
             break;
           }
@@ -120,7 +120,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
         idpLogOut();
         goToIdpToken();
         if (showToast) {
-          toast.error(t('auth.error.loginFailed'));
+          toast.error(t('error.loginFailed'));
         }
       }
     },

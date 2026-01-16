@@ -20,7 +20,7 @@ const MOCK_INSPECTION_AT = new Date('2025-01-12T00:00:00');
 const MOCK_NEXT_PERIOD_START_AT = new Date('2025-01-01T00:00:00');
 
 function Step0Card({ steps }: { steps: Steps.Step[] }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
 
   return (
     <StatusCard>
@@ -29,7 +29,7 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
       </StatusCard.Content>
       <StatusCard.Footer>
         <StatusCard.Button variant="default" className="w-full">
-          {t('main.steps.step0.button')}
+          {t('steps.step0.button')}
         </StatusCard.Button>
       </StatusCard.Footer>
     </StatusCard>
@@ -37,7 +37,7 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
 }
 
 function Step1Card({ steps }: { steps: Steps.Step[] }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
 
   return (
     <StatusCard>
@@ -46,7 +46,7 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
       </StatusCard.Content>
       <StatusCard.Footer>
         <StatusCard.Button variant="change" className="w-full">
-          {t('main.steps.step1.button')}
+          {t('steps.step1.button')}
         </StatusCard.Button>
       </StatusCard.Footer>
     </StatusCard>
@@ -54,7 +54,7 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
 }
 
 function Step2Card({ steps }: { steps: Steps.Step[] }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
 
   return (
     <StatusCard>
@@ -63,7 +63,7 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
       </StatusCard.Content>
       <StatusCard.Footer>
         <StatusCard.Button variant="disabled" className="w-full" disabled>
-          {t('main.steps.step2.button')}
+          {t('steps.step2.button')}
         </StatusCard.Button>
       </StatusCard.Footer>
     </StatusCard>
@@ -71,11 +71,11 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
 }
 
 function Step3FailedCard() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
   const failedReasons = useMemo(
     () => [
-      t('main.result.failed.reasons.deskDrawer'),
-      t('main.result.failed.reasons.bathroom'),
+      t('result.failed.reasons.deskDrawer'),
+      t('result.failed.reasons.bathroom'),
     ],
     [t],
   );
@@ -89,15 +89,15 @@ function Step3FailedCard() {
           </StatusCard.Media>
           <StatusCard.Text>
             <StatusCard.Title className="text-status-fail">
-              {t('main.result.failed.title')}
+              {t('result.failed.title')}
             </StatusCard.Title>
             <StatusCard.Description>
-              {t('main.result.failed.description')}
+              {t('result.failed.description')}
             </StatusCard.Description>
           </StatusCard.Text>
         </StatusCard.Header>
         <StatusCard.Details>
-          <Accordion title={t('main.result.failed.accordionTitle')}>
+          <Accordion title={t('result.failed.accordionTitle')}>
             <ul className="flex flex-col gap-2">
               {failedReasons.map((reason) => (
                 <li
@@ -114,7 +114,7 @@ function Step3FailedCard() {
       </StatusCard.Content>
       <StatusCard.Footer>
         <StatusCard.Button variant="failed" className="w-full">
-          {t('main.result.failed.button')}
+          {t('result.failed.button')}
         </StatusCard.Button>
       </StatusCard.Footer>
     </StatusCard>
@@ -122,7 +122,7 @@ function Step3FailedCard() {
 }
 
 function Step3NotPeriodCard() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
   const locale = useLocale();
 
   const nextApplicationStartDateText = useMemo(
@@ -139,10 +139,10 @@ function Step3NotPeriodCard() {
           </StatusCard.Media>
           <StatusCard.Text>
             <StatusCard.Title className="text-text-black">
-              {t('main.result.notPeriod.title')}
+              {t('result.notPeriod.title')}
             </StatusCard.Title>
             <StatusCard.Description>
-              {t('main.result.notPeriod.description', {
+              {t('result.notPeriod.description', {
                 startDate: nextApplicationStartDateText,
               })}
             </StatusCard.Description>
@@ -151,7 +151,7 @@ function Step3NotPeriodCard() {
       </StatusCard.Content>
       <StatusCard.Footer>
         <StatusCard.Button variant="change" className="w-full">
-          {t('main.result.notPeriod.button')}
+          {t('result.notPeriod.button')}
         </StatusCard.Button>
       </StatusCard.Footer>
     </StatusCard>
@@ -159,7 +159,7 @@ function Step3NotPeriodCard() {
 }
 
 function Step3PassedCard() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
 
   return (
     <StatusCard>
@@ -170,17 +170,17 @@ function Step3PassedCard() {
           </StatusCard.Media>
           <StatusCard.Text>
             <StatusCard.Title className="text-primary-main">
-              {t('main.result.passed.title')}
+              {t('result.passed.title')}
             </StatusCard.Title>
             <StatusCard.Description>
-              {t('main.result.passed.description')}
+              {t('result.passed.description')}
             </StatusCard.Description>
           </StatusCard.Text>
         </StatusCard.Header>
       </StatusCard.Content>
       <StatusCard.Footer>
         <StatusCard.Button variant="default" className="w-full">
-          {t('main.result.passed.button')}
+          {t('result.passed.button')}
         </StatusCard.Button>
       </StatusCard.Footer>
     </StatusCard>
@@ -189,7 +189,7 @@ function Step3PassedCard() {
 
 export function MainFrame() {
   const { step, status } = useSearch({ from: '/_auth-required/' });
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
   const locale = useLocale();
 
   const inspectionDateText = useMemo(
@@ -200,21 +200,21 @@ export function MainFrame() {
   const steps = useMemo(
     () => [
       {
-        title: t('main.steps.step0.title'),
-        description: t('main.steps.step0.description'),
+        title: t('steps.step0.title'),
+        description: t('steps.step0.description'),
       },
       {
-        title: t('main.steps.step1.title'),
-        description: t('main.steps.step1.description', {
+        title: t('steps.step1.title'),
+        description: t('steps.step1.description', {
           inspectionDate: inspectionDateText,
         }),
       },
       {
-        title: t('main.steps.step2.title'),
-        description: t('main.steps.step2.description'),
+        title: t('steps.step2.title'),
+        description: t('steps.step2.description'),
       },
       {
-        title: t('main.steps.step3.title'),
+        title: t('steps.step3.title'),
         description: undefined,
       },
     ],
@@ -234,10 +234,10 @@ export function MainFrame() {
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-2">
             <h1 className="text-h1 text-text-black font-bold">
-              {t('main.header.title', { name: MOCK_USER.name })}
+              {t('header.title', { name: MOCK_USER.name })}
             </h1>
             <h2 className="text-sub text-text-gray">
-              {t('main.header.subtitle', {
+              {t('header.subtitle', {
                 studentId: MOCK_USER.studentId,
                 room: MOCK_USER.room,
               })}

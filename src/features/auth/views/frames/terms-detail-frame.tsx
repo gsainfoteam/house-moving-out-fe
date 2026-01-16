@@ -7,15 +7,15 @@ import { useTranslation } from 'react-i18next';
 export function TermsDetailFrame() {
   const navigate = useNavigate();
   const { type } = useParams({ from: '/auth/terms/$type' });
-  const { t } = useTranslation();
+  const { t } = useTranslation('auth');
 
   const isPrivacy = type === 'privacy';
   const title = isPrivacy
-    ? t('auth.consent.privacyPolicyTitle')
-    : t('auth.consent.termsOfServiceTitle');
+    ? t('consent.privacyPolicyTitle')
+    : t('consent.termsOfServiceTitle');
   const content = isPrivacy
-    ? t('auth.consent.privacyPolicyContent', { returnObjects: true })
-    : t('auth.consent.termsOfServiceContent', { returnObjects: true });
+    ? t('consent.privacyPolicyContent', { returnObjects: true })
+    : t('consent.termsOfServiceContent', { returnObjects: true });
 
   const handleBack = () => {
     navigate({ to: '/auth/consent' });
@@ -28,7 +28,7 @@ export function TermsDetailFrame() {
           type="button"
           onClick={handleBack}
           className="flex items-center"
-          aria-label={t('auth.consent.back')}
+          aria-label={t('consent.back')}
         >
           <ChevronLeft size={24} className="text-gray-700" />
         </button>

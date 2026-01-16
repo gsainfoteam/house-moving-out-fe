@@ -27,7 +27,7 @@ function StepLine({ status }: { status: Steps.LineStatus }) {
 }
 
 export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
 
   const getStepStatus = (index: number): Steps.StepStatus => {
     if (index < activeStepIndex) return 'completed';
@@ -61,7 +61,7 @@ export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
               <div className="flex flex-col gap-1">
                 <div className="flex flex-col gap-0.5">
                   <div className="text-sub text-text-gray">
-                    {t('main.steps.label', { number: index + 1 })}
+                    {t('steps.label', { number: index + 1 })}
                   </div>
                   <div
                     className={Steps.titleStyles({

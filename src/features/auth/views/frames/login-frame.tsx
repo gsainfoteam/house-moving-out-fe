@@ -8,7 +8,7 @@ import { Button, LanguageToggle } from '@/common/components';
 // FIXME: 디자인 수정되면 typography, color 토큰 사용해야 함
 
 export function LoginFrame() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('auth');
   const { idpLogIn } = useUserAuth();
 
   return (
@@ -17,11 +17,11 @@ export function LoginFrame() {
         <LanguageToggle />
       </div>
       <div className="flex flex-col items-center justify-center gap-2.5">
-        <h1>{t('auth.title')}</h1>
-        <p>{t('auth.subtitle')}</p>
+        <h1>{t('title')}</h1>
+        <p>{t('subtitle')}</p>
       </div>
       <Button className="mt-4" onClick={() => idpLogIn()}>
-        {t('auth.loginButton')}
+        {t('loginButton')}
       </Button>
     </div>
   );
