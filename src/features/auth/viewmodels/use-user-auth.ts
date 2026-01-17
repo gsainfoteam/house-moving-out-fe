@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
 
-import type { JwtToken, UserLoginDto } from '../models';
+import type { UserLoginDto } from '../models';
 import { authApi } from '../models';
 
 import { useAuthPrompt } from './use-auth-prompt';
@@ -127,9 +127,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
   });
 
   const logIn = useCallback(
-    async (consentData?: UserLoginDto): Promise<JwtToken> => {
-      return await mutation.mutateAsync(consentData);
-    },
+    (consentData?: UserLoginDto) => mutation.mutate(consentData),
     [mutation],
   );
 
