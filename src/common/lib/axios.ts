@@ -5,10 +5,11 @@ import i18n from './i18n';
 
 import { useToken } from '@/features/auth';
 
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true,
-});
+const baseURL = import.meta.env.DEV
+  ? '/api'
+  : import.meta.env.VITE_API_BASE_URL;
+
+export const api = axios.create({ baseURL, withCredentials: true });
 
 // 동시 refresh 요청을 방지하기 위한 공유 promise
 let refreshingTokenPromise: Promise<string> | null = null;
@@ -52,7 +53,7 @@ api.interceptors.response.use(
       refreshingTokenPromise = (async () => {
         try {
           const response = await axios.post<{ access_token: string }>(
-            `${import.meta.env.VITE_API_BASE_URL}/auth/user/refresh`,
+            `${baseURL}/auth/user/refresh`,
             {},
             {
               withCredentials: true,
