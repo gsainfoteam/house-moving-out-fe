@@ -1,14 +1,15 @@
+import { api } from '@/common/lib';
+
 import type {
+  AdminLoginArgs,
   CreateNewPolicyDto,
   CreateNewPolicyResponseDto,
   JwtToken,
-  UserLoginDto,
-} from './auth.type';
-
-import { api } from '@/common/lib';
+  UserLoginArgs,
+} from './schema';
 
 export const authApi = {
-  adminLogin: async (idpToken: string): Promise<JwtToken> => {
+  adminLogin: async ({ idpToken }: AdminLoginArgs): Promise<JwtToken> => {
     const response = await api.post<JwtToken>(
       '/auth/admin/login',
       {},
@@ -40,10 +41,10 @@ export const authApi = {
     return response.data;
   },
 
-  userLogin: async (
-    idpToken: string,
-    consentData?: UserLoginDto,
-  ): Promise<JwtToken> => {
+  userLogin: async ({
+    idpToken,
+    consentData,
+  }: UserLoginArgs): Promise<JwtToken> => {
     const response = await api.post<JwtToken>('/auth/user/login', consentData, {
       headers: {
         Authorization: `Bearer ${idpToken}`,

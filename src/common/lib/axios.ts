@@ -1,6 +1,7 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { toast } from 'sonner';
 
+import { toApiHttpError } from './api-error.schema';
 import i18n from './i18n';
 
 import { useToken } from '@/features/auth';
@@ -79,6 +80,12 @@ api.interceptors.response.use(
       } catch {
         return Promise.reject(error);
       }
+    }
+
+    // 공통(NestJS) 에러 포맷이면 ApiHttpError로 정규화
+    const normalized = toApiHttpError(error.response?.data);
+    if (normalized) {
+      return Promise.reject(normalized);
     }
 
     return Promise.reject(error);
