@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from '@tanstack/react-router';
+
 import { ChevronLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -10,9 +11,7 @@ export function TermsDetailFrame() {
   const { t } = useTranslation('auth');
 
   const isPrivacy = type === 'privacy';
-  const title = isPrivacy
-    ? t('consent.privacyPolicyTitle')
-    : t('consent.termsOfServiceTitle');
+  const title = isPrivacy ? t('consent.privacyPolicyTitle') : t('consent.termsOfServiceTitle');
   const content = isPrivacy
     ? t('consent.privacyPolicyContent', { returnObjects: true })
     : t('consent.termsOfServiceContent', { returnObjects: true });

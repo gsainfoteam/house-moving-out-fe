@@ -1,10 +1,11 @@
 import { Link } from '@tanstack/react-router';
+
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { useConsentForm } from '../../viewmodels';
-
 import { Button, Checkbox, LanguageToggle } from '@/common/components';
+
+import { useConsentForm } from '../../viewmodels';
 
 // FIXME: 디자인 수정되면 typography, color 토큰 사용해야 함
 
@@ -19,10 +20,7 @@ export function ConsentFrame() {
   } = useConsentForm();
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="relative flex h-screen flex-col px-4 pt-16 pb-8"
-    >
+    <form onSubmit={onSubmit} className="relative flex h-screen flex-col px-4 pt-16 pb-8">
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>
@@ -30,10 +28,7 @@ export function ConsentFrame() {
       <div className="mt-auto flex flex-col">
         <div className="flex flex-col gap-5">
           <label className="flex cursor-pointer items-center gap-3">
-            <Checkbox
-              checked={allChecked}
-              onChange={(e) => handleAllChange(e.target.checked)}
-            />
+            <Checkbox checked={allChecked} onChange={(e) => handleAllChange(e.target.checked)} />
             <span>{t('consent.agreeAll')}</span>
           </label>
 
@@ -69,12 +64,7 @@ export function ConsentFrame() {
         </div>
 
         <div className="mt-10">
-          <Button
-            type="submit"
-            variant="default"
-            disabled={!formState.isValid}
-            className="w-full"
-          >
+          <Button type="submit" variant="default" disabled={!formState.isValid} className="w-full">
             {t('consent.next')}
           </Button>
         </div>

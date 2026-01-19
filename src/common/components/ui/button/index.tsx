@@ -1,6 +1,6 @@
-import type { VariantProps } from 'tailwind-variants';
-
 import { cv } from '@/common/utils';
+
+import type { VariantProps } from 'tailwind-variants';
 
 export function Button({
   variant = 'default',

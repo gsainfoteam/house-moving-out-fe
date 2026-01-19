@@ -1,14 +1,12 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { toast } from 'sonner';
 
+import { useToken } from '@/features/auth';
+
 import { toApiHttpError } from './api-error.schema';
 import i18n from './i18n';
 
-import { useToken } from '@/features/auth';
-
-const baseURL = import.meta.env.DEV
-  ? '/api'
-  : import.meta.env.VITE_API_BASE_URL;
+const baseURL = import.meta.env.DEV ? '/api' : import.meta.env.VITE_API_BASE_URL;
 
 export const api = axios.create({ baseURL, withCredentials: true });
 

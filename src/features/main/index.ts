@@ -1,1 +1,1 @@
-export * from './views/frames';
+export * from './views';

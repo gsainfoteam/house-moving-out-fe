@@ -1,9 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { I18nextProvider, useTranslation } from 'react-i18next';
+
+import i18n from '@/common/lib/i18n';
 
 import { LanguageToggle } from '.';
 
-import i18n from '@/common/lib/i18n';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof LanguageToggle> = {
   title: 'Components/LanguageToggle',

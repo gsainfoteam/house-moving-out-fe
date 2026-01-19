@@ -1,4 +1,5 @@
 import { createFileRoute, Navigate } from '@tanstack/react-router';
+
 import { useAuthContext } from 'react-oauth2-code-pkce';
 
 import { ConsentFrame } from '@/features/auth';

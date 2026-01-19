@@ -7,5 +7,11 @@
   },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
-  }
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never" // eslint-plugin-import와 충돌 방지
+  },
+  "eslint.experimental.useFlatConfig": true
 }

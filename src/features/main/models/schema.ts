@@ -16,9 +16,7 @@ const _CreateMoveOutScheduleDtoSchema = z.object({
     }),
   ),
 });
-export type CreateMoveOutScheduleDto = z.infer<
-  typeof _CreateMoveOutScheduleDtoSchema
->;
+export type CreateMoveOutScheduleDto = z.infer<typeof _CreateMoveOutScheduleDtoSchema>;
 
 const _GetMoveOutScheduleWithSlotsArgsSchema = z.object({
   id: z.number(),
@@ -41,9 +39,7 @@ const _InspectionTimeRangeDtoSchema = z.object({
   start: z.iso.datetime(),
   end: z.iso.datetime(),
 });
-export type InspectionTimeRangeDto = z.infer<
-  typeof _InspectionTimeRangeDtoSchema
->;
+export type InspectionTimeRangeDto = z.infer<typeof _InspectionTimeRangeDtoSchema>;
 
 const _MoveOutScheduleResDtoSchema = z.object({
   id: z.number(),
@@ -53,9 +49,7 @@ const _MoveOutScheduleResDtoSchema = z.object({
   createdAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
 });
-export type MoveOutScheduleResDto = z.infer<
-  typeof _MoveOutScheduleResDtoSchema
->;
+export type MoveOutScheduleResDto = z.infer<typeof _MoveOutScheduleResDtoSchema>;
 
 const _InspectionSlotResDtoSchema = z.object({
   id: z.uuid(),
@@ -67,27 +61,21 @@ const _InspectionSlotResDtoSchema = z.object({
 });
 export type InspectionSlotResDto = z.infer<typeof _InspectionSlotResDtoSchema>;
 
-const _MoveOutScheduleWithSlotsResDtoSchema =
-  _MoveOutScheduleResDtoSchema.extend({
-    inspectionSlots: z.array(_InspectionSlotResDtoSchema),
-  });
-export type MoveOutScheduleWithSlotsResDto = z.infer<
-  typeof _MoveOutScheduleWithSlotsResDtoSchema
->;
+const _MoveOutScheduleWithSlotsResDtoSchema = _MoveOutScheduleResDtoSchema.extend({
+  inspectionSlots: z.array(_InspectionSlotResDtoSchema),
+});
+export type MoveOutScheduleWithSlotsResDto = z.infer<typeof _MoveOutScheduleWithSlotsResDtoSchema>;
 
 const _CreateInspectionTargetsResDtoSchema = z.object({
   message: z.string(),
   count: z.number(),
 });
-export type CreateInspectionTargetsResDto = z.infer<
-  typeof _CreateInspectionTargetsResDtoSchema
->;
+export type CreateInspectionTargetsResDto = z.infer<typeof _CreateInspectionTargetsResDtoSchema>;
 
 // ===== React Query 키 =====
 export const moveOutQueryKeys = {
   all: ['move-out'] as const,
   schedules: () => [...moveOutQueryKeys.all, 'schedules'] as const,
   schedule: (id: number) => [...moveOutQueryKeys.schedules(), id] as const,
-  scheduleWithSlots: (id: number) =>
-    [...moveOutQueryKeys.schedule(id), 'with-slots'] as const,
+  scheduleWithSlots: (id: number) => [...moveOutQueryKeys.schedule(id), 'with-slots'] as const,
 } as const;

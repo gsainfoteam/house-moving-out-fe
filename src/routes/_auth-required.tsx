@@ -1,9 +1,4 @@
-import {
-  createFileRoute,
-  Navigate,
-  Outlet,
-  useRouter,
-} from '@tanstack/react-router';
+import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-router';
 
 import { useToken } from '@/features/auth';
 
@@ -15,8 +10,7 @@ function AuthRequiredLayout() {
   const { token } = useToken();
   const router = useRouter();
 
-  const redirect =
-    router.state.location.pathname + router.state.location.searchStr;
+  const redirect = router.state.location.pathname + router.state.location.searchStr;
 
   if (!token) {
     return <Navigate to="/auth/login" search={{ redirect }} replace />;

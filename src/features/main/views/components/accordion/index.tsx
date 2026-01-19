@@ -1,5 +1,6 @@
-import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+
+import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/common/utils';
 
@@ -17,12 +18,7 @@ export function Accordion({
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div
-      className={cn(
-        'border-status-fail w-full rounded-lg border-[1.5px]',
-        className,
-      )}
-    >
+    <div className={cn('border-status-fail w-full rounded-lg border-[1.5px]', className)}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}

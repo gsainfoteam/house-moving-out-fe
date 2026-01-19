@@ -1,5 +1,6 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router';
 import { Suspense } from 'react';
+
+import { Outlet, createRootRoute } from '@tanstack/react-router';
 
 function LoadingFallback() {
   return (

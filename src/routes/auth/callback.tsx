@@ -1,5 +1,7 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useRef } from 'react';
+
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import z from 'zod';
 

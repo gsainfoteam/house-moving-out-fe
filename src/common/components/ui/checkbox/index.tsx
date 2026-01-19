@@ -13,10 +13,7 @@ export const Checkbox = forwardRef<
       <input
         type="checkbox"
         ref={ref}
-        className={cn(
-          'peer absolute inset-0 size-6 cursor-pointer opacity-0',
-          className,
-        )}
+        className={cn('peer absolute inset-0 size-6 cursor-pointer opacity-0', className)}
         {...props}
       />
       <CheckedIcon className="hidden size-6 peer-checked:block" />

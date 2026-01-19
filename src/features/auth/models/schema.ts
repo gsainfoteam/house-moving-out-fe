@@ -42,9 +42,7 @@ const _CreateNewPolicyResponseDtoSchema = z.object({
   isActive: z.boolean(),
   createdAt: z.string(),
 });
-export type CreateNewPolicyResponseDto = z.infer<
-  typeof _CreateNewPolicyResponseDtoSchema
->;
+export type CreateNewPolicyResponseDto = z.infer<typeof _CreateNewPolicyResponseDtoSchema>;
 
 const _UserLoginDtoSchema = z.object({
   agreedToTerms: z.boolean().optional(),
@@ -59,10 +57,7 @@ export type UserLoginDto = z.infer<typeof _UserLoginDtoSchema>;
  * `/auth/user/login`에서만 내려오는 403 에러(동의 필요) 스키마.
  * 인터셉터에서 파싱하지 않고, 해당 mutation 훅에서만 추가 파싱한다.
  */
-export const ConsentErrorCodeSchema = z.enum([
-  'CONSENT_REQUIRED',
-  'CONSENT_UPDATE_REQUIRED',
-]);
+export const ConsentErrorCodeSchema = z.enum(['CONSENT_REQUIRED', 'CONSENT_UPDATE_REQUIRED']);
 export type ConsentErrorCode = z.infer<typeof ConsentErrorCodeSchema>;
 
 export const ConsentVersionInfoSchema = z.object({

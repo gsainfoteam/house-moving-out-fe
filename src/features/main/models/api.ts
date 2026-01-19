@@ -10,22 +10,15 @@ import type {
 } from './schema';
 
 export const moveOutApi = {
-  createMoveOutSchedule: async (
-    data: CreateMoveOutScheduleDto,
-  ): Promise<MoveOutScheduleResDto> => {
-    const response = await api.post<MoveOutScheduleResDto>(
-      '/move-out/schedule',
-      data,
-    );
+  createMoveOutSchedule: async (data: CreateMoveOutScheduleDto): Promise<MoveOutScheduleResDto> => {
+    const response = await api.post<MoveOutScheduleResDto>('/move-out/schedule', data);
     return response.data;
   },
 
   getMoveOutScheduleWithSlots: async ({
     id,
   }: GetMoveOutScheduleWithSlotsArgs): Promise<MoveOutScheduleWithSlotsResDto> => {
-    const response = await api.get<MoveOutScheduleWithSlotsResDto>(
-      `/move-out/schedule/${id}`,
-    );
+    const response = await api.get<MoveOutScheduleWithSlotsResDto>(`/move-out/schedule/${id}`);
     return response.data;
   },
 

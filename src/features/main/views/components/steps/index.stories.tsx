@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
 import { Steps } from '.';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const mockSteps: Steps.Step[] = [
   {
@@ -13,8 +13,7 @@ const mockSteps: Steps.Step[] = [
   },
   {
     title: '검사 중',
-    description:
-      '퇴사 검사 진행 중입니다.\n잠시 뒤에 검사 결과를 확인해주세요.',
+    description: '퇴사 검사 진행 중입니다.\n잠시 뒤에 검사 결과를 확인해주세요.',
   },
   {
     title: '검사 결과',

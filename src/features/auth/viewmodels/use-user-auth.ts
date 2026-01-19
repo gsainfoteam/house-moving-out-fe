@@ -1,18 +1,16 @@
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import { isAxiosError } from 'axios';
 import { useCallback } from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
 
-import type { UserLoginDto } from '../models';
-import { authApi } from '../models';
-
-import { useAuthPrompt } from './use-auth-prompt';
-import { useToken } from './use-token';
-
+import { isApiHttpError } from '@/common/lib';
 import { useLoading } from '@/common/viewmodels';
+
+import { useUserLogin, useUserLogout } from './queries';
+import { useAuthPrompt, useToken } from './stores';
+
+import type { UserLoginDto } from '../models';
 
 interface UseUserAuthOptions {
   showToast?: boolean;
@@ -22,113 +20,57 @@ interface UseUserAuthOptions {
 
 export const useUserAuth = (options: UseUserAuthOptions = {}) => {
   const { showToast = false, onSuccess, onError } = options;
-  const navigate = useNavigate();
   const { t } = useTranslation('auth');
-  const {
-    token: idpToken,
-    logOut: idpLogOut,
-    logIn: idpLogIn,
-  } = useAuthContext();
+  const { logOut: idpLogOut, logIn: idpLogIn } = useAuthContext();
   const [isLoggingOut, withLogoutLoading] = useLoading();
 
-  // TODO: 로그아웃 2번 눌러야 되는 거 수정 필요 -> 엄청 오래 걸리는(>10s) 로그아웃이 가끔 발생하는데 이 때 에러는 invalid session 401 에러.
-  const logOut = () =>
-    withLogoutLoading(async () => {
-      try {
-        await authApi.userLogout();
-      } catch (error) {
-        if (isAxiosError(error)) {
-          const status = error.response?.status;
-          const data = error.response?.data as
-            | { message?: string; error?: string; statusCode?: number }
-            | undefined;
-          const message = data?.message;
+  const loginMutation = useUserLogin({
+    showToast,
+    onSuccess: () => {
+      onSuccess?.();
+    },
+    onError: (error) => {
+      onError?.(error);
+    },
+  });
 
+  const logoutMutation = useUserLogout();
+
+  // TODO: 로그아웃 2번 눌러야 되는 거 수정 필요 -> 엄청 오래 걸리는(>10s) 로그아웃이 가끔 발생하는데 이 때 에러는 invalid session 401 에러.
+  const logOut = useCallback(
+    () =>
+      withLogoutLoading(async () => {
+        try {
+          await logoutMutation.mutateAsync();
+        } catch (error) {
           // invalid session이 아닌 경우에만 에러 처리
-          if (!(status === 401 && message === 'invalid session')) {
-            onError?.(error);
-            if (showToast) {
-              toast.error(t('error.logoutFailed'));
-            }
+          if (
+            isApiHttpError(error) &&
+            error.statusCode === 401 &&
+            error.message === 'invalid session'
+          ) {
+            // invalid session은 무시
+            return;
           }
-        } else {
+
           onError?.(error);
           if (showToast) {
             toast.error(t('error.logoutFailed'));
           }
+        } finally {
+          useToken.getState().saveToken(null);
+          useAuthPrompt.getState().setRecentLogout(true);
+          idpLogOut();
         }
-      } finally {
-        useToken.getState().saveToken(null);
-        useAuthPrompt.getState().setRecentLogout(true);
-        idpLogOut();
-      }
-    });
-
-  const goToIdpToken = () => navigate({ to: '/auth/login' });
-  const goToConsentData = () => navigate({ to: '/auth/consent' });
-  const goToHome = () => navigate({ to: '/' });
-
-  const mutation = useMutation({
-    mutationFn: async (consentData?: UserLoginDto) => {
-      if (!idpToken) {
-        goToIdpToken();
-        if (showToast) {
-          toast.error(t('error.noIdpToken'));
-        }
-        throw new Error('No IDP token');
-      }
-
-      return await authApi.userLogin(idpToken, consentData);
-    },
-    onSuccess: (response) => {
-      useToken.getState().saveToken(response.access_token);
-      useAuthPrompt.getState().setRecentLogout(false);
-      onSuccess?.();
-      goToHome();
-    },
-    onError: (error) => {
-      onError?.(error);
-
-      if (isAxiosError(error)) {
-        const status = error.response?.status;
-
-        switch (status) {
-          case 401: {
-            idpLogOut();
-            goToIdpToken();
-            if (showToast) {
-              toast.error(t('error.invalidIdpToken'));
-            }
-            break;
-          }
-          case 403: {
-            // TODO: 약관 버전이 달라져도 403 에러 발생함 -> 이 때 에러 스키마에 나오는 requiredConsents 보고 처리해야 함 -> 에러도 type-safe하게 처리하는 방안 찾아보기
-            //  requiredConsents에 맞게 약관 동의 폼 초깃값 설정
-            goToConsentData();
-            break;
-          }
-          default: {
-            idpLogOut();
-            goToIdpToken();
-            if (showToast) {
-              toast.error(t('error.loginFailed'));
-            }
-            break;
-          }
-        }
-      } else {
-        idpLogOut();
-        goToIdpToken();
-        if (showToast) {
-          toast.error(t('error.loginFailed'));
-        }
-      }
-    },
-  });
+      }),
+    [logoutMutation, withLogoutLoading, onError, showToast, t, idpLogOut],
+  );
 
   const logIn = useCallback(
-    (consentData?: UserLoginDto) => mutation.mutate(consentData),
-    [mutation],
+    (consentData?: UserLoginDto) => {
+      loginMutation.mutate(consentData);
+    },
+    [loginMutation],
   );
 
   return {
@@ -136,7 +78,7 @@ export const useUserAuth = (options: UseUserAuthOptions = {}) => {
     logIn,
     logOut,
     isLoggingOut,
-    isLoggingIn: mutation.isPending,
-    isError: mutation.isError,
+    isLoggingIn: loginMutation.isPending,
+    isError: loginMutation.isError,
   };
 };

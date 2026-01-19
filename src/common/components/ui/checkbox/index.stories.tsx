@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 
 import { Checkbox } from '.';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Checkbox> = {
   title: 'Components/Checkbox',
@@ -53,13 +54,8 @@ export const Controlled: Story = {
 
     return (
       <div className="flex flex-col gap-4">
-        <Checkbox
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-        />
-        <div className="text-sm text-gray-600">
-          상태: {checked ? '체크됨' : '체크 안 됨'}
-        </div>
+        <Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+        <div className="text-sm text-gray-600">상태: {checked ? '체크됨' : '체크 안 됨'}</div>
       </div>
     );
   },
@@ -71,13 +67,8 @@ export const ControlledChecked: Story = {
 
     return (
       <div className="flex flex-col gap-4">
-        <Checkbox
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-        />
-        <div className="text-sm text-gray-600">
-          상태: {checked ? '체크됨' : '체크 안 됨'}
-        </div>
+        <Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+        <div className="text-sm text-gray-600">상태: {checked ? '체크됨' : '체크 안 됨'}</div>
       </div>
     );
   },
@@ -109,23 +100,15 @@ export const Multiple: Story = {
 
     const handleChange = (id: string) => {
       setItems((prev) =>
-        prev.map((item) =>
-          item.id === id ? { ...item, checked: !item.checked } : item,
-        ),
+        prev.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item)),
       );
     };
 
     return (
       <div className="flex flex-col gap-3">
         {items.map((item) => (
-          <label
-            key={item.id}
-            className="flex cursor-pointer items-center gap-2"
-          >
-            <Checkbox
-              checked={item.checked}
-              onChange={() => handleChange(item.id)}
-            />
+          <label key={item.id} className="flex cursor-pointer items-center gap-2">
+            <Checkbox checked={item.checked} onChange={() => handleChange(item.id)} />
             <span className="text-sm">{item.label}</span>
           </label>
         ))}
@@ -163,10 +146,7 @@ export const WithLabel: Story = {
 
     return (
       <label className="flex cursor-pointer items-center gap-2">
-        <Checkbox
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-        />
+        <Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)} />
         <span className="text-sm">이용약관에 동의합니다</span>
       </label>
     );
@@ -180,10 +160,7 @@ export const WithHtmlFor: Story = {
 
     return (
       <div className="flex flex-col gap-4">
-        <label
-          htmlFor="terms-checkbox"
-          className="flex cursor-pointer items-center gap-2"
-        >
+        <label htmlFor="terms-checkbox" className="flex cursor-pointer items-center gap-2">
           <Checkbox
             id="terms-checkbox"
             checked={checked}
@@ -191,9 +168,7 @@ export const WithHtmlFor: Story = {
           />
           <span className="text-sm">이용약관에 동의합니다</span>
         </label>
-        <div className="text-sm text-gray-600">
-          상태: {checked ? '체크됨' : '체크 안 됨'}
-        </div>
+        <div className="text-sm text-gray-600">상태: {checked ? '체크됨' : '체크 안 됨'}</div>
       </div>
     );
   },

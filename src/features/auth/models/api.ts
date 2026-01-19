@@ -31,20 +31,12 @@ export const authApi = {
     await api.post('/auth/admin/logout');
   },
 
-  createNewPolicyVersion: async (
-    data: CreateNewPolicyDto,
-  ): Promise<CreateNewPolicyResponseDto> => {
-    const response = await api.post<CreateNewPolicyResponseDto>(
-      '/auth/admin/policy',
-      data,
-    );
+  createNewPolicyVersion: async (data: CreateNewPolicyDto): Promise<CreateNewPolicyResponseDto> => {
+    const response = await api.post<CreateNewPolicyResponseDto>('/auth/admin/policy', data);
     return response.data;
   },
 
-  userLogin: async ({
-    idpToken,
-    consentData,
-  }: UserLoginArgs): Promise<JwtToken> => {
+  userLogin: async ({ idpToken, consentData }: UserLoginArgs): Promise<JwtToken> => {
     const response = await api.post<JwtToken>('/auth/user/login', consentData, {
       headers: {
         Authorization: `Bearer ${idpToken}`,

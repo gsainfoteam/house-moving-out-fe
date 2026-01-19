@@ -1,16 +1,11 @@
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import type { VariantProps } from 'tailwind-variants';
 
 import { cn, cv } from '@/common/utils';
 
-function StepIcon({
-  status,
-  stepIndex,
-}: {
-  status: Steps.StepStatus;
-  stepIndex: number;
-}) {
+import type { VariantProps } from 'tailwind-variants';
+
+function StepIcon({ status, stepIndex }: { status: Steps.StepStatus; stepIndex: number }) {
   return (
     <div className={Steps.indicatorStyles({ status })}>
       {status === 'completed' ? (
@@ -48,10 +43,7 @@ export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
         const isLast = index === steps.length - 1;
 
         return (
-          <div
-            key={index}
-            className={cn('flex min-h-30 gap-4', isLast && 'min-h-0')}
-          >
+          <div key={index} className={cn('flex min-h-30 gap-4', isLast && 'min-h-0')}>
             <div className="flex flex-col items-center">
               <StepIcon status={status} stepIndex={index + 1} />
               {!isLast && <StepLine status={getLineStatus(index)} />}
@@ -103,9 +95,7 @@ export namespace Steps {
     variants: {
       status: {
         inactive: ['bg-icon-gray'],
-        active: [
-          'bg-primary-main drop-shadow-[0_0_12px_var(--color-primary-main)]',
-        ],
+        active: ['bg-primary-main drop-shadow-[0_0_12px_var(--color-primary-main)]'],
         completed: ['bg-primary-main'],
       },
     },
@@ -121,13 +111,9 @@ export namespace Steps {
     },
   });
 
-  export type StepStatus = NonNullable<
-    VariantProps<typeof indicatorStyles>['status']
-  >;
+  export type StepStatus = NonNullable<VariantProps<typeof indicatorStyles>['status']>;
 
-  export type LineStatus = NonNullable<
-    VariantProps<typeof lineStyles>['status']
-  >;
+  export type LineStatus = NonNullable<VariantProps<typeof lineStyles>['status']>;
 
   export const titleStyles = cv({
     base: [],

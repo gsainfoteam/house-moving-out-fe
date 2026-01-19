@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { TFunction } from 'i18next';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { useUserAuth } from './use-user-auth';
+
+import type { TFunction } from 'i18next';
 
 const createConsentSchema = (t: TFunction<'auth'>) =>
   z.object({

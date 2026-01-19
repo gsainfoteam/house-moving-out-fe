@@ -1,13 +1,15 @@
-import { useSearch } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { formatDate } from '../../utils';
-import { Accordion, StatusCard, Steps, SwitchCase } from '../components';
+import { useSearch } from '@tanstack/react-router';
+
+import { useTranslation } from 'react-i18next';
 
 import ShortLogo from '@/assets/short-logo.svg?react';
 import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
+
+import { formatDate } from '../../utils';
+import { Accordion, StatusCard, Steps, SwitchCase } from '../components';
 
 // FIXME: 모의 유저 정보 제거 후 삭제
 const MOCK_USER = {
@@ -73,10 +75,7 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
 function Step3FailedCard() {
   const { t } = useTranslation('main');
   const failedReasons = useMemo(
-    () => [
-      t('result.failed.reasons.deskDrawer'),
-      t('result.failed.reasons.bathroom'),
-    ],
+    () => [t('result.failed.reasons.deskDrawer'), t('result.failed.reasons.bathroom')],
     [t],
   );
 
@@ -91,19 +90,14 @@ function Step3FailedCard() {
             <StatusCard.Title className="text-status-fail">
               {t('result.failed.title')}
             </StatusCard.Title>
-            <StatusCard.Description>
-              {t('result.failed.description')}
-            </StatusCard.Description>
+            <StatusCard.Description>{t('result.failed.description')}</StatusCard.Description>
           </StatusCard.Text>
         </StatusCard.Header>
         <StatusCard.Details>
           <Accordion title={t('result.failed.accordionTitle')}>
             <ul className="flex flex-col gap-2">
               {failedReasons.map((reason) => (
-                <li
-                  key={reason}
-                  className="text-box2 text-text-black flex items-center gap-2"
-                >
+                <li key={reason} className="text-box2 text-text-black flex items-center gap-2">
                   <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
                   <span>{reason}</span>
                 </li>
@@ -172,9 +166,7 @@ function Step3PassedCard() {
             <StatusCard.Title className="text-primary-main">
               {t('result.passed.title')}
             </StatusCard.Title>
-            <StatusCard.Description>
-              {t('result.passed.description')}
-            </StatusCard.Description>
+            <StatusCard.Description>{t('result.passed.description')}</StatusCard.Description>
           </StatusCard.Text>
         </StatusCard.Header>
       </StatusCard.Content>
@@ -192,10 +184,7 @@ export function MainFrame() {
   const { t } = useTranslation('main');
   const locale = useLocale();
 
-  const inspectionDateText = useMemo(
-    () => formatDate(MOCK_INSPECTION_AT, locale),
-    [locale],
-  );
+  const inspectionDateText = useMemo(() => formatDate(MOCK_INSPECTION_AT, locale), [locale]);
 
   const steps = useMemo(
     () => [
@@ -224,9 +213,7 @@ export function MainFrame() {
   return (
     <div
       className={cn(
-        status === 'passed' || status === 'not-period'
-          ? 'bg-bg-green'
-          : 'bg-bg-surface',
+        status === 'passed' || status === 'not-period' ? 'bg-bg-green' : 'bg-bg-surface',
         'h-dvh px-5 py-6',
       )}
     >

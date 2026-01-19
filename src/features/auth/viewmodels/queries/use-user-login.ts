@@ -1,21 +1,20 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
+
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
 
-import { isApiHttpError } from '@/common/lib';
-import type { ApiHttpError } from '@/common/lib';
+import { isApiHttpError, type ApiHttpError } from '@/common/lib';
 
 import {
+  authApi,
   ConsentRequiredErrorSchema,
   type ConsentRequiredError,
+  type JwtToken,
+  type UserLoginDto,
 } from '../../models';
-import { authApi } from '../../models';
-import type { UserLoginArgs, UserLoginDto } from '../../models';
-import type { JwtToken } from '../../models';
-import { useAuthPrompt } from '../stores/use-auth-prompt';
-import { useToken } from '../stores/use-token';
+import { useAuthPrompt, useToken } from '../stores';
 
 interface UseUserLoginOptions {
   showToast?: boolean;
@@ -34,11 +33,7 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
   const goToConsentData = () => navigate({ to: '/auth/consent' });
   const goToHome = () => navigate({ to: '/' });
 
-  return useMutation<
-    JwtToken,
-    ApiHttpError | ConsentRequiredError,
-    UserLoginDto | undefined
-  >({
+  return useMutation<JwtToken, ApiHttpError | ConsentRequiredError, UserLoginDto | undefined>({
     mutationFn: async (consentData?: UserLoginDto) => {
       if (!idpToken) {
         goToIdpToken();
@@ -48,8 +43,7 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
         throw new Error('No IDP token');
       }
 
-      const args: UserLoginArgs = { idpToken, consentData };
-      return await authApi.userLogin(args);
+      return await authApi.userLogin({ idpToken, consentData });
     },
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
@@ -60,9 +54,7 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
     onError: (error) => {
       // 403 에러인 경우 ConsentRequiredErrorDto로 추가 파싱 시도
       if (isApiHttpError(error) && error.statusCode === 403) {
-        const consentError = ConsentRequiredErrorSchema.safeParse(
-          error.raw || error,
-        );
+        const consentError = ConsentRequiredErrorSchema.safeParse(error.raw || error);
 
         if (consentError.success) {
           // ConsentRequired 에러 처리

@@ -3,10 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { ApiHttpError } from '@/common/lib';
 
 import { moveOutApi, moveOutQueryKeys } from '../../models';
-import type {
-  GetMoveOutScheduleWithSlotsArgs,
-  MoveOutScheduleWithSlotsResDto,
-} from '../../models';
+
+import type { GetMoveOutScheduleWithSlotsArgs, MoveOutScheduleWithSlotsResDto } from '../../models';
 
 export const useGetMoveOutScheduleQuery = (id: number, enabled = true) => {
   return useQuery<MoveOutScheduleWithSlotsResDto, ApiHttpError>({

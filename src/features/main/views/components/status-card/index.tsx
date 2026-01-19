@@ -10,10 +10,7 @@ function StatusCardRoot({
 }) {
   return (
     <div
-      className={cn(
-        'bg-bg-white flex h-full flex-col gap-6 rounded-3xl p-6 shadow-lg',
-        className,
-      )}
+      className={cn('bg-bg-white flex h-full flex-col gap-6 rounded-3xl p-6 shadow-lg', className)}
     >
       {children}
     </div>
@@ -28,12 +25,7 @@ function StatusCardContent({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        'flex flex-1 flex-col items-center justify-center gap-6',
-        className,
-      )}
-    >
+    <div className={cn('flex flex-1 flex-col items-center justify-center gap-6', className)}>
       {children}
     </div>
   );
@@ -47,12 +39,7 @@ function StatusCardHeader({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        'flex flex-col items-center justify-center gap-6 text-center',
-        className,
-      )}
-    >
+    <div className={cn('flex flex-col items-center justify-center gap-6 text-center', className)}>
       {children}
     </div>
   );
@@ -68,28 +55,12 @@ function StatusCardMedia({
   return <div className={className}>{children}</div>;
 }
 
-function StatusCardTitle({
-  children,
-  className,
-}: {
-  children: string;
-  className?: string;
-}) {
+function StatusCardTitle({ children, className }: { children: string; className?: string }) {
   return <h1 className={cn('text-h1 text-center', className)}>{children}</h1>;
 }
 
-function StatusCardDescription({
-  children,
-  className,
-}: {
-  children: string;
-  className?: string;
-}) {
-  return (
-    <div className={cn('text-sub2 text-text-gray text-center', className)}>
-      {children}
-    </div>
-  );
+function StatusCardDescription({ children, className }: { children: string; className?: string }) {
+  return <div className={cn('text-sub2 text-text-gray text-center', className)}>{children}</div>;
 }
 
 function StatusCardText({
@@ -99,11 +70,7 @@ function StatusCardText({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={cn('flex flex-col gap-2 text-center', className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn('flex flex-col gap-2 text-center', className)}>{children}</div>;
 }
 
 function StatusCardDetails({
