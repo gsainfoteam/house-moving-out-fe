@@ -12,7 +12,6 @@ import {
   ConsentRequiredErrorSchema,
   type ConsentRequiredError,
   type JwtToken,
-  type RequiredConsents,
   type UserLoginDto,
 } from '../../models';
 import { useToken } from '../stores';
@@ -30,21 +29,10 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
   const { t } = useTranslation('auth');
   const { token: idpToken, logOut: idpLogOut } = useAuthContext();
 
-  const goToIdpToken = () => navigate({ to: '/auth/login' });
-  const goToConsentData = (requiredConsents?: RequiredConsents) =>
-    navigate({
-      to: '/auth/consent',
-      state: (prev) => ({
-        ...prev,
-        requiredConsents,
-      }),
-    });
-  const goToHome = () => navigate({ to: '/' });
-
   return useMutation<JwtToken, ApiHttpError | ConsentRequiredError, UserLoginDto | undefined>({
     mutationFn: async (consentData?: UserLoginDto) => {
       if (!idpToken) {
-        goToIdpToken();
+        navigate({ to: '/auth/login' });
         if (showToast) {
           toast.error(t('error.noIdpToken'));
         }
@@ -56,7 +44,7 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
       onSuccess?.(response);
-      goToHome();
+      navigate({ to: '/' });
     },
     onError: (error) => {
       onError?.(error);
@@ -64,7 +52,7 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
       if (isApiHttpError(error)) {
         if (error.statusCode === 401) {
           idpLogOut();
-          goToIdpToken();
+          navigate({ to: '/auth/login' });
           if (showToast) {
             toast.error(t('error.invalidIdpToken'));
           }
@@ -76,14 +64,20 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
 
           if (consentError.success) {
             onConsentRequired?.(consentError.data);
-            goToConsentData(consentError.data.requiredConsents);
+            navigate({
+              to: '/auth/consent',
+              state: (prev) => ({
+                ...prev,
+                requiredConsents: consentError.data.requiredConsents,
+              }),
+            });
             return;
           }
         }
       }
 
       idpLogOut();
-      goToIdpToken();
+      navigate({ to: '/auth/login' });
       if (showToast) {
         toast.error(t('error.loginFailed'));
       }
