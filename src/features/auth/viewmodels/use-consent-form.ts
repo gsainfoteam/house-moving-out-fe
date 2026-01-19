@@ -5,7 +5,11 @@ import { z } from 'zod';
 
 import { useUserAuth } from './use-user-auth';
 
+import type { ConsentVersionInfo, RequiredConsents } from '../models';
 import type { TFunction } from 'i18next';
+
+const isSameVersion = (versionInfo?: ConsentVersionInfo) =>
+  versionInfo != null && versionInfo.currentVersion === versionInfo.requiredVersion;
 
 const createConsentSchema = (t: TFunction<'auth'>) =>
   z.object({
@@ -19,7 +23,7 @@ const createConsentSchema = (t: TFunction<'auth'>) =>
 
 export type ConsentFormData = z.infer<ReturnType<typeof createConsentSchema>>;
 
-export const useConsentForm = () => {
+export const useConsentForm = (requiredConsents?: RequiredConsents) => {
   const { t } = useTranslation('auth');
   const { logIn } = useUserAuth({ showToast: true });
 
@@ -28,8 +32,8 @@ export const useConsentForm = () => {
   const form = useForm<ConsentFormData>({
     resolver: zodResolver(consentSchema),
     defaultValues: {
-      privacyPolicy: false,
-      termsOfService: false,
+      privacyPolicy: isSameVersion(requiredConsents?.privacy),
+      termsOfService: isSameVersion(requiredConsents?.terms),
     },
     mode: 'onChange',
   });

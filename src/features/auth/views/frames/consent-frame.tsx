@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -11,13 +11,16 @@ import { useConsentForm } from '../../viewmodels';
 
 export function ConsentFrame() {
   const { t } = useTranslation('auth');
+  const requiredConsents = useRouterState({
+    select: (s) => s.location.state?.requiredConsents,
+  });
 
   const {
     form: { register, formState },
     allChecked,
     handleAllChange,
     onSubmit,
-  } = useConsentForm();
+  } = useConsentForm(requiredConsents);
 
   return (
     <form onSubmit={onSubmit} className="relative flex h-screen flex-col px-4 pt-16 pb-8">

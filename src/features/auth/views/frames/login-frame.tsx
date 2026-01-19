@@ -4,7 +4,6 @@ import { Button, LanguageToggle } from '@/common/components';
 
 import { useUserAuth } from '../../viewmodels';
 
-// TODO: consent 왜 안들어가져? 테스트 필요
 // FIXME: 디자인 수정되면 typography, color 토큰 사용해야 함
 
 export function LoginFrame() {

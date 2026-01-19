@@ -11,7 +11,7 @@ import { cn } from '@/common/utils';
 import { formatDate } from '../../utils';
 import { Accordion, StatusCard, Steps, SwitchCase } from '../components';
 
-// FIXME: 모의 유저 정보 제거 후 삭제
+// FIXME: 목 데이터 제거
 const MOCK_USER = {
   name: '00',
   studentId: '20250000',

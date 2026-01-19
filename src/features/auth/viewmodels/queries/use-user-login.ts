@@ -12,9 +12,10 @@ import {
   ConsentRequiredErrorSchema,
   type ConsentRequiredError,
   type JwtToken,
+  type RequiredConsents,
   type UserLoginDto,
 } from '../../models';
-import { useAuthPrompt, useToken } from '../stores';
+import { useToken } from '../stores';
 
 interface UseUserLoginOptions {
   showToast?: boolean;
@@ -30,7 +31,14 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
   const { token: idpToken, logOut: idpLogOut } = useAuthContext();
 
   const goToIdpToken = () => navigate({ to: '/auth/login' });
-  const goToConsentData = () => navigate({ to: '/auth/consent' });
+  const goToConsentData = (requiredConsents?: RequiredConsents) =>
+    navigate({
+      to: '/auth/consent',
+      state: (prev) => ({
+        ...prev,
+        requiredConsents,
+      }),
+    });
   const goToHome = () => navigate({ to: '/' });
 
   return useMutation<JwtToken, ApiHttpError | ConsentRequiredError, UserLoginDto | undefined>({
@@ -47,51 +55,37 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
     },
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
-      useAuthPrompt.getState().setRecentLogout(false);
       onSuccess?.(response);
       goToHome();
     },
     onError: (error) => {
-      // 403 에러인 경우 ConsentRequiredErrorDto로 추가 파싱 시도
-      if (isApiHttpError(error) && error.statusCode === 403) {
-        const consentError = ConsentRequiredErrorSchema.safeParse(error.raw || error);
-
-        if (consentError.success) {
-          // ConsentRequired 에러 처리
-          onConsentRequired?.(consentError.data);
-          goToConsentData();
-          return;
-        }
-      }
-
-      // 일반 에러 처리
       onError?.(error);
 
       if (isApiHttpError(error)) {
-        switch (error.statusCode) {
-          case 401: {
-            idpLogOut();
-            goToIdpToken();
-            if (showToast) {
-              toast.error(t('error.invalidIdpToken'));
-            }
-            break;
+        if (error.statusCode === 401) {
+          idpLogOut();
+          goToIdpToken();
+          if (showToast) {
+            toast.error(t('error.invalidIdpToken'));
           }
-          default: {
-            idpLogOut();
-            goToIdpToken();
-            if (showToast) {
-              toast.error(t('error.loginFailed'));
-            }
-            break;
+          return;
+        }
+
+        if (error.statusCode === 403) {
+          const consentError = ConsentRequiredErrorSchema.safeParse(error.raw || error);
+
+          if (consentError.success) {
+            onConsentRequired?.(consentError.data);
+            goToConsentData(consentError.data.requiredConsents);
+            return;
           }
         }
-      } else {
-        idpLogOut();
-        goToIdpToken();
-        if (showToast) {
-          toast.error(t('error.loginFailed'));
-        }
+      }
+
+      idpLogOut();
+      goToIdpToken();
+      if (showToast) {
+        toast.error(t('error.loginFailed'));
       }
     },
   });

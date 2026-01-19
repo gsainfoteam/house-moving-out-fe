@@ -61,12 +61,7 @@ export const ConsentErrorCodeSchema = z.enum(['CONSENT_REQUIRED', 'CONSENT_UPDAT
 export type ConsentErrorCode = z.infer<typeof ConsentErrorCodeSchema>;
 
 export const ConsentVersionInfoSchema = z.object({
-  currentVersion: z
-    .object({
-      version: z.string(),
-      agreedAt: z.string(),
-    })
-    .nullable(),
+  currentVersion: z.string(),
   requiredVersion: z.string(),
 });
 export type ConsentVersionInfo = z.infer<typeof ConsentVersionInfoSchema>;
