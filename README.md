@@ -18,6 +18,8 @@
 - `VITE_IDP_AUTHORIZE_URL`
 - `VITE_IDP_TOKEN_URL`
 - `VITE_API_BASE_URL`
+- `SWAGGER_USER`
+- `SWAGGER_PASSWORD`
 
 자세한 내용은 `.env.example` 파일과 infisical을 참고해주세요.
 
