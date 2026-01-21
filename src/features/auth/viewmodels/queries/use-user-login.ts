@@ -29,6 +29,7 @@ export const useUserLogin = (options: UseUserLoginOptions = {}) => {
   const { t } = useTranslation('auth');
   const { token: idpToken, logOut: idpLogOut } = useAuthContext();
 
+  // TODO: Error type을 아래처럼 union으로 하면 결국 onError에서 파싱해야하므로, status code별로 분기 처리하는 것이 나음
   return useMutation<JwtToken, ApiHttpError | ConsentRequiredError, UserLoginDto | undefined>({
     mutationFn: async (consentData?: UserLoginDto) => {
       if (!idpToken) {
