@@ -1,11 +1,26 @@
-import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { useAuthContext } from 'react-oauth2-code-pkce';
+import { toast } from 'sonner';
 
-import type { ApiHttpError } from '@/common/lib';
+import { ApiPaths } from '@/@types/api-schema';
+import { $api } from '@/common/lib';
 
-import { authApi } from '../../models';
+import { useAuthPrompt, useToken } from '../stores';
 
-export const useUserLogout = () => {
-  return useMutation<void, ApiHttpError, void>({
-    mutationFn: () => authApi.userLogout(),
+export const useUserLogout = ({ showToast = false }: { showToast?: boolean } = {}) => {
+  const { t } = useTranslation('auth');
+  const { logOut: idpLogOut } = useAuthContext();
+
+  return $api.useMutation('post', ApiPaths.AuthController_userLogout, {
+    onError: () => {
+      if (showToast) {
+        toast.error(t('error.logoutFailed'));
+      }
+    },
+    onSettled: () => {
+      useToken.getState().saveToken(null);
+      useAuthPrompt.getState().setRecentLogout(true);
+      idpLogOut();
+    },
   });
 };

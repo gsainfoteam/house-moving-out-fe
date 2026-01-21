@@ -1,13 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-
-import type { ApiHttpError } from '@/common/lib';
-
-import { moveOutApi } from '../../models';
-
-import type { CompareSheetsArgs, CreateInspectionTargetsResDto } from '../../models';
+import { ApiPaths } from '@/@types/api-schema';
+import { $api } from '@/common/lib';
 
 export const useCompareSheets = () => {
-  return useMutation<CreateInspectionTargetsResDto, ApiHttpError, CompareSheetsArgs>({
-    mutationFn: (args) => moveOutApi.compareSheets(args),
-  });
+  return $api.useMutation('post', ApiPaths.MoveOutController_compareSheets);
 };

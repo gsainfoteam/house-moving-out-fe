@@ -1,11 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-
-import type { ApiHttpError } from '@/common/lib';
-
-import { authApi } from '../../models';
+import { ApiPaths } from '@/@types/api-schema';
+import { $api } from '@/common/lib';
 
 export const useAdminLogout = () => {
-  return useMutation<void, ApiHttpError, void>({
-    mutationFn: () => authApi.adminLogout(),
-  });
+  return $api.useMutation('post', ApiPaths.AuthController_adminLogout);
 };

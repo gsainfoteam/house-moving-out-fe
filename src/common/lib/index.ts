@@ -1,3 +1,2 @@
-export * from './axios';
+export * from './api';
 export * from './i18n';
-export * from './api-error.schema';

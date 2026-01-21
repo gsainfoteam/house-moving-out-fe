@@ -1,13 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-
-import type { ApiHttpError } from '@/common/lib';
-
-import { authApi } from '../../models';
-
-import type { JwtToken } from '../../models';
+import { ApiPaths } from '@/@types/api-schema';
+import { $api } from '@/common/lib';
 
 export const useAdminRefresh = () => {
-  return useMutation<JwtToken, ApiHttpError, void>({
-    mutationFn: () => authApi.adminRefresh(),
-  });
+  return $api.useMutation('post', ApiPaths.AuthController_adminRefresh);
 };

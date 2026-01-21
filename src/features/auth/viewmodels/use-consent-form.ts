@@ -3,10 +3,14 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
+import type { components } from '@/@types/api-schema';
+
 import { useUserAuth } from './use-user-auth';
 
-import type { ConsentVersionInfo, RequiredConsents } from '../models';
 import type { TFunction } from 'i18next';
+
+type ConsentVersionInfo = components['schemas']['ConsentVersionInfo'];
+type RequiredConsents = components['schemas']['RequiredConsents'];
 
 const isSameVersion = (versionInfo?: ConsentVersionInfo) =>
   versionInfo != null && versionInfo.currentVersion === versionInfo.requiredVersion;

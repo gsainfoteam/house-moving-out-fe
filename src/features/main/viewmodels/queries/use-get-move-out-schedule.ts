@@ -1,18 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-
-import type { ApiHttpError } from '@/common/lib';
-
-import { moveOutApi, moveOutQueryKeys } from '../../models';
-
-import type { GetMoveOutScheduleWithSlotsArgs, MoveOutScheduleWithSlotsResDto } from '../../models';
+import { ApiPaths } from '@/@types/api-schema';
+import { $api } from '@/common/lib';
 
 export const useGetMoveOutScheduleQuery = (id: number, enabled = true) => {
-  return useQuery<MoveOutScheduleWithSlotsResDto, ApiHttpError>({
-    queryKey: moveOutQueryKeys.scheduleWithSlots(id),
-    queryFn: () => {
-      const args: GetMoveOutScheduleWithSlotsArgs = { id };
-      return moveOutApi.getMoveOutScheduleWithSlots(args);
+  return $api.useQuery(
+    'get',
+    ApiPaths.MoveOutController_findMoveOutScheduleWithSlots,
+    {
+      params: {
+        path: { id },
+      },
     },
-    enabled,
-  });
+    {
+      enabled,
+    },
+  );
 };

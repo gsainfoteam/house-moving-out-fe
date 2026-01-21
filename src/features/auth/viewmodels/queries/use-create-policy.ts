@@ -1,19 +1,14 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
-import type { ApiHttpError } from '@/common/lib';
-
-import { authApi, authQueryKeys } from '../../models';
-
-import type { CreateNewPolicyDto, CreateNewPolicyResponseDto } from '../../models';
+import { ApiPaths } from '@/@types/api-schema';
+import { $api } from '@/common/lib';
 
 export const useCreatePolicyMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<CreateNewPolicyResponseDto, ApiHttpError, CreateNewPolicyDto>({
-    mutationFn: (data) => authApi.createNewPolicyVersion(data),
+  return $api.useMutation('post', ApiPaths.AuthController_createNewPolicyVersion, {
     onSuccess: () => {
-      // 정책 관련 쿼리 무효화 (필요시)
-      queryClient.invalidateQueries({ queryKey: authQueryKeys.all });
+      queryClient.invalidateQueries();
     },
   });
 };
