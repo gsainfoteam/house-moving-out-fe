@@ -15,7 +15,7 @@
     "i18n:status": "i18next-cli status",
     "i18n:sync": "i18next-cli sync",
     "i18n:lint": "i18next-cli lint",
-    "gen:api": "dotenv -- sh -c 'curl -u \"$SWAGGER_USER:$SWAGGER_PASSWORD\" https://api.stg.moving-out.gistory.me/api-json -o swagger.json' && bunx openapi-typescript ./swagger.json -o ./src/@types/api-schema.d.ts && rm swagger.json",
+    "gen:api": "dotenv -- sh -c 'curl -u \"$SWAGGER_USER:$SWAGGER_PASSWORD\" https://api.stg.moving-out.gistory.me/api-json -o swagger.json' && bunx openapi-typescript ./swagger.json -o ./src/@types/api-schema.d.ts --enum --make-paths-enum --array-length && rm swagger.json",
     "gen:i18n": "i18next-cli extract --watch && i18next-cli types --watch",
     "gen": "bun run gen:api && bun run gen:i18n"
   },
