@@ -63,6 +63,8 @@ export default defineConfig(
         'warn',
         { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
       ],
+      semi: ['error', 'always'],
+      'comma-dangle': ['error', 'always-multiline'],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
@@ -163,4 +165,11 @@ export default defineConfig(
   },
   ...storybook.configs['flat/recommended'],
   prettierConfig,
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      semi: ['error', 'always'],
+      'comma-dangle': ['error', 'always-multiline'],
+    },
+  },
 );
