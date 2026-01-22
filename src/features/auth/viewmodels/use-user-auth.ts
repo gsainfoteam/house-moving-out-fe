@@ -1,11 +1,35 @@
+
+import { useCallback } from 'react';
+
+import { useNavigate } from '@tanstack/react-router';
+
+import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
+import { toast } from 'sonner';
 
 import { useUserLogin, useUserLogout } from './queries';
 
 export const useUserAuth = ({ showToast = false }: { showToast?: boolean } = {}) => {
-  const { logIn: idpLogIn } = useAuthContext();
-  const { mutate: logIn, ...logInMutation } = useUserLogin({ showToast });
+  const { token: idpToken, logIn: idpLogIn } = useAuthContext();
+  const { mutate: logInMutate, ...logInMutation } = useUserLogin({ showToast });
   const { mutate: logOut, ...logOutMutation } = useUserLogout({ showToast });
+  const { t } = useTranslation('auth');
+  const navigate = useNavigate();
+
+  const logIn = useCallback(
+    (...args: Parameters<typeof logInMutate>) => {
+      if (!idpToken) {
+        navigate({ to: '/auth/login' });
+        if (showToast) {
+          toast.error(t('error.noIdpToken'));
+        }
+        return;
+      }
+  
+      return logInMutate(...args);
+    },
+    [idpToken, navigate, showToast, t, logInMutate],
+  );
 
   // TODO: 로그아웃 2번 눌러야 되는 거 수정 필요 -> 엄청 오래 걸리는(>10s) 로그아웃이 가끔 발생하는데 이 때 에러는 invalid session 401 에러.
   return {

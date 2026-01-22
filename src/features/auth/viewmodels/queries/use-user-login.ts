@@ -11,19 +11,10 @@ import { useToken } from '../stores';
 
 export const useUserLogin = ({ showToast = false }: { showToast?: boolean } = {}) => {
   const { t } = useTranslation('auth');
-  const { token: idpToken, logOut: idpLogOut } = useAuthContext();
+  const { logOut: idpLogOut } = useAuthContext();
   const navigate = useNavigate();
 
   return $api.useMutation('post', ApiPaths.AuthController_userLogin, {
-    onMutate: () => {
-      if (!idpToken) {
-        navigate({ to: '/auth/login' });
-        if (showToast) {
-          toast.error(t('error.noIdpToken'));
-        }
-        throw new Error('No IDP token');
-      }
-    },
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
       navigate({ to: '/' });

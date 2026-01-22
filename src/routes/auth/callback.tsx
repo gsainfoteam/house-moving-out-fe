@@ -32,7 +32,6 @@ function CallbackComponent() {
           Authorization: `Bearer ${token}`,
         },
       });
-      return;
     } else {
       navigate({ to: '/auth/login' });
     }
