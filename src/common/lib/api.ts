@@ -4,7 +4,7 @@ import createQueryClient from "openapi-react-query";
 import { ApiPaths, type paths } from "@/@types/api-schema";
 import { useToken } from "@/features/auth";
 
-let refreshPromise: ReturnType<typeof api.POST<'/auth/user/refresh', MaybeOptionalInit<paths['/auth/user/refresh'], 'post'>>> | null = null;
+let refreshPromise: ReturnType<typeof api.POST<ApiPaths.AuthController_userRefresh, MaybeOptionalInit<paths[ApiPaths.AuthController_userRefresh], 'post'>>> | null = null;
 
 const middleware: Middleware = {
   async onRequest({ request }) {
