@@ -60,10 +60,13 @@ export const useConsentForm = (requiredConsents?: RequiredConsents) => {
 
   const onSubmit = form.handleSubmit(async (data) => {
     await logIn({
-      agreedToPrivacy: data.privacyPolicy,
-      agreedToTerms: data.termsOfService,
-      privacyVersion: '1.0.0',
-      termsVersion: '1.0.0',
+      body: {
+        agreedToPrivacy: data.privacyPolicy,
+        agreedToTerms: data.termsOfService,
+        // TODO: 버전 정보 및 내용 받아오기 - terms 사이트에서
+        privacyVersion: '1.0.0',
+        termsVersion: '1.0.0',
+      },
     });
   });
 

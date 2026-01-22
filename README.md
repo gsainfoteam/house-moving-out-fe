@@ -81,11 +81,9 @@ bun run build-storybook
 ### 주요 명령어
 
 ```bash
-# 번역 키 추출 (개발 중 watch 모드 권장)
-bun run i18n:extract:watch
-
-# TypeScript 타입 생성 (개발 중 watch 모드 권장)
-bun run i18n:types:watch
+# 번역 키 추출 및 Typescript 타입 생성 (개발 중 watch 권장)
+bun run gen:i18n
+bun run gen:i18n:watch
 
 # 번역 상태 확인
 bun run i18n:status

@@ -15,25 +15,28 @@ export const Route = createFileRoute('/auth/callback')({
 });
 
 function CallbackComponent() {
-  const { token, loginInProgress } = useAuthContext();
-  const { logIn, isLoggingIn } = useUserAuth({ showToast: false });
+  const { token, loginInProgress: isIdpLoggingIn } = useAuthContext();
+  const { logIn, logInMutation: { isPending: isLoggingIn } } = useUserAuth({ showToast: false });
   const navigate = useNavigate();
   const hasProcessed = useRef(false);
 
   useEffect(() => {
-    if (hasProcessed.current || loginInProgress || isLoggingIn) {
+    if (hasProcessed.current || isIdpLoggingIn || isLoggingIn) {
       return;
     }
 
     if (token) {
       hasProcessed.current = true;
-      logIn();
+      logIn({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return;
+    } else {
+      navigate({ to: '/auth/login' });
     }
-
-    // token이 없으면 로그인 페이지로 리다이렉트
-    navigate({ to: '/auth/login' });
-  }, [token, logIn, loginInProgress, isLoggingIn, navigate]);
+  }, [token, logIn, isLoggingIn, isIdpLoggingIn, navigate]);
 
   return null;
 }
