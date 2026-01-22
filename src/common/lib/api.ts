@@ -1,13 +1,10 @@
-import createFetchClient, { type Middleware } from "openapi-fetch";
+import createFetchClient, { type MaybeOptionalInit, type Middleware } from "openapi-fetch";
 import createQueryClient from "openapi-react-query";
 
 import { ApiPaths, type paths } from "@/@types/api-schema";
 import { useToken } from "@/features/auth";
 
-interface AuxiliaryRequest extends Request {
-  retry?: boolean;
-  keepToken?: boolean;
-}
+let refreshPromise: ReturnType<typeof api.POST<'/auth/user/refresh', MaybeOptionalInit<paths['/auth/user/refresh'], 'post'>>> | null = null;
 
 const middleware: Middleware = {
   async onRequest({ request }) {
@@ -19,23 +16,32 @@ const middleware: Middleware = {
     return request;
   },
   async onResponse({ request, response, options }) {
-    const auxiliaryRequest = request as AuxiliaryRequest;
-    
     if (response.status == 401) {
-      if (auxiliaryRequest.retry || request.url.includes(ApiPaths.AuthController_userRefresh)) {
-        if (!auxiliaryRequest.keepToken) {
-          useToken.getState().saveToken(null);
-        }
-      } else {
-        const { data } = await api.POST(ApiPaths.AuthController_userRefresh);
+      if (request.headers.has('x-retry') || request.url.includes(ApiPaths.AuthController_userRefresh)) {
+        return response;
+      }
+      
+      if (!refreshPromise) {
+        refreshPromise = api.POST(ApiPaths.AuthController_userRefresh).finally(() => refreshPromise = null);
+      }
 
-        if (data) {
-          useToken.getState().saveToken(data.access_token);
-          auxiliaryRequest.retry = true;
-          return options.fetch(auxiliaryRequest);
-        } else if (!auxiliaryRequest.keepToken) {
-          useToken.getState().saveToken(null);
-        }
+      const { data } = await refreshPromise;
+
+      if (data) {
+        const newToken = data.access_token;
+        useToken.getState().saveToken(newToken);
+
+        const retryRequest = new Request(request, {
+          headers: new Headers([
+            ...Array.from(request.headers.entries()),
+            ['Authorization', `Bearer ${newToken}`],
+            ['x-retry', 'true'],
+          ]),
+        });
+        
+        return options.fetch(retryRequest);
+      } else {
+        useToken.getState().saveToken(null);
       }
     }
 
@@ -44,15 +50,6 @@ const middleware: Middleware = {
     } else {
       return response;
     }
-  },
-  async onError({ error, request }) {
-    if (request.url.includes(ApiPaths.AuthController_userRefresh))
-      return Promise.reject(`Error refreshing user token: ${error}`);
-    
-    if (request.url.includes(ApiPaths.AuthController_userLogin))
-      return Promise.reject(`Error in user login: ${error}`);
-
-    return Promise.reject(`Error in request: ${error}`);
   },
 };
 
