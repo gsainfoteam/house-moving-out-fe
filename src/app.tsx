@@ -1,6 +1,7 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
 
+import { OverlayProvider } from 'overlay-kit';
 import { AuthProvider, type TAuthConfig } from 'react-oauth2-code-pkce';
 import { Toaster } from 'sonner';
 
@@ -35,8 +36,10 @@ export function App() {
   return (
     <AuthProvider authConfig={authConfig}>
       <QueryClientProvider client={queryClient}>
-        <Toaster toastOptions={toastOptions} />
-        <RouterProvider router={router} />
+        <OverlayProvider>
+          <Toaster toastOptions={toastOptions} />
+          <RouterProvider router={router} />
+        </OverlayProvider>
       </QueryClientProvider>
     </AuthProvider>
   );
