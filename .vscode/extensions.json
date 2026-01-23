@@ -2,6 +2,6 @@
     "recommendations": [
         "loccy.loccy",
         "prettier.prettier-vscode",
-        "dbaeumer.vscode-eslint",
+        "dbaeumer.vscode-eslint"
     ]
 }
