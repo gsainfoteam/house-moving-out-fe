@@ -5,11 +5,12 @@ import { useSearch } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import ShortLogo from '@/assets/short-logo.svg?react';
+import { SwitchCase } from '@/common/components';
 import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
 
 import { formatDate } from '../../utils';
-import { Accordion, StatusCard, Steps, SwitchCase } from '../components';
+import { Accordion, StatusCard, Steps } from '../components';
 
 // TEST: 목 데이터 제거
 const MOCK_USER = {
