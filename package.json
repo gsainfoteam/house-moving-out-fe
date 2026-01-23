@@ -21,6 +21,7 @@
     "gen": "bun run gen:api && bun run gen:i18n"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.16",
     "@hookform/resolvers": "^5.2.2",
     "@storybook/react-vite": "^9.1.9",
     "@tailwindcss/vite": "^4.0.6",
@@ -38,6 +39,7 @@
     "lucide-react": "^0.562.0",
     "openapi-fetch": "^0.15.0",
     "openapi-react-query": "^0.5.1",
+    "overlay-kit": "^1.8.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.70.0",
