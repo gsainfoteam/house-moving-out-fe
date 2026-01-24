@@ -16,7 +16,10 @@ export const Route = createFileRoute('/auth/callback')({
 
 function CallbackComponent() {
   const { token, loginInProgress: isIdpLoggingIn } = useAuthContext();
-  const { logIn, logInMutation: { isPending: isLoggingIn } } = useUserAuth({ showToast: false });
+  const {
+    logIn,
+    logInMutation: { isPending: isLoggingIn },
+  } = useUserAuth({ showToast: false });
   const navigate = useNavigate();
   const hasProcessed = useRef(false);
 

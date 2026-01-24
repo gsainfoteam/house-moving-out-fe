@@ -1,4 +1,9 @@
 {
+  "fab": {
+    "inquiry": "Inquiry",
+    "languageChange": "Change Language",
+    "logout": "Logout"
+  },
   "switchToEnglish": "Switch to English",
   "switchToKorean": "Switch to Korean"
 }

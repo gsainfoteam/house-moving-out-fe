@@ -1,6 +1,13 @@
 import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-router';
 
-import { useToken } from '@/features/auth';
+import { useTranslation } from 'react-i18next';
+
+import HomeIcon from '@/assets/icons/home.svg?react';
+import LogOutIcon from '@/assets/icons/log-out.svg?react';
+import TranslateIcon from '@/assets/icons/translate.svg?react';
+import { Fab } from '@/common/components';
+import { useLanguage } from '@/common/viewmodels';
+import { useToken, useUserAuth } from '@/features/auth';
 
 export const Route = createFileRoute('/_auth-required')({
   component: AuthRequiredLayout,
@@ -9,6 +16,9 @@ export const Route = createFileRoute('/_auth-required')({
 function AuthRequiredLayout() {
   const { token } = useToken();
   const router = useRouter();
+  const { logOut } = useUserAuth({ showToast: true });
+  const { toggleLanguage } = useLanguage();
+  const { t } = useTranslation('common');
 
   const redirect = router.state.location.pathname + router.state.location.searchStr;
 
@@ -16,5 +26,30 @@ function AuthRequiredLayout() {
     return <Navigate to="/auth/login" search={{ redirect }} replace />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <Fab>
+        <Fab.Item
+          icon={<HomeIcon className="size-6" />}
+          label={t('fab.inquiry')}
+          onClick={() => {
+            // TODO: 문의하기 기능 구현
+            console.log('문의하기');
+          }}
+        />
+        <Fab.Item
+          icon={<TranslateIcon className="size-6" />}
+          label={t('fab.languageChange')}
+          onClick={toggleLanguage}
+        />
+        <Fab.Item
+          icon={<LogOutIcon className="size-6" />}
+          label={t('fab.logout')}
+          className="text-status-fail"
+          onClick={() => logOut({})}
+        />
+      </Fab>
+    </>
+  );
 }
