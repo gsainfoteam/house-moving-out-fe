@@ -69,8 +69,6 @@ function FabContent({
   close,
   children,
 }: Fab.ContentProps) {
-  if (!isOpen) return null;
-
   const items = React.Children.toArray(children).filter(
     (child): child is React.ReactElement<Fab.ItemProp, typeof FabItem> =>
       React.isValidElement(child) && child.type === FabItem,
@@ -78,21 +76,32 @@ function FabContent({
 
   return (
     <>
-      <FloatingOverlay lockScroll className="pointer-events-none bg-black/50" />
-      <FloatingFocusManager context={context} modal>
-        <FabContext.Provider value={{ close }}>
-          <div
-            ref={(node) => refs.setFloating(node)}
-            className="flex flex-col gap-1 pb-3"
-            style={floatingStyles}
-            {...getFloatingProps()}
-          >
-            {items.map((item, index) =>
-              index === items.length - 1 ? React.cloneElement(item, { last: true }) : item,
-            )}
-          </div>
-        </FabContext.Provider>
-      </FloatingFocusManager>
+      <FloatingOverlay
+        lockScroll
+        className={cn(
+          'pointer-events-none bg-black/50 transition-opacity duration-200',
+          isOpen ? 'opacity-100' : 'opacity-0',
+        )}
+      />
+      {isOpen && (
+        <FloatingFocusManager context={context} modal>
+          <FabContext.Provider value={{ close }}>
+            <div
+              ref={(node) => refs.setFloating(node)}
+              className={cn(
+                'flex flex-col gap-1 pb-3 transition-opacity duration-200',
+                isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0',
+              )}
+              style={floatingStyles}
+              {...getFloatingProps()}
+            >
+              {items.map((item, index) =>
+                index === items.length - 1 ? React.cloneElement(item, { last: true }) : item,
+              )}
+            </div>
+          </FabContext.Provider>
+        </FloatingFocusManager>
+      )}
     </>
   );
 }
