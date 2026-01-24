@@ -32,6 +32,7 @@ export default defineConfig({
   lint: {
     ignoredAttributes: ['data-testid', 'aria-label'],
     ignoredTags: ['pre', 'code'],
+    ignore: ['**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   },
 
   types: {
