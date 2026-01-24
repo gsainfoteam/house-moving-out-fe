@@ -15,6 +15,7 @@ import {
 } from '@floating-ui/react';
 
 import MenuIcon from '@/assets/icons/menu.svg?react';
+import Tail from '@/assets/tail.svg?react';
 import { cn } from '@/common/utils';
 
 interface FabContextValue {
@@ -31,32 +32,31 @@ function useFabContext() {
   return context;
 }
 
-function FabItem({
-  icon,
-  label,
-  last: _last = false,
-  className,
-  onClick,
-  ...props
-}: Fab.ItemProps) {
+function FabItem({ icon, label, last = false, className, onClick, ...props }: Fab.ItemProps) {
   const { close } = useFabContext();
-  // TODO: last가 true면 꼭다리 붙이기
 
   return (
-    <button
-      className={cn(
-        'bg-bg-white hover:bg-bg-surface inset-ring-icon-gray flex w-full items-center justify-center gap-3 rounded-full px-8 py-3 inset-ring',
-        className,
+    <div className="relative">
+      <button
+        className={cn(
+          'bg-bg-white hover:bg-bg-surface inset-ring-icon-gray relative z-10 flex w-full items-center justify-center gap-3 rounded-full px-8 py-2.5',
+          className,
+        )}
+        onClick={(e) => {
+          close();
+          onClick?.(e);
+        }}
+        {...props}
+      >
+        {icon}
+        <div className="text-h2 text-current">{label}</div>
+      </button>
+      {last && (
+        <div className="absolute bottom-0 left-2/3 z-0 translate-y-2/3" aria-hidden="true">
+          <Tail />
+        </div>
       )}
-      onClick={(e) => {
-        close();
-        onClick?.(e);
-      }}
-      {...props}
-    >
-      {icon}
-      <div className="text-h2 text-current">{label}</div>
-    </button>
+    </div>
   );
 }
 
@@ -83,7 +83,7 @@ function FabContent({
         <FabContext.Provider value={{ close }}>
           <div
             ref={(node) => refs.setFloating(node)}
-            className="flex w-40 flex-col gap-1"
+            className="flex w-40 flex-col gap-1 pb-3"
             style={floatingStyles}
             {...getFloatingProps()}
           >
