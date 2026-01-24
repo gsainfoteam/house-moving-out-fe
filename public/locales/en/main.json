@@ -1,7 +1,7 @@
 {
   "header": {
-    "subtitle": "Student ID: {{studentId}} | Room: {{room}}",
-    "title": "{{name}}'s Moving Out Inspection Status"
+    "subtitle": "Student ID: {{studentId}} | {{room}}",
+    "title": "Move-out Inspection"
   },
   "result": {
     "failed": {
@@ -28,22 +28,22 @@
   "steps": {
     "label": "Step {{number}}",
     "step0": {
-      "button": "Apply for Moving Out Inspection",
-      "description": "Please apply for the moving out inspection\nusing the button below.",
-      "title": "Inspection Application"
+      "button": "Apply Inspection",
+      "description": "Please apply for the inspection using the button below.",
+      "title": "Apply"
     },
     "step1": {
       "button": "Change Inspection Schedule",
-      "description": "Moving out inspection is scheduled\nfor {{inspectionDate}}.",
-      "title": "Waiting for Inspection"
+      "description": "Scheduled for {{inspectionDate}}.",
+      "title": "Waiting"
     },
     "step2": {
-      "button": "Waiting for Inspection Results",
-      "description": "Moving out inspection is in progress.\nPlease check the results shortly.",
-      "title": "Inspection in Progress"
+      "button": "Waiting for Results",
+      "description": "The RA is currently inspecting your room. Please check the results in a moment.",
+      "title": "Inspecting"
     },
     "step3": {
-      "title": "Inspection Results"
+      "title": "Results"
     }
   }
 }

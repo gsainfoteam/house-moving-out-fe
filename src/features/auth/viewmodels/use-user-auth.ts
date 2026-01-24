@@ -1,4 +1,3 @@
-
 import { useCallback } from 'react';
 
 import { useNavigate } from '@tanstack/react-router';
@@ -25,7 +24,7 @@ export const useUserAuth = ({ showToast = false }: { showToast?: boolean } = {})
         }
         return;
       }
-  
+
       return logInMutate(...args);
     },
     [idpToken, navigate, showToast, t, logInMutate],

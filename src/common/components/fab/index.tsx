@@ -83,7 +83,7 @@ function FabContent({
         <FabContext.Provider value={{ close }}>
           <div
             ref={(node) => refs.setFloating(node)}
-            className="flex w-40 flex-col gap-1 pb-3"
+            className="flex flex-col gap-1 pb-3"
             style={floatingStyles}
             {...getFloatingProps()}
           >
