@@ -15,6 +15,7 @@ import {
 } from '@floating-ui/react';
 
 import MenuIcon from '@/assets/icons/menu.svg?react';
+import XCloseIcon from '@/assets/icons/x-close.svg?react';
 import Tail from '@/assets/tail.svg?react';
 import { cn } from '@/common/utils';
 
@@ -142,7 +143,11 @@ function FabRoot({ children }: Fab.RootProps) {
         )}
         {...getReferenceProps()}
       >
-        <MenuIcon className="text-primary-main size-8" />
+        {isOpen ? (
+          <XCloseIcon className="text-primary-main size-8" />
+        ) : (
+          <MenuIcon className="text-primary-main size-8" />
+        )}
       </button>
     </>
   );

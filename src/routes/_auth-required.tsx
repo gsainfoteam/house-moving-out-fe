@@ -35,7 +35,9 @@ function AuthRequiredLayout() {
           label={t('fab.inquiry')}
           onClick={() => {
             // TODO: 문의하기 기능 구현
-            console.log('문의하기');
+            alert(
+              '인스타 디엠: @gist.house.ask\ne-mail: gist_house@gist.ac.kr\nFAQ (자주 묻는 질문) 보러가기',
+            );
           }}
         />
         <Fab.Item
