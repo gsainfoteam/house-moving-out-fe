@@ -80,8 +80,8 @@ function FabContent({
       <FloatingOverlay
         lockScroll
         className={cn(
-          'pointer-events-none bg-black/50 transition-opacity duration-200',
-          isOpen ? 'opacity-100' : 'opacity-0',
+          'bg-black/50 transition-opacity duration-200',
+          isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
         )}
       />
       {isOpen && (
