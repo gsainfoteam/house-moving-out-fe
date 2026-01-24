@@ -1,6 +1,8 @@
 import React, { createContext, useContext, type PropsWithChildren } from 'react';
 
 import {
+  FloatingFocusManager,
+  FloatingOverlay,
   autoUpdate,
   offset,
   shift,
@@ -8,6 +10,7 @@ import {
   useDismiss,
   useFloating,
   useInteractions,
+  useRole,
   type UseFloatingReturn,
 } from '@floating-ui/react';
 
@@ -42,7 +45,7 @@ function FabItem({
   return (
     <button
       className={cn(
-        'bg-bg-white inset-ring-icon-gray flex w-full items-center justify-center gap-3 rounded-full px-8 py-3 inset-ring',
+        'bg-bg-white hover:bg-bg-surface inset-ring-icon-gray flex w-full items-center justify-center gap-3 rounded-full px-8 py-3 inset-ring',
         className,
       )}
       onClick={(e) => {
@@ -61,6 +64,7 @@ function FabContent({
   isOpen,
   refs,
   floatingStyles,
+  context,
   getFloatingProps,
   close,
   children,
@@ -73,18 +77,23 @@ function FabContent({
   );
 
   return (
-    <FabContext.Provider value={{ close }}>
-      <div
-        ref={(node) => refs.setFloating(node)}
-        className="flex w-40 flex-col gap-1"
-        style={floatingStyles}
-        {...getFloatingProps()}
-      >
-        {items.map((item, index) =>
-          index === items.length - 1 ? React.cloneElement(item, { last: true }) : item,
-        )}
-      </div>
-    </FabContext.Provider>
+    <>
+      <FloatingOverlay lockScroll className="pointer-events-none bg-black/50" />
+      <FloatingFocusManager context={context} modal>
+        <FabContext.Provider value={{ close }}>
+          <div
+            ref={(node) => refs.setFloating(node)}
+            className="flex w-40 flex-col gap-1"
+            style={floatingStyles}
+            {...getFloatingProps()}
+          >
+            {items.map((item, index) =>
+              index === items.length - 1 ? React.cloneElement(item, { last: true }) : item,
+            )}
+          </div>
+        </FabContext.Provider>
+      </FloatingFocusManager>
+    </>
   );
 }
 
@@ -101,29 +110,31 @@ function FabRoot({ children }: Fab.RootProps) {
 
   const click = useClick(context);
   const dismiss = useDismiss(context);
+  const role = useRole(context, { role: 'dialog' });
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role]);
 
   return (
     <>
-      <button
-        ref={(node) => refs.setReference(node)}
-        className={cn(
-          'bg-bg-white flex size-16 items-center justify-center rounded-full shadow-md',
-        )}
-        {...getReferenceProps()}
-      >
-        <MenuIcon className="text-primary-main size-8" />
-      </button>
       <FabContent
         isOpen={isOpen}
         refs={refs}
         floatingStyles={floatingStyles}
+        context={context}
         getFloatingProps={getFloatingProps}
         close={() => setIsOpen(false)}
       >
         {children}
       </FabContent>
+      <button
+        ref={(node) => refs.setReference(node)}
+        className={cn(
+          'bg-bg-white hover:bg-bg-surface fixed right-5 bottom-5 z-50 flex size-16 items-center justify-center rounded-full shadow-md',
+        )}
+        {...getReferenceProps()}
+      >
+        <MenuIcon className="text-primary-main size-8" />
+      </button>
     </>
   );
 }
@@ -145,6 +156,7 @@ export namespace Fab {
     isOpen: boolean;
     refs: UseFloatingReturn['refs'];
     floatingStyles: UseFloatingReturn['floatingStyles'];
+    context: UseFloatingReturn['context'];
     getFloatingProps: ReturnType<typeof useInteractions>['getFloatingProps'];
     close: () => void;
     children: React.ReactNode;
