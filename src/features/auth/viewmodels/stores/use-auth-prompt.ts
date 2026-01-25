@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 import type { components } from '@/@types/api-schema';
 
@@ -11,9 +12,16 @@ interface AuthPromptState {
   setRequiredConsents: (requiredConsents: RequiredConsents | undefined) => void;
 }
 
-export const useAuthPrompt = create<AuthPromptState>((set) => ({
-  recentLogout: false,
-  setRecentLogout: (recentLogout) => set((prev) => ({ ...prev, recentLogout })),
-  requiredConsents: undefined,
-  setRequiredConsents: (requiredConsents) => set((prev) => ({ ...prev, requiredConsents })),
-}));
+const AUTH_PROMPT_STORAGE_KEY = 'auth-prompt';
+
+export const useAuthPrompt = create<AuthPromptState>()(
+  persist(
+    (set) => ({
+      recentLogout: false,
+      setRecentLogout: (recentLogout) => set((prev) => ({ ...prev, recentLogout })),
+      requiredConsents: undefined,
+      setRequiredConsents: (requiredConsents) => set((prev) => ({ ...prev, requiredConsents })),
+    }),
+    { name: AUTH_PROMPT_STORAGE_KEY },
+  ),
+);
