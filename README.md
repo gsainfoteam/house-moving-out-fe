@@ -21,7 +21,7 @@
 - `SWAGGER_USER`
 - `SWAGGER_PASSWORD`
 
-자세한 내용은 `.env.example` 파일과 infisical을 참고해주세요.
+자세한 내용은 `.env.example` 파일과 Notion, Infisical을 참고해주세요.
 
 ## 개발 방법
 
