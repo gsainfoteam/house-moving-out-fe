@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -32,29 +30,7 @@ const createConsentSchema = (t: TFunction<'auth'>) =>
 
 export type ConsentFormData = z.infer<ReturnType<typeof createConsentSchema>>;
 
-// FIXME: 프론트엔드에서 하는 게 맞나?
-const getLatestVersion = async (): Promise<{ privacyVersion: string; tosVersion: string }> => {
-  const url = 'https://terms.gistory.me/moving-out/index.json';
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch version info: ${response.statusText}`);
-  }
-
-  const data = (await response.json()) as {
-    service: string;
-    privacy: string;
-    tos: string;
-  };
-  return {
-    privacyVersion: data.privacy,
-    tosVersion: data.tos,
-  };
-};
-
-export const useConsentForm = (
-  requiredConsents?: RequiredConsents,
-  initialFormData?: ConsentFormData,
-) => {
+export const useConsentForm = (requiredConsents: RequiredConsents, formData?: ConsentFormData) => {
   const { token } = useAuthContext();
   const { t } = useTranslation('auth');
   const { logIn } = useUserAuth({ showToast: true });
@@ -63,11 +39,11 @@ export const useConsentForm = (
 
   const form = useForm<ConsentFormData>({
     resolver: zodResolver(consentSchema),
-    defaultValues: initialFormData ?? {
-      privacy: isConsented(requiredConsents?.privacy),
-      tos: isConsented(requiredConsents?.terms),
-      privacyVersion: requiredConsents?.privacy?.requiredVersion ?? '',
-      tosVersion: requiredConsents?.terms?.requiredVersion ?? '',
+    defaultValues: formData ?? {
+      privacy: isConsented(requiredConsents.privacy),
+      tos: isConsented(requiredConsents.terms),
+      privacyVersion: requiredConsents.privacy.requiredVersion,
+      tosVersion: requiredConsents.terms.requiredVersion,
     },
     mode: 'onChange',
   });
@@ -87,26 +63,6 @@ export const useConsentForm = (
     form.setValue('tos', checked);
     form.trigger();
   };
-
-  useEffect(() => {
-    const fetchVersions = async () => {
-      try {
-        const versions = await getLatestVersion();
-
-        if (!requiredConsents?.privacy?.requiredVersion) {
-          form.setValue('privacyVersion', versions.privacyVersion);
-        }
-
-        if (!requiredConsents?.terms?.requiredVersion) {
-          form.setValue('tosVersion', versions.tosVersion);
-        }
-      } catch (error) {
-        console.error('Failed to fetch latest versions:', error);
-      }
-    };
-
-    fetchVersions();
-  }, [form, requiredConsents?.privacy?.requiredVersion, requiredConsents?.terms?.requiredVersion]);
 
   const onSubmit = form.handleSubmit(async (data) => {
     await logIn({
@@ -129,6 +85,5 @@ export const useConsentForm = (
     allChecked,
     handleAllChange,
     onSubmit,
-    getLatestVersion,
   };
 };

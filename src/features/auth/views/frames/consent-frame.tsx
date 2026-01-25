@@ -3,18 +3,29 @@ import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+import type { components } from '@/@types/api-schema';
 import { Button, Checkbox, LanguageToggle } from '@/common/components';
 
-import { useConsentForm, useAuthPrompt, type ConsentFormData } from '../../viewmodels';
+import { useConsentForm, useAuthPrompt } from '../../viewmodels';
 
 // FIXME: 디자인 수정되면 typography, color 토큰 사용해야 함
 
+type RequiredConsents = components['schemas']['RequiredConsents'];
+
 export function ConsentFrame() {
+  const requiredConsents = useAuthPrompt((state) => state.requiredConsents);
+  if (!requiredConsents) {
+    return null;
+  }
+
+  return <ConsentInnerFrame requiredConsents={requiredConsents} />;
+}
+
+function ConsentInnerFrame({ requiredConsents }: { requiredConsents: RequiredConsents }) {
   const { t } = useTranslation('auth');
   const navigate = useNavigate();
-  const requiredConsents = useAuthPrompt((state) => state.requiredConsents);
   const consentFormData = useRouterState({
-    select: (s) => s.location.state?.consentFormData as ConsentFormData | undefined,
+    select: (s) => s.location.state?.consentFormData,
   });
 
   const {
