@@ -2,11 +2,12 @@ import { Suspense } from 'react';
 
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 
+import { Loader2 } from 'lucide-react';
+
 function LoadingFallback() {
-  // TODO: Spinner
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="text-text-gray">Loading...</div>
+    <div className="flex h-dvh items-center justify-center">
+      <Loader2 className="text-icon-gray size-12 animate-spin" />
     </div>
   );
 }
