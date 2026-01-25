@@ -1,10 +1,15 @@
-import createFetchClient, { type MaybeOptionalInit, type Middleware } from "openapi-fetch";
-import createQueryClient from "openapi-react-query";
+import createFetchClient, { type MaybeOptionalInit, type Middleware } from 'openapi-fetch';
+import createQueryClient from 'openapi-react-query';
 
-import { ApiPaths, type paths } from "@/@types/api-schema";
-import { useToken } from "@/features/auth";
+import { ApiPaths, type paths } from '@/@types/api-schema';
+import { useToken } from '@/features/auth';
 
-let refreshPromise: ReturnType<typeof api.POST<ApiPaths.AuthController_userRefresh, MaybeOptionalInit<paths[ApiPaths.AuthController_userRefresh], 'post'>>> | null = null;
+let refreshPromise: ReturnType<
+  typeof api.POST<
+    ApiPaths.AuthController_userRefresh,
+    MaybeOptionalInit<paths[ApiPaths.AuthController_userRefresh], 'post'>
+  >
+> | null = null;
 
 const middleware: Middleware = {
   async onRequest({ request }) {
@@ -17,12 +22,17 @@ const middleware: Middleware = {
   },
   async onResponse({ request, response, options }) {
     if (response.status == 401) {
-      if (request.headers.has('x-retry') || request.url.includes(ApiPaths.AuthController_userRefresh)) {
+      if (
+        request.headers.has('x-retry') ||
+        request.url.includes(ApiPaths.AuthController_userRefresh)
+      ) {
         return response;
       }
-      
+
       if (!refreshPromise) {
-        refreshPromise = api.POST(ApiPaths.AuthController_userRefresh).finally(() => refreshPromise = null);
+        refreshPromise = api
+          .POST(ApiPaths.AuthController_userRefresh)
+          .finally(() => (refreshPromise = null));
       }
 
       const { data } = await refreshPromise;
@@ -38,17 +48,11 @@ const middleware: Middleware = {
             ['x-retry', 'true'],
           ]),
         });
-        
+
         return options.fetch(retryRequest);
       } else {
         useToken.getState().saveToken(null);
       }
-    }
-
-    if (response.status >= 400) {
-      return Promise.reject(response);
-    } else {
-      return response;
     }
   },
 };

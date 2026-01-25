@@ -20,6 +20,7 @@ export const useUserLogout = ({ showToast = false }: { showToast?: boolean } = {
     onSettled: () => {
       useToken.getState().saveToken(null);
       useAuthPrompt.getState().setRecentLogout(true);
+      useAuthPrompt.getState().setRequiredConsents(undefined);
       idpLogOut();
     },
   });

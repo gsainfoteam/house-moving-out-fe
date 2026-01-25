@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { ApiPaths } from '@/@types/api-schema';
 import { $api } from '@/common/lib';
 
-import { useToken } from '../stores';
+import { useAuthPrompt, useToken } from '../stores';
 
 export const useUserLogin = ({ showToast = false }: { showToast?: boolean } = {}) => {
   const { t } = useTranslation('auth');
@@ -27,13 +27,8 @@ export const useUserLogin = ({ showToast = false }: { showToast?: boolean } = {}
           toast.error(t('error.invalidIdpToken'));
         }
       } else if (error?.statusCode === 403) {
-        navigate({
-          to: '/auth/consent',
-          state: (prev) => ({
-            ...prev,
-            requiredConsents: error.requiredConsents,
-          }),
-        });
+        useAuthPrompt.getState().setRequiredConsents(error.requiredConsents);
+        navigate({ to: '/auth/consent' });
       } else {
         idpLogOut();
         navigate({ to: '/auth/login' });

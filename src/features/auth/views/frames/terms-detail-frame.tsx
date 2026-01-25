@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from '@tanstack/react-router';
+import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
 
 import { ChevronLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -8,42 +8,40 @@ import { useTranslation } from 'react-i18next';
 export function TermsDetailFrame() {
   const navigate = useNavigate();
   const { type } = useParams({ from: '/auth/terms/$type' });
+  const { version } = useSearch({ from: '/auth/terms/$type' });
   const { t } = useTranslation('auth');
 
-  const isPrivacy = type === 'privacy';
-  const title = isPrivacy ? t('consent.privacyPolicyTitle') : t('consent.termsOfServiceTitle');
-  const content = isPrivacy
-    ? t('consent.privacyPolicyContent', { returnObjects: true })
-    : t('consent.termsOfServiceContent', { returnObjects: true });
+  // NOTE: https://github.com/i18next/i18next-cli/?tab=readme-ov-file#comment-based-extraction 에 의해 주석을 써야 context 사용 가능
+  // t('consent.termsTitle', { context: 'privacy' });
+  // t('consent.termsTitle', { context: 'tos' });
+  const title = t('consent.termsTitle', { context: type });
 
   const handleBack = () => {
-    navigate({ to: '/auth/consent' });
+    navigate({
+      to: '/auth/consent',
+      state: (prev) => ({ ...prev }),
+    });
   };
 
   return (
     <div className="flex h-screen flex-col px-4">
-      <div className="flex items-center gap-4 py-4">
+      <div className="relative flex items-center py-4">
         <button
           type="button"
           onClick={handleBack}
-          className="flex items-center"
+          className="absolute left-0 flex items-center"
           aria-label={t('consent.back')}
         >
           <ChevronLeft size={24} className="text-gray-700" />
         </button>
-        <h2>{title}</h2>
+        <h2 className="w-full text-center">{title}</h2>
       </div>
       <div className="h-0.5 rounded-lg bg-gray-200" />
-      <div className="flex-1 overflow-y-auto py-6">
-        {Array.isArray(content) ? (
-          <div className="flex flex-col gap-6 whitespace-pre-line">
-            {content.map((section, index) => (
-              <p key={index}>{String(section)}</p>
-            ))}
-          </div>
-        ) : (
-          <p className="whitespace-pre-line">{String(content)}</p>
-        )}
+      <div className="flex-1 overflow-y-auto py-4">
+        <iframe
+          src={`https://terms.gistory.me/embedded/moving-out/${type}/${version}/`}
+          className="h-full w-full"
+        />
       </div>
     </div>
   );

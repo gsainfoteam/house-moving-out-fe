@@ -5,11 +5,11 @@ import { createRouter } from '@tanstack/react-router';
 
 import ReactDOM from 'react-dom/client';
 
-import type { components } from '@/@types/api-schema';
-
 import { App } from './app';
 import { routeTree } from './routeTree.gen';
+
 import './styles.css';
+import type { ConsentFormData } from './features/auth';
 
 export const queryClient = new QueryClient();
 
@@ -26,7 +26,7 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
   interface HistoryState {
-    requiredConsents?: components['schemas']['RequiredConsents'];
+    consentFormData?: ConsentFormData;
   }
 }
 
