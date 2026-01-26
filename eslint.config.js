@@ -139,6 +139,11 @@ export default defineConfig(
               message:
                 '계층 내부 세부 파일에 직접 접근하지 말고 각 디렉터리의 index.ts를 사용하세요.',
             },
+            {
+              group: ['@/@types/api-schema'],
+              message:
+                'api-schema에서 직접 타입을 import하지 마세요. 각 feature의 model에서 export한 타입을 사용하세요. (model과 api 파일 제외)',
+            },
           ],
         },
       ],
@@ -161,6 +166,32 @@ export default defineConfig(
     rules: {
       'check-file/filename-naming-convention': 'off',
       'check-file/folder-naming-convention': 'off',
+    },
+  },
+  {
+    files: ['src/features/*/models/**/*.{ts,tsx}', 'src/common/lib/api.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                '@/features/*/*/*',
+                '!@/features/*/*/index',
+                './**/models/**',
+                '../**/models/**',
+                './**/viewmodels/**',
+                '../**/viewmodels/**',
+                './**/views/**',
+                '../**/views/**',
+              ],
+              message:
+                '계층 내부 세부 파일에 직접 접근하지 말고 각 디렉터리의 index.ts를 사용하세요.',
+            },
+          ],
+        },
+      ],
     },
   },
   ...storybook.configs['flat/recommended'],
