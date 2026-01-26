@@ -14,7 +14,7 @@ type ConsentVersionInfo = components['schemas']['ConsentVersionInfo'];
 type RequiredConsents = components['schemas']['RequiredConsents'];
 
 const isConsented = (versionInfo?: ConsentVersionInfo) =>
-  versionInfo == null || versionInfo.currentVersion === versionInfo.requiredVersion;
+  versionInfo === undefined || versionInfo.currentVersion === versionInfo.requiredVersion;
 
 const createConsentSchema = (t: TFunction<'auth'>) =>
   z.object({
