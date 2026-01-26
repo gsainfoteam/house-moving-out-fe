@@ -82,10 +82,13 @@ bun run build-storybook
 
 ```bash
 # 번역 키 추출 (개발 중 watch 권장)
-bun run i18n:extract:watch
+bun run i18n:extract --watch
 
 # Typescript 타입 생성 (개발 중 watch 권장)
-bun run i18n:types:watch
+bun run i18n:types --watch
+
+# 둘을 동시에 실행하는 법
+bun run gen:i18n
 
 # 번역 상태 확인
 bun run i18n:status

@@ -15,11 +15,10 @@
     "i18n:status": "i18next-cli status",
     "i18n:sync": "i18next-cli sync",
     "i18n:lint": "i18next-cli lint",
-    "i18n:extract:watch": "i18next-cli extract --watch",
-    "i18n:types:watch": "i18next-cli types --watch",
-    "gen:api": "dotenv -- sh -c 'curl -fSL -u \"$SWAGGER_USER:$SWAGGER_PASSWORD\" https://api.stg.moving-out.gistory.me/api-json -o swagger.json' && bunx openapi-typescript ./swagger.json -o ./src/@types/api-schema.ts --enum --make-paths-enum --array-length && rm -f swagger.json",
-    "gen:i18n": "i18next-cli extract && i18next-cli types",
-    "gen": "bun run gen:api && bun run gen:i18n"
+    "i18n:extract": "i18next-cli extract",
+    "i18n:types": "i18next-cli types",
+    "gen:i18n": "bun run i18n:extract --watch & bun run i18n:types --watch & wait",
+    "gen:api": "dotenv -- sh -c 'curl -fSL -u \"$SWAGGER_USER:$SWAGGER_PASSWORD\" https://api.stg.moving-out.gistory.me/api-json -o swagger.json' && bunx openapi-typescript ./swagger.json -o ./src/@types/api-schema.ts --enum --make-paths-enum --array-length && rm -f swagger.json"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
