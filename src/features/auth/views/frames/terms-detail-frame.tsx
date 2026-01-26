@@ -11,11 +11,6 @@ export function TermsDetailFrame() {
   const { version } = useSearch({ from: '/auth/terms/$type' });
   const { t } = useTranslation('auth');
 
-  // NOTE: https://github.com/i18next/i18next-cli/?tab=readme-ov-file#comment-based-extraction 에 의해 주석을 써야 context 사용 가능
-  // t('consent.termsTitle', { context: 'privacy' });
-  // t('consent.termsTitle', { context: 'tos' });
-  const title = t('consent.termsTitle', { context: type });
-
   const handleBack = () => {
     navigate({
       to: '/auth/consent',
@@ -34,7 +29,7 @@ export function TermsDetailFrame() {
         >
           <ChevronLeft size={24} className="text-gray-700" />
         </button>
-        <h2 className="w-full text-center">{title}</h2>
+        <h2 className="w-full text-center">{t(`consent.termsTitle.${type}`)}</h2>
       </div>
       <div className="h-0.5 rounded-lg bg-gray-200" />
       <div className="flex-1 overflow-y-auto py-4">
