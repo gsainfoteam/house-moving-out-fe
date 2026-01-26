@@ -18,6 +18,8 @@ export function TermsDetailFrame() {
     });
   };
 
+  const titles = t('consent.termsTitle', { returnObjects: true }) as Record<typeof type, string>;
+
   return (
     <div className="flex h-screen flex-col px-4">
       <div className="relative flex items-center py-4">
@@ -29,9 +31,7 @@ export function TermsDetailFrame() {
         >
           <ChevronLeft size={24} className="text-gray-700" />
         </button>
-        <h2 className="w-full text-center">
-          {t('consent.termsTitle', { returnObjects: true })[type] ?? ''}
-        </h2>
+        <h2 className="w-full text-center">{titles[type] ?? ''}</h2>
       </div>
       <div className="h-0.5 rounded-lg bg-gray-200" />
       <div className="flex-1 overflow-y-auto py-4">
