@@ -1,5 +1,5 @@
-import { writeFileSync } from 'fs';
-import { join } from 'path';
+import { mkdirSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
 
 import openapiTS, { astToString } from 'openapi-typescript';
 
@@ -38,6 +38,10 @@ async function generateApiSchema() {
     });
 
     const contents = astToString(ast);
+
+    const outputDir = dirname(outputPath);
+    mkdirSync(outputDir, { recursive: true });
+
     writeFileSync(outputPath, contents, 'utf-8');
 
     console.log('API schema generated successfully!');
