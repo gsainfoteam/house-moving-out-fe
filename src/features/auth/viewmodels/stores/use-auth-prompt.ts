@@ -20,6 +20,11 @@ export const useAuthPrompt = create<AuthPromptState>()(
       requiredConsents: undefined,
       setRequiredConsents: (requiredConsents) => set((prev) => ({ ...prev, requiredConsents })),
     }),
-    { name: AUTH_PROMPT_STORAGE_KEY },
+    {
+      name: AUTH_PROMPT_STORAGE_KEY,
+      partialize: (state) => ({
+        requiredConsents: state.requiredConsents,
+      }),
+    },
   ),
 );
