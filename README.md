@@ -23,7 +23,7 @@
 
 자세한 내용은 `.env.example` 파일과 Notion, Infisical을 참고해주세요.
 
-## 개발 방법
+## 시작하기
 
 ### 설치
 
@@ -74,6 +74,20 @@ bun run storybook
 bun run build-storybook
 ```
 
+## 백엔드 API
+
+이 프로젝트는 [openapi-typescript](https://openapi-ts.dev/), [openapi-fetch](https://openapi-ts.dev/openapi-fetch/), [openapi-react-query](https://openapi-ts.dev/openapi-react-query/)를 사용하여 백엔드 API를 type-safe하게 사용합니다.
+
+### API 스키마 생성
+
+백엔드의 OpenAPI 스키마를 기반으로 TypeScript 타입을 자동 생성합니다:
+
+```bash
+bun run gen:api
+```
+
+이 명령어는 백엔드의 Swagger JSON을 다운로드하여 `src/@types/api-schema.ts` 파일을 생성합니다. 빌드 시 자동으로 실행됩니다.
+
 ## i18n (국제화)
 
 이 프로젝트는 [i18next](https://www.i18next.com/)와 [i18next-cli](https://github.com/i18next/i18next-cli)를 사용하여 다국어를 지원합니다.
@@ -87,7 +101,7 @@ bun run i18n:extract --watch
 # Typescript 타입 생성 (개발 중 watch 권장)
 bun run i18n:types --watch
 
-# 둘을 동시에 실행하는 법
+# 둘을 동시에 실행하는 법 (Unix 환경에서만 작동함)
 bun run gen:i18n
 
 # 번역 상태 확인
@@ -104,4 +118,4 @@ bun run i18n:lint
 
 - 번역 파일: `public/locales/{language}/{namespace}.json`
 - 코드에서 사용: `useTranslation('namespace')`로 네임스페이스 지정 후 `t('key')` 사용
-- 개발 중에는 `bun run i18n:extract:watch`와 `bun run i18n:types:watch`를 함께 실행하여 번역 키 변경사항과 TypeScript 타입을 자동으로 반영
+- 개발 중에는 `bun run gen:i18n`을 실행하여 번역 키 추출과 TypeScript 타입 생성을 동시에 watch 모드로 실행

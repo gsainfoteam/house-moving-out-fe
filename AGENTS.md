@@ -20,6 +20,28 @@ This project follows MVVM (Model-View-ViewModel) pattern and feature-based file 
   - `utils/` - Utility functions
   - `viewmodels/` - Shared view models
 
+#### Layer Access Rules
+
+- **View → ViewModel → Model**: Views must access Models only through ViewModels.
+  - Views cannot directly access Models.
+  - ViewModels cannot reference Views (UI components).
+  - Models are the bottom layer and cannot reference ViewModels or Views.
+
+#### API Schema Types
+
+- **Do NOT** import types directly from `@/@types/api-schema` outside of model files.
+- **DO** import types from each feature's `models/index.ts` where API schema types are re-exported.
+- Exception: Files in `src/features/*/models/**/*.ts` and `src/common/lib/api.ts` can import directly from `@/@types/api-schema`.
+
+#### File Naming
+
+- File and folder names must use `KEBAB_CASE` (e.g., `use-auth-prompt.ts`, `consent-frame.tsx`).
+
+#### Import Conventions
+
+- Use `index.ts` files for cross-layer imports. Do not import internal files directly.
+  - Example: Import from `@/features/auth` instead of `@/features/auth/viewmodels/stores/use-token`.
+
 ### Components Structure
 
 Components in `src/common/components/` are organized by type:
