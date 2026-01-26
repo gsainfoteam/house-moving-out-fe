@@ -4,14 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { z } from 'zod';
 
-import type { components } from '@/@types/api-schema';
-
 import { useUserAuth } from './use-user-auth';
 
+import type { ConsentVersionInfo, RequiredConsents } from '../models';
 import type { TFunction } from 'i18next';
-
-type ConsentVersionInfo = components['schemas']['ConsentVersionInfo'];
-type RequiredConsents = components['schemas']['RequiredConsents'];
 
 const isConsented = (versionInfo?: ConsentVersionInfo) =>
   versionInfo === undefined || versionInfo.currentVersion === versionInfo.requiredVersion;

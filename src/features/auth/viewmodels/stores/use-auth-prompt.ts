@@ -1,9 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import type { components } from '@/@types/api-schema';
-
-type RequiredConsents = components['schemas']['RequiredConsents'];
+import type { RequiredConsents } from '../../models';
 
 interface AuthPromptState {
   recentLogout: boolean;

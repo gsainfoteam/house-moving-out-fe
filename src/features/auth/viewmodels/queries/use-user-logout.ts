@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
 
-import { ApiPaths } from '@/@types/api-schema';
 import { $api } from '@/common/lib';
 
+import { ApiPaths } from '../../models';
 import { useAuthPrompt, useToken } from '../stores';
 
 export const useUserLogout = ({ showToast = false }: { showToast?: boolean } = {}) => {
