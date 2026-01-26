@@ -6,11 +6,8 @@ import { z } from 'zod';
 
 import { useUserAuth } from './use-user-auth';
 
-import type { ConsentVersionInfo, RequiredConsents } from '../models';
+import type { RequiredConsents } from '../models';
 import type { TFunction } from 'i18next';
-
-const isConsented = (versionInfo?: ConsentVersionInfo) =>
-  versionInfo === undefined || versionInfo.currentVersion === versionInfo.requiredVersion;
 
 const createConsentSchema = (t: TFunction<'auth'>) =>
   z.object({
@@ -36,8 +33,8 @@ export const useConsentForm = (requiredConsents: RequiredConsents, formData?: Co
   const form = useForm<ConsentFormData>({
     resolver: zodResolver(consentSchema),
     defaultValues: formData ?? {
-      privacy: isConsented(requiredConsents.privacy),
-      tos: isConsented(requiredConsents.terms),
+      privacy: requiredConsents.privacy.currentVersion === requiredConsents.privacy.requiredVersion,
+      tos: requiredConsents.terms.currentVersion === requiredConsents.terms.requiredVersion,
       privacyVersion: requiredConsents.privacy.requiredVersion,
       tosVersion: requiredConsents.terms.requiredVersion,
     },
