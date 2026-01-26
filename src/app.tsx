@@ -5,15 +5,22 @@ import { OverlayProvider } from 'overlay-kit';
 import { AuthProvider, type TAuthConfig } from 'react-oauth2-code-pkce';
 import { Toaster } from 'sonner';
 
-import { cn } from './common/utils';
 import { useAuthPrompt } from './features/auth';
 import { queryClient, router } from './main';
 
+const getRequiredEnv = (key: string): string => {
+  const value = import.meta.env[key];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return value as string;
+};
+
 const createAuthConfig = (recentLogout: boolean): TAuthConfig => ({
-  clientId: import.meta.env.VITE_IDP_CLIENT_ID,
-  authorizationEndpoint: import.meta.env.VITE_IDP_AUTHORIZE_URL,
-  tokenEndpoint: import.meta.env.VITE_IDP_TOKEN_URL,
-  redirectUri: import.meta.env.VITE_IDP_REDIRECT_URI,
+  clientId: getRequiredEnv('VITE_IDP_CLIENT_ID'),
+  authorizationEndpoint: getRequiredEnv('VITE_IDP_AUTHORIZE_URL'),
+  tokenEndpoint: getRequiredEnv('VITE_IDP_TOKEN_URL'),
+  redirectUri: getRequiredEnv('VITE_IDP_REDIRECT_URI'),
   scope: ['offline_access', 'profile', 'email', 'phone_number', 'student_id'].join(' '),
   onRefreshTokenExpire: (event) => event.logIn(undefined, undefined, 'redirect'),
   extraAuthParameters: {
@@ -23,12 +30,6 @@ const createAuthConfig = (recentLogout: boolean): TAuthConfig => ({
   autoLogin: false,
 });
 
-const toastOptions = {
-  classNames: {
-    error: cn('bg-status-fail! text-text-white!'),
-  },
-};
-
 export function App() {
   const recentLogout = useAuthPrompt((state) => state.recentLogout);
   const authConfig = createAuthConfig(recentLogout);
@@ -37,7 +38,7 @@ export function App() {
     <AuthProvider authConfig={authConfig}>
       <QueryClientProvider client={queryClient}>
         <OverlayProvider>
-          <Toaster toastOptions={toastOptions} />
+          <Toaster />
           <RouterProvider router={router} />
         </OverlayProvider>
       </QueryClientProvider>
