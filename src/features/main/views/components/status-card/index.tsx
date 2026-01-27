@@ -1,5 +1,5 @@
 import { Button } from '@/common/components/ui/button';
-import { cn } from '@/common/utils';
+import { cn } from '@/common/lib';
 
 function StatusCardRoot({
   children,

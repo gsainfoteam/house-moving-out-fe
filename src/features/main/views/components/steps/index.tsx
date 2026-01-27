@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { cn, cv } from '@/common/utils';
+import { cn, cv } from '@/common/lib';
 
 import type { VariantProps } from 'tailwind-variants';
 

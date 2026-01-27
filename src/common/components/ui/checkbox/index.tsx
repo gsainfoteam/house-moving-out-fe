@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import CheckedIcon from '@/assets/icons/checked.svg?react';
 import UncheckedIcon from '@/assets/icons/unchecked.svg?react';
-import { cn } from '@/common/utils';
+import { cn } from '@/common/lib';
 
 export const Checkbox = forwardRef<
   HTMLInputElement,

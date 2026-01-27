@@ -1,4 +1,4 @@
-import { cv } from '@/common/utils';
+import { cv } from '@/common/lib';
 
 import type { VariantProps } from 'tailwind-variants';
 

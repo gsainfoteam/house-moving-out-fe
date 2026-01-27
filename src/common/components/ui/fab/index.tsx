@@ -17,7 +17,7 @@ import {
 import MenuIcon from '@/assets/icons/menu.svg?react';
 import XCloseIcon from '@/assets/icons/x-close.svg?react';
 import Tail from '@/assets/tail.svg?react';
-import { cn } from '@/common/utils';
+import { cn } from '@/common/lib';
 
 interface FabContextValue {
   close: () => void;
