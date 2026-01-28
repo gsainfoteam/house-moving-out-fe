@@ -1,6 +1,8 @@
 import {
+  useCallback,
   useEffect,
   useId,
+  useMemo,
   useRef,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
@@ -8,6 +10,9 @@ import {
   type ReactElement,
 } from 'react';
 
+import { AnimatePresence, motion, type MotionProps } from 'motion/react';
+
+import { backdropAnimation, backdropTransition } from '@/common/components/ui/dialog/animation.ts';
 import { cn } from '@/common/utils';
 
 import { OverlayPortal } from './portal.tsx';
@@ -15,7 +20,6 @@ import { useFocusTrap } from './use-focus-trap';
 import { useOverlayStack } from './use-overlay-stack';
 
 export type OverlayOptions = {
-  close: () => void;
   lockScroll?: boolean;
   closeOnEscape?: boolean;
   closeOnBackdrop?: boolean;
@@ -23,7 +27,10 @@ export type OverlayOptions = {
 };
 
 export type OverlayContainerProps = HTMLAttributes<HTMLDivElement>;
-export type OverlayBackdropProps = ButtonHTMLAttributes<HTMLButtonElement>;
+export type OverlayBackdropProps = MotionProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    enabled?: boolean;
+  };
 export type OverlayFocusTrapProps = PropsWithChildren<{
   enabled?: boolean;
 }>;
@@ -40,8 +47,8 @@ export type OverlayApi = {
 
 export function useOverlay(
   open: boolean,
+  close: () => void,
   {
-    close,
     lockScroll = true,
     closeOnEscape = true,
     closeOnBackdrop = true,
@@ -59,13 +66,12 @@ export function useOverlay(
       return;
     }
 
-    const { id, unregister } = register({
+    const { unregister } = register({
       id: overlayId,
       onEscape: closeOnEscape ? close : undefined,
       lockScroll,
     });
 
-    void id;
     unregisterRef.current = unregister;
     return () => {
       unregister();
@@ -77,55 +83,90 @@ export function useOverlay(
   const isTopMost = entry ? entries[entries.length - 1]?.id === entry.id : false;
   const zIndex = entry?.zIndex ?? 1000;
 
-  const handleBringToFront = () => {
-    if (overlayId !== null) bringToFront(overlayId);
+  const latestRef = useRef({
+    zIndex,
+    close,
+    closeOnBackdrop,
+    isTopMost,
+    trapFocus,
+    bringToFront,
+  });
+  latestRef.current = {
+    zIndex,
+    close,
+    closeOnBackdrop,
+    isTopMost,
+    trapFocus,
+    bringToFront,
   };
 
-  const Container = ({ className, onMouseDown, children, ...props }: OverlayContainerProps) => {
-    if (!open) return null;
+  const Container = useCallback<OverlayContainerComponent>(
+    ({ className, onMouseDown, children, ...props }) => {
+      const handleBringToFront = () => {
+        if (overlayId !== null) latestRef.current.bringToFront(overlayId);
+      };
 
-    return (
-      <OverlayPortal>
-        <div
-          className={cn('fixed inset-0 flex items-center justify-center', className)}
-          style={{ zIndex }}
-          onMouseDown={(event) => {
-            handleBringToFront();
-            onMouseDown?.(event);
-          }}
-          {...props}
-        >
-          {children}
-        </div>
-      </OverlayPortal>
-    );
-  };
+      return (
+        <OverlayPortal>
+          <div
+            className={cn('fixed inset-0 flex items-center justify-center', className)}
+            style={{ zIndex: latestRef.current.zIndex }}
+            onMouseDown={(event) => {
+              handleBringToFront();
+              onMouseDown?.(event);
+            }}
+            {...props}
+          >
+            {children}
+          </div>
+        </OverlayPortal>
+      );
+    },
+    [overlayId],
+  );
 
-  const Backdrop = ({ onClick, type = 'button', className, ...props }: OverlayBackdropProps) => {
-    if (!open) return null;
+  const Backdrop = useCallback<OverlayBackdropComponent>(
+    ({ enabled = true, onClick, type = 'button', className, ...props }) => {
+      return (
+        <AnimatePresence>
+          {enabled ? (
+            <motion.button
+              variants={backdropAnimation}
+              transition={backdropTransition}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              type={type}
+              aria-label={props['aria-label'] ?? 'Close overlay'}
+              className={cn('absolute inset-0 bg-black/10 backdrop-blur-sm', className)}
+              onClick={(event) => {
+                onClick?.(event);
+                if (event.defaultPrevented) return;
+                if (latestRef.current.closeOnBackdrop) {
+                  latestRef.current.close();
+                }
+              }}
+              {...props}
+            />
+          ) : null}
+        </AnimatePresence>
+      );
+    },
+    [],
+  );
 
-    return (
-      <button
-        type={type}
-        aria-label={props['aria-label'] ?? 'Close overlay'}
-        className={cn('absolute inset-0 bg-black/30 backdrop-blur-md', className)}
-        onClick={(event) => {
-          onClick?.(event);
-          if (event.defaultPrevented) return;
-          if (closeOnBackdrop) close();
-        }}
-        {...props}
-      />
-    );
-  };
+  const FocusTrap = useMemo<OverlayFocusTrapComponent>(() => {
+    function FocusTrapComponent({ enabled, children }: OverlayFocusTrapProps) {
+      const containerRef = useRef<HTMLDivElement | null>(null);
+      const shouldTrapFocus =
+        latestRef.current.isTopMost && (enabled ?? latestRef.current.trapFocus);
+      useFocusTrap(containerRef, shouldTrapFocus);
 
-  const FocusTrap = ({ enabled, children }: OverlayFocusTrapProps) => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const shouldTrapFocus = open && isTopMost && (enabled ?? trapFocus);
-    useFocusTrap(containerRef, shouldTrapFocus);
+      return <div ref={containerRef}>{children}</div>;
+    }
 
-    return <div ref={containerRef}>{children}</div>;
-  };
+    return FocusTrapComponent;
+  }, []);
 
   return {
     Container,

@@ -1,7 +1,8 @@
-import type { HTMLAttributes } from 'react';
+import { AnimatePresence, motion, type MotionProps } from 'motion/react';
 
 import { cn } from '@/common/utils';
 
+import { contentAnimation, contentTransition } from './animation';
 import { useDialogContext } from './context';
 
 /**
@@ -9,31 +10,35 @@ import { useDialogContext } from './context';
  * @see Dialog.Header
  * @see Dialog.Footer
  */
-export const Content = ({
-  className,
-  children,
-  ...props
-}: HTMLAttributes<HTMLDivElement> & Content.Props) => {
-  const { overlay, titleId, descriptionId } = useDialogContext('Dialog.Content');
+export const Content = ({ className, children, ...props }: MotionProps & Content.Props) => {
+  const { overlay, open, titleId, descriptionId } = useDialogContext('Dialog.Content');
 
   return (
-    <overlay.Container>
-      <overlay.Backdrop aria-label="Close dialog" />
-      <overlay.FocusTrap>
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={props['aria-label']}
-          aria-labelledby={props['aria-label'] ? undefined : titleId}
-          aria-describedby={descriptionId}
-          className={cn(
-            'relative max-h-[80vh] w-[90vw] max-w-md overflow-auto rounded-2xl bg-white p-5 shadow-lg',
-            className,
-          )}
-          {...props}
-        >
-          {children}
-        </div>
+    <overlay.Container className={cn(!open && 'pointer-events-none')}>
+      <overlay.Backdrop enabled={open} />
+      <overlay.FocusTrap enabled={open}>
+        <AnimatePresence>
+          {open ? (
+            <motion.div
+              variants={contentAnimation}
+              transition={contentTransition}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={titleId}
+              aria-describedby={descriptionId}
+              className={cn(
+                'border-logo-gray relative max-h-[80vh] w-[90vw] max-w-md overflow-auto rounded-2xl border bg-white p-5',
+                className,
+              )}
+              {...props}
+            >
+              {children}
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </overlay.FocusTrap>
     </overlay.Container>
   );
@@ -41,6 +46,6 @@ export const Content = ({
 
 export namespace Content {
   export type Props = {
-    children: React.ReactNode;
+    className?: string;
   };
 }

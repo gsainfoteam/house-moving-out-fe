@@ -137,6 +137,8 @@ function OptionsDemo({
 }
 
 function OverlayStackDemo() {
+  // FIXME: 중첩 다이얼로그 작동 안 함
+
   return (
     <div className="flex items-center justify-center gap-3">
       <Dialog.Root closeOnBackdrop>
@@ -178,3 +180,5 @@ function OverlayStackDemo() {
     </div>
   );
 }
+
+// TODO: 스크롤, 최대 크기 스토리 추가

@@ -1,5 +1,12 @@
+// virtual components
+export * from './switch-case';
+export * from './slot';
+
+// primitive components
 export * from './button';
 export * from './checkbox';
 export * from './fab';
-export * from './switch-case';
+
+// compound components
 export * from './dialog';
+// TODO: drawer, popover, toast
