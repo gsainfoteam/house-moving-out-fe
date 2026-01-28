@@ -15,6 +15,28 @@ const meta: Meta<typeof Dialog> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  argTypes: {
+    title: {
+      control: 'text',
+      description: '다이얼로그 제목',
+    },
+    closeOnBackdrop: {
+      control: 'boolean',
+      description: '백드롭 클릭 시 닫기',
+    },
+    closeOnEscape: {
+      control: 'boolean',
+      description: 'ESC 키로 닫기',
+    },
+    lockScroll: {
+      control: 'boolean',
+      description: '배경 스크롤 잠금',
+    },
+    trapFocus: {
+      control: 'boolean',
+      description: '포커스 트랩 사용',
+    },
+  },
   decorators: [
     (Story) => (
       <OverlayProvider>
@@ -27,62 +49,76 @@ const meta: Meta<typeof Dialog> = {
 export default meta;
 type Story = StoryObj<typeof Dialog>;
 
-export const Default: Story = {
-  render: () => <DialogDemo />,
-};
-
-export const TrapFocus: Story = {
-  render: () => <TrapFocusDemo />,
-};
-
-export const OverlayStack: Story = {
-  render: () => <OverlayStackDemo />,
-};
-
-export const BackdropClose: Story = {
-  render: () => <BackdropCloseDemo />,
-};
-
-export const LockScroll: Story = {
-  render: () => <LockScrollDemo />,
+export const Options: Story = {
+  args: {
+    title: '옵션 테스트',
+    closeOnBackdrop: true,
+    closeOnEscape: true,
+    lockScroll: true,
+    trapFocus: true,
+  },
+  render: (args) => <OptionsDemo {...args} />,
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          '컨트롤에서 `closeOnBackdrop`, `closeOnEscape`, `lockScroll`, `trapFocus`를 바꿔가며 동작을 확인하는 스토리입니다.',
+      },
+    },
   },
 };
 
-function DialogDemo() {
+export const OverlayStack: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '여러 다이얼로그가 열릴 때 스택 순서와 ESC 동작을 확인하는 스토리입니다.',
+      },
+    },
+  },
+  render: () => <OverlayStackDemo />,
+};
+
+function OptionsDemo({
+  title,
+  closeOnBackdrop,
+  closeOnEscape,
+  lockScroll,
+  trapFocus,
+}: {
+  title?: string;
+  closeOnBackdrop?: boolean;
+  closeOnEscape?: boolean;
+  lockScroll?: boolean;
+  trapFocus?: boolean;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="bg-bg-white flex min-h-[160vh] w-full flex-col items-center justify-start gap-4 px-6 py-8">
+      <div className="text-body text-text-gray text-center">
+        컨트롤 패널에서 옵션을 바꿔가며 동작을 확인해 주세요.
+      </div>
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
-      <Dialog open={open} title="간단한 다이얼로그" onClose={() => setOpen(false)} closeOnBackdrop>
-        <div className="text-body text-text-gray">
-          overlay 객체 기반으로 만든 간단한 다이얼로그입니다.
-        </div>
-        <div className="mt-5 flex justify-end">
-          <Button onClick={() => setOpen(false)}>닫기</Button>
-        </div>
-      </Dialog>
-    </div>
-  );
-}
-
-function TrapFocusDemo() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className="flex items-center justify-center">
-      <Button onClick={() => setOpen(true)}>Open dialog</Button>
+      <div className="bg-bg-gray h-[120vh] w-full rounded-lg" />
       <Dialog
         open={open}
-        title="포커스 트랩 테스트"
+        title={title}
         onClose={() => setOpen(false)}
-        closeOnBackdrop
-        trapFocus
+        closeOnBackdrop={closeOnBackdrop}
+        closeOnEscape={closeOnEscape}
+        lockScroll={lockScroll}
+        trapFocus={trapFocus}
       >
-        <div className="text-body text-text-gray">
-          Tab/Shift+Tab으로 포커스가 다이얼로그 안에서만 순환되는지 확인해 주세요.
+        <div className="text-body text-text-gray space-y-2">
+          <div>옵션별로 아래 동작을 확인해 주세요.</div>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>closeOnBackdrop: 배경 클릭 시 다이얼로그가 닫힙니다.</li>
+            <li>closeOnEscape: ESC 키 입력 시 다이얼로그가 닫힙니다.</li>
+            <li>lockScroll: 다이얼로그가 열리면 배경 스크롤이 잠깁니다.</li>
+            <li>trapFocus: 포커스가 다이얼로그 내부에 유지됩니다.</li>
+          </ul>
         </div>
         <div className="mt-4 space-y-3">
           <input className="w-full rounded-md border px-3 py-2" placeholder="Input A" />
@@ -136,66 +172,6 @@ function OverlayStackDemo() {
         </div>
         <div className="mt-5 flex justify-end">
           <Button onClick={() => setSecondOpen(false)}>닫기</Button>
-        </div>
-      </Dialog>
-    </div>
-  );
-}
-
-function BackdropCloseDemo() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className="flex items-center justify-center">
-      <Button onClick={() => setOpen(true)}>Open dialog</Button>
-      <Dialog open={open} title="Backdrop 닫기" onClose={() => setOpen(false)} closeOnBackdrop>
-        <div className="text-body text-text-gray">배경을 클릭하면 닫혀야 합니다.</div>
-        <div className="mt-5 flex justify-end">
-          <Button onClick={() => setOpen(false)}>닫기</Button>
-        </div>
-      </Dialog>
-    </div>
-  );
-}
-
-function LockScrollDemo() {
-  const [lockedOpen, setLockedOpen] = useState(false);
-  const [unlockedOpen, setUnlockedOpen] = useState(false);
-
-  return (
-    <div className="bg-bg-white flex min-h-[160vh] w-full flex-col items-center justify-start gap-4 px-6 py-8">
-      <div className="text-body text-text-gray">
-        페이지 스크롤을 내려보세요. 다이얼로그가 열릴 때 스크롤이 잠기는지 확인해 주세요.
-      </div>
-      <div className="flex gap-3">
-        <Button onClick={() => setLockedOpen(true)}>Lock scroll</Button>
-        <Button onClick={() => setUnlockedOpen(true)}>Unlock scroll</Button>
-      </div>
-      <div className="bg-bg-gray h-[120vh] w-full rounded-lg" />
-
-      <Dialog
-        open={lockedOpen}
-        title="스크롤 잠금"
-        onClose={() => setLockedOpen(false)}
-        closeOnBackdrop
-        lockScroll
-      >
-        <div className="text-body text-text-gray">배경 스크롤이 잠겨야 합니다.</div>
-        <div className="mt-5 flex justify-end">
-          <Button onClick={() => setLockedOpen(false)}>닫기</Button>
-        </div>
-      </Dialog>
-
-      <Dialog
-        open={unlockedOpen}
-        title="스크롤 잠금 해제"
-        onClose={() => setUnlockedOpen(false)}
-        closeOnBackdrop
-        lockScroll={false}
-      >
-        <div className="text-body text-text-gray">배경 스크롤이 유지되어야 합니다.</div>
-        <div className="mt-5 flex justify-end">
-          <Button onClick={() => setUnlockedOpen(false)}>닫기</Button>
         </div>
       </Dialog>
     </div>
