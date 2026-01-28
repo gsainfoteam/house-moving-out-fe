@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { OverlayProvider } from '@/common/lib';
 
-import { Button } from '../ui';
+import { Button } from '../button';
 
 import { Dialog } from '.';
 
@@ -39,6 +39,10 @@ export const OverlayStack: Story = {
   render: () => <OverlayStackDemo />,
 };
 
+export const BackdropClose: Story = {
+  render: () => <BackdropCloseDemo />,
+};
+
 export const LockScroll: Story = {
   render: () => <LockScrollDemo />,
   parameters: {
@@ -54,7 +58,7 @@ function DialogDemo() {
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
       <Dialog open={open} title="간단한 다이얼로그" onClose={() => setOpen(false)} closeOnBackdrop>
         <div className="text-body text-text-gray">
-          useOverlay 기반으로 만든 간단한 다이얼로그입니다.
+          overlay 객체 기반으로 만든 간단한 다이얼로그입니다.
         </div>
         <div className="mt-5 flex justify-end">
           <Button onClick={() => setOpen(false)}>닫기</Button>
@@ -128,10 +132,26 @@ function OverlayStackDemo() {
         closeOnBackdrop
       >
         <div className="text-body text-text-gray">
-          두 다이얼로그가 열렸을 때 z-index와 Esc 동작을 확인해 주세요.
+          두 다이얼로그가 열렸을 때 스택 순서와 Esc 동작을 확인해 주세요.
         </div>
         <div className="mt-5 flex justify-end">
           <Button onClick={() => setSecondOpen(false)}>닫기</Button>
+        </div>
+      </Dialog>
+    </div>
+  );
+}
+
+function BackdropCloseDemo() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="flex items-center justify-center">
+      <Button onClick={() => setOpen(true)}>Open dialog</Button>
+      <Dialog open={open} title="Backdrop 닫기" onClose={() => setOpen(false)} closeOnBackdrop>
+        <div className="text-body text-text-gray">배경을 클릭하면 닫혀야 합니다.</div>
+        <div className="mt-5 flex justify-end">
+          <Button onClick={() => setOpen(false)}>닫기</Button>
         </div>
       </Dialog>
     </div>

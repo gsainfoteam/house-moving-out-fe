@@ -23,5 +23,5 @@ export function OverlayPortal({
   );
 
   if (!root) return null;
-  else return createPortal(children, root);
+  return createPortal(children, root);
 }

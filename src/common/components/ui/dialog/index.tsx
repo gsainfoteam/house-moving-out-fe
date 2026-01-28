@@ -1,6 +1,4 @@
-import { useRef } from 'react';
-
-import { OverlayPortal, useOverlay } from '@/common/lib';
+import { useOverlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 
 type DialogProps = {
@@ -26,33 +24,19 @@ export function Dialog({
   trapFocus = true,
   className,
 }: DialogProps) {
-  const dialogRef = useRef<HTMLDivElement | null>(null);
-  const { zIndex, bringToFront } = useOverlay(open, {
-    onClose,
+  const overlay = useOverlay(open, {
+    close: onClose,
     lockScroll,
     closeOnEscape,
-    focusTrapRef: trapFocus ? dialogRef : null,
+    closeOnBackdrop,
+    trapFocus,
   });
 
-  if (!open) return null;
-
   return (
-    <OverlayPortal>
-      <div
-        className="fixed inset-0 flex items-center justify-center"
-        style={{ zIndex }}
-        onMouseDown={() => bringToFront()}
-      >
-        <button
-          type="button"
-          aria-label="Close dialog"
-          className="absolute inset-0 bg-black/40"
-          onClick={() => {
-            if (closeOnBackdrop) onClose();
-          }}
-        />
+    <overlay.Container>
+      <overlay.Backdrop aria-label="Close dialog" />
+      <overlay.FocusTrap>
         <div
-          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label={title}
@@ -64,7 +48,7 @@ export function Dialog({
           {title ? <h2 className="text-h2 mb-3">{title}</h2> : null}
           {children}
         </div>
-      </div>
-    </OverlayPortal>
+      </overlay.FocusTrap>
+    </overlay.Container>
   );
 }

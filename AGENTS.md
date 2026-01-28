@@ -53,6 +53,11 @@ Components in `src/common/components/` are organized by type:
   - Components that use primitive components or have business logic
   - Should not be placed in `ui/` folder
 
+### Component Type Conventions
+
+- Use namespace merging for component-related types like props/state.
+  - Example: `Button.Props`, `FocusTrap.Props`
+
 ## Commits & PRs
 
 - Title format (both commits and PRs): `<type>: <title>`
