@@ -1,16 +1,21 @@
 import { cv } from '@/common/utils';
 
+import { Slot } from '../slot';
+
 import type { VariantProps } from 'tailwind-variants';
 
 export function Button({
   variant = 'default',
   iconOnly = false,
+  asChild = false,
   children,
   className,
   ...props
 }: Button.Props & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const Comp = asChild ? Slot : 'button';
+
   return (
-    <button
+    <Comp
       className={Button.styles({
         variant: props.disabled ? 'disabled' : variant,
         iconOnly,
@@ -19,7 +24,7 @@ export function Button({
       {...props}
     >
       {children}
-    </button>
+    </Comp>
   );
 }
 
@@ -27,6 +32,7 @@ export namespace Button {
   export type Props = {
     variant?: VariantProps<typeof Button.styles>['variant'];
     iconOnly?: VariantProps<typeof Button.styles>['iconOnly'];
+    asChild?: boolean;
   };
   export const styles = cv({
     base: [
