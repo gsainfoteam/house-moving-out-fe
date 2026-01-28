@@ -16,21 +16,21 @@ import { useDialogContext } from './context';
  * @see Dialog.Footer
  */
 export const Content = ({ className, children, ...props }: MotionProps & Content.Props) => {
-  const { overlay, open, titleId, descriptionId } = useDialogContext('Dialog.Content');
+  const { overlay, isOpen, titleId, descriptionId } = useDialogContext('Dialog.Content');
 
   return (
-    <overlay.Container className={cn(!open && 'pointer-events-none')}>
+    <overlay.Container enabled={isOpen}>
       <overlay.Backdrop
         variants={backdropAnimation}
         transition={backdropTransition}
         initial="closed"
         animate="open"
         exit="closed"
-        enabled={open}
+        enabled={isOpen}
       />
-      <overlay.FocusTrap enabled={open}>
+      <overlay.FocusTrap enabled={isOpen}>
         <AnimatePresence>
-          {open ? (
+          {isOpen ? (
             <motion.div
               variants={contentAnimation}
               transition={contentTransition}

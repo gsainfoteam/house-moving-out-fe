@@ -15,8 +15,8 @@ import { AnimatePresence, motion, type MotionProps } from 'motion/react';
 import { cn } from '@/common/utils';
 
 import { OverlayPortal } from './portal.tsx';
+import { BASE_Z_INDEX, useOverlayStack } from './provider';
 import { useFocusTrap } from './use-focus-trap';
-import { useOverlayStack } from './use-overlay-stack';
 
 export type OverlayOptions = {
   lockScroll?: boolean;
@@ -25,7 +25,9 @@ export type OverlayOptions = {
   trapFocus?: boolean;
 };
 
-export type OverlayContainerProps = HTMLAttributes<HTMLDivElement>;
+export type OverlayContainerProps = HTMLAttributes<HTMLDivElement> & {
+  enabled?: boolean;
+};
 export type OverlayBackdropProps = MotionProps &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     enabled?: boolean;
@@ -45,7 +47,7 @@ export type OverlayApi = {
 };
 
 export function useOverlay(
-  open: boolean,
+  isOpen: boolean,
   close: () => void,
   {
     lockScroll = true,
@@ -59,7 +61,7 @@ export function useOverlay(
   const overlayId = useId();
 
   useEffect(() => {
-    if (!open) {
+    if (!isOpen) {
       unregisterRef.current?.();
       unregisterRef.current = null;
       return;
@@ -67,8 +69,11 @@ export function useOverlay(
 
     const { unregister } = register({
       id: overlayId,
-      onEscape: closeOnEscape ? close : undefined,
+      close,
       lockScroll,
+      closeOnEscape,
+      closeOnBackdrop,
+      trapFocus,
     });
 
     unregisterRef.current = unregister;
@@ -76,11 +81,11 @@ export function useOverlay(
       unregister();
       unregisterRef.current = null;
     };
-  }, [open, closeOnEscape, lockScroll, close, register, overlayId]);
+  }, [isOpen, closeOnEscape, lockScroll, close, register, overlayId, closeOnBackdrop, trapFocus]);
 
   const entry = entries.find((item) => item.id === overlayId);
   const isTopMost = entry ? entries[entries.length - 1]?.id === entry.id : false;
-  const zIndex = entry?.zIndex ?? 1000;
+  const zIndex = entry?.zIndex ?? BASE_Z_INDEX;
 
   const latestRef = useRef({
     zIndex,
@@ -100,18 +105,19 @@ export function useOverlay(
   };
 
   const Container = useCallback<OverlayContainerComponent>(
-    ({ className, onMouseDown, children, ...props }) => {
-      const handleBringToFront = () => {
-        if (overlayId !== null) latestRef.current.bringToFront(overlayId);
-      };
-
+    ({ enabled = true, className, onMouseDown, children, ...props }) => {
       return (
         <OverlayPortal>
           <div
-            className={cn('fixed inset-0 flex items-center justify-center', className)}
+            className={cn(
+              'fixed inset-0 flex items-center justify-center',
+              !enabled && 'pointer-events-none',
+              className,
+            )}
             style={{ zIndex: latestRef.current.zIndex }}
             onMouseDown={(event) => {
-              handleBringToFront();
+              event.stopPropagation();
+              latestRef.current.bringToFront(overlayId);
               onMouseDown?.(event);
             }}
             {...props}

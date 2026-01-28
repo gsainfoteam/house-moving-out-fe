@@ -137,8 +137,6 @@ function OptionsDemo({
 }
 
 function OverlayStackDemo() {
-  // FIXME: 중첩 다이얼로그 작동 안 함
-
   return (
     <div className="flex items-center justify-center gap-3">
       <Dialog.Root closeOnBackdrop>
@@ -157,7 +155,7 @@ function OverlayStackDemo() {
               <Dialog.Trigger asChild>
                 <Button variant="change">두 번째 열기</Button>
               </Dialog.Trigger>
-              <Dialog.Content>
+              <Dialog.Content className="h-100 w-60">
                 <Dialog.Header>
                   <Dialog.Title>두 번째 다이얼로그</Dialog.Title>
                   <Dialog.Description>

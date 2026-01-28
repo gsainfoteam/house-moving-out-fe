@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import type { OverlayApi } from '@/common/lib';
 
 export type DialogContextValue = {
-  open: boolean;
+  isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   overlay: OverlayApi;
   titleId: string;

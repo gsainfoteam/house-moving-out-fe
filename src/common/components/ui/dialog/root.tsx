@@ -31,7 +31,7 @@ export const Root = ({
   return (
     <DialogContext.Provider
       value={{
-        open: isOpen,
+        isOpen,
         onOpenChange: setIsOpen,
         overlay,
         titleId,
