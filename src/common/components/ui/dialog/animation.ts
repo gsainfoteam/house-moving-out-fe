@@ -1,8 +1,8 @@
 import type { Transition, Variants } from 'motion/react';
 
 export const backdropAnimation: Variants = {
-  closed: { opacity: 0 },
-  open: { opacity: 1 },
+  closed: { opacity: 0, backdropFilter: 'blur(0px)' },
+  open: { opacity: 1, backdropFilter: 'blur(4px)' },
 };
 
 export const backdropTransition: Transition = {

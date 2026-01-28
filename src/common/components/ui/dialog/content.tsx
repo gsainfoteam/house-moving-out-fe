@@ -2,7 +2,12 @@ import { AnimatePresence, motion, type MotionProps } from 'motion/react';
 
 import { cn } from '@/common/utils';
 
-import { contentAnimation, contentTransition } from './animation';
+import {
+  backdropAnimation,
+  backdropTransition,
+  contentAnimation,
+  contentTransition,
+} from './animation';
 import { useDialogContext } from './context';
 
 /**
@@ -15,7 +20,14 @@ export const Content = ({ className, children, ...props }: MotionProps & Content
 
   return (
     <overlay.Container className={cn(!open && 'pointer-events-none')}>
-      <overlay.Backdrop enabled={open} />
+      <overlay.Backdrop
+        variants={backdropAnimation}
+        transition={backdropTransition}
+        initial="closed"
+        animate="open"
+        exit="closed"
+        enabled={open}
+      />
       <overlay.FocusTrap enabled={open}>
         <AnimatePresence>
           {open ? (

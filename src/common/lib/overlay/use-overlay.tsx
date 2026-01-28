@@ -12,7 +12,6 @@ import {
 
 import { AnimatePresence, motion, type MotionProps } from 'motion/react';
 
-import { backdropAnimation, backdropTransition } from '@/common/components/ui/dialog/animation.ts';
 import { cn } from '@/common/utils';
 
 import { OverlayPortal } from './portal.tsx';
@@ -131,14 +130,9 @@ export function useOverlay(
         <AnimatePresence>
           {enabled ? (
             <motion.button
-              variants={backdropAnimation}
-              transition={backdropTransition}
-              initial="closed"
-              animate="open"
-              exit="closed"
               type={type}
               aria-label={props['aria-label'] ?? 'Close overlay'}
-              className={cn('absolute inset-0 bg-black/10 backdrop-blur-sm', className)}
+              className={cn('absolute inset-0 bg-black/10', className)}
               onClick={(event) => {
                 onClick?.(event);
                 if (event.defaultPrevented) return;
