@@ -1,3 +1,4 @@
+import { Body as DialogBody } from './body';
 import { Close as DialogClose } from './close';
 import { Content as DialogContent } from './content';
 import { Description as DialogDescription } from './description';
@@ -11,6 +12,7 @@ export const Dialog = {
   Root: DialogRoot,
   Trigger: DialogTrigger,
   Content: DialogContent,
+  Body: DialogBody,
   Header: DialogHeader,
   Title: DialogTitle,
   Description: DialogDescription,
@@ -29,6 +31,10 @@ export namespace Dialog {
 
   export namespace Content {
     export type Props = DialogContent.Props;
+  }
+
+  export namespace Body {
+    export type Props = DialogBody.Props;
   }
 
   export namespace Header {

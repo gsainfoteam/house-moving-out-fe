@@ -13,6 +13,7 @@ import { useDialogContext } from './context';
 /**
  * 다이얼로그 본문 컨테이너입니다.
  * @see Dialog.Header
+ * @see Dialog.Body
  * @see Dialog.Footer
  */
 export const Content = ({ className, children, ...props }: MotionProps & Content.Props) => {
@@ -42,7 +43,7 @@ export const Content = ({ className, children, ...props }: MotionProps & Content
               aria-labelledby={titleId}
               aria-describedby={descriptionId}
               className={cn(
-                'border-logo-gray relative max-h-[80vh] w-[90vw] max-w-md overflow-auto rounded-2xl border bg-white p-5',
+                'border-logo-gray relative flex h-full max-h-[70vh] max-w-md flex-col overflow-hidden rounded-2xl border bg-white p-5',
                 className,
               )}
               {...props}

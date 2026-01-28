@@ -85,6 +85,17 @@ export const OverlayStack: Story = {
   render: () => <OverlayStackDemo />,
 };
 
+export const Scroll: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '콘텐츠가 길어질 때 다이얼로그 내부 스크롤을 확인하는 스토리입니다.',
+      },
+    },
+  },
+  render: () => <ScrollDemo />,
+};
+
 function OptionsDemo({
   title,
   closeOnBackdrop,
@@ -111,24 +122,26 @@ function OptionsDemo({
             {title ? <Dialog.Title>{title}</Dialog.Title> : null}
             <Dialog.Description>옵션별로 아래 동작을 확인해 주세요.</Dialog.Description>
           </Dialog.Header>
-          <ul className="text-body text-text-gray list-disc space-y-1 pl-5">
-            <li>closeOnBackdrop: 배경 클릭 시 다이얼로그가 닫힙니다.</li>
-            <li>closeOnEscape: ESC 키 입력 시 다이얼로그가 닫힙니다.</li>
-            <li>lockScroll: 다이얼로그가 열리면 배경 스크롤이 잠깁니다.</li>
-            <li>trapFocus: 포커스가 다이얼로그 내부에 유지됩니다.</li>
-          </ul>
-          <div className="mt-4 space-y-3">
-            <input className="w-full rounded-md border px-3 py-2" placeholder="Input A" />
-            <input className="w-full rounded-md border px-3 py-2" placeholder="Input B" />
-            <Dialog.Footer>
-              <Dialog.Close asChild>
-                <Button variant="change">확인</Button>
-              </Dialog.Close>
-              <Dialog.Close asChild>
-                <Button>닫기</Button>
-              </Dialog.Close>
-            </Dialog.Footer>
-          </div>
+          <Dialog.Body className="space-y-3">
+            <ul className="text-body text-text-gray list-disc space-y-1 pl-5">
+              <li>closeOnBackdrop: 배경 클릭 시 다이얼로그가 닫힙니다.</li>
+              <li>closeOnEscape: ESC 키 입력 시 다이얼로그가 닫힙니다.</li>
+              <li>lockScroll: 다이얼로그가 열리면 배경 스크롤이 잠깁니다.</li>
+              <li>trapFocus: 포커스가 다이얼로그 내부에 유지됩니다.</li>
+            </ul>
+            <div className="mt-4 space-y-3">
+              <input className="w-full rounded-md border px-3 py-2" placeholder="Input A" />
+              <input className="w-full rounded-md border px-3 py-2" placeholder="Input B" />
+            </div>
+          </Dialog.Body>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="change">확인</Button>
+            </Dialog.Close>
+            <Dialog.Close asChild>
+              <Button>닫기</Button>
+            </Dialog.Close>
+          </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Root>
       <div className="bg-bg-gray h-[120vh] w-full rounded-lg" />
@@ -141,7 +154,7 @@ function OverlayStackDemo() {
     <div className="flex items-center justify-center gap-3">
       <Dialog.Root closeOnBackdrop>
         <Dialog.Trigger asChild>
-          <Button>Open first</Button>
+          <Button>첫 번째 열기</Button>
         </Dialog.Trigger>
         <Dialog.Content>
           <Dialog.Header>
@@ -155,7 +168,7 @@ function OverlayStackDemo() {
               <Dialog.Trigger asChild>
                 <Button variant="change">두 번째 열기</Button>
               </Dialog.Trigger>
-              <Dialog.Content className="h-100 w-60">
+              <Dialog.Content className="h-60 w-60">
                 <Dialog.Header>
                   <Dialog.Title>두 번째 다이얼로그</Dialog.Title>
                   <Dialog.Description>
@@ -179,4 +192,39 @@ function OverlayStackDemo() {
   );
 }
 
-// TODO: 스크롤, 최대 크기 스토리 추가
+function ScrollDemo() {
+  return (
+    <div className="flex items-center justify-center">
+      <Dialog.Root closeOnBackdrop>
+        <Dialog.Trigger asChild>
+          <Button>Open scroll dialog</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>스크롤 확인</Dialog.Title>
+            <Dialog.Description>
+              길어지는 내용이 있을 때 내부 스크롤을 확인해 주세요.
+            </Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Body>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <p key={index} className="mb-4 leading-normal">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+            ))}
+          </Dialog.Body>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button>닫기</Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+    </div>
+  );
+}
