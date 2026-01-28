@@ -99,3 +99,24 @@ export const IconOnly: Story = {
     </div>
   ),
 };
+
+export const InteractionStates: Story = {
+  args: {
+    variant: 'default',
+  },
+  render: (args) => (
+    <div className="flex flex-col gap-4">
+      <div className="text-body text-text-gray">
+        Hover: 마우스를 올려 상태 레이어 확인 / Focus Visible: Tab으로 포커스 이동해 포커스 링 확인
+        / Active: 클릭 유지
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button variant={args.variant}>Hover me</Button>
+        <Button variant={args.variant} autoFocus>
+          Focus visible (Tab)
+        </Button>
+        <Button variant={args.variant}>Active (click &amp; hold)</Button>
+      </div>
+    </div>
+  ),
+};
