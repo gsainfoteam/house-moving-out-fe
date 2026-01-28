@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
 
-import { useUserLogin, useUserLogout } from './queries';
+import { useLogin, useLogout } from './queries';
 
-export const useUserAuth = ({ showToast = false }: { showToast?: boolean } = {}) => {
+export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => {
   const { token: idpToken, logIn: idpLogIn } = useAuthContext();
-  const { mutate: logInMutate, ...logInMutation } = useUserLogin({ showToast });
-  const { mutate: logOut, ...logOutMutation } = useUserLogout({ showToast });
+  const { mutate: logInMutate, ...logInMutation } = useLogin({ showToast });
+  const { mutate: logOut, ...logOutMutation } = useLogout({ showToast });
   const { t } = useTranslation('auth');
   const navigate = useNavigate();
 

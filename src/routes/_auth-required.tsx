@@ -7,7 +7,7 @@ import LogOutIcon from '@/assets/icons/log-out.svg?react';
 import TranslateIcon from '@/assets/icons/translate.svg?react';
 import { Fab } from '@/common/components';
 import { useLanguage } from '@/common/viewmodels';
-import { useToken, useUserAuth } from '@/features/auth';
+import { useToken, useAuth } from '@/features/auth';
 
 export const Route = createFileRoute('/_auth-required')({
   component: AuthRequiredLayout,
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_auth-required')({
 function AuthRequiredLayout() {
   const { token } = useToken();
   const router = useRouter();
-  const { logOut } = useUserAuth({ showToast: true });
+  const { logOut } = useAuth({ showToast: true });
   const { toggleLanguage } = useLanguage();
   const { t } = useTranslation('common');
 

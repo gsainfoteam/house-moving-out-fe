@@ -2,13 +2,13 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, LanguageToggle } from '@/common/components';
 
-import { useUserAuth } from '../../viewmodels';
+import { useAuth } from '../../viewmodels';
 
 // FIXME: 디자인 수정되면 typography, color 토큰 사용해야 함
 
 export function LoginFrame() {
   const { t } = useTranslation('auth');
-  const { idpLogIn } = useUserAuth();
+  const { idpLogIn } = useAuth();
 
   return (
     <div className="relative flex h-screen flex-col items-center justify-center">

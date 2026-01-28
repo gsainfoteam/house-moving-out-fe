@@ -9,12 +9,12 @@ import { $api } from '@/common/lib';
 import { ApiPaths } from '../../models';
 import { useAuthPrompt, useToken } from '../stores';
 
-export const useUserLogin = ({ showToast = false }: { showToast?: boolean } = {}) => {
+export const useLogin = ({ showToast = false }: { showToast?: boolean } = {}) => {
   const { t } = useTranslation('auth');
   const { logOut: idpLogOut } = useAuthContext();
   const navigate = useNavigate();
 
-  return $api.useMutation('post', ApiPaths.AuthController_userLogin, {
+  return $api.useMutation('post', ApiPaths.AuthController_login, {
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
       navigate({ to: '/' });
