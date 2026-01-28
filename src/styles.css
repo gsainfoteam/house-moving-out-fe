@@ -13,7 +13,8 @@ h2 {
   font-weight: var(--text-h2--font-weight);
 }
 
-body {
+body,
+p {
   @apply m-0;
   font-family:
     'Pretendard Variable',

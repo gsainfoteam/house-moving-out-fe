@@ -4,8 +4,8 @@ import {
   useRef,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
+  type PropsWithChildren,
   type ReactElement,
-  type ReactNode,
 } from 'react';
 
 import { cn } from '@/common/utils';
@@ -14,7 +14,7 @@ import { OverlayPortal } from './portal.tsx';
 import { useFocusTrap } from './use-focus-trap';
 import { useOverlayStack } from './use-overlay-stack';
 
-export type UseOverlayOptions = {
+export type OverlayOptions = {
   close: () => void;
   lockScroll?: boolean;
   closeOnEscape?: boolean;
@@ -24,10 +24,9 @@ export type UseOverlayOptions = {
 
 export type OverlayContainerProps = HTMLAttributes<HTMLDivElement>;
 export type OverlayBackdropProps = ButtonHTMLAttributes<HTMLButtonElement>;
-export type OverlayFocusTrapProps = {
+export type OverlayFocusTrapProps = PropsWithChildren<{
   enabled?: boolean;
-  children: ReactNode;
-};
+}>;
 
 export type OverlayContainerComponent = (props: OverlayContainerProps) => ReactElement | null;
 export type OverlayBackdropComponent = (props: OverlayBackdropProps) => ReactElement | null;
@@ -47,7 +46,7 @@ export function useOverlay(
     closeOnEscape = true,
     closeOnBackdrop = true,
     trapFocus = true,
-  }: UseOverlayOptions,
+  }: OverlayOptions,
 ): OverlayApi {
   const { register, bringToFront, entries } = useOverlayStack();
   const unregisterRef = useRef<null | (() => void)>(null);
@@ -104,13 +103,12 @@ export function useOverlay(
 
   const Backdrop = ({ onClick, type = 'button', className, ...props }: OverlayBackdropProps) => {
     if (!open) return null;
-    const baseClassName = 'absolute inset-0 bg-black/40';
 
     return (
       <button
         type={type}
         aria-label={props['aria-label'] ?? 'Close overlay'}
-        className={cn(baseClassName, className)}
+        className={cn('absolute inset-0 bg-black/30 backdrop-blur-md', className)}
         onClick={(event) => {
           onClick?.(event);
           if (event.defaultPrevented) return;

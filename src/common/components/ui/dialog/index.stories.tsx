@@ -8,9 +8,16 @@ import { Dialog } from '.';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof Dialog> = {
+type OptionsArgs = {
+  title?: string;
+  closeOnBackdrop?: boolean;
+  closeOnEscape?: boolean;
+  lockScroll?: boolean;
+  trapFocus?: boolean;
+};
+
+const meta: Meta<OptionsArgs> = {
   title: 'Components/Dialog',
-  component: Dialog,
   parameters: {
     layout: 'centered',
   },
@@ -47,7 +54,7 @@ const meta: Meta<typeof Dialog> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Dialog>;
+type Story = StoryObj<OptionsArgs>;
 
 export const Options: Story = {
   args: {
@@ -86,13 +93,7 @@ function OptionsDemo({
   closeOnEscape,
   lockScroll,
   trapFocus,
-}: {
-  title?: string;
-  closeOnBackdrop?: boolean;
-  closeOnEscape?: boolean;
-  lockScroll?: boolean;
-  trapFocus?: boolean;
-}) {
+}: OptionsArgs) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -100,37 +101,43 @@ function OptionsDemo({
       <div className="text-body text-text-gray text-center">
         컨트롤 패널에서 옵션을 바꿔가며 동작을 확인해 주세요.
       </div>
-      <Button onClick={() => setOpen(true)}>Open dialog</Button>
-      <div className="bg-bg-gray h-[120vh] w-full rounded-lg" />
-      <Dialog
+      <Dialog.Root
         open={open}
-        title={title}
-        onClose={() => setOpen(false)}
+        onOpenChange={setOpen}
         closeOnBackdrop={closeOnBackdrop}
         closeOnEscape={closeOnEscape}
         lockScroll={lockScroll}
         trapFocus={trapFocus}
       >
-        <div className="text-body text-text-gray space-y-2">
-          <div>옵션별로 아래 동작을 확인해 주세요.</div>
-          <ul className="list-disc space-y-1 pl-5">
+        <Dialog.Trigger asChild>
+          <Button>Open dialog</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            {title ? <Dialog.Title>{title}</Dialog.Title> : null}
+            <Dialog.Description>옵션별로 아래 동작을 확인해 주세요.</Dialog.Description>
+          </Dialog.Header>
+          <ul className="text-body text-text-gray list-disc space-y-1 pl-5">
             <li>closeOnBackdrop: 배경 클릭 시 다이얼로그가 닫힙니다.</li>
             <li>closeOnEscape: ESC 키 입력 시 다이얼로그가 닫힙니다.</li>
             <li>lockScroll: 다이얼로그가 열리면 배경 스크롤이 잠깁니다.</li>
             <li>trapFocus: 포커스가 다이얼로그 내부에 유지됩니다.</li>
           </ul>
-        </div>
-        <div className="mt-4 space-y-3">
-          <input className="w-full rounded-md border px-3 py-2" placeholder="Input A" />
-          <input className="w-full rounded-md border px-3 py-2" placeholder="Input B" />
-          <div className="flex justify-end gap-2">
-            <Button variant="change" onClick={() => setOpen(false)}>
-              확인
-            </Button>
-            <Button onClick={() => setOpen(false)}>닫기</Button>
+          <div className="mt-4 space-y-3">
+            <input className="w-full rounded-md border px-3 py-2" placeholder="Input A" />
+            <input className="w-full rounded-md border px-3 py-2" placeholder="Input B" />
+            <Dialog.Footer>
+              <Dialog.Close asChild>
+                <Button variant="change">확인</Button>
+              </Dialog.Close>
+              <Dialog.Close asChild>
+                <Button>닫기</Button>
+              </Dialog.Close>
+            </Dialog.Footer>
           </div>
-        </div>
-      </Dialog>
+        </Dialog.Content>
+      </Dialog.Root>
+      <div className="bg-bg-gray h-[120vh] w-full rounded-lg" />
     </div>
   );
 }
@@ -141,39 +148,46 @@ function OverlayStackDemo() {
 
   return (
     <div className="flex items-center justify-center gap-3">
-      <Button onClick={() => setFirstOpen(true)}>Open first</Button>
-      <Button onClick={() => setSecondOpen(true)}>Open second</Button>
+      <Dialog.Root open={firstOpen} onOpenChange={setFirstOpen} closeOnBackdrop>
+        <Dialog.Trigger asChild>
+          <Button>Open first</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>첫 번째 다이얼로그</Dialog.Title>
+            <Dialog.Description>
+              두 번째 다이얼로그를 열고, 배경 클릭 시 스택 순서를 확인해 보세요.
+            </Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Button variant="change" onClick={() => setSecondOpen(true)}>
+              두 번째 열기
+            </Button>
+            <Dialog.Close asChild>
+              <Button>닫기</Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
 
-      <Dialog
-        open={firstOpen}
-        title="첫 번째 다이얼로그"
-        onClose={() => setFirstOpen(false)}
-        closeOnBackdrop
-      >
-        <div className="text-body text-text-gray">
-          두 번째 다이얼로그를 열고, 배경 클릭 시 스택 순서를 확인해 보세요.
-        </div>
-        <div className="mt-5 flex justify-end gap-2">
-          <Button variant="change" onClick={() => setSecondOpen(true)}>
-            두 번째 열기
-          </Button>
-          <Button onClick={() => setFirstOpen(false)}>닫기</Button>
-        </div>
-      </Dialog>
-
-      <Dialog
-        open={secondOpen}
-        title="두 번째 다이얼로그"
-        onClose={() => setSecondOpen(false)}
-        closeOnBackdrop
-      >
-        <div className="text-body text-text-gray">
-          두 다이얼로그가 열렸을 때 스택 순서와 Esc 동작을 확인해 주세요.
-        </div>
-        <div className="mt-5 flex justify-end">
-          <Button onClick={() => setSecondOpen(false)}>닫기</Button>
-        </div>
-      </Dialog>
+      <Dialog.Root open={secondOpen} onOpenChange={setSecondOpen} closeOnBackdrop>
+        <Dialog.Trigger asChild>
+          <Button>Open second</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>두 번째 다이얼로그</Dialog.Title>
+            <Dialog.Description>
+              두 다이얼로그가 열렸을 때 스택 순서와 Esc 동작을 확인해 주세요.
+            </Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button>닫기</Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
     </div>
   );
 }
