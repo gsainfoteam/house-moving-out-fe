@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes } from 'react';
 
 import { mergeEventHandlers } from '@/common/utils';
 
-import { useDialogContext } from './dialog-context';
+import { useDialogContext } from './context';
 import { Slot } from '../slot';
 
 /**

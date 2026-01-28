@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react';
 
 import { cn } from '@/common/utils';
 
-import { useDialogContext } from './dialog-context';
+import { useDialogContext } from './context';
 
 /**
  * 다이얼로그 본문 컨테이너입니다.

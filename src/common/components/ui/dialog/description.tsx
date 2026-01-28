@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/common/utils';
 
-import { useDialogContext } from './dialog-context';
+import { useDialogContext } from './context';
 
 /**
  * 다이얼로그 보조 설명 텍스트 컴포넌트입니다.

@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { OverlayProvider } from '@/common/lib';
 
 import { Button } from '../button';
@@ -94,16 +92,12 @@ function OptionsDemo({
   lockScroll,
   trapFocus,
 }: OptionsArgs) {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="bg-bg-white flex min-h-[160vh] w-full flex-col items-center justify-start gap-4 px-6 py-8">
       <div className="text-body text-text-gray text-center">
         컨트롤 패널에서 옵션을 바꿔가며 동작을 확인해 주세요.
       </div>
       <Dialog.Root
-        open={open}
-        onOpenChange={setOpen}
         closeOnBackdrop={closeOnBackdrop}
         closeOnEscape={closeOnEscape}
         lockScroll={lockScroll}
@@ -143,12 +137,9 @@ function OptionsDemo({
 }
 
 function OverlayStackDemo() {
-  const [firstOpen, setFirstOpen] = useState(false);
-  const [secondOpen, setSecondOpen] = useState(false);
-
   return (
     <div className="flex items-center justify-center gap-3">
-      <Dialog.Root open={firstOpen} onOpenChange={setFirstOpen} closeOnBackdrop>
+      <Dialog.Root closeOnBackdrop>
         <Dialog.Trigger asChild>
           <Button>Open first</Button>
         </Dialog.Trigger>
@@ -160,28 +151,24 @@ function OverlayStackDemo() {
             </Dialog.Description>
           </Dialog.Header>
           <Dialog.Footer>
-            <Button variant="change" onClick={() => setSecondOpen(true)}>
-              두 번째 열기
-            </Button>
-            <Dialog.Close asChild>
-              <Button>닫기</Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
-
-      <Dialog.Root open={secondOpen} onOpenChange={setSecondOpen} closeOnBackdrop>
-        <Dialog.Trigger asChild>
-          <Button>Open second</Button>
-        </Dialog.Trigger>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>두 번째 다이얼로그</Dialog.Title>
-            <Dialog.Description>
-              두 다이얼로그가 열렸을 때 스택 순서와 Esc 동작을 확인해 주세요.
-            </Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
+            <Dialog.Root closeOnBackdrop>
+              <Dialog.Trigger asChild>
+                <Button variant="change">두 번째 열기</Button>
+              </Dialog.Trigger>
+              <Dialog.Content>
+                <Dialog.Header>
+                  <Dialog.Title>두 번째 다이얼로그</Dialog.Title>
+                  <Dialog.Description>
+                    두 다이얼로그가 열렸을 때 스택 순서와 Esc 동작을 확인해 주세요.
+                  </Dialog.Description>
+                </Dialog.Header>
+                <Dialog.Footer>
+                  <Dialog.Close asChild>
+                    <Button>닫기</Button>
+                  </Dialog.Close>
+                </Dialog.Footer>
+              </Dialog.Content>
+            </Dialog.Root>
             <Dialog.Close asChild>
               <Button>닫기</Button>
             </Dialog.Close>

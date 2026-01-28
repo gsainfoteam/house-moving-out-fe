@@ -3,18 +3,7 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, .dark, .dark *));
 
-h1 {
-  font-size: var(--text-h1);
-  font-weight: var(--text-h1--font-weight);
-}
-
-h2 {
-  font-size: var(--text-h2);
-  font-weight: var(--text-h2--font-weight);
-}
-
-body,
-p {
+html {
   @apply m-0;
   font-family:
     'Pretendard Variable',
@@ -34,10 +23,6 @@ p {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 @theme {
@@ -88,4 +73,24 @@ code {
   --color-icon-gray: #b4b4b4;
 
   --color-primary-main: #637457;
+}
+
+h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--text-h1--font-weight);
+}
+
+h2 {
+  font-size: var(--text-h2);
+  font-weight: var(--text-h2--font-weight);
+}
+
+body,
+p {
+  font-size: var(--text-box);
+  font-weight: var(--text-box--font-weight);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
