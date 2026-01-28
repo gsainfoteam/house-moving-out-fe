@@ -17,7 +17,6 @@ export const useLogin = ({ showToast = false }: { showToast?: boolean } = {}) =>
   return $api.useMutation('post', ApiPaths.AuthController_login, {
     onSuccess: (response) => {
       useToken.getState().saveToken(response.access_token);
-      navigate({ to: '/' });
     },
     onError: async (error) => {
       if (error?.statusCode === 401) {

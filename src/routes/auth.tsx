@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react';
+
 import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 
 import { z } from 'zod';
 
-import { useToken } from '@/features/auth';
+import { useAuthRedirect, useToken } from '@/features/auth';
 
 export const Route = createFileRoute('/auth')({
   component: AuthLayout,
@@ -18,13 +20,21 @@ export const Route = createFileRoute('/auth')({
   }),
 });
 
+function Redirect() {
+  const { redirect: redirectSearch } = Route.useSearch();
+  const redirectCache = useAuthRedirect((state) => state.redirect);
+  const [redirect] = useState(redirectSearch ?? redirectCache ?? '/');
+
+  useEffect(() => {
+    useAuthRedirect.getState().clearRedirect();
+  }, []);
+
+  return <Navigate to={redirect} />;
+}
+
 function AuthLayout() {
   const { token } = useToken();
-  const { redirect } = Route.useSearch();
 
-  if (token) {
-    return <Navigate to={redirect ?? '/'} />;
-  }
-
+  if (token) return <Redirect />;
   return <Outlet />;
 }
