@@ -168,7 +168,7 @@ function OverlayStackDemo() {
               <Dialog.Trigger asChild>
                 <Button variant="change">두 번째 열기</Button>
               </Dialog.Trigger>
-              <Dialog.Content className="h-60 w-60">
+              <Dialog.Content className="w-60">
                 <Dialog.Header>
                   <Dialog.Title>두 번째 다이얼로그</Dialog.Title>
                   <Dialog.Description>

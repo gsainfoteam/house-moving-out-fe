@@ -7,7 +7,7 @@ import { cn } from '@/common/utils';
  * @see Dialog.Close
  */
 export const Footer = ({ className, ...props }: HTMLAttributes<HTMLDivElement> & Footer.Props) => (
-  <div className={cn('mt-4 flex justify-end gap-2', className)} {...props} />
+  <div className={cn('flex justify-between gap-2', className)} {...props} />
 );
 
 export namespace Footer {

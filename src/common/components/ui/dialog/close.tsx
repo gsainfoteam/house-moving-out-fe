@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from 'react';
 
-import { mergeEventHandlers } from '@/common/utils';
+import { cn, mergeEventHandlers } from '@/common/utils';
 
 import { useDialogContext } from './context';
 import { Slot } from '../slot';
@@ -12,6 +12,7 @@ export const Close = ({
   asChild,
   children,
   onClick,
+  className,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & Close.Props) => {
   const { onOpenChange } = useDialogContext('Dialog.Close');
@@ -20,7 +21,7 @@ export const Close = ({
   const Comp = asChild ? Slot : 'button';
 
   return (
-    <Comp type="button" onClick={handleClick} {...props}>
+    <Comp type="button" onClick={handleClick} className={cn('w-full', className)} {...props}>
       {children}
     </Comp>
   );

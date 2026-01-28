@@ -109,11 +109,7 @@ export function useOverlay(
       return (
         <OverlayPortal>
           <div
-            className={cn(
-              'fixed inset-0 flex items-center justify-center',
-              !enabled && 'pointer-events-none',
-              className,
-            )}
+            className={cn('fixed inset-0', !enabled && 'pointer-events-none', className)}
             style={{ zIndex: latestRef.current.zIndex }}
             onMouseDown={(event) => {
               event.stopPropagation();

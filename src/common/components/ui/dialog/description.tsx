@@ -10,7 +10,13 @@ import { useDialogContext } from './context';
 export const Description = ({ className, ...props }: Description.Props) => {
   const { descriptionId } = useDialogContext('Dialog.Description');
 
-  return <p id={descriptionId} className={cn('text-body text-text-gray', className)} {...props} />;
+  return (
+    <p
+      id={descriptionId}
+      className={cn('text-body text-text-gray text-center', className)}
+      {...props}
+    />
+  );
 };
 
 export namespace Description {

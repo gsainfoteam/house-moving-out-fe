@@ -20,7 +20,7 @@ export const Content = ({ className, children, ...props }: MotionProps & Content
   const { overlay, isOpen, titleId, descriptionId } = useDialogContext('Dialog.Content');
 
   return (
-    <overlay.Container enabled={isOpen}>
+    <overlay.Container enabled={isOpen} className="flex items-center justify-center">
       <overlay.Backdrop
         variants={backdropAnimation}
         transition={backdropTransition}
@@ -43,7 +43,9 @@ export const Content = ({ className, children, ...props }: MotionProps & Content
               aria-labelledby={titleId}
               aria-describedby={descriptionId}
               className={cn(
-                'border-logo-gray relative flex h-full max-h-[70vh] max-w-md flex-col overflow-hidden rounded-2xl border bg-white p-5',
+                'relative flex h-full max-h-[70vh] max-w-md flex-col',
+                'mx-10 gap-4 overflow-hidden p-5',
+                'border-logo-gray rounded-2xl border bg-white',
                 className,
               )}
               {...props}
