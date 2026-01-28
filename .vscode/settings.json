@@ -13,5 +13,6 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never" // eslint-plugin-import와 충돌 방지
   },
-  "eslint.experimental.useFlatConfig": true
+  "eslint.experimental.useFlatConfig": true,
+  "cSpell.words": ["focusables"]
 }

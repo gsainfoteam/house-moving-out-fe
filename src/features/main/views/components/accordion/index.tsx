@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ChevronDown } from 'lucide-react';
 
-import { cn } from '@/common/lib';
+import { cn } from '@/common/utils';
 
 export function Accordion({
   title,

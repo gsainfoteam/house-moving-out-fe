@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { cn } from '@/common/lib';
+import { cn } from '@/common/utils';
 import { useLanguage } from '@/common/viewmodels';
 
 export function LanguageToggle() {
