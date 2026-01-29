@@ -6,7 +6,7 @@ import type { VariantProps } from 'tailwind-variants';
 
 export function Button({
   variant = 'default',
-  iconOnly = false,
+  size = 'default',
   asChild = false,
   children,
   className,
@@ -18,7 +18,7 @@ export function Button({
     <Comp
       className={Button.styles({
         variant: props.disabled ? 'disabled' : variant,
-        iconOnly,
+        size,
         className,
       })}
       {...props}
@@ -31,14 +31,14 @@ export function Button({
 export namespace Button {
   export type Props = {
     variant?: VariantProps<typeof Button.styles>['variant'];
-    iconOnly?: VariantProps<typeof Button.styles>['iconOnly'];
+    size?: VariantProps<typeof Button.styles>['size'];
     asChild?: boolean;
   };
   export const styles = cv({
     base: [
       // FIXME: typography leading 추가 후 지우기
-      'text-button rounded-lg leading-none',
-      'flex items-center justify-center truncate',
+      'rounded-lg leading-none',
+      'flex items-center justify-center truncate gap-2',
       'relative',
       'transition-all duration-200',
       'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-white focus-visible:outline-none',
@@ -85,9 +85,10 @@ export namespace Button {
           'before:bg-bg-white',
         ],
       },
-      iconOnly: {
-        true: 'p-3',
-        false: 'gap-2 px-7.5 py-4',
+      size: {
+        icon: 'p-3',
+        default: 'px-6 py-3.5',
+        full: 'px-7.5 py-4',
       },
     },
   });

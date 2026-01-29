@@ -4,8 +4,9 @@ import { useSearch } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
+import ModalBang from '@/assets/modal-bang.svg?react';
 import ShortLogo from '@/assets/short-logo.svg?react';
-import { SwitchCase } from '@/common/components';
+import { Button, Dialog, SwitchCase } from '@/common/components';
 import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
 
@@ -48,7 +49,7 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
         <Steps steps={steps} activeStepIndex={1} className="w-full" />
       </StatusCard.Content>
       <StatusCard.Footer>
-        <StatusCard.Button variant="change" className="w-full">
+        <StatusCard.Button variant="outline" className="w-full">
           {t('steps.step1.button')}
         </StatusCard.Button>
       </StatusCard.Footer>
@@ -108,9 +109,31 @@ function Step3FailedCard() {
         </StatusCard.Details>
       </StatusCard.Content>
       <StatusCard.Footer>
-        <StatusCard.Button variant="failed" className="w-full">
-          {t('result.failed.button')}
-        </StatusCard.Button>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <StatusCard.Button variant="failed" className="w-full">
+              {t('result.failed.button')}
+            </StatusCard.Button>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <Dialog.Header>
+              <ModalBang className="mb-3" />
+              <Dialog.Title>{t('result.failed.retry.title')}</Dialog.Title>
+              <Dialog.Description>
+                {/* FIXME: mock remain count */}
+                {t('result.failed.retry.description', { remainCount: 2 })}
+              </Dialog.Description>
+            </Dialog.Header>
+            <Dialog.Footer>
+              <Dialog.Close asChild>
+                <Button variant="failed-outline">{t('result.failed.retry.cancel')}</Button>
+              </Dialog.Close>
+              <Button variant="failed" className="w-full">
+                {t('result.failed.retry.submit')}
+              </Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog.Root>
       </StatusCard.Footer>
     </StatusCard>
   );
@@ -145,7 +168,7 @@ function Step3NotPeriodCard() {
         </StatusCard.Header>
       </StatusCard.Content>
       <StatusCard.Footer>
-        <StatusCard.Button variant="change" className="w-full">
+        <StatusCard.Button variant="outline" className="w-full">
           {t('result.notPeriod.button')}
         </StatusCard.Button>
       </StatusCard.Footer>

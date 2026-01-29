@@ -12,6 +12,12 @@
         "bathroom": "화장실 청소 미흡",
         "deskDrawer": "책상 서랍 정리 미흡"
       },
+      "retry": {
+        "cancel": "이전",
+        "description": "재검사 가능 횟수가 {{remainCount}}회 남았습니다.",
+        "submit": "신청하기",
+        "title": "재검사를 신청하시겠습니까?"
+      },
       "title": "재검사가 필요합니다."
     },
     "notPeriod": {

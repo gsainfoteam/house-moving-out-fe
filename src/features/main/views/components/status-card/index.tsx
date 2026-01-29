@@ -1,3 +1,5 @@
+import type React from 'react';
+
 import { Button } from '@/common/components/ui/button';
 import { cn } from '@/common/utils';
 
@@ -90,7 +92,11 @@ function StatusCardFooter({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn('w-full', className)}>{children}</div>;
+  return <div className={cn('text-button w-full', className)}>{children}</div>;
+}
+
+function StatusCardButton(props: React.ComponentProps<typeof Button>) {
+  return <Button size="full" {...props} />;
 }
 
 /**
@@ -120,13 +126,14 @@ function StatusCardFooter({
  *     </StatusCard.Details>
  *   </StatusCard.Content>
  *   <StatusCard.Footer>
- *     <Button variant="default" className="w-full">
+ *     <StatusCard.Button variant="default">
  *       버튼
  *     </Button>
  *   </StatusCard.Footer>
  * </StatusCard>
  * ```
  */
+
 export const StatusCard = Object.assign(StatusCardRoot, {
   Content: StatusCardContent,
   Header: StatusCardHeader,
@@ -136,5 +143,5 @@ export const StatusCard = Object.assign(StatusCardRoot, {
   Description: StatusCardDescription,
   Details: StatusCardDetails,
   Footer: StatusCardFooter,
-  Button,
+  Button: StatusCardButton,
 });

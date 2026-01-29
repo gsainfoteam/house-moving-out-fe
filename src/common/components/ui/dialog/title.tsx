@@ -11,7 +11,7 @@ export const Title = ({ className, children, ...props }: Title.Props) => {
   const { titleId } = useDialogContext('Dialog.Title');
 
   return (
-    <h1 id={titleId} className={cn('text-center', className)} {...props}>
+    <h1 id={titleId} className={cn('text-modal-title text-center', className)} {...props}>
       {children}
     </h1>
   );

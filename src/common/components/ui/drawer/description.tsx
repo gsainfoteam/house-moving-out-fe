@@ -13,7 +13,7 @@ export const Description = ({ className, ...props }: Description.Props) => {
   return (
     <p
       id={descriptionId}
-      className={cn('text-body text-text-gray text-center', className)}
+      className={cn('text-modal-description text-text-gray text-center', className)}
       {...props}
     />
   );

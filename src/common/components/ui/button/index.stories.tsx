@@ -17,9 +17,10 @@ const meta: Meta<typeof Button> = {
       options: ['default', 'outline', 'failed', 'failed-outline', 'disabled'],
       description: '버튼의 스타일 변형',
     },
-    iconOnly: {
-      control: 'boolean',
-      description: '정사각형 아이콘 버튼 여부',
+    size: {
+      control: 'select',
+      options: ['icon', 'default', 'full'],
+      description: '버튼의 크기',
     },
     disabled: {
       control: 'boolean',
@@ -39,7 +40,7 @@ export const Playground: Story = {
   args: {
     variant: 'default',
     children: '퇴사 검사 신청하기',
-    iconOnly: false,
+    size: 'default',
     disabled: false,
   },
 };
@@ -54,6 +55,18 @@ export const AllVariants: Story = {
       <Button variant="default" disabled>
         Disabled Button
       </Button>
+    </div>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Button size="icon">
+        <Search size={24} />
+      </Button>
+      <Button size="default">Default Size Button</Button>
+      <Button size="full">Full Size Button</Button>
     </div>
   ),
 };
@@ -85,19 +98,19 @@ export const WithIcon: Story = {
 export const IconOnly: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Button variant="default" iconOnly>
+      <Button variant="default" size="icon">
         <Search size={24} />
       </Button>
-      <Button variant="outline" iconOnly>
+      <Button variant="outline" size="icon">
         <Search size={24} />
       </Button>
-      <Button variant="failed" iconOnly>
+      <Button variant="failed" size="icon">
         <Search size={24} />
       </Button>
-      <Button variant="failed-outline" iconOnly>
+      <Button variant="failed-outline" size="icon">
         <Search size={24} />
       </Button>
-      <Button variant="default" iconOnly disabled>
+      <Button variant="default" size="icon" disabled>
         <Search size={24} />
       </Button>
     </div>

@@ -12,6 +12,12 @@
         "bathroom": "Insufficient bathroom cleaning",
         "deskDrawer": "Insufficient desk drawer organization"
       },
+      "retry": {
+        "cancel": "Cancel",
+        "description": "You have {{remainCount}} re-examinations remaining.",
+        "submit": "Request",
+        "title": "Request re-examination?"
+      },
       "title": "Re-inspection Required"
     },
     "notPeriod": {
