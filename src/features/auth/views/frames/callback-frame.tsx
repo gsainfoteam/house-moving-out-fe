@@ -2,8 +2,9 @@ import { useEffect, useRef } from 'react';
 
 import { useNavigate } from '@tanstack/react-router';
 
-import { Loader2 } from 'lucide-react';
 import { useAuthContext } from 'react-oauth2-code-pkce';
+
+import { Loading } from '@/common/components/loading';
 
 import { useAuth } from '../../viewmodels';
 
@@ -35,9 +36,5 @@ export function CallbackFrame() {
     }
   }, [token, logIn, isLoading, navigate]);
 
-  return (
-    <div className="flex h-dvh items-center justify-center">
-      <Loader2 className="text-icon-gray size-12 animate-spin" />
-    </div>
-  );
+  return <Loading />;
 }

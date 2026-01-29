@@ -1,9 +1,10 @@
 import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-router';
 
-import { Loader2, LogOutIcon } from 'lucide-react';
+import { LogOutIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Fab } from '@/common/components';
+import { Loading } from '@/common/components/loading';
 import { useIsAdmin } from '@/features/admin';
 import { useAuth, useToken } from '@/features/auth';
 
@@ -16,13 +17,8 @@ function Inner() {
   const { t } = useTranslation('common');
   const isAdmin = useIsAdmin();
 
-  if (isAdmin === undefined) {
-    return <Loader2 className="size-6 animate-spin" />;
-  }
-
-  if (!isAdmin) {
-    return <Navigate to="/" replace />;
-  }
+  if (isAdmin === undefined) return <Loading />;
+  if (!isAdmin) return <Navigate to="/" replace />;
 
   return (
     <>
