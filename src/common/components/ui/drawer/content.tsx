@@ -1,4 +1,6 @@
-import { AnimatePresence, motion, type MotionProps } from 'motion/react';
+import { useCallback, useRef } from 'react';
+
+import { AnimatePresence, motion, type MotionProps, type PanInfo } from 'motion/react';
 
 import { cn } from '@/common/utils';
 
@@ -7,6 +9,9 @@ import {
   backdropAnimation,
   backdropTransition,
   contentAnimationBySide,
+  createDragEndHandler,
+  dragConstraintsBySide,
+  dragDirectionBySide,
 } from './animation';
 import { useDrawerContext } from './context';
 
@@ -19,7 +24,14 @@ export const Content = ({
   children,
   ...props
 }: MotionProps & Content.Props & { children: React.ReactNode }) => {
-  const { overlay, isOpen, side, titleId, descriptionId } = useDrawerContext('Drawer.Content');
+  const { overlay, isOpen, side, titleId, descriptionId, onOpenChange } =
+    useDrawerContext('Drawer.Content');
+  const dragRef = useRef<HTMLDivElement>(null);
+  const handleDragEnd = useCallback(
+    (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) =>
+      createDragEndHandler(side, onOpenChange, dragRef)(event, info),
+    [side, onOpenChange],
+  );
 
   const [sideLayoutClassName, panelClassName, handleClassName] = (() => {
     switch (side) {
@@ -65,6 +77,11 @@ export const Content = ({
         <AnimatePresence>
           {isOpen ? (
             <motion.div
+              ref={dragRef}
+              drag={dragDirectionBySide[side]}
+              dragConstraints={dragConstraintsBySide[side]}
+              dragElastic={0.2}
+              onDragEnd={handleDragEnd}
               variants={contentAnimationBySide[side]}
               transition={contentTransition}
               initial="closed"
@@ -80,6 +97,7 @@ export const Content = ({
                 'shadow-[0_8px_30px_rgba(0,0,0,0.12)]',
                 'p-5',
                 'absolute',
+                'cursor-grab active:cursor-grabbing',
                 panelClassName,
                 className,
               )}

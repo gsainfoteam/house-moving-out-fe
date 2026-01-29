@@ -1,5 +1,12 @@
+import {
+  animate,
+  type BoundingBox,
+  type PanInfo,
+  type Transition,
+  type Variants,
+} from 'motion/react';
+
 import type { DrawerSide } from './context';
-import type { Transition, Variants } from 'motion/react';
 
 export const backdropAnimation: Variants = {
   closed: { opacity: 0, backdropFilter: 'blur(0px)' },
@@ -33,4 +40,54 @@ export const contentAnimationBySide: Record<DrawerSide, Variants> = {
 export const contentTransition: Transition = {
   duration: 0.5,
   ease: [0.16, 1, 0.3, 1],
+};
+
+export const dragDirectionBySide: Record<DrawerSide, 'x' | 'y'> = {
+  bottom: 'y',
+  top: 'y',
+  left: 'x',
+  right: 'x',
+};
+
+export const dragConstraintsBySide: Record<DrawerSide, Partial<BoundingBox>> = {
+  bottom: { top: 0, bottom: Infinity },
+  top: { top: -Infinity, bottom: 0 },
+  left: { left: -Infinity, right: 0 },
+  right: { left: 0, right: Infinity },
+};
+
+export const createDragEndHandler = (
+  side: DrawerSide,
+  onOpenChange: (open: boolean) => void,
+  dragRef: React.RefObject<HTMLDivElement | null>,
+  threshold: number = 100,
+) => {
+  return (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    let shouldClose = false;
+
+    switch (side) {
+      case 'bottom':
+        shouldClose = info.offset.y > threshold;
+        break;
+      case 'top':
+        shouldClose = info.offset.y < -threshold;
+        break;
+      case 'left':
+        shouldClose = info.offset.x < -threshold;
+        break;
+      case 'right':
+        shouldClose = info.offset.x > threshold;
+        break;
+    }
+
+    if (shouldClose) {
+      onOpenChange(false);
+    } else if (dragRef.current) {
+      animate(
+        dragRef.current,
+        { [dragDirectionBySide[side]]: 0 },
+        { duration: 0.3, ease: 'easeOut' },
+      );
+    }
+  };
 };
