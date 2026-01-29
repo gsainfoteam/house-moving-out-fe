@@ -18,6 +18,7 @@ export function useFocusTrap(ref: React.RefObject<HTMLElement | null>, enabled: 
 
     const prevFocused = document.activeElement as HTMLElement | null;
     const getFocusables = () => Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE));
+    const hadTabIndex = container.hasAttribute('tabindex');
 
     const focusFirst = () => {
       const focusables = getFocusables();
@@ -26,7 +27,7 @@ export function useFocusTrap(ref: React.RefObject<HTMLElement | null>, enabled: 
       if (firstFocusable) {
         firstFocusable.focus();
       } else {
-        if (!container.hasAttribute('tabindex')) {
+        if (!hadTabIndex) {
           container.setAttribute('tabindex', '-1');
         }
         container.focus();
@@ -60,6 +61,9 @@ export function useFocusTrap(ref: React.RefObject<HTMLElement | null>, enabled: 
     return () => {
       container.removeEventListener('keydown', onKeyDown);
       prevFocused?.focus();
+      if (!hadTabIndex && container.hasAttribute('tabindex')) {
+        container.removeAttribute('tabindex');
+      }
     };
   }, [ref, enabled]);
 }
