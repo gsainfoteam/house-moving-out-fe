@@ -4,6 +4,12 @@
     "languageChange": "언어변경",
     "logout": "로그아웃"
   },
+  "inquiryDrawer": {
+    "email": "e-mail: gist_house@gist.ac.kr",
+    "faq": "FAQ (자주 묻는 질문) 보러가기",
+    "instagram": "인스타 DM: @gist.house.ask",
+    "title": "문의하기"
+  },
   "switchToEnglish": "영어로 전환",
   "switchToKorean": "한국어로 전환"
 }
