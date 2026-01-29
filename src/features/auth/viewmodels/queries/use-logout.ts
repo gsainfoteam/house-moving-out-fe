@@ -7,11 +7,11 @@ import { $api } from '@/common/lib';
 import { ApiPaths } from '../../models';
 import { useAuthPrompt, useToken } from '../stores';
 
-export const useUserLogout = ({ showToast = false }: { showToast?: boolean } = {}) => {
+export const useLogout = ({ showToast = false }: { showToast?: boolean } = {}) => {
   const { t } = useTranslation('auth');
   const { logOut: idpLogOut } = useAuthContext();
 
-  return $api.useMutation('post', ApiPaths.AuthController_userLogout, {
+  return $api.useMutation('post', ApiPaths.AuthController_logout, {
     onError: () => {
       if (showToast) {
         toast.error(t('error.logoutFailed'));

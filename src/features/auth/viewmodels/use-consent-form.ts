@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { z } from 'zod';
 
-import { useUserAuth } from './use-user-auth';
+import { useAuth } from './use-auth';
 
 import type { RequiredConsents } from '../models';
 import type { TFunction } from 'i18next';
@@ -26,7 +26,7 @@ export type ConsentFormData = z.infer<ReturnType<typeof createConsentSchema>>;
 export const useConsentForm = (requiredConsents: RequiredConsents, formData?: ConsentFormData) => {
   const { token } = useAuthContext();
   const { t } = useTranslation('auth');
-  const { logIn } = useUserAuth({ showToast: true });
+  const { logIn } = useAuth({ showToast: true });
 
   const consentSchema = createConsentSchema(t);
 

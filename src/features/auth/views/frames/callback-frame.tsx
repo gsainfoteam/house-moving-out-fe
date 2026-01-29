@@ -5,14 +5,14 @@ import { useNavigate } from '@tanstack/react-router';
 import { Loader2 } from 'lucide-react';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 
-import { useUserAuth } from '../../viewmodels';
+import { useAuth } from '../../viewmodels';
 
 export function CallbackFrame() {
   const { token, loginInProgress: isIdpLoggingIn } = useAuthContext();
   const {
     logIn,
     logInMutation: { isPending: isLoggingIn },
-  } = useUserAuth({ showToast: false });
+  } = useAuth({ showToast: false });
   const navigate = useNavigate();
   const hasProcessed = useRef(false);
 
