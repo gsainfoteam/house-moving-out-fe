@@ -7,40 +7,30 @@ export const backdropAnimation: Variants = {
 };
 
 export const backdropTransition: Transition = {
-  duration: 0.3,
+  duration: 0.4,
   ease: 'easeOut',
 };
 
-const slideFromBottom: Variants = {
-  closed: { opacity: 0, y: '100%' },
-  open: { opacity: 1, y: '0%' },
+export const contentAnimationBySide: Record<DrawerSide, Variants> = {
+  bottom: {
+    closed: { opacity: 0, y: '100%' },
+    open: { opacity: 1, y: '0%' },
+  },
+  top: {
+    closed: { opacity: 0, y: '-100%' },
+    open: { opacity: 1, y: '0%' },
+  },
+  left: {
+    closed: { opacity: 0, x: '-100%' },
+    open: { opacity: 1, x: '0%' },
+  },
+  right: {
+    closed: { opacity: 0, x: '100%' },
+    open: { opacity: 1, x: '0%' },
+  },
 };
-
-const slideFromTop: Variants = {
-  closed: { opacity: 0, y: '-100%' },
-  open: { opacity: 1, y: '0%' },
-};
-
-const slideFromLeft: Variants = {
-  closed: { opacity: 0, x: '-100%' },
-  open: { opacity: 1, x: '0%' },
-};
-
-const slideFromRight: Variants = {
-  closed: { opacity: 0, x: '100%' },
-  open: { opacity: 1, x: '0%' },
-};
-
-const contentAnimationBySide: Record<DrawerSide, Variants> = {
-  bottom: slideFromBottom,
-  top: slideFromTop,
-  left: slideFromLeft,
-  right: slideFromRight,
-};
-
-export const getContentAnimation = (side: DrawerSide): Variants => contentAnimationBySide[side];
 
 export const contentTransition: Transition = {
-  duration: 0.35,
+  duration: 0.5,
   ease: [0.16, 1, 0.3, 1],
 };
