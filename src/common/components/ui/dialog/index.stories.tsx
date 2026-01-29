@@ -15,7 +15,7 @@ type OptionsArgs = {
 };
 
 const meta: Meta<OptionsArgs> = {
-  title: 'Components/Dialog',
+  title: 'Overlay/Dialog',
   parameters: {
     layout: 'centered',
   },

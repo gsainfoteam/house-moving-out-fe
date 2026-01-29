@@ -16,7 +16,7 @@ type OptionsArgs = {
 };
 
 const meta: Meta<OptionsArgs> = {
-  title: 'Components/Drawer',
+  title: 'Overlay/Drawer',
   parameters: {
     layout: 'fullscreen',
   },
