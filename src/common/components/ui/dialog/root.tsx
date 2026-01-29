@@ -15,9 +15,24 @@ export const Root = ({
   closeOnEscape = true,
   closeOnBackdrop = true,
   trapFocus = true,
+  isOpen: isOpenProp,
+  onOpenChange,
 }: Root.Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const close = useCallback(() => setIsOpen(false), []);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const isControlled = isOpenProp !== undefined;
+  const isOpen = isControlled ? isOpenProp : uncontrolledOpen;
+
+  const setOpen = useCallback(
+    (open: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(open);
+      }
+      onOpenChange?.(open);
+    },
+    [isControlled, onOpenChange],
+  );
+
+  const close = useCallback(() => setOpen(false), [setOpen]);
   const overlay = useOverlay(isOpen, close, {
     lockScroll,
     closeOnEscape,
@@ -32,7 +47,7 @@ export const Root = ({
     <DialogContext.Provider
       value={{
         isOpen,
-        onOpenChange: setIsOpen,
+        onOpenChange: setOpen,
         overlay,
         titleId,
         descriptionId,
@@ -44,5 +59,9 @@ export const Root = ({
 };
 
 export namespace Root {
-  export type Props = OverlayOptions & PropsWithChildren;
+  export type Props = OverlayOptions &
+    PropsWithChildren<{
+      isOpen?: boolean;
+      onOpenChange?: (open: boolean) => void;
+    }>;
 }
