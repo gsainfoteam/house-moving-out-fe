@@ -8,7 +8,7 @@ export function Input({
   ref,
   ...props
 }: Input.Props &
-  React.InputHTMLAttributes<HTMLInputElement> & { ref: React.Ref<HTMLInputElement> }) {
+  React.InputHTMLAttributes<HTMLInputElement> & { ref?: React.Ref<HTMLInputElement> }) {
   return <input className={Input.styles({ variant, className })} ref={ref} {...props} />;
 }
 
