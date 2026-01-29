@@ -21,8 +21,16 @@ export function useFocusTrap(ref: React.RefObject<HTMLElement | null>, enabled: 
 
     const focusFirst = () => {
       const focusables = getFocusables();
-      const firstFocusable = head(focusables) ?? container;
-      firstFocusable.focus();
+      const firstFocusable = head(focusables);
+
+      if (firstFocusable) {
+        firstFocusable.focus();
+      } else {
+        if (!container.hasAttribute('tabindex')) {
+          container.setAttribute('tabindex', '-1');
+        }
+        container.focus();
+      }
     };
 
     focusFirst();
