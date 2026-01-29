@@ -38,26 +38,26 @@ export const Content = ({
       case 'bottom':
         return [
           cn('items-end justify-center'),
-          cn('left-0 right-0 bottom-0 rounded-t-2xl'),
+          cn('left-0 right-0 bottom-0 pt-8'),
           cn('top-3 left-1/2 -translate-x-1/2 h-1 w-12'),
         ];
       case 'top':
         return [
           cn('items-start justify-center'),
-          cn('left-0 right-0 top-0 rounded-b-2xl'),
+          cn('left-0 right-0 top-0 pb-8'),
           cn('bottom-3 left-1/2 -translate-x-1/2 h-1 w-12'),
         ];
       case 'left':
         return [
           cn('items-stretch justify-start'),
-          cn('left-0 top-0 bottom-0 w-[80vw] max-w-sm rounded-r-2xl'),
+          cn('left-0 top-0 bottom-0 w-[80vw] max-w-sm pr-8'),
           cn('right-3 top-1/2 -translate-y-1/2 h-12 w-1'),
         ];
       case 'right':
       default:
         return [
           cn('items-stretch justify-end'),
-          cn('right-0 top-0 bottom-0 w-[80vw] max-w-sm rounded-l-2xl'),
+          cn('right-0 top-0 bottom-0 w-[80vw] max-w-sm pl-8'),
           cn('left-3 top-1/2 -translate-y-1/2 h-12 w-1'),
         ];
     }
@@ -93,9 +93,8 @@ export const Content = ({
               aria-describedby={descriptionId}
               className={cn(
                 'relative flex max-h-full w-full flex-col gap-4',
-                'bg-bg-white',
-                'shadow-[0_8px_30px_rgba(0,0,0,0.12)]',
-                'p-5',
+                'bg-bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)]',
+                'rounded-2xl p-5',
                 'absolute',
                 'cursor-grab active:cursor-grabbing',
                 panelClassName,
