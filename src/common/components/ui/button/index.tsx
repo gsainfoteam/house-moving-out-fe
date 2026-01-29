@@ -38,7 +38,7 @@ export namespace Button {
     base: [
       // FIXME: typography leading 추가 후 지우기
       'text-button rounded-lg leading-none',
-      'flex items-center justify-center whitespace-nowrap',
+      'flex items-center justify-center truncate',
       'relative',
       'transition-all duration-200',
       'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-white focus-visible:outline-none',

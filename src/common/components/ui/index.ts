@@ -9,4 +9,5 @@ export * from './fab';
 
 // compound components
 export * from './dialog';
+export * from './drawer';
 // TODO: drawer, popover, toast
