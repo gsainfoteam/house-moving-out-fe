@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { $api } from '@/common/lib';
 
-import { ApiPaths } from '../../models';
+import { ApiPaths } from '../../../main/models';
 
 export const useCreateMoveOutSchedule = () => {
   const queryClient = useQueryClient();
@@ -10,7 +10,7 @@ export const useCreateMoveOutSchedule = () => {
   return $api.useMutation('post', ApiPaths.MoveOutController_createMoveOutSchedule, {
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.MoveOutController_findMoveOutScheduleWithSlots],
+        queryKey: ['get', ApiPaths.MoveOutController_findAllMoveOutSchedules],
       });
     },
   });
