@@ -80,7 +80,7 @@ function DialogInDrawerDemo() {
           <Drawer.Footer orientation="vertical">
             <Dialog.Root closeOnBackdrop>
               <Dialog.Trigger asChild>
-                <Button variant="change">Open dialog inside drawer</Button>
+                <Button variant="outline">Open dialog inside drawer</Button>
               </Dialog.Trigger>
               <Dialog.Content>
                 <Dialog.Header>
@@ -135,7 +135,7 @@ function DrawerInDialogDemo() {
           <Dialog.Footer orientation="vertical">
             <Drawer.Root side="right" closeOnBackdrop>
               <Drawer.Trigger asChild>
-                <Button variant="change">Open drawer inside dialog</Button>
+                <Button variant="outline">Open drawer inside dialog</Button>
               </Drawer.Trigger>
               <Drawer.Content>
                 <Drawer.Header>
@@ -192,7 +192,7 @@ function ComplexStackDemo() {
           <Dialog.Footer orientation="vertical">
             <Drawer.Root side="bottom" closeOnBackdrop>
               <Drawer.Trigger asChild>
-                <Button variant="change">2. Open drawer</Button>
+                <Button variant="outline">2. Open drawer</Button>
               </Drawer.Trigger>
               <Drawer.Content>
                 <Drawer.Header>
@@ -209,7 +209,7 @@ function ComplexStackDemo() {
                 <Drawer.Footer orientation="vertical">
                   <Dialog.Root closeOnBackdrop>
                     <Dialog.Trigger asChild>
-                      <Button variant="change">3. Open second dialog</Button>
+                      <Button variant="outline">3. Open second dialog</Button>
                     </Dialog.Trigger>
                     <Dialog.Content className="w-80">
                       <Dialog.Header>

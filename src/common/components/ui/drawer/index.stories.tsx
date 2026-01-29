@@ -160,7 +160,7 @@ function OptionsDemo({
           </Drawer.Body>
           <Drawer.Footer>
             <Drawer.Close asChild>
-              <Button variant="change">확인</Button>
+              <Button variant="outline">확인</Button>
             </Drawer.Close>
             <Drawer.Close asChild>
               <Button>닫기</Button>
@@ -186,7 +186,7 @@ function SidesDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: Op
             trapFocus={trapFocus}
           >
             <Drawer.Trigger asChild>
-              <Button variant="change">Top</Button>
+              <Button variant="outline">Top</Button>
             </Drawer.Trigger>
             <Drawer.Content>
               <Drawer.Header>
@@ -331,7 +331,7 @@ function NestedDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: O
               trapFocus={trapFocus}
             >
               <Drawer.Trigger asChild>
-                <Button variant="change" className="w-full">
+                <Button variant="outline" className="w-full">
                   드로어 열기
                 </Button>
               </Drawer.Trigger>

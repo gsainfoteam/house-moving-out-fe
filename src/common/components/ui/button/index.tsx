@@ -60,7 +60,7 @@ export namespace Button {
           // White overlay state layer
           'before:bg-bg-white',
         ],
-        change: [
+        outline: [
           'bg-bg-white text-primary-main inset-ring-primary-main inset-ring-[1.5px]',
           'focus-visible:ring-primary-main',
           // Primary color overlay state layer
@@ -71,6 +71,12 @@ export namespace Button {
           'focus-visible:ring-status-fail',
           // White overlay state layer
           'before:bg-bg-white',
+        ],
+        'failed-outline': [
+          'bg-bg-white text-status-fail inset-ring-status-fail inset-ring-[1.5px]',
+          'focus-visible:ring-status-fail',
+          // Primary color overlay state layer
+          'before:bg-status-fail',
         ],
         disabled: [
           'bg-icon-gray text-text-white',

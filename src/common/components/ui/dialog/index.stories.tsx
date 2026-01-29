@@ -136,7 +136,7 @@ function OptionsDemo({
           </Dialog.Body>
           <Dialog.Footer>
             <Dialog.Close asChild>
-              <Button variant="change">확인</Button>
+              <Button variant="outline">확인</Button>
             </Dialog.Close>
             <Dialog.Close asChild>
               <Button>닫기</Button>
@@ -166,7 +166,7 @@ function OverlayStackDemo() {
           <Dialog.Footer>
             <Dialog.Root closeOnBackdrop>
               <Dialog.Trigger asChild>
-                <Button variant="change">두 번째 열기</Button>
+                <Button variant="outline">두 번째 열기</Button>
               </Dialog.Trigger>
               <Dialog.Content className="w-60">
                 <Dialog.Header>

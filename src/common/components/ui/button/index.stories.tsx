@@ -14,7 +14,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'change', 'failed', 'disabled'],
+      options: ['default', 'outline', 'failed', 'failed-outline', 'disabled'],
       description: '버튼의 스타일 변형',
     },
     iconOnly: {
@@ -48,8 +48,9 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Button variant="default">Default Button</Button>
-      <Button variant="change">Change Button</Button>
+      <Button variant="outline">Change Button</Button>
       <Button variant="failed">Failed Button</Button>
+      <Button variant="failed-outline">Failed Outline Button</Button>
       <Button variant="default" disabled>
         Disabled Button
       </Button>
@@ -64,7 +65,7 @@ export const WithIcon: Story = {
         <Download size={24} />
         다운로드
       </Button>
-      <Button variant="change">
+      <Button variant="outline">
         <Download size={24} />
         다운로드
       </Button>
@@ -87,10 +88,13 @@ export const IconOnly: Story = {
       <Button variant="default" iconOnly>
         <Search size={24} />
       </Button>
-      <Button variant="change" iconOnly>
+      <Button variant="outline" iconOnly>
         <Search size={24} />
       </Button>
       <Button variant="failed" iconOnly>
+        <Search size={24} />
+      </Button>
+      <Button variant="failed-outline" iconOnly>
         <Search size={24} />
       </Button>
       <Button variant="default" iconOnly disabled>
