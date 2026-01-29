@@ -1,3 +1,4 @@
-import { ApiPaths } from '@/@types/api-schema';
+import type { components } from '@/@types/api-schema';
 
-export { ApiPaths };
+export type MoveOutSchedule = components['schemas']['MoveOutScheduleResDto'];
+export { ApiPaths } from '@/@types/api-schema';
