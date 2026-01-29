@@ -128,7 +128,7 @@ function StatusCardButton(props: React.ComponentProps<typeof Button>) {
  *   <StatusCard.Footer>
  *     <StatusCard.Button variant="default">
  *       버튼
- *     </Button>
+ *     </StatusCard.Button>
  *   </StatusCard.Footer>
  * </StatusCard>
  * ```
