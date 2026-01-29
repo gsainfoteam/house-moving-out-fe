@@ -19,7 +19,7 @@ export namespace Input {
 
   export const styles = cv({
     base: [
-      'w-full rounded-lg border bg-bg-white px-4 py-3',
+      'w-full rounded-lg border-[1.5px] bg-bg-white px-4 py-3',
       'text-box text-text-black placeholder:text-text-gray',
       'transition-all duration-200',
       'file:border-0 file:bg-transparent file:text-sm file:font-medium',
