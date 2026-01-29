@@ -1,4 +1,4 @@
-import { useMemo, type PropsWithChildren } from 'react';
+import { useEffect, useState, type PropsWithChildren } from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -17,10 +17,13 @@ export function OverlayPortal({
   rootId = 'overlay-root',
   children,
 }: PropsWithChildren<{ rootId?: string }>) {
-  const root = useMemo(
-    () => (typeof document === 'undefined' ? null : getElementById(rootId)),
-    [rootId],
-  );
+  const [root, setRoot] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const el = getElementById(rootId);
+    queueMicrotask(() => setRoot(el));
+  }, [rootId]);
 
   if (!root) return null;
   return createPortal(children, root);
