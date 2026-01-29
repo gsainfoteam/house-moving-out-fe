@@ -11,7 +11,7 @@ import React, {
 
 import { last } from 'es-toolkit/array';
 
-import { lockScroll, unlockScroll } from './use-lock-scroll';
+import { lockScroll, unlockScroll } from './scroll-lock';
 
 import type { OverlayOptions } from './use-overlay';
 

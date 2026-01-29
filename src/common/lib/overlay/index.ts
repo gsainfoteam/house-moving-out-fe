@@ -1,5 +1,5 @@
 export * from './use-focus-trap';
-export * from './use-lock-scroll';
+export * from './scroll-lock';
 export * from './use-overlay';
 export * from './portal';
 export * from './provider';
