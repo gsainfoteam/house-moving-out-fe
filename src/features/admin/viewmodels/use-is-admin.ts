@@ -1,7 +1,9 @@
-import { useInspectors } from './queries';
+import { useAuth } from '@/features/auth';
+
+import { UserDtoRole } from '../models';
 
 export const useIsAdmin = () => {
-  // TODO: change to user information API
-  const { error } = useInspectors();
-  return error === undefined ? undefined : error === null;
+  const { user } = useAuth();
+
+  return user === undefined ? undefined : user?.role === UserDtoRole.ADMIN;
 };
