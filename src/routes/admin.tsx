@@ -3,8 +3,7 @@ import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-ro
 import { LogOutIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Fab } from '@/common/components';
-import { Loading } from '@/common/components/loading';
+import { Fab, Loading } from '@/common/components';
 import { useAuth, useToken } from '@/features/auth';
 
 export const Route = createFileRoute('/admin')({
