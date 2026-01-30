@@ -1,3 +1,3 @@
-import { ApiPaths, UserDtoRole } from '@/@types/api-schema';
+import { ApiPaths } from '@/@types/api-schema';
 
-export { ApiPaths, UserDtoRole };
+export { ApiPaths };

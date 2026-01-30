@@ -1,1 +1,1 @@
-export * from './use-is-admin';
+export * from './queries';

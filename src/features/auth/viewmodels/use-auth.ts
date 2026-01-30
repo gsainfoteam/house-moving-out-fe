@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
 
+import { UserDtoRole } from '../models';
 import { useLogin, useLogout, useUser } from './queries';
 import { useToken } from './stores';
 
@@ -40,6 +41,11 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
     return data;
   }, [data, error, isLoading, token]);
 
+  const isAdmin = useMemo(
+    () => (user === undefined ? undefined : user?.role === UserDtoRole.ADMIN),
+    [user],
+  );
+
   useEffect(() => {
     if (token) {
       refetch();
@@ -48,6 +54,7 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
 
   return {
     user,
+    isAdmin,
     refetch,
     idpLogIn,
     idpLogOut,
