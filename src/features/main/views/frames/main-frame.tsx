@@ -9,16 +9,10 @@ import ShortLogo from '@/assets/short-logo.svg?react';
 import { Button, Dialog, SwitchCase } from '@/common/components';
 import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
+import { useAuth } from '@/features/auth';
 
 import { formatDate } from '../../utils';
 import { Accordion, StatusCard, Steps } from '../components';
-
-// TEST: 목 데이터 제거
-const MOCK_USER = {
-  name: '00',
-  studentId: '20250000',
-  room: 'T012',
-};
 
 const MOCK_INSPECTION_AT = new Date('2025-01-12T00:00:00');
 const MOCK_NEXT_PERIOD_START_AT = new Date('2025-01-01T00:00:00');
@@ -120,7 +114,7 @@ function Step3FailedCard() {
               <ModalBang className="mb-3" />
               <Dialog.Title>{t('result.failed.retry.title')}</Dialog.Title>
               <Dialog.Description>
-                {/* FIXME: mock remain count */}
+                {/* TODO: mock remain count */}
                 {t('result.failed.retry.description', { remainCount: 2 })}
               </Dialog.Description>
             </Dialog.Header>
@@ -206,10 +200,9 @@ function Step3PassedCard() {
 export function MainFrame() {
   const { step, status } = useSearch({ from: '/_auth-required/' });
   const { t } = useTranslation('main');
+  const { user } = useAuth();
   const locale = useLocale();
-
   const inspectionDateText = useMemo(() => formatDate(MOCK_INSPECTION_AT, locale), [locale]);
-
   const steps = useMemo(
     () => [
       {
@@ -234,6 +227,8 @@ export function MainFrame() {
     [t, inspectionDateText],
   );
 
+  if (!user) return null;
+
   return (
     <div
       className={cn(
@@ -245,12 +240,12 @@ export function MainFrame() {
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-2">
             <h1 className="text-h1 text-text-black font-bold">
-              {t('header.title', { name: MOCK_USER.name })}
+              {t('header.title', { name: user.name })}
             </h1>
             <h2 className="text-sub text-text-gray">
               {t('header.subtitle', {
-                studentId: MOCK_USER.studentId,
-                room: MOCK_USER.room,
+                studentId: user.studentNumber,
+                room: 'T207', // TODO: mock user room
               })}
             </h2>
           </div>
