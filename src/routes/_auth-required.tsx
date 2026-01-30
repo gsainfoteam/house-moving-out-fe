@@ -7,25 +7,26 @@ import { useTranslation } from 'react-i18next';
 import HomeIcon from '@/assets/icons/home.svg?react';
 import LogOutIcon from '@/assets/icons/log-out.svg?react';
 import TranslateIcon from '@/assets/icons/translate.svg?react';
-import { Drawer, Fab } from '@/common/components';
+import { Drawer, Fab, Loading } from '@/common/components';
 import { useLanguage } from '@/common/viewmodels';
-import { useToken, useAuth } from '@/features/auth';
+import { useAuth } from '@/features/auth';
 
 export const Route = createFileRoute('/_auth-required')({
   component: AuthRequiredLayout,
 });
 
 function AuthRequiredLayout() {
-  const { token } = useToken();
-  const router = useRouter();
+  const { user } = useAuth();
   const { logOut } = useAuth({ showToast: true });
   const { toggleLanguage } = useLanguage();
   const { t } = useTranslation('common');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const router = useRouter();
 
   const redirect = router.state.location.pathname + router.state.location.searchStr;
 
-  if (!token) {
+  if (user === undefined) return <Loading />;
+  if (user === null) {
     return <Navigate to="/auth/login" search={{ redirect }} replace />;
   }
 
