@@ -5,12 +5,33 @@
       "applicationStartTime": {
         "label": "신청 시작시각"
       },
-      "excel": {
-        "label": "방배정표 파일"
+      "error": {
+        "creating": "퇴사검사 생성 중 에러가 발생했습니다",
+        "formError": "입력란을 확인해주세요"
       },
+      "excel": {
+        "count": "{{count}}명의 피검사자가 인식 되었습니다.",
+        "error": "엑셀 업로드에 실패했습니다",
+        "label": "방배정표 파일",
+        "uploading": "엑셀 파일 업로딩..."
+      },
+      "inspectionStartWeek": {
+        "label": "검사 시작 주"
+      },
+      "loading": "퇴사검사 생성 중...",
+      "succeed": "퇴사검사 일정이 생성되었습니다: {{id}}",
       "summary": {
         "label": "생성 요약",
-        "semester": "학기"
+        "semester": {
+          "fall": "가을",
+          "label": "학기",
+          "spring": "봄",
+          "summer": "여름",
+          "winter": "겨울"
+        },
+        "slots": {
+          "label": "검사 시간 목록"
+        }
       },
       "title": {
         "label": "이름",

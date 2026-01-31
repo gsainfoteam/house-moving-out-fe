@@ -5,12 +5,34 @@
       "applicationStartTime": {
         "label": "Application Start Time"
       },
-      "excel": {
-        "label": "Room Assignments Excel File"
+      "error": {
+        "creating": "An error occurred when creating schedule",
+        "formError": "Please check input forms"
       },
+      "excel": {
+        "count_one": "{{count}} examination target detected.",
+        "count_other": "{{count}} examination targets detected.",
+        "error": "Failed to upload excel",
+        "label": "Room Assignments Excel File",
+        "uploading": "Uploading Excel file..."
+      },
+      "inspectionStartWeek": {
+        "label": "Inspection Starting Week"
+      },
+      "loading": "Creating Schedule...",
+      "succeed": "Moving out schedule created: {{id}}",
       "summary": {
         "label": "Creation Summary",
-        "semester": "Semester"
+        "semester": {
+          "fall": "Fall",
+          "label": "Semester",
+          "spring": "Spring",
+          "summer": "Summer",
+          "winter": "Winter"
+        },
+        "slots": {
+          "label": "Inspection Time List"
+        }
       },
       "title": {
         "label": "Title",
