@@ -44,65 +44,25 @@ const getInspectionTimes = (
   const startOfWeek = dayjs(date).startOf('d').subtract(dayjs(date).day(), 'd');
   const { semester } = getYearSemester(date);
   const isSmall = semester === 'winter' || semester === 'summer';
-  const thu = startOfWeek.add(4, 'day');
-  const fri = startOfWeek.add(5, 'day');
-  const sat = startOfWeek.add(6, 'day');
-  const sun = startOfWeek.add(7, 'day');
+
+  const createSlot = (dayOffset: number, startHour: number, endHour: number) =>
+    [...Array((endHour - startHour) * 2)].map((_, v) =>
+      startOfWeek
+        .add(dayOffset, 'd')
+        .add(startHour, 'h')
+        .add(v * 30, 'minute'),
+    );
 
   const schedules = [
-    ...(isSmall
-      ? []
-      : [
-          thu.set('hour', 15).set('minute', 0),
-          thu.set('hour', 15).set('minute', 30),
-          thu.set('hour', 16).set('minute', 0),
-          thu.set('hour', 16).set('minute', 30),
-          thu.set('hour', 17).set('minute', 0),
-          thu.set('hour', 17).set('minute', 30),
-        ]),
-
-    fri.set('hour', 15).set('minute', 0),
-    fri.set('hour', 15).set('minute', 30),
-    fri.set('hour', 16).set('minute', 0),
-    fri.set('hour', 16).set('minute', 30),
-    fri.set('hour', 17).set('minute', 0),
-    fri.set('hour', 17).set('minute', 30),
-
-    sat.set('hour', 10).set('minute', 0),
-    sat.set('hour', 10).set('minute', 30),
-    sat.set('hour', 11).set('minute', 0),
-    sat.set('hour', 11).set('minute', 30),
-    sat.set('hour', 13).set('minute', 0),
-    sat.set('hour', 13).set('minute', 30),
-    sat.set('hour', 14).set('minute', 0),
-    sat.set('hour', 14).set('minute', 30),
-    sat.set('hour', 15).set('minute', 0),
-    sat.set('hour', 15).set('minute', 30),
-    sat.set('hour', 16).set('minute', 0),
-    sat.set('hour', 16).set('minute', 30),
-    sat.set('hour', 17).set('minute', 0),
-    sat.set('hour', 17).set('minute', 30),
-
-    sun.set('hour', 10).set('minute', 0),
-    sun.set('hour', 10).set('minute', 30),
-    sun.set('hour', 11).set('minute', 0),
-    sun.set('hour', 11).set('minute', 30),
-    sun.set('hour', 13).set('minute', 0),
-    sun.set('hour', 13).set('minute', 30),
-    sun.set('hour', 14).set('minute', 0),
-    sun.set('hour', 14).set('minute', 30),
-    sun.set('hour', 15).set('minute', 0),
-    sun.set('hour', 15).set('minute', 30),
-    sun.set('hour', 16).set('minute', 0),
-
-    ...(isSmall
-      ? [
-          sun.set('hour', 16).set('minute', 30),
-          sun.set('hour', 17).set('minute', 0),
-          sun.set('hour', 17).set('minute', 30),
-        ]
-      : []),
+    ...(isSmall ? [] : createSlot(4, 15, 18)),
+    ...createSlot(5, 15, 18),
+    ...createSlot(6, 10, 12),
+    ...createSlot(6, 13, 18),
+    ...createSlot(7, 10, 12),
+    ...createSlot(7, 13, 16.5),
+    ...(isSmall ? createSlot(7, 16.5, 18) : []),
   ];
+
   return schedules.map((d) => ({
     start: d.format(),
     end: d.add(30, 'minute').format(),
