@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/admin/')({
-  component: RouteComponent,
-});
+import { AdminLandingFrame } from '@/features/admin';
 
-function RouteComponent() {
-  return <div>Hello "/admin/"!</div>;
-}
+export const Route = createFileRoute('/admin/')({
+  component: AdminLandingFrame,
+});

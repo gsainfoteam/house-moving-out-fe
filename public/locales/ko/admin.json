@@ -1,5 +1,23 @@
 {
   "schedule": {
+    "create": {
+      "action": "생성하기",
+      "applicationStartTime": {
+        "label": "신청 시작시각"
+      },
+      "excel": {
+        "label": "방배정표 파일"
+      },
+      "summary": {
+        "label": "생성 요약",
+        "semester": "학기"
+      },
+      "title": {
+        "label": "이름",
+        "placeholder": "2025 가을학기 정규 퇴사검사"
+      }
+    },
+    "empty": "생성된 퇴사검사 목록이 없습니다",
     "list": "스케줄 목록"
   }
 }

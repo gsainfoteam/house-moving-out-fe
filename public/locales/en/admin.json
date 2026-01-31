@@ -1,5 +1,23 @@
 {
   "schedule": {
+    "create": {
+      "action": "Create",
+      "applicationStartTime": {
+        "label": "Application Start Time"
+      },
+      "excel": {
+        "label": "Room Assignments Excel File"
+      },
+      "summary": {
+        "label": "Creation Summary",
+        "semester": "Semester"
+      },
+      "title": {
+        "label": "Title",
+        "placeholder": "2025 Fall moving out"
+      }
+    },
+    "empty": "There's no moving out schedule",
     "list": "Schedule List"
   }
 }
