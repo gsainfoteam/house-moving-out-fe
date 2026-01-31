@@ -33,6 +33,7 @@ async function generateApiSchema() {
     console.log('Generating TypeScript types...');
     const ast = await openapiTS(swaggerJson, {
       enum: true,
+      dedupeEnums: true,
       makePathsEnum: true,
       arrayLength: true,
     });
