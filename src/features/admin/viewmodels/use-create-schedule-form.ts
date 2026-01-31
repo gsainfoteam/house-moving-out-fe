@@ -108,7 +108,10 @@ export const useCreateScheduleForm = () => {
             body: {
               ...semester,
               applicationStartTime,
-              applicationEndTime: dayjs(inspectionStartWeek).endOf('week').format(),
+              applicationEndTime: dayjs(inspectionStartWeek)
+                .endOf('d')
+                .add(6 - dayjs(inspectionStartWeek).day())
+                .format(),
               title: form.title,
               inspectionTimeRange,
             },
