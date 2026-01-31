@@ -53,7 +53,7 @@ function ConsentInnerFrame({ requiredConsents }: { requiredConsents: RequiredCon
         <LanguageToggle />
       </div>
       <h1 className="mb-6 whitespace-pre-line">{t('consent.title')}</h1>
-      <img src="/logo.png" alt="logo" className="w-40" />
+      <img src="/house-logo.png" alt="house-logo" className="w-40" />
       <div className="mt-auto flex flex-col">
         <div className="flex flex-col gap-5">
           <label className="flex cursor-pointer items-center gap-3">
