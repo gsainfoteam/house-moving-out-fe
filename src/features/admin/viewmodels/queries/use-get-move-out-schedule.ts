@@ -1,6 +1,6 @@
 import { $api } from '@/common/lib';
 
-import { ApiPaths } from '../../../main/models';
+import { ApiPaths } from '../../models';
 
 export const useGetMoveOutScheduleQuery = (id: number, enabled = true) => {
   return $api.useQuery(

@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { $api } from '@/common/lib';
 
-import { ApiPaths } from '../../../main/models';
+import { ApiPaths } from '../../models';
 
 export const useCreateMoveOutSchedule = () => {
   const queryClient = useQueryClient();
