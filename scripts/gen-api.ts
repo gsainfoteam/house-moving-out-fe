@@ -2,6 +2,10 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 
 import openapiTS, { astToString } from 'openapi-typescript';
+import ts from 'typescript';
+
+const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier('Blob')); // `Blob`
+const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
 
 async function generateApiSchema() {
   const swaggerUser = Bun.env.SWAGGER_USER;
@@ -36,6 +40,12 @@ async function generateApiSchema() {
       dedupeEnums: true,
       makePathsEnum: true,
       arrayLength: true,
+      transform(schemaObject) {
+        if (schemaObject.format === 'binary') {
+          return schemaObject.nullable ? ts.factory.createUnionTypeNode([BLOB, NULL]) : BLOB;
+        }
+        return undefined;
+      },
     });
 
     const contents = astToString(ast);
