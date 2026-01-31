@@ -55,14 +55,7 @@ export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
                   <div className="text-sub text-text-gray">
                     {t('steps.label', { number: index + 1 })}
                   </div>
-                  <div
-                    className={Steps.titleStyles({
-                      status,
-                      className: 'leading-tight', // FIXME: typography leading 추가 후 지우기
-                    })}
-                  >
-                    {step.title}
-                  </div>
+                  <div className={Steps.titleStyles({ status })}>{step.title}</div>
                 </div>
                 {status === 'active' && step.description && (
                   <div className="text-sub text-text-gray whitespace-pre-line">

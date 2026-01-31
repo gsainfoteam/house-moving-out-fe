@@ -41,39 +41,51 @@ html {
 @theme {
   --text-h1: 24px;
   --text-h1--font-weight: 500;
+  --text-h1--line-height: 29px;
 
   --text-h2: 16px;
   --text-h2--font-weight: 500;
+  --text-h2--line-height: 19px;
 
   --text-button: 20px;
   --text-button--font-weight: 700;
+  --text-button--line-height: 24px;
 
   --text-modal-button: 18px;
   --text-modal-button--font-weight: 600;
+  --text-modal-button--line-height: 18px;
 
   --text-modal-title: 20px;
   --text-modal-title--font-weight: 600;
+  --text-modal-title--line-height: 28px;
 
   --text-modal-description: 18px;
   --text-modal-description--font-weight: 600;
+  --text-modal-description--line-height: 24px;
 
   --text-in-progress: 20px;
   --text-in-progress--font-weight: 600;
+  --text-in-progress--line-height: 24px;
 
   --text-waiting: 20px;
   --text-waiting--font-weight: 500;
+  --text-waiting--line-height: 24px;
 
   --text-sub: 13px;
   --text-sub--font-weight: 400;
+  --text-sub--line-height: 16px;
 
   --text-sub2: 15px;
   --text-sub2--font-weight: 400;
+  --text-sub2--line-height: 18px;
 
   --text-box: 16px;
   --text-box--font-weight: 500;
+  --text-box--line-height: 19px;
 
   --text-box2: 14px;
   --text-box2--font-weight: 400;
+  --text-box2--line-height: 17px;
 
   --color-status-pass: #28c76f;
   --color-status-fail: #ea5455;

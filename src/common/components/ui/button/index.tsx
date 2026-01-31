@@ -36,8 +36,7 @@ export namespace Button {
   };
   export const styles = cv({
     base: [
-      // FIXME: typography leading 추가 후 지우기
-      'rounded-lg leading-none',
+      'rounded-lg',
       'flex items-center justify-center truncate gap-2',
       'relative',
       'transition-all duration-200',
