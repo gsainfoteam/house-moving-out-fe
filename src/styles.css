@@ -105,6 +105,9 @@ html {
   --color-logo-white: #ffffff;
 
   --color-icon-gray: #b4b4b4;
+  --color-icon-light-gray: #e5e5e5;
+  --color-icon-green: #e0f4d2;
+  --color-icon-red: #ffe2e2;
 
   --color-primary-main: #637457;
 }
