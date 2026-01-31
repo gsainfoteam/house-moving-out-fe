@@ -2,6 +2,7 @@ import { useNavigate } from '@tanstack/react-router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
+import { last } from 'es-toolkit/array';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -108,10 +109,7 @@ export const useCreateScheduleForm = () => {
             body: {
               ...semester,
               applicationStartTime,
-              applicationEndTime: dayjs(inspectionStartWeek)
-                .endOf('d')
-                .add(6 - dayjs(inspectionStartWeek).day())
-                .format(),
+              applicationEndTime: last(inspectionTimeRange)!.start,
               title: form.title,
               inspectionTimeRange,
             },
