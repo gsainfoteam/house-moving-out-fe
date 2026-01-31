@@ -43,7 +43,7 @@
     "overlay-kit": "^1.8.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-hook-form": "^7.70.0",
+    "react-hook-form": "^7.71.1",
     "react-i18next": "^16.5.1",
     "react-oauth2-code-pkce": "^1.23.4",
     "sonner": "^2.0.7",
@@ -51,7 +51,7 @@
     "tailwind-merge": "^3.4.0",
     "tailwind-variants": "^3.2.2",
     "tailwindcss": "^4.0.6",
-    "zod": "^4.3.4",
+    "zod": "^4.3.6",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
