@@ -29,11 +29,11 @@ export function TermsDetailFrame() {
           className="absolute left-0 flex items-center"
           aria-label={t('consent.back')}
         >
-          <ChevronLeft size={24} className="text-gray-700" />
+          <ChevronLeft size={24} className="text-icon-gray" />
         </button>
         <h2 className="w-full text-center">{titles[type] ?? ''}</h2>
       </div>
-      <div className="h-0.5 rounded-lg bg-gray-200" />
+      <div className="bg-icon-light-gray h-0.5 rounded-lg" />
       <div className="flex-1 overflow-y-auto py-4">
         <iframe
           src={`https://terms.gistory.me/embedded/moving-out/${type}/${version}/`}
