@@ -1,3 +1,5 @@
+import { useNavigate } from '@tanstack/react-router';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
 import { useForm, useWatch } from 'react-hook-form';
@@ -120,6 +122,8 @@ export const useCreateScheduleForm = () => {
   const yearSemester = applicationStartTime ? getYearSemester(applicationStartTime) : undefined;
   const inspectionTimeRange = inspectionStartWeek ? getInspectionTimes(inspectionStartWeek) : [];
 
+  const navigate = useNavigate();
+
   const onSubmit = handleSubmit(
     async (form) => {
       if (!yearSemester) throw TypeError('year semester assertion');
@@ -157,6 +161,7 @@ export const useCreateScheduleForm = () => {
           },
         )
         .unwrap();
+      navigate({ to: '/admin/schedules/$id', params: { id: result.id.toString() } });
     },
     () => {
       toast.error(t('schedule.create.error.formError'));
