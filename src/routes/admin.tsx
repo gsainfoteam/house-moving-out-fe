@@ -3,9 +3,7 @@ import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-ro
 import { LogOutIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Fab } from '@/common/components';
-import { Loading } from '@/common/components/loading';
-import { useIsAdmin } from '@/features/admin';
+import { Fab, Loading } from '@/common/components';
 import { useAuth, useToken } from '@/features/auth';
 
 export const Route = createFileRoute('/admin')({
@@ -13,9 +11,8 @@ export const Route = createFileRoute('/admin')({
 });
 
 function Inner() {
-  const { logOut } = useAuth({ showToast: true });
+  const { logOut, isAdmin } = useAuth({ showToast: true });
   const { t } = useTranslation('common');
-  const isAdmin = useIsAdmin();
 
   if (isAdmin === undefined) return <Loading />;
   if (!isAdmin) return <Navigate to="/" replace />;

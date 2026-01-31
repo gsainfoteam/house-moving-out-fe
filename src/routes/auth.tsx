@@ -4,7 +4,8 @@ import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 
 import { z } from 'zod';
 
-import { useAuthRedirect, useToken } from '@/features/auth';
+import { Loading } from '@/common/components';
+import { useAuth, useAuthRedirect } from '@/features/auth';
 
 export const Route = createFileRoute('/auth')({
   component: AuthLayout,
@@ -33,8 +34,9 @@ function Redirect() {
 }
 
 function AuthLayout() {
-  const { token } = useToken();
+  const { user } = useAuth();
 
-  if (token) return <Redirect />;
+  if (user === undefined) return <Loading />;
+  if (user !== null) return <Redirect />;
   return <Outlet />;
 }
