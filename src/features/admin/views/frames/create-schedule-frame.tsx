@@ -41,9 +41,9 @@ export function CreateScheduleFrame() {
             </li>
             <li>
               {t('schedule.create.summary.slots.label')}:
-              <div className="pl-2">
+              <div className="grid grid-cols-4 pl-2">
                 {inspectionTimeRange.map(({ start }) => (
-                  <div key={start}>{dayjs(start).format('dddd HH:mm')}</div>
+                  <div key={start}>{dayjs(start).format('MM/DD dd, HH:mm')}</div>
                 ))}
               </div>
             </li>
