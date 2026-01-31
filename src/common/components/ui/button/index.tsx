@@ -36,7 +36,7 @@ export namespace Button {
   };
   export const styles = cv({
     base: [
-      'rounded-lg',
+      'text-button rounded-lg',
       'flex items-center justify-center truncate gap-2',
       'relative',
       'transition-all duration-200',

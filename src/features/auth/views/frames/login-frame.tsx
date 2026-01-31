@@ -19,11 +19,12 @@ export function LoginFrame() {
         <LanguageToggle />
       </div>
       <div className="flex flex-col items-center justify-center gap-2.5">
+        <img src="/3d/logo.png" alt="logo" className="size-60" />
         <h1>{t('title')}</h1>
         <p>{t('subtitle')}</p>
       </div>
       <Button
-        className="mt-4"
+        className="mt-10"
         onClick={() => {
           useAuthRedirect.getState().setRedirect(redirect);
           idpLogIn();
