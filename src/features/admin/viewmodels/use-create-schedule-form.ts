@@ -41,7 +41,7 @@ const getInspectionTimes = (
   date: string | Date | dayjs.Dayjs,
 ): { start: string; end: string }[] => {
   // sunday
-  const startOfWeek = dayjs(date).startOf('w');
+  const startOfWeek = dayjs(date).startOf('d').subtract(dayjs(date).day(), 'd');
   const { semester } = getYearSemester(date);
   const isSmall = semester === 'winter' || semester === 'summer';
   const thu = startOfWeek.add(4, 'day');
