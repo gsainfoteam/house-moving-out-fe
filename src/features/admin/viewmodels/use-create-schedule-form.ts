@@ -14,7 +14,7 @@ const schema = z.object({
   title: z.string().min(1),
   applicationStartTime: z.coerce.date<string>(),
   inspectionStartWeek: z.coerce.date<string>(),
-  file: z.instanceof(FileList),
+  file: z.instanceof(FileList).refine((files) => files.length > 0),
 });
 
 type Semester = 'spring' | 'summer' | 'fall' | 'winter';
@@ -172,13 +172,7 @@ export const useCreateScheduleForm = () => {
     register,
     isValid: formState.isValid,
     onSubmit,
-    // t('schedule.create.summary.semester.spring')
-    // t('schedule.create.summary.semester.summer')
-    // t('schedule.create.summary.semester.fall')
-    // t('schedule.create.summary.semester.winter')
-    semester: yearSemester
-      ? `${yearSemester.year} ${t(`schedule.create.summary.semester.${yearSemester.semester}`)}`
-      : undefined,
+    yearSemester,
     isSubmitting: formState.isSubmitting,
     inspectionTimeRange,
   };

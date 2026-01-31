@@ -7,7 +7,7 @@ import { useCreateScheduleForm } from '../../viewmodels';
 
 export function CreateScheduleFrame() {
   const { t } = useTranslation('admin');
-  const { register, onSubmit, semester, isSubmitting, inspectionTimeRange } =
+  const { register, onSubmit, yearSemester, isSubmitting, inspectionTimeRange } =
     useCreateScheduleForm();
 
   return (
@@ -37,7 +37,16 @@ export function CreateScheduleFrame() {
           <div>{t('schedule.create.summary.label')}</div>
           <ul className="list-disc pl-4">
             <li>
-              {t('schedule.create.summary.semester.label')}: {semester}
+              {/* 
+                t('schedule.create.summary.semester.spring')
+                t('schedule.create.summary.semester.summer')
+                t('schedule.create.summary.semester.fall')
+                t('schedule.create.summary.semester.winter')
+               */}
+              {t('schedule.create.summary.semester.label')}:{' '}
+              {yearSemester
+                ? `${yearSemester.year} ${t(`schedule.create.summary.semester.${yearSemester.semester}`)}`
+                : undefined}
             </li>
             <li>
               {t('schedule.create.summary.slots.label')}:
