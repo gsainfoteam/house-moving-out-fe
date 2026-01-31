@@ -5,7 +5,6 @@ import { useSearch } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
-import ShortLogo from '@/assets/short-logo.svg?react';
 import { Button, Dialog, SwitchCase } from '@/common/components';
 import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
@@ -254,7 +253,7 @@ export function MainFrame() {
               })}
             </h2>
           </div>
-          <ShortLogo />
+          <img src="/house-logo.png" alt="house-logo" className="h-15" />
         </div>
 
         <SwitchCase
