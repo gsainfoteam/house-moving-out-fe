@@ -1,9 +1,6 @@
 import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-router';
 
-import { LogOutIcon } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-
-import { Fab, Loading } from '@/common/components';
+import { Loading } from '@/common/components';
 import { useAuth, useToken } from '@/features/auth';
 
 export const Route = createFileRoute('/admin')({
@@ -11,8 +8,7 @@ export const Route = createFileRoute('/admin')({
 });
 
 function Inner() {
-  const { logOut, isAdmin } = useAuth({ showToast: true });
-  const { t } = useTranslation('common');
+  const { isAdmin } = useAuth({ showToast: true });
 
   if (isAdmin === undefined) return <Loading />;
   if (!isAdmin) return <Navigate to="/" replace />;
@@ -20,14 +16,6 @@ function Inner() {
   return (
     <>
       <Outlet />
-      <Fab>
-        <Fab.Item
-          icon={<LogOutIcon className="size-6" />}
-          label={t('fab.logout')}
-          className="text-status-fail"
-          onClick={() => logOut({})}
-        />
-      </Fab>
     </>
   );
 }
