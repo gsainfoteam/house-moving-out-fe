@@ -78,11 +78,10 @@ export const useCreateScheduleForm = () => {
   const { t } = useTranslation('admin');
   const applicationStartTime = useWatch({ control, name: 'applicationStartTime' });
   const inspectionStartWeek = useWatch({ control, name: 'inspectionStartWeek' });
+  const navigate = useNavigate();
 
   const yearSemester = applicationStartTime ? getYearSemester(applicationStartTime) : undefined;
   const inspectionTimeRange = inspectionStartWeek ? getInspectionTimes(inspectionStartWeek) : [];
-
-  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(
     async (form) => {
