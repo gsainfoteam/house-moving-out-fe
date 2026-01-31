@@ -1,5 +1,8 @@
 {
   "schedule": {
+    "card": {
+      "applicationTime": "Application Time"
+    },
     "create": {
       "action": "Create",
       "applicationStartTime": {

@@ -1,5 +1,8 @@
 {
   "schedule": {
+    "card": {
+      "applicationTime": "신청기간"
+    },
     "create": {
       "action": "생성하기",
       "applicationStartTime": {

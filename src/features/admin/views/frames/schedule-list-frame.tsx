@@ -21,7 +21,7 @@ export function ScheduleListFrame() {
             <div>{t('schedule.empty')}</div>
           )}
           <Link to="/admin/schedules/new">
-            <Button>{t('schedule.create.action')}</Button>
+            <Button className="w-full">{t('schedule.create.action')}</Button>
           </Link>
         </div>
       ) : (
