@@ -14,24 +14,32 @@ export function CreateScheduleFrame() {
     <div className="p-4">
       <form className="flex flex-col gap-4" onSubmit={onSubmit}>
         <div>
-          {t('schedule.create.title.label')}:
-          <Input placeholder={t('schedule.create.title.placeholder')} {...register('title')} />
+          <label>
+            {t('schedule.create.title.label')}:
+            <Input placeholder={t('schedule.create.title.placeholder')} {...register('title')} />
+          </label>
         </div>
         <div>
-          {t('schedule.create.applicationStartTime.label')}:
-          <Input type="datetime-local" {...register('applicationStartTime')} />
+          <label>
+            {t('schedule.create.applicationStartTime.label')}:
+            <Input type="datetime-local" {...register('applicationStartTime')} />
+          </label>
         </div>
         <div>
-          {t('schedule.create.inspectionStartWeek.label')}:
-          <Input type="date" {...register('inspectionStartWeek')} />
+          <label>
+            {t('schedule.create.inspectionStartWeek.label')}:
+            <Input type="date" {...register('inspectionStartWeek')} />
+          </label>
         </div>
         <div>
-          {t('schedule.create.excel.label')}
-          <Input
-            type="file"
-            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            {...register('file')}
-          />
+          <label>
+            {t('schedule.create.excel.label')}
+            <Input
+              type="file"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              {...register('file')}
+            />
+          </label>
         </div>
         <div>
           <div>{t('schedule.create.summary.label')}</div>
