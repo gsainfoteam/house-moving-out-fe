@@ -126,7 +126,7 @@ export const useCreateScheduleForm = () => {
 
   const onSubmit = handleSubmit(
     async (form) => {
-      if (!yearSemester) throw TypeError('year semester assertion');
+      if (!yearSemester) throw new TypeError('year semester assertion');
       const nextSemester = getNextSemester(yearSemester);
 
       const semester = {
