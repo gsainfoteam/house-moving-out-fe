@@ -44,7 +44,7 @@
     },
     "detail": {
       "applicationTime": "Application Time",
-      "notFound": "Not exist moving out inspection",
+      "notFound": "Moving out inspection not found.",
       "status": "Status"
     },
     "empty": "There are no moving out schedules",
