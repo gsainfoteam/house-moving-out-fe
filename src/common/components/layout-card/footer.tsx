@@ -1,0 +1,18 @@
+import type { PropsWithChildren } from 'react';
+
+import { cn } from '@/common/utils';
+
+/**
+ * 레이아웃 카드 하단 버튼 영역입니다.
+ * @see LayoutCard.Content
+ * @see LayoutCard.Button
+ */
+export const Footer = ({ children, className }: Footer.Props) => (
+  <div className={cn('text-button w-full', className)}>{children}</div>
+);
+
+export namespace Footer {
+  export type Props = PropsWithChildren<{
+    className?: string;
+  }>;
+}

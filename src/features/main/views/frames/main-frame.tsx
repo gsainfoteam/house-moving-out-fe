@@ -5,13 +5,13 @@ import { useSearch } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
-import { Button, Dialog, SwitchCase } from '@/common/components';
+import { Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
 import { useAuth } from '@/features/auth';
 
 import { formatDate } from '../../utils';
-import { Accordion, StatusCard, Steps } from '../components';
+import { Accordion, Steps } from '../components';
 
 const MOCK_INSPECTION_AT = new Date('2025-01-12T00:00:00');
 const MOCK_NEXT_PERIOD_START_AT = new Date('2025-01-01T00:00:00');
@@ -20,16 +20,16 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('main');
 
   return (
-    <StatusCard>
-      <StatusCard.Content className="justify-between">
+    <LayoutCard.Root>
+      <LayoutCard.Content className="justify-between">
         <Steps steps={steps} activeStepIndex={0} className="w-full" />
-      </StatusCard.Content>
-      <StatusCard.Footer>
-        <StatusCard.Button variant="default" className="w-full">
+      </LayoutCard.Content>
+      <LayoutCard.Footer>
+        <LayoutCard.Button variant="default" className="w-full">
           {t('steps.step0.button')}
-        </StatusCard.Button>
-      </StatusCard.Footer>
-    </StatusCard>
+        </LayoutCard.Button>
+      </LayoutCard.Footer>
+    </LayoutCard.Root>
   );
 }
 
@@ -37,16 +37,16 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('main');
 
   return (
-    <StatusCard>
-      <StatusCard.Content className="justify-between">
+    <LayoutCard.Root>
+      <LayoutCard.Content className="justify-between">
         <Steps steps={steps} activeStepIndex={1} className="w-full" />
-      </StatusCard.Content>
-      <StatusCard.Footer>
-        <StatusCard.Button variant="outline" className="w-full">
+      </LayoutCard.Content>
+      <LayoutCard.Footer>
+        <LayoutCard.Button variant="outline" className="w-full">
           {t('steps.step1.button')}
-        </StatusCard.Button>
-      </StatusCard.Footer>
-    </StatusCard>
+        </LayoutCard.Button>
+      </LayoutCard.Footer>
+    </LayoutCard.Root>
   );
 }
 
@@ -54,16 +54,16 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('main');
 
   return (
-    <StatusCard>
-      <StatusCard.Content className="justify-between">
+    <LayoutCard.Root>
+      <LayoutCard.Content className="justify-between">
         <Steps steps={steps} activeStepIndex={2} className="w-full" />
-      </StatusCard.Content>
-      <StatusCard.Footer>
-        <StatusCard.Button variant="disabled" className="w-full" disabled>
+      </LayoutCard.Content>
+      <LayoutCard.Footer>
+        <LayoutCard.Button variant="disabled" className="w-full" disabled>
           {t('steps.step2.button')}
-        </StatusCard.Button>
-      </StatusCard.Footer>
-    </StatusCard>
+        </LayoutCard.Button>
+      </LayoutCard.Footer>
+    </LayoutCard.Root>
   );
 }
 
@@ -75,20 +75,20 @@ function Step3FailedCard() {
   );
 
   return (
-    <StatusCard>
-      <StatusCard.Content>
-        <StatusCard.Header>
-          <StatusCard.Media>
+    <LayoutCard.Root>
+      <LayoutCard.Content>
+        <LayoutCard.Header>
+          <LayoutCard.Media>
             <img src="./3d/failed.png" alt="failed" className="h-60" />
-          </StatusCard.Media>
-          <StatusCard.Text>
-            <StatusCard.Title className="text-status-fail">
+          </LayoutCard.Media>
+          <LayoutCard.Text>
+            <LayoutCard.Title className="text-status-fail">
               {t('result.failed.title')}
-            </StatusCard.Title>
-            <StatusCard.Description>{t('result.failed.description')}</StatusCard.Description>
-          </StatusCard.Text>
-        </StatusCard.Header>
-        <StatusCard.Details>
+            </LayoutCard.Title>
+            <LayoutCard.Description>{t('result.failed.description')}</LayoutCard.Description>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+        <LayoutCard.Details>
           <Accordion title={t('result.failed.accordionTitle')}>
             <ul className="flex flex-col gap-2">
               {failedReasons.map((reason) => (
@@ -99,14 +99,14 @@ function Step3FailedCard() {
               ))}
             </ul>
           </Accordion>
-        </StatusCard.Details>
-      </StatusCard.Content>
-      <StatusCard.Footer>
+        </LayoutCard.Details>
+      </LayoutCard.Content>
+      <LayoutCard.Footer>
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <StatusCard.Button variant="failed" className="w-full">
+            <LayoutCard.Button variant="failed" className="w-full">
               {t('result.failed.button')}
-            </StatusCard.Button>
+            </LayoutCard.Button>
           </Dialog.Trigger>
           <Dialog.Content>
             <Dialog.Header>
@@ -127,8 +127,8 @@ function Step3FailedCard() {
             </Dialog.Footer>
           </Dialog.Content>
         </Dialog.Root>
-      </StatusCard.Footer>
-    </StatusCard>
+      </LayoutCard.Footer>
+    </LayoutCard.Root>
   );
 }
 
@@ -142,30 +142,30 @@ function Step3NotPeriodCard() {
   );
 
   return (
-    <StatusCard>
-      <StatusCard.Content>
-        <StatusCard.Header>
-          <StatusCard.Media>
+    <LayoutCard.Root>
+      <LayoutCard.Content>
+        <LayoutCard.Header>
+          <LayoutCard.Media>
             <img src="./3d/not-period.png" alt="not-period" className="h-60" />
-          </StatusCard.Media>
-          <StatusCard.Text>
-            <StatusCard.Title className="text-text-black">
+          </LayoutCard.Media>
+          <LayoutCard.Text>
+            <LayoutCard.Title className="text-text-black">
               {t('result.notPeriod.title')}
-            </StatusCard.Title>
-            <StatusCard.Description>
+            </LayoutCard.Title>
+            <LayoutCard.Description>
               {t('result.notPeriod.description', {
                 startDate: nextApplicationStartDateText,
               })}
-            </StatusCard.Description>
-          </StatusCard.Text>
-        </StatusCard.Header>
-      </StatusCard.Content>
-      <StatusCard.Footer>
-        <StatusCard.Button variant="outline" className="w-full">
+            </LayoutCard.Description>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Content>
+      <LayoutCard.Footer>
+        <LayoutCard.Button variant="outline" className="w-full">
           {t('result.notPeriod.button')}
-        </StatusCard.Button>
-      </StatusCard.Footer>
-    </StatusCard>
+        </LayoutCard.Button>
+      </LayoutCard.Footer>
+    </LayoutCard.Root>
   );
 }
 
@@ -173,26 +173,26 @@ function Step3PassedCard() {
   const { t } = useTranslation('main');
 
   return (
-    <StatusCard>
-      <StatusCard.Content>
-        <StatusCard.Header>
-          <StatusCard.Media>
+    <LayoutCard.Root>
+      <LayoutCard.Content>
+        <LayoutCard.Header>
+          <LayoutCard.Media>
             <img src="./3d/passed.png" alt="passed" className="h-60" />
-          </StatusCard.Media>
-          <StatusCard.Text>
-            <StatusCard.Title className="text-primary-main">
+          </LayoutCard.Media>
+          <LayoutCard.Text>
+            <LayoutCard.Title className="text-primary-main">
               {t('result.passed.title')}
-            </StatusCard.Title>
-            <StatusCard.Description>{t('result.passed.description')}</StatusCard.Description>
-          </StatusCard.Text>
-        </StatusCard.Header>
-      </StatusCard.Content>
-      <StatusCard.Footer>
-        <StatusCard.Button variant="default" className="w-full">
+            </LayoutCard.Title>
+            <LayoutCard.Description>{t('result.passed.description')}</LayoutCard.Description>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Content>
+      <LayoutCard.Footer>
+        <LayoutCard.Button variant="default" className="w-full">
           {t('result.passed.button')}
-        </StatusCard.Button>
-      </StatusCard.Footer>
-    </StatusCard>
+        </LayoutCard.Button>
+      </LayoutCard.Footer>
+    </LayoutCard.Root>
   );
 }
 
