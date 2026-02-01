@@ -3,8 +3,6 @@ import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-ro
 import { Loading } from '@/common/components';
 import { useAuth, useToken } from '@/features/auth';
 
-import '@/common/lib/dayjs-init';
-
 export const Route = createFileRoute('/admin')({
   component: AdminLayout,
 });
