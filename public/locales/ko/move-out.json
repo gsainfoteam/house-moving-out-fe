@@ -1,4 +1,12 @@
 {
+  "application": {
+    "button": {
+      "cancel": "이전",
+      "next": "다음"
+    },
+    "description": "",
+    "title": ""
+  },
   "error": {
     "notFound": "활성화된 퇴사 검사 일정이 존재하지 않습니다."
   }

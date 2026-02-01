@@ -1,4 +1,12 @@
 {
+  "application": {
+    "button": {
+      "cancel": "Cancel",
+      "next": "Next"
+    },
+    "description": "",
+    "title": ""
+  },
   "error": {
     "notFound": "There are no active move-out inspection schedules."
   }

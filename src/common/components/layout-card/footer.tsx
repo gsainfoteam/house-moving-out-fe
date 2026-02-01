@@ -8,7 +8,7 @@ import { cn } from '@/common/utils';
  * @see LayoutCard.Button
  */
 export const Footer = ({ children, className }: Footer.Props) => (
-  <div className={cn('text-button w-full', className)}>{children}</div>
+  <div className={cn('text-button flex w-full gap-2', className)}>{children}</div>
 );
 
 export namespace Footer {

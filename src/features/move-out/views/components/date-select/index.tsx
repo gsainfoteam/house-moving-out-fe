@@ -2,9 +2,14 @@ import { cn } from '@/common/utils';
 
 import type { Dayjs } from 'dayjs';
 
-export function DateSelect({ days, value, onChange }: DateSelect.Props) {
+export function DateSelect({ days, value, onChange, className }: DateSelect.Props) {
   return (
-    <div className="border-icon-gray flex gap-0 overflow-hidden rounded-lg border">
+    <div
+      className={cn(
+        'border-icon-gray flex w-full gap-0 overflow-hidden rounded-lg border',
+        className,
+      )}
+    >
       {days.map((day, index) => {
         const isSelected = value !== null && day.valueOf() === value.valueOf();
         const isFirst = index === 0;
@@ -45,5 +50,6 @@ export namespace DateSelect {
     days: Dayjs[];
     value: Dayjs | null;
     onChange: (day: Dayjs) => void;
+    className?: string;
   };
 }
