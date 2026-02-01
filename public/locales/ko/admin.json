@@ -22,7 +22,7 @@
         "label": "검사 시작 주"
       },
       "loading": "퇴사검사 생성 중...",
-      "succeed": "퇴사검사 일정이 생성되었습니다: {{id}}",
+      "succeed": "퇴사검사 일정이 생성되었습니다: {{uuid}}",
       "summary": {
         "label": "생성 요약",
         "semester": {

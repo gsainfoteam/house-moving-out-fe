@@ -23,7 +23,7 @@
         "label": "Inspection Starting Week"
       },
       "loading": "Creating Schedule...",
-      "succeed": "Moving out schedule created: {{id}}",
+      "succeed": "Moving out schedule created: {{uuid}}",
       "summary": {
         "label": "Creation Summary",
         "semester": {

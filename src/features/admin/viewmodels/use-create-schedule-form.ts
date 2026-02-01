@@ -116,12 +116,12 @@ export const useCreateScheduleForm = () => {
           }),
           {
             loading: t('schedule.create.loading'),
-            success: (result) => t('schedule.create.succeed', { id: result.id }),
+            success: (result) => t('schedule.create.succeed', { uuid: result.uuid }),
             error: t('schedule.create.error.creating'),
           },
         )
         .unwrap();
-      navigate({ to: '/admin/schedules/$id', params: { id: result.id.toString() } });
+      navigate({ to: '/admin/schedules/$uuid', params: { uuid: result.uuid } });
     },
     () => {
       toast.error(t('schedule.create.error.formError'));
