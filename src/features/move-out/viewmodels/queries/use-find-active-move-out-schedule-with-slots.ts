@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 
 import dayjs from 'dayjs';
+import { groupBy } from 'es-toolkit/array';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -37,40 +38,25 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
   );
 
   const inspectionSlotsByDay = useMemo(() => {
-    if (!applicationStartTime || !applicationEndTime || !data?.inspectionSlots) return [];
+    if (!data?.inspectionSlots?.length) return [];
 
-    const startDate = applicationStartTime.startOf('day');
-    const endDate = applicationEndTime.startOf('day');
+    const inspectionSlots = data.inspectionSlots
+      .map((slot) => ({
+        ...slot,
+        day: dayjs(slot.startTime).startOf('day'),
+        startTime: dayjs(slot.startTime),
+        endTime: dayjs(slot.endTime),
+      }))
+      .sort((a, b) => a.day.diff(b.day));
 
-    const slotsWithDayjs = data.inspectionSlots.map((slot) => ({
-      ...slot,
-      startTime: dayjs(slot.startTime),
-      endTime: dayjs(slot.endTime),
-    }));
-
-    const days: {
-      date: dayjs.Dayjs;
-      slots: typeof slotsWithDayjs;
-    }[] = [];
-
-    let current = startDate;
-
-    while (current.isBefore(endDate) || current.isSame(endDate, 'day')) {
-      const dayStart = current.startOf('day');
-      const dayEnd = current.endOf('day');
-      const slotsForDay = slotsWithDayjs.filter(
-        (slot) => slot.startTime.isAfter(dayStart) && slot.startTime.isBefore(dayEnd),
-      );
-
-      days.push({ date: current, slots: slotsForDay });
-      current = current.add(1, 'day');
-    }
-
-    return days;
-  }, [data, applicationStartTime, applicationEndTime]);
+    return groupBy(inspectionSlots, (s) => s.day.valueOf());
+  }, [data]);
 
   const inspectionDays = useMemo(
-    () => inspectionSlotsByDay.map((day) => day.date),
+    () =>
+      [...Object.keys(inspectionSlotsByDay)]
+        .sort((a, b) => Number(a) - Number(b))
+        .map((dayValue) => dayjs(Number(dayValue)).startOf('day')),
     [inspectionSlotsByDay],
   );
 
