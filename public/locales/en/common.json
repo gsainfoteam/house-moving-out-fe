@@ -1,4 +1,8 @@
 {
+  "error": {
+    "internalServerError": "A temporary error occurred.",
+    "unauthorized": "Login required."
+  },
   "fab": {
     "inquiry": "Inquiry",
     "languageChange": "Language",

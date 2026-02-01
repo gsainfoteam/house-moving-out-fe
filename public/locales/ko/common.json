@@ -1,4 +1,8 @@
 {
+  "error": {
+    "internalServerError": "일시적인 오류가 발생했습니다.",
+    "unauthorized": "로그인이 필요합니다."
+  },
   "fab": {
     "inquiry": "문의하기",
     "languageChange": "언어변경",
