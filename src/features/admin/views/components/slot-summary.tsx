@@ -27,7 +27,7 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
       </thead>
       <tbody>
         {[...Array((END_HOUR - START_HOUR) * 2)].map((_, i) => {
-          const startHour = sunday.hour(START_HOUR + i / 2);
+          const startHour = sunday.add(START_HOUR + i / 2, 'hour');
           const endHour = startHour.add(30, 'm');
           return (
             <tr key={i}>
