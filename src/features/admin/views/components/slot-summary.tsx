@@ -9,8 +9,9 @@ const START_HOUR = 10;
 const END_HOUR = 18;
 
 export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'male' | 'female' }) {
-  const groupedSlot = groupBy(slots, (s) => ((dayjs(s.startTime).day() + 6) % 7) + 1);
+  if (slots.length === 0) return null;
 
+  const groupedSlot = groupBy(slots, (s) => ((dayjs(s.startTime).day() + 6) % 7) + 1);
   const sunday = dayjs(slots[0].startTime).day(0).startOf('d');
 
   return (
