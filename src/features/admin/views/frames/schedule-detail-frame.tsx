@@ -32,7 +32,10 @@ export function ScheduleDetailFrame() {
       <div>
         {t('schedule.create.summary.semester.label')}: {schedule.currentSemester.season}
       </div>
-      <SlotSummary slots={schedule.inspectionSlots} />
+      <div className="flex gap-2">
+        <SlotSummary slots={schedule.inspectionSlots} type="male" />
+        <SlotSummary slots={schedule.inspectionSlots} type="female" />
+      </div>
     </div>
   );
 }
