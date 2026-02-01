@@ -31,7 +31,8 @@ export function ScheduleDetailFrame() {
           {`${dayjs(schedule.applicationStartTime).format('LLLL')} ~ ${dayjs(schedule.applicationEndTime).format('LLLL')}`}
         </div>
         <div>
-          {t('schedule.create.summary.semester.label')}: {schedule.currentSemester.season}
+          {t('schedule.create.summary.semester.label')}: {schedule.currentSemester.year}{' '}
+          {schedule.currentSemester.season}
         </div>
       </div>
       <div className="flex gap-2">
