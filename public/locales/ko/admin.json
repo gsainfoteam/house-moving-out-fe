@@ -1,4 +1,7 @@
 {
+  "inspectors": {
+    "list": "검사위원 목록"
+  },
   "schedule": {
     "create": {
       "action": "생성하기",
