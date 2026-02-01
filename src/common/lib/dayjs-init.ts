@@ -15,7 +15,7 @@ i18n.on('languageChanged', async (lng) => {
     }[lng];
     if (!loader) throw new Error(`Unsupported language: ${lng}`);
     const locale = await loader();
-    dayjs.locale(locale);
+    dayjs.locale(locale.default);
   } catch {
     dayjs.locale(ko);
   }
