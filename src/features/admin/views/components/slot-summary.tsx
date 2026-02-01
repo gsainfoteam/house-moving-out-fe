@@ -15,14 +15,19 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
   const sunday = dayjs(slots[0].startTime).day(0).startOf('d');
 
   return (
-    <table className="border [&_td]:border [&_td]:px-2 [&_td]:text-center">
+    <table
+      className={cn(
+        '[&_td]:border [&_td]:px-2 [&_td]:text-center',
+        '[&_th]:border [&_th]:px-2 [&_th]:text-center',
+      )}
+    >
       <thead>
         <tr>
           <td>{type}</td>
-          <td>{sunday.day(4).format('D dd')}</td>
-          <td>{sunday.day(5).format('D dd')}</td>
-          <td>{sunday.day(6).format('D dd')}</td>
-          <td>{sunday.day(7).format('D dd')}</td>
+          <th>{sunday.day(4).format('D dd')}</th>
+          <th>{sunday.day(5).format('D dd')}</th>
+          <th>{sunday.day(6).format('D dd')}</th>
+          <th>{sunday.day(7).format('D dd')}</th>
         </tr>
       </thead>
       <tbody>
@@ -31,9 +36,9 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
           const endHour = startHour.add(30, 'm');
           return (
             <tr key={i}>
-              <td>
+              <th>
                 {startHour.format('HH:mm')} ~ {endHour.format('HH:mm')}
-              </td>
+              </th>
               {[4, 5, 6, 7].map((d) => {
                 const startOfDay = sunday.day(d);
                 const item = groupedSlot[d]?.find(
