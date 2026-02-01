@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/admin/schedules/$uuid')({
-  component: RouteComponent,
-});
+import { ScheduleDetailFrame } from '@/features/admin';
 
-function RouteComponent() {
-  return <div>Hello "/admin/schedules/$uuid"!</div>;
-}
+export const Route = createFileRoute('/admin/schedules/$uuid')({
+  component: ScheduleDetailFrame,
+});

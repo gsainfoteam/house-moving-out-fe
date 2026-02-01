@@ -16,7 +16,15 @@ export function ScheduleListFrame() {
       {schedules ? (
         <div className="flex flex-col gap-4 p-4">
           {schedules.length > 0 ? (
-            schedules.map((schedule) => <ScheduleCard schedule={schedule} key={schedule.uuid} />)
+            schedules.map((schedule) => (
+              <Link
+                key={schedule.uuid}
+                to="/admin/schedules/$uuid"
+                params={{ uuid: schedule.uuid }}
+              >
+                <ScheduleCard schedule={schedule} />
+              </Link>
+            ))
           ) : (
             <div>{t('schedule.empty')}</div>
           )}
