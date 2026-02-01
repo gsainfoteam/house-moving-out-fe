@@ -8,6 +8,8 @@ import { OverlayProvider } from './common/lib';
 import { useAuthPrompt } from './features/auth';
 import { queryClient, router } from './main';
 
+import '@/common/lib/dayjs-init';
+
 const getRequiredEnv = (key: string): string => {
   const value = import.meta.env[key];
   if (!value) {
