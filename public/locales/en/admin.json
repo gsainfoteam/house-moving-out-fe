@@ -1,8 +1,5 @@
 {
   "schedule": {
-    "card": {
-      "applicationTime": "Application Time"
-    },
     "create": {
       "action": "Create",
       "applicationStartTime": {
@@ -13,8 +10,8 @@
         "formError": "Please check input forms"
       },
       "excel": {
-        "count_one": "{{count}} examination target detected.",
-        "count_other": "{{count}} examination targets detected.",
+        "count_one": "{{count}} inspection target detected.",
+        "count_other": "{{count}} inspection targets detected.",
         "error": "Failed to upload excel",
         "label": "Room Assignments Excel File",
         "uploading": "Uploading Excel file. Don't close window..."
@@ -41,6 +38,11 @@
         "label": "Title",
         "placeholder": "2025 Fall moving out"
       }
+    },
+    "detail": {
+      "applicationTime": "Application Time",
+      "notFound": "Not exist moving out inspection",
+      "status": "Status"
     },
     "empty": "There are no moving out schedules",
     "list": "Schedule List"
