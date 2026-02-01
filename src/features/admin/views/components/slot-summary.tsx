@@ -12,17 +12,16 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
   const groupedSlot = groupBy(slots, (s) => ((dayjs(s.startTime).day() + 6) % 7) + 1);
 
   const sunday = dayjs(slots[0].startTime).day(0).startOf('d');
-  console.log(groupedSlot[5]);
 
   return (
     <table className="border [&_td]:border [&_td]:px-2 [&_td]:text-center">
       <thead>
         <tr>
           <td>{type}</td>
-          <td>{sunday.day(4).format('dd')}</td>
-          <td>{sunday.day(5).format('dd')}</td>
-          <td>{sunday.day(6).format('dd')}</td>
-          <td>{sunday.day(7).format('dd')}</td>
+          <td>{sunday.day(4).format('D dd')}</td>
+          <td>{sunday.day(5).format('D dd')}</td>
+          <td>{sunday.day(6).format('D dd')}</td>
+          <td>{sunday.day(7).format('D dd')}</td>
         </tr>
       </thead>
       <tbody>
