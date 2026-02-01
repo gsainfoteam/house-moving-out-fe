@@ -46,6 +46,9 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
         day: dayjs(slot.startTime).startOf('day'),
         startTime: dayjs(slot.startTime),
         endTime: dayjs(slot.endTime),
+        isClosed:
+          slot.maleReservedCount >= slot.maleCapacity &&
+          slot.femaleReservedCount >= slot.femaleCapacity,
       }))
       .sort((a, b) => a.day.diff(b.day));
 

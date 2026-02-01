@@ -15,6 +15,7 @@ const tokens = [
   'text-sub2',
   'text-box',
   'text-box2',
+  'text-small',
 ] as const;
 
 const twMergeConfig = {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useFindActiveMoveOutScheduleWithSlots } from '../../viewmodels';
-import { DateSelect } from '../components';
+import { DateSelect, TimeSelect } from '../components';
 
 import type { Dayjs } from 'dayjs';
 
@@ -10,22 +10,34 @@ import type { Dayjs } from 'dayjs';
 export function ApplicationFrame() {
   const { inspectionDays, inspectionSlotsByDay } = useFindActiveMoveOutScheduleWithSlots();
   const [selectedDay, setSelectedDay] = useState<Dayjs | null>(null);
+  const [selectedSlotUuid, setSelectedSlotUuid] = useState<string | null>(null);
 
   const selectedDaySlots = selectedDay ? inspectionSlotsByDay[selectedDay.valueOf()] : [];
 
+  const handleDayChange = (day: Dayjs) => {
+    if (selectedDay?.valueOf() === day.valueOf()) {
+      setSelectedDay(null);
+      setSelectedSlotUuid(null);
+    } else {
+      setSelectedDay(day);
+      setSelectedSlotUuid(null);
+    }
+  };
+
   return (
     <div className="p-4">
-      <DateSelect
-        days={inspectionDays}
-        value={selectedDay}
-        onChange={setSelectedDay}
-      />
+      <DateSelect days={inspectionDays} value={selectedDay} onChange={handleDayChange} />
       {selectedDay && (
-        <div className="mt-6 flex flex-col gap-2">
-          {selectedDaySlots?.map((slot) => (
-            <div key={slot.uuid} className="rounded border border-gray-200 bg-gray-50 px-3 py-2">
-              {slot.startTime.format('HH:mm')} ~ {slot.endTime.format('HH:mm')}
-            </div>
+        <div className="mt-6 grid grid-cols-3 gap-2">
+          {selectedDaySlots.map((slot) => (
+            <TimeSelect
+              key={slot.uuid}
+              slot={slot}
+              value={selectedSlotUuid}
+              onChange={(slot) =>
+                setSelectedSlotUuid((prev) => (prev === slot.uuid ? null : slot.uuid))
+              }
+            />
           ))}
         </div>
       )}
