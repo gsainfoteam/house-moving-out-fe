@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
 import { useFindActiveMoveOutScheduleWithSlots } from '../../viewmodels';
+import { DateSelect } from '../components';
 
 import type { Dayjs } from 'dayjs';
+
+// TODO: 컴포넌트와 검사 시각 선택, 주의 사항 확인 다이얼로그, 신청마감/성공 다이얼로그, 메인 프레임과 연결, 404 시 신청 대상 아닙니다로 연결(step 목업 제거)
 
 export function ApplicationFrame() {
   const { inspectionDays, inspectionSlotsByDay } = useFindActiveMoveOutScheduleWithSlots();
@@ -12,19 +15,11 @@ export function ApplicationFrame() {
 
   return (
     <div className="p-4">
-      <div className="flex gap-4">
-        {inspectionDays.map((day) => (
-          <button
-            type="button"
-            key={day.toISOString()}
-            className="flex flex-col gap-1 rounded border p-3 text-center transition-colors hover:bg-gray-100 data-[selected=true]:border-gray-400 data-[selected=true]:bg-gray-100"
-            onClick={() => setSelectedDay(day)}
-          >
-            <h2>{day.format('MM/DD')}</h2>
-            <p>{day.format('dddd')}</p>
-          </button>
-        ))}
-      </div>
+      <DateSelect
+        days={inspectionDays}
+        value={selectedDay}
+        onChange={setSelectedDay}
+      />
       {selectedDay && (
         <div className="mt-6 flex flex-col gap-2">
           {selectedDaySlots?.map((slot) => (
