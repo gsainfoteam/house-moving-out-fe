@@ -16,7 +16,7 @@
         "count": "{{count}}명의 피검사자가 인식 되었습니다.",
         "error": "엑셀 업로드에 실패했습니다",
         "label": "방배정표 파일",
-        "uploading": "엑셀 파일 업로딩..."
+        "uploading": "엑셀 파일 업로드 중. 창을 닫지 마세요..."
       },
       "inspectionStartWeek": {
         "label": "검사 시작 주"
