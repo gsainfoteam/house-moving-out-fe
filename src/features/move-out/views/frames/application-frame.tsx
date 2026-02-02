@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Link } from '@tanstack/react-router';
+
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +13,12 @@ import { DateSelect, TimeSelect } from '../components';
 
 import type { Dayjs } from 'dayjs';
 
-// TODO: 컴포넌트와 검사 시각 선택, 주의 사항 확인 다이얼로그, 신청마감/성공 다이얼로그, 메인 프레임과 연결, 404 시 신청 대상 아닙니다로 연결(step 목업 제거)
+// TODO: 이전 버튼에 Link
+// TODO: 다이얼로그 클로징과 함께 application submit
+// TODO: react-hook-form 적용해서 리팩토링
+// TODO: 신청 성공/마감 다이얼로그
+// TODO: LayoutCard 컴포넌트 sub 컴포넌트 구조 리팩토링 및 왼쪽 정렬?
+// TODO: Layout 컴포넌트 만들어서 전체 리팩토링
 
 export function ApplicationFrame() {
   const { t } = useTranslation('move-out');
@@ -123,8 +130,8 @@ export function ApplicationFrame() {
                 </div>
               </LayoutCard.Content>
               <LayoutCard.Footer className="mt-auto">
-                <LayoutCard.Button variant="outline">
-                  {t('application.button.cancel')}
+                <LayoutCard.Button variant="outline" asChild>
+                  <Link to="/">{t('application.button.cancel')}</Link>
                 </LayoutCard.Button>
                 <Dialog.Root>
                   <Dialog.Trigger asChild>
