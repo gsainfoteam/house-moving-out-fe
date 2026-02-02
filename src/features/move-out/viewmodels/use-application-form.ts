@@ -72,6 +72,7 @@ export const useApplicationForm = ({
   const onSubmit = form.handleSubmit(async (data) => {
     if (data.inspectionSlotUuid == null) return;
 
+    // NOTE: applicationUuid를 리턴하는데 아직 쓰는 곳이 없음.
     await applyInspection({
       body: { inspectionSlotUuid: data.inspectionSlotUuid },
     })
