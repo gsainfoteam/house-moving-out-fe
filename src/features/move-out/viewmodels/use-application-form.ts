@@ -72,7 +72,7 @@ export const useApplicationForm = ({
   const onSubmit = form.handleSubmit(async (data) => {
     if (data.inspectionSlotUuid == null) return;
 
-    applyInspection({
+    await applyInspection({
       body: { inspectionSlotUuid: data.inspectionSlotUuid },
     })
       .then(() => {
