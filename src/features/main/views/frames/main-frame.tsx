@@ -20,13 +20,13 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
 
   return (
     <LayoutCard.Root>
-      <LayoutCard.Content className="justify-between">
+      <LayoutCard.Body className="justify-between">
         <Steps steps={steps} activeStepIndex={0} className="w-full" />
-      </LayoutCard.Content>
+      </LayoutCard.Body>
       <LayoutCard.Footer>
-        <LayoutCard.Button variant="default" className="w-full" asChild>
+        <Button variant="default" className="w-full" asChild>
           <Link to="/application">{t('steps.step0.button')}</Link>
-        </LayoutCard.Button>
+        </Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>
   );
@@ -37,13 +37,13 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
 
   return (
     <LayoutCard.Root>
-      <LayoutCard.Content className="justify-between">
+      <LayoutCard.Body className="justify-between">
         <Steps steps={steps} activeStepIndex={1} className="w-full" />
-      </LayoutCard.Content>
+      </LayoutCard.Body>
       <LayoutCard.Footer>
-        <LayoutCard.Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full">
           {t('steps.step1.button')}
-        </LayoutCard.Button>
+        </Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>
   );
@@ -54,13 +54,13 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
 
   return (
     <LayoutCard.Root>
-      <LayoutCard.Content className="justify-between">
+      <LayoutCard.Body className="justify-between">
         <Steps steps={steps} activeStepIndex={2} className="w-full" />
-      </LayoutCard.Content>
+      </LayoutCard.Body>
       <LayoutCard.Footer>
-        <LayoutCard.Button variant="disabled" className="w-full" disabled>
+        <Button variant="disabled" className="w-full" disabled>
           {t('steps.step2.button')}
-        </LayoutCard.Button>
+        </Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>
   );
@@ -75,7 +75,7 @@ function Step3FailedCard() {
 
   return (
     <LayoutCard.Root>
-      <LayoutCard.Content>
+      <LayoutCard.Center>
         <LayoutCard.Header>
           <LayoutCard.Media>
             <img src="./3d/failed.png" alt="failed" className="h-60" />
@@ -87,7 +87,7 @@ function Step3FailedCard() {
             <LayoutCard.Description>{t('result.failed.description')}</LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
-        <LayoutCard.Details>
+        <LayoutCard.Body>
           <Accordion title={t('result.failed.accordionTitle')}>
             <ul className="flex flex-col gap-2">
               {failedReasons.map((reason) => (
@@ -98,14 +98,15 @@ function Step3FailedCard() {
               ))}
             </ul>
           </Accordion>
-        </LayoutCard.Details>
-      </LayoutCard.Content>
+        </LayoutCard.Body>
+      </LayoutCard.Center>
+
       <LayoutCard.Footer>
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <LayoutCard.Button variant="failed" className="w-full">
+            <Button variant="failed" className="w-full">
               {t('result.failed.button')}
-            </LayoutCard.Button>
+            </Button>
           </Dialog.Trigger>
           <Dialog.Content>
             <Dialog.Header>
@@ -120,6 +121,7 @@ function Step3FailedCard() {
               <Dialog.Close asChild>
                 <Button variant="failed-outline">{t('result.failed.retry.cancel')}</Button>
               </Dialog.Close>
+              {/* TODO: retry submit */}
               <Button variant="failed" className="w-full">
                 {t('result.failed.retry.submit')}
               </Button>
@@ -136,7 +138,7 @@ function Step3PassedCard() {
 
   return (
     <LayoutCard.Root>
-      <LayoutCard.Content>
+      <LayoutCard.Center>
         <LayoutCard.Header>
           <LayoutCard.Media>
             <img src="./3d/passed.png" alt="passed" className="h-60" />
@@ -148,11 +150,11 @@ function Step3PassedCard() {
             <LayoutCard.Description>{t('result.passed.description')}</LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
-      </LayoutCard.Content>
+      </LayoutCard.Center>
       <LayoutCard.Footer>
-        <LayoutCard.Button variant="default" className="w-full">
+        <Button variant="default" className="w-full">
           {t('result.passed.button')}
-        </LayoutCard.Button>
+        </Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>
   );

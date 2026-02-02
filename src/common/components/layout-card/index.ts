@@ -1,7 +1,6 @@
-import { Button as LayoutCardButton } from './button';
-import { Content as LayoutCardContent } from './content';
+import { Body as LayoutCardBody } from './body';
+import { Center as LayoutCardCenter } from './center';
 import { Description as LayoutCardDescription } from './description';
-import { Details as LayoutCardDetails } from './details';
 import { Footer as LayoutCardFooter } from './footer';
 import { Header as LayoutCardHeader } from './header';
 import { Media as LayoutCardMedia } from './media';
@@ -13,15 +12,18 @@ import { Title as LayoutCardTitle } from './title';
  * LayoutCard 컴포넌트
  *
  * 화면 레이아웃용 카드 컴포넌트입니다. 단계별 상태, 결과 상태, 일반 콘텐츠 등 공통 레이아웃에 사용됩니다.
+ * 기본적으로 `Header` / `Body` / `Footer` 구조를 가지며,
+ * 필요할 경우에만 `Center`를 사용해 `Header`+`Body` 블록을 카드 내부 세로 중앙에 배치할 수 있습니다.
  *
- * @see LayoutCard.Content
  * @see LayoutCard.Header
+ * @see LayoutCard.Center
+ * @see LayoutCard.Body
  * @see LayoutCard.Footer
  *
  * @example
  * ```tsx
  * <LayoutCard.Root>
- *   <LayoutCard.Content>
+ *   <LayoutCard.Center>
  *     <LayoutCard.Header>
  *       <LayoutCard.Media>
  *         <Icon className="h-auto w-full" />
@@ -35,29 +37,28 @@ import { Title as LayoutCardTitle } from './title';
  *         </LayoutCard.Description>
  *       </LayoutCard.Text>
  *     </LayoutCard.Header>
- *     <LayoutCard.Details>
+ *     <LayoutCard.Body>
  *       <Accordion title="추가 정보">...</Accordion>
- *     </LayoutCard.Details>
- *   </LayoutCard.Content>
+ *     </LayoutCard.Body>
+ *   </LayoutCard.Center>
  *   <LayoutCard.Footer>
- *     <LayoutCard.Button variant="default">
+ *     <Button variant="default">
  *       버튼
- *     </LayoutCard.Button>
+ *     </Button>
  *   </LayoutCard.Footer>
  * </LayoutCard.Root>
  * ```
  */
 export const LayoutCard = {
   Root: LayoutCardRoot,
-  Content: LayoutCardContent,
   Header: LayoutCardHeader,
+  Center: LayoutCardCenter,
+  Body: LayoutCardBody,
   Media: LayoutCardMedia,
   Text: LayoutCardText,
   Title: LayoutCardTitle,
   Description: LayoutCardDescription,
-  Details: LayoutCardDetails,
   Footer: LayoutCardFooter,
-  Button: LayoutCardButton,
 };
 
 export namespace LayoutCard {
@@ -65,8 +66,12 @@ export namespace LayoutCard {
     export type Props = LayoutCardRoot.Props;
   }
 
-  export namespace Content {
-    export type Props = LayoutCardContent.Props;
+  export namespace Body {
+    export type Props = LayoutCardBody.Props;
+  }
+
+  export namespace Center {
+    export type Props = LayoutCardCenter.Props;
   }
 
   export namespace Header {
@@ -89,15 +94,7 @@ export namespace LayoutCard {
     export type Props = LayoutCardDescription.Props;
   }
 
-  export namespace Details {
-    export type Props = LayoutCardDetails.Props;
-  }
-
   export namespace Footer {
     export type Props = LayoutCardFooter.Props;
-  }
-
-  export namespace Button {
-    export type Props = LayoutCardButton.Props;
   }
 }

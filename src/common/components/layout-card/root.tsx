@@ -4,7 +4,8 @@ import { cn } from '@/common/utils';
 
 /**
  * 레이아웃 카드 루트 컨테이너입니다.
- * @see LayoutCard.Content
+ * @see LayoutCard.Header
+ * @see LayoutCard.Body
  * @see LayoutCard.Footer
  */
 export const Root = ({ children, className }: Root.Props) => (
