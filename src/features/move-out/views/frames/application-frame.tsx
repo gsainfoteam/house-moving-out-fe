@@ -13,9 +13,8 @@ import { DateSelect, TimeSelect } from '../components';
 
 import type { Dayjs } from 'dayjs';
 
-// TODO: 이전 버튼에 Link
-// TODO: 다이얼로그 클로징과 함께 application submit
 // TODO: react-hook-form 적용해서 리팩토링
+// TODO: 다이얼로그 클로징과 함께 application submit
 // TODO: 신청 성공/마감 다이얼로그
 // TODO: LayoutCard 컴포넌트 sub 컴포넌트 구조 리팩토링 및 왼쪽 정렬?
 // TODO: Layout 컴포넌트 만들어서 전체 리팩토링
@@ -87,6 +86,13 @@ export function ApplicationFrame() {
                     <LayoutCard.Title className="text-text-black">
                       {t('notPeriod.title')}
                     </LayoutCard.Title>
+                    {applicationStartTime && (
+                      <LayoutCard.Description>
+                        {t('notPeriod.description', {
+                          startTime: applicationStartTime.format('MM/DD'),
+                        })}
+                      </LayoutCard.Description>
+                    )}
                   </LayoutCard.Text>
                 </LayoutCard.Header>
               </LayoutCard.Content>

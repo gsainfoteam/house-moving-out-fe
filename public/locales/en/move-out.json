@@ -14,6 +14,7 @@
   },
   "notPeriod": {
     "button": "Preview Inspection Criteria",
+    "description": "The next inspection application starts from {{startTime}}.",
     "title": "It is not the moving out inspection period."
   }
 }
