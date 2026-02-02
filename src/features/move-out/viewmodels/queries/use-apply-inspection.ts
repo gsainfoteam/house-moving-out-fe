@@ -16,6 +16,9 @@ export const useApplyInspection = () => {
       queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findMoveOutScheduleWithSlots],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
+      });
     },
     onError: (error) => {
       if (error?.statusCode === 400) {
