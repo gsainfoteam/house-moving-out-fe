@@ -14,9 +14,6 @@ import { useAuth } from '@/features/auth';
 import { useApplicationForm } from '../../viewmodels';
 import { DateSelect, TimeSelect } from '../components';
 
-// TODO: LayoutCard 컴포넌트 sub 컴포넌트 구조 리팩토링 및 왼쪽 정렬?
-// TODO: Layout 컴포넌트 만들어서 전체 리팩토링
-
 function NotPeriodOrTargetCard({
   applicationStartTime,
   isTarget,
