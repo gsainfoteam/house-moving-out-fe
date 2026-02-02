@@ -1,20 +1,19 @@
 import { useMemo } from 'react';
 
-import { useSearch } from '@tanstack/react-router';
+import { Link, useSearch } from '@tanstack/react-router';
 
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
 import { Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
-import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
 import { useAuth } from '@/features/auth';
 
-import { formatDate } from '../../utils';
 import { Accordion, Steps } from '../components';
 
-const MOCK_INSPECTION_AT = new Date('2025-01-12T00:00:00');
-const MOCK_NEXT_PERIOD_START_AT = new Date('2025-01-01T00:00:00');
+// TODO: mock inspection date
+const MOCK_INSPECTION_AT = dayjs('2025-01-12T00:00:00');
 
 function Step0Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('main');
@@ -25,8 +24,8 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
         <Steps steps={steps} activeStepIndex={0} className="w-full" />
       </LayoutCard.Content>
       <LayoutCard.Footer>
-        <LayoutCard.Button variant="default" className="w-full">
-          {t('steps.step0.button')}
+        <LayoutCard.Button variant="default" className="w-full" asChild>
+          <Link to="/application">{t('steps.step0.button')}</Link>
         </LayoutCard.Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>
@@ -132,43 +131,6 @@ function Step3FailedCard() {
   );
 }
 
-function Step3NotPeriodCard() {
-  const { t } = useTranslation('main');
-  const locale = useLocale();
-
-  const nextApplicationStartDateText = useMemo(
-    () => formatDate(MOCK_NEXT_PERIOD_START_AT, locale),
-    [locale],
-  );
-
-  return (
-    <LayoutCard.Root>
-      <LayoutCard.Content>
-        <LayoutCard.Header>
-          <LayoutCard.Media>
-            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
-          </LayoutCard.Media>
-          <LayoutCard.Text>
-            <LayoutCard.Title className="text-text-black">
-              {t('result.notPeriod.title')}
-            </LayoutCard.Title>
-            <LayoutCard.Description>
-              {t('result.notPeriod.description', {
-                startDate: nextApplicationStartDateText,
-              })}
-            </LayoutCard.Description>
-          </LayoutCard.Text>
-        </LayoutCard.Header>
-      </LayoutCard.Content>
-      <LayoutCard.Footer>
-        <LayoutCard.Button variant="outline" className="w-full">
-          {t('result.notPeriod.button')}
-        </LayoutCard.Button>
-      </LayoutCard.Footer>
-    </LayoutCard.Root>
-  );
-}
-
 function Step3PassedCard() {
   const { t } = useTranslation('main');
 
@@ -200,8 +162,6 @@ export function MainFrame() {
   const { step, status } = useSearch({ from: '/_auth-required/' });
   const { t } = useTranslation('main');
   const { user } = useAuth();
-  const locale = useLocale();
-  const inspectionDateText = useMemo(() => formatDate(MOCK_INSPECTION_AT, locale), [locale]);
   const steps = useMemo(
     () => [
       {
@@ -211,7 +171,7 @@ export function MainFrame() {
       {
         title: t('steps.step1.title'),
         description: t('steps.step1.description', {
-          inspectionDate: inspectionDateText,
+          inspectionDate: MOCK_INSPECTION_AT.format('MM/DD(ddd) A hh:mm'),
         }),
       },
       {
@@ -223,26 +183,22 @@ export function MainFrame() {
         description: undefined,
       },
     ],
-    [t, inspectionDateText],
+    [t],
   );
 
   if (!user) return null;
 
   return (
-    <div
-      className={cn(
-        status === 'passed' || status === 'not-period' ? 'bg-bg-green' : 'bg-bg-surface',
-        'h-dvh px-5 py-6',
-      )}
-    >
+    <div className={cn(status === 'passed' ? 'bg-bg-green' : 'bg-bg-surface', 'h-dvh px-5 py-6')}>
       <div className="mx-auto flex h-full w-full max-w-100 flex-col gap-5">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-2">
             <h1 className="text-h1 text-text-black font-bold">
-              {t('header.title', { name: user.name })}
+              {t('header.title', { ns: 'common', name: user.name })}
             </h1>
             <h2 className="text-sub text-text-gray">
               {t('header.subtitle', {
+                ns: 'common',
                 studentId: user.studentNumber,
                 room: 'T207', // TODO: mock user room
               })}
@@ -262,7 +218,6 @@ export function MainFrame() {
                 value={status!}
                 caseBy={{
                   failed: <Step3FailedCard />,
-                  'not-period': <Step3NotPeriodCard />,
                   passed: <Step3PassedCard />,
                 }}
               />
