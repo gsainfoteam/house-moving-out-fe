@@ -42,14 +42,14 @@ const getInspectionTimes = (
   date: string | Date | dayjs.Dayjs,
 ): { start: string; end: string }[] => {
   // sunday
-  const startOfWeek = dayjs(date).startOf('d').subtract(dayjs(date).day(), 'd');
+  const startOfWeek = dayjs(date).startOf('d').set('day', 0);
   const { semester } = getYearSemester(date);
   const isSmall = semester === 'winter' || semester === 'summer';
 
   const createSlot = (dayOffset: number, startHour: number, endHour: number) =>
     [...Array((endHour - startHour) * 2)].map((_, v) =>
       startOfWeek
-        .add(dayOffset, 'd')
+        .set('day', dayOffset)
         .add(startHour, 'h')
         .add(v * 30, 'minute'),
     );

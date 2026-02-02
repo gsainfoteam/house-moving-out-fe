@@ -13,7 +13,7 @@ export function ScheduleCard({ schedule }: { schedule: MoveOutSchedule }) {
 
       <div className="flex flex-col gap-1">
         <span className="text-sub text-text-gray font-medium">
-          {t('schedule.card.applicationTime')}
+          {t('schedule.detail.applicationTime')}
         </span>
         <div className="text-box text-text-black">
           {`${dayjs(schedule.applicationStartTime).format('LLLL')} ~ ${dayjs(schedule.applicationEndTime).format('LLLL')}`}

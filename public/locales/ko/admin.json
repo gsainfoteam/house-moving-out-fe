@@ -1,8 +1,8 @@
 {
+  "inspectors": {
+    "list": "검사위원 목록"
+  },
   "schedule": {
-    "card": {
-      "applicationTime": "신청기간"
-    },
     "create": {
       "action": "생성하기",
       "applicationStartTime": {
@@ -16,7 +16,7 @@
         "count": "{{count}}명의 피검사자가 인식 되었습니다.",
         "error": "엑셀 업로드에 실패했습니다",
         "label": "방배정표 파일",
-        "uploading": "엑셀 파일 업로딩..."
+        "uploading": "엑셀 파일 업로드 중. 창을 닫지 마세요..."
       },
       "inspectionStartWeek": {
         "label": "검사 시작 주"
@@ -40,6 +40,11 @@
         "label": "이름",
         "placeholder": "2025 가을학기 정규 퇴사검사"
       }
+    },
+    "detail": {
+      "applicationTime": "신청기간",
+      "notFound": "존재하지 않는 퇴사검사입니다",
+      "status": "상태"
     },
     "empty": "생성된 퇴사검사 목록이 없습니다",
     "list": "스케줄 목록"
