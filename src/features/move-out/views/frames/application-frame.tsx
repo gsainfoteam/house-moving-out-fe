@@ -3,7 +3,7 @@ import { useState } from 'react';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
-import { LayoutCard, Loading } from '@/common/components';
+import { Button, Dialog, LayoutCard, Loading } from '@/common/components';
 import { useAuth } from '@/features/auth';
 
 import { useFindActiveMoveOutScheduleWithSlots } from '../../viewmodels';
@@ -126,9 +126,42 @@ export function ApplicationFrame() {
                 <LayoutCard.Button variant="outline">
                   {t('application.button.cancel')}
                 </LayoutCard.Button>
-                <LayoutCard.Button variant="default" className="w-full">
-                  {t('application.button.next')}
-                </LayoutCard.Button>
+                <Dialog.Root>
+                  <Dialog.Trigger asChild>
+                    <LayoutCard.Button
+                      variant="default"
+                      className="w-full"
+                      disabled={!selectedDay || !selectedSlotUuid}
+                    >
+                      {t('application.button.next')}
+                    </LayoutCard.Button>
+                  </Dialog.Trigger>
+                  <Dialog.Content>
+                    <Dialog.Header>
+                      <Dialog.Title>{t('application.dialog.title')}</Dialog.Title>
+                      <Dialog.Description>{t('application.dialog.description')}</Dialog.Description>
+                    </Dialog.Header>
+                    <Dialog.Body>
+                      {/* TODO: mock */}
+                      {Array.from({ length: 10 }).map((_, index) => (
+                        <p key={index} className="mb-4 leading-normal">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                          est laborum.
+                        </p>
+                      ))}
+                    </Dialog.Body>
+                    <Dialog.Footer>
+                      <Dialog.Close asChild>
+                        <Button>{t('application.dialog.button')}</Button>
+                      </Dialog.Close>
+                    </Dialog.Footer>
+                  </Dialog.Content>
+                </Dialog.Root>
               </LayoutCard.Footer>
             </>
           )}

@@ -42,7 +42,7 @@ export namespace TimeSelect {
   };
 
   export const slotStyles = cv({
-    base: ['text-box2 w-full relative rounded-lg px-7.5 py-3.5 text-center transition-colors'],
+    base: ['text-box2 w-full relative rounded-lg px-7.5 py-3.5 text-center transition-all'],
     variants: {
       state: {
         closed: [

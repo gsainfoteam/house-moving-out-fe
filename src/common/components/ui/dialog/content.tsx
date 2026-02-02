@@ -44,7 +44,7 @@ export const Content = ({ className, children, ...props }: MotionProps & Content
               aria-describedby={descriptionId}
               className={cn(
                 'relative flex h-full max-h-[70vh] max-w-md flex-col',
-                'mx-10 gap-4 overflow-hidden p-5',
+                'mx-5 gap-4 overflow-hidden p-5',
                 'border-logo-gray bg-bg-white rounded-2xl border',
                 className,
               )}

@@ -21,7 +21,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     if (error.statusCode === 401) {
       toast.error(t('error.unauthorized', { ns: 'common' }));
     } else if (error?.statusCode === 404) {
-      toast.error(t('error.notFound'));
+      // not found frame으로 view에서 처리됨
     } else {
       toast.error(t('error.internalServerError', { ns: 'common' }));
     }

@@ -5,10 +5,12 @@
       "next": "Next"
     },
     "description": "Selecting the date and time will confirm your exit inspection schedule.",
+    "dialog": {
+      "button": "OK",
+      "description": "Scroll down to review all important notices.",
+      "title": "Please check the precautions"
+    },
     "title": "Please select the inspection date"
-  },
-  "error": {
-    "notFound": "There are no active move-out inspection schedules."
   },
   "notPeriod": {
     "button": "Preview Inspection Criteria",

@@ -21,7 +21,7 @@ export function DateSelect({ days, value, onChange, className }: DateSelect.Prop
             aria-pressed={isSelected}
             data-selected={isSelected}
             className={cn(
-              'flex flex-1 flex-col gap-1 px-5 py-2.5 text-center transition-colors',
+              'flex flex-1 flex-col gap-1 px-5 py-2.5 text-center transition-all',
               !isFirst && 'border-icon-gray border-l',
               isSelected ? 'bg-primary-main text-text-white' : 'bg-icon-light-gray',
             )}
