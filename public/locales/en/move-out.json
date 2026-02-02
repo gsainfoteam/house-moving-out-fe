@@ -6,9 +6,24 @@
     },
     "description": "Selecting the date and time will confirm your exit inspection schedule.",
     "dialog": {
-      "button": "OK",
-      "description": "Scroll down to review all important notices.",
-      "title": "Please check the precautions"
+      "check": {
+        "button": "Confirm",
+        "title": "Application complete"
+      },
+      "full": {
+        "button": "Close",
+        "title": "This time slot is closed."
+      },
+      "notice": {
+        "button": "OK",
+        "description": "Scroll down to review all important notices.",
+        "title": "Please check the precautions"
+      }
+    },
+    "error": {
+      "alreadyExistsOrFull": "You have already applied or the selected time slot is full.",
+      "notFound": "The inspection schedule information could not be found.",
+      "notStartedOrEnded": "It is currently not within the inspection application period."
     },
     "title": "Please select the inspection date"
   },

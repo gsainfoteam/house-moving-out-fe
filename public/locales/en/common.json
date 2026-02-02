@@ -1,5 +1,6 @@
 {
   "error": {
+    "badRequest": "Failed to process the request.",
     "internalServerError": "A temporary error occurred.",
     "unauthorized": "Login required."
   },

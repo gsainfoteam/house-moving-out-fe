@@ -1,5 +1,6 @@
 {
   "error": {
+    "badRequest": "요청을 처리하지 못했습니다.",
     "internalServerError": "일시적인 오류가 발생했습니다.",
     "unauthorized": "로그인이 필요합니다."
   },
