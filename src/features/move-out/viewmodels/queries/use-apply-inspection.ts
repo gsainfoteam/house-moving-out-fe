@@ -25,7 +25,7 @@ export const useApplyInspection = () => {
       } else if (error?.statusCode == 403) {
         toast.error(t('application.error.notStartedOrEnded'));
       } else if (error?.statusCode == 404) {
-        toast.error(t('application.error.notFound'));
+        // 퇴사 검사 신청 대상이 아닌 경우 -> view에서 처리
       } else if (error?.statusCode === 409) {
         toast.error(t('application.error.alreadyExistsOrFull'));
         // 검사 신청이 이미 존재하거나 슬롯이 가득찬 경우 -> 다이얼로그

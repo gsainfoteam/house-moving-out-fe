@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -14,12 +14,54 @@ import { useAuth } from '@/features/auth';
 import { useApplicationForm } from '../../viewmodels';
 import { DateSelect, TimeSelect } from '../components';
 
-// TODO: 신청 성공/마감 다이얼로그
 // TODO: LayoutCard 컴포넌트 sub 컴포넌트 구조 리팩토링 및 왼쪽 정렬?
 // TODO: Layout 컴포넌트 만들어서 전체 리팩토링
 
+function NotPeriodOrTargetCard({
+  applicationStartTime,
+  isTarget,
+}: {
+  applicationStartTime?: Dayjs;
+  isTarget: boolean;
+}) {
+  const { t } = useTranslation('move-out');
+
+  return (
+    <>
+      <LayoutCard.Content>
+        <LayoutCard.Header>
+          <LayoutCard.Media>
+            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
+          </LayoutCard.Media>
+          <LayoutCard.Text>
+            <LayoutCard.Title className="text-text-black">
+              {isTarget ? t('notPeriod.title') : t('notTarget.title')}
+            </LayoutCard.Title>
+            {applicationStartTime && (
+              <LayoutCard.Description>
+                {isTarget
+                  ? t('notPeriod.description', {
+                      startTime: applicationStartTime.format('MM/DD'),
+                    })
+                  : t('notTarget.description')}
+              </LayoutCard.Description>
+            )}
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Content>
+      <LayoutCard.Footer>
+        <LayoutCard.Button variant="outline" className="w-full">
+          {t('notPeriod.button')}
+        </LayoutCard.Button>
+      </LayoutCard.Footer>
+    </>
+  );
+}
+
 export function ApplicationFrame() {
   const { t } = useTranslation('move-out');
+  const { user } = useAuth();
+  const [isTarget, setIsTarget] = useState(true);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [fullDialogOpen, setFullDialogOpen] = useState(false);
 
@@ -40,8 +82,10 @@ export function ApplicationFrame() {
     onFull: () => {
       setFullDialogOpen(true);
     },
+    onNotTarget: () => {
+      setIsTarget(false);
+    },
   });
-  const { user } = useAuth();
 
   if (!user) return null;
 
@@ -68,33 +112,11 @@ export function ApplicationFrame() {
           <LayoutCard.Root>
             {isLoading ? (
               <Loading className="h-full" />
-            ) : isNotFound || !isApplicationPeriod ? (
-              <>
-                <LayoutCard.Content>
-                  <LayoutCard.Header>
-                    <LayoutCard.Media>
-                      <img src="./3d/not-period.png" alt="not-period" className="h-60" />
-                    </LayoutCard.Media>
-                    <LayoutCard.Text>
-                      <LayoutCard.Title className="text-text-black">
-                        {t('notPeriod.title')}
-                      </LayoutCard.Title>
-                      {applicationStartTime && (
-                        <LayoutCard.Description>
-                          {t('notPeriod.description', {
-                            startTime: applicationStartTime.format('MM/DD'),
-                          })}
-                        </LayoutCard.Description>
-                      )}
-                    </LayoutCard.Text>
-                  </LayoutCard.Header>
-                </LayoutCard.Content>
-                <LayoutCard.Footer>
-                  <LayoutCard.Button variant="outline" className="w-full">
-                    {t('notPeriod.button')}
-                  </LayoutCard.Button>
-                </LayoutCard.Footer>
-              </>
+            ) : isNotFound || !isApplicationPeriod || !isTarget ? (
+              <NotPeriodOrTargetCard
+                applicationStartTime={applicationStartTime}
+                isTarget={isTarget}
+              />
             ) : (
               <>
                 <LayoutCard.Content>
@@ -205,7 +227,7 @@ export function ApplicationFrame() {
           </Dialog.Header>
           <Dialog.Footer>
             <Dialog.Close asChild>
-              <Button variant="failed" className="w-full">
+              <Button variant="default" className="w-full">
                 {t('application.dialog.check.button')}
               </Button>
             </Dialog.Close>
@@ -220,7 +242,7 @@ export function ApplicationFrame() {
           </Dialog.Header>
           <Dialog.Footer>
             <Dialog.Close asChild>
-              <Button variant="default" className="w-full">
+              <Button variant="failed" className="w-full">
                 {t('application.dialog.full.button')}
               </Button>
             </Dialog.Close>

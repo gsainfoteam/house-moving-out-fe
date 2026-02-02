@@ -31,5 +31,9 @@
     "button": "Preview Inspection Criteria",
     "description": "The next inspection application starts from {{startTime}}.",
     "title": "It is not the moving out inspection period."
+  },
+  "notTarget": {
+    "description": "If you have any questions, please click the \"Contact Us\" button below.",
+    "title": "You are not eligible to apply for a move-out inspection."
   }
 }
