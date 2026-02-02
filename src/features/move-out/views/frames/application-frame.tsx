@@ -62,6 +62,8 @@ export function ApplicationFrame() {
   const { t } = useTranslation('move-out');
   const { user } = useAuth();
   const [isTarget, setIsTarget] = useState(true);
+
+  const [noticeDialogOpen, setNoticeDialogOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [fullDialogOpen, setFullDialogOpen] = useState(false);
 
@@ -167,52 +169,52 @@ export function ApplicationFrame() {
                   <Button variant="outline" asChild>
                     <Link to="/">{t('application.button.cancel')}</Link>
                   </Button>
-                  <Dialog.Root>
-                    <Dialog.Trigger asChild>
-                      <Button variant="default" className="w-full" disabled={!formState.isValid}>
-                        {t('application.button.next')}
-                      </Button>
-                    </Dialog.Trigger>
-                    <Dialog.Content>
-                      <Dialog.Header>
-                        <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
-                        <Dialog.Description>
-                          {t('application.dialog.notice.description')}
-                        </Dialog.Description>
-                      </Dialog.Header>
-                      <Dialog.Body>
-                        {/* TODO: mock */}
-                        {Array.from({ length: 10 }).map((_, index) => (
-                          <p key={index} className="mb-4 leading-normal">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                            occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.
-                          </p>
-                        ))}
-                      </Dialog.Body>
-                      <Dialog.Footer>
-                        <Dialog.Close asChild>
-                          <Button
-                            variant="default"
-                            onClick={onSubmit}
-                            disabled={formState.isSubmitting}
-                          >
-                            {t('application.dialog.notice.button')}
-                          </Button>
-                        </Dialog.Close>
-                      </Dialog.Footer>
-                    </Dialog.Content>
-                  </Dialog.Root>
+                  <Button
+                    variant="default"
+                    className="w-full"
+                    disabled={!formState.isValid}
+                    onClick={() => setNoticeDialogOpen(true)}
+                  >
+                    {t('application.button.next')}
+                  </Button>
                 </LayoutCard.Footer>
               </>
             )}
           </LayoutCard.Root>
         </div>
       </div>
+      <Dialog.Root isOpen={noticeDialogOpen} onOpenChange={setNoticeDialogOpen}>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
+            <Dialog.Description>{t('application.dialog.notice.description')}</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Body>
+            {/* TODO: mock */}
+            {Array.from({ length: 10 }).map((_, index) => (
+              <p key={index} className="mb-4 leading-normal">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+            ))}
+          </Dialog.Body>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button
+                variant="default"
+                onClick={() => onSubmit()} // prevent default를 끔
+                disabled={formState.isSubmitting}
+              >
+                {t('application.dialog.notice.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
       <Dialog.Root isOpen={successDialogOpen} onOpenChange={setSuccessDialogOpen}>
         <Dialog.Content>
           <Dialog.Header>
