@@ -1,8 +1,4 @@
 {
-  "header": {
-    "subtitle": "학번: {{studentId}} | 호실: {{room}}",
-    "title": "{{name}}님의 퇴사 검사 현황"
-  },
   "result": {
     "failed": {
       "accordionTitle": "불통과 사유 확인하기",
@@ -19,11 +15,6 @@
         "title": "재검사를 신청하시겠습니까?"
       },
       "title": "재검사가 필요합니다."
-    },
-    "notPeriod": {
-      "button": "퇴사 검사 기준 미리보기",
-      "description": "다음 검사 신청은 {{startDate}}부터 시작됩니다.",
-      "title": "지금은 퇴사 검사 기간이 아닙니다."
     },
     "passed": {
       "button": "홈으로",

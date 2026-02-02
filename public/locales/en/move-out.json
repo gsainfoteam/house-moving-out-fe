@@ -4,10 +4,14 @@
       "cancel": "Cancel",
       "next": "Next"
     },
-    "description": "",
-    "title": ""
+    "description": "Selecting the date and time will confirm your exit inspection schedule.",
+    "title": "Please select the inspection date"
   },
   "error": {
     "notFound": "There are no active move-out inspection schedules."
+  },
+  "notPeriod": {
+    "button": "Preview Inspection Criteria",
+    "title": "It is not the moving out inspection period."
   }
 }

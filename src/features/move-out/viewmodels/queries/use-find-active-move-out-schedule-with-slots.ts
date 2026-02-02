@@ -11,7 +11,7 @@ import { ApiPaths } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = () => {
   const { t } = useTranslation('move-out');
-  const { data, error } = $api.useQuery(
+  const { data, error, isLoading } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,
   );
@@ -63,8 +63,12 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     [inspectionSlotsByDay],
   );
 
+  const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
+
   return {
     data,
+    isLoading,
+    isNotFound,
     applicationStartTime,
     applicationEndTime,
     inspectionSlotsByDay,

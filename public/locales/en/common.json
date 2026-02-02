@@ -8,6 +8,10 @@
     "languageChange": "Language",
     "logout": "Logout"
   },
+  "header": {
+    "subtitle": "Student ID: {{studentId}} | {{room}}",
+    "title": "Move-out Inspection"
+  },
   "inquiryDrawer": {
     "email": "E-mail: gist_house@gist.ac.kr",
     "faq": "Go to FAQ",

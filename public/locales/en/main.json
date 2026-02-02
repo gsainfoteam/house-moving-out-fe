@@ -1,8 +1,4 @@
 {
-  "header": {
-    "subtitle": "Student ID: {{studentId}} | {{room}}",
-    "title": "Move-out Inspection"
-  },
   "result": {
     "failed": {
       "accordionTitle": "Check Reasons for Failure",
@@ -19,11 +15,6 @@
         "title": "Request re-examination?"
       },
       "title": "Re-inspection Required"
-    },
-    "notPeriod": {
-      "button": "Preview Inspection Criteria",
-      "description": "The next inspection application will start on {{startDate}}.",
-      "title": "It is not the moving out inspection period."
     },
     "passed": {
       "button": "Go Home",
