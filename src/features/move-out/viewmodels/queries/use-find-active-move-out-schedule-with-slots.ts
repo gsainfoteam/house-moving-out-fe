@@ -45,7 +45,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
   );
 
   const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
-    if (!data?.inspectionSlots?.length) return [[], []];
+    if (!data?.inspectionSlots?.length) return [{}, []];
 
     const inspectionSlots = data.inspectionSlots
       .map((slot) => ({
