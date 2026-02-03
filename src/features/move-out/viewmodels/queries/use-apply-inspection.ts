@@ -14,9 +14,6 @@ export const useApplyInspection = () => {
   return $api.useMutation('post', ApiPaths.MoveOutController_applyInspection, {
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.MoveOutController_findMoveOutScheduleWithSlots],
-      });
-      queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
       });
     },
