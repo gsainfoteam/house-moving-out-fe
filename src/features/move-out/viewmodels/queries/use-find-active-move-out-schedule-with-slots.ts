@@ -14,6 +14,13 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
   const { data, error, isLoading } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,
+    {},
+    {
+      retry(count, error) {
+        if (error?.statusCode === 404 || error?.statusCode === 400) return false;
+        return count < 3;
+      },
+    },
   );
 
   useEffect(() => {
