@@ -45,7 +45,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
   );
 
   const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
-    if (!data?.inspectionSlots?.length) return [[], []] as const;
+    if (!data?.inspectionSlots?.length) return [[], []];
 
     const inspectionSlots = data.inspectionSlots
       .map((slot) => ({
@@ -63,7 +63,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     const byDay = groupBy(inspectionSlots, (s) => s.day.valueOf());
     const days = Object.keys(byDay).map((timestamp) => dayjs(Number(timestamp)).startOf('day'));
 
-    return [byDay, days] as const;
+    return [byDay, days];
   }, [data]);
 
   const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);

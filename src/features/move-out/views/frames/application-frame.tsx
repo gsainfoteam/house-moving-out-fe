@@ -81,6 +81,7 @@ export function ApplicationFrame() {
     onFull: () => {
       setFullDialogOpen(true);
     },
+    // TODO: blocked by backed, /active에서 403 에러를 받게 되면 아래 콜백은 제거
     onNotTarget: () => {
       setIsTarget(false);
     },
