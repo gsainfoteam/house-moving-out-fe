@@ -37,8 +37,8 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     [data],
   );
 
-  const inspectionSlotsByDayTimestamp = useMemo(() => {
-    if (!data?.inspectionSlots?.length) return [];
+  const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
+    if (!data?.inspectionSlots?.length) return [[], []] as const;
 
     const inspectionSlots = data.inspectionSlots
       .map((slot) => ({
@@ -46,22 +46,18 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
         day: dayjs(slot.startTime).startOf('day'),
         startTime: dayjs(slot.startTime),
         endTime: dayjs(slot.endTime),
+        // TODO: blocked by backend, 자신의 성별에 따라 closed 여부가 달라져야 한다.
         isClosed:
           slot.maleReservedCount >= slot.maleCapacity &&
           slot.femaleReservedCount >= slot.femaleCapacity,
       }))
-      .sort((a, b) => a.day.diff(b.day));
+      .sort((a, b) => a.startTime.diff(b.startTime));
 
-    return groupBy(inspectionSlots, (s) => s.day.valueOf());
+    const byDay = groupBy(inspectionSlots, (s) => s.day.valueOf());
+    const days = Object.keys(byDay).map((timestamp) => dayjs(Number(timestamp)).startOf('day'));
+
+    return [byDay, days] as const;
   }, [data]);
-
-  const inspectionDays = useMemo(
-    () =>
-      [...Object.keys(inspectionSlotsByDayTimestamp)]
-        .sort((a, b) => Number(a) - Number(b))
-        .map((timestamp) => dayjs(Number(timestamp)).startOf('day')),
-    [inspectionSlotsByDayTimestamp],
-  );
 
   const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
 
