@@ -10,7 +10,10 @@
     "logout": "Logout"
   },
   "header": {
-    "subtitle": "Student ID: {{studentId}} | {{room}}",
+    "subtitle": {
+      "noRoom": "Student ID: {{studentId}}",
+      "room": "Student ID: {{studentId}} | {{room}}"
+    },
     "title": "Move-out Inspection"
   },
   "inquiryDrawer": {

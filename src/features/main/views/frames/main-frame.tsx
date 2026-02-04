@@ -1,8 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
-import { Link, useSearch } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
@@ -10,16 +9,14 @@ import { Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { cn } from '@/common/utils';
 import { useAuth } from '@/features/auth';
 
+import { useFindMyInspection } from '../../viewmodels';
 import { Accordion, Steps } from '../components';
-
-// TODO: mock inspection date
-const MOCK_INSPECTION_AT = dayjs('2025-01-12T00:00:00');
 
 function Step0Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('main');
 
   return (
-    <LayoutCard.Root>
+    <>
       <LayoutCard.Body className="justify-between">
         <Steps steps={steps} activeStepIndex={0} className="w-full" />
       </LayoutCard.Body>
@@ -28,7 +25,7 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
           <Link to="/application">{t('steps.step0.button')}</Link>
         </Button>
       </LayoutCard.Footer>
-    </LayoutCard.Root>
+    </>
   );
 }
 
@@ -36,7 +33,7 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('main');
 
   return (
-    <LayoutCard.Root>
+    <>
       <LayoutCard.Body className="justify-between">
         <Steps steps={steps} activeStepIndex={1} className="w-full" />
       </LayoutCard.Body>
@@ -45,7 +42,7 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
           {t('steps.step1.button')}
         </Button>
       </LayoutCard.Footer>
-    </LayoutCard.Root>
+    </>
   );
 }
 
@@ -53,7 +50,7 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('main');
 
   return (
-    <LayoutCard.Root>
+    <>
       <LayoutCard.Body className="justify-between">
         <Steps steps={steps} activeStepIndex={2} className="w-full" />
       </LayoutCard.Body>
@@ -62,7 +59,7 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
           {t('steps.step2.button')}
         </Button>
       </LayoutCard.Footer>
-    </LayoutCard.Root>
+    </>
   );
 }
 
@@ -74,7 +71,7 @@ function Step3FailedCard() {
   );
 
   return (
-    <LayoutCard.Root>
+    <>
       <LayoutCard.Center>
         <LayoutCard.Header>
           <LayoutCard.Media>
@@ -129,7 +126,7 @@ function Step3FailedCard() {
           </Dialog.Content>
         </Dialog.Root>
       </LayoutCard.Footer>
-    </LayoutCard.Root>
+    </>
   );
 }
 
@@ -137,7 +134,7 @@ function Step3PassedCard() {
   const { t } = useTranslation('main');
 
   return (
-    <LayoutCard.Root>
+    <>
       <LayoutCard.Center>
         <LayoutCard.Header>
           <LayoutCard.Media>
@@ -156,14 +153,26 @@ function Step3PassedCard() {
           {t('result.passed.button')}
         </Button>
       </LayoutCard.Footer>
-    </LayoutCard.Root>
+    </>
   );
 }
 
 export function MainFrame() {
-  const { step, status } = useSearch({ from: '/_auth-required/' });
+  const [step, setStep] = useState(0);
+  const [status, setStatus] = useState<'passed' | 'failed' | undefined>(undefined);
+
+  const { isLoading, inspectionStartTime } = useFindMyInspection({
+    onSuccess: () => {
+      setStep(1);
+    },
+    onFailed: () => {
+      setStep(0);
+    },
+  });
+
   const { t } = useTranslation('main');
   const { user } = useAuth();
+
   const steps = useMemo(
     () => [
       {
@@ -173,7 +182,7 @@ export function MainFrame() {
       {
         title: t('steps.step1.title'),
         description: t('steps.step1.description', {
-          inspectionDate: MOCK_INSPECTION_AT.format('MM/DD(ddd) A hh:mm'),
+          inspectionDate: inspectionStartTime?.format('MM/DD(ddd) A hh:mm'),
         }),
       },
       {
@@ -185,7 +194,7 @@ export function MainFrame() {
         description: undefined,
       },
     ],
-    [t],
+    [inspectionStartTime, t],
   );
 
   if (!user) return null;
@@ -199,33 +208,37 @@ export function MainFrame() {
               {t('header.title', { ns: 'common', name: user.name })}
             </h1>
             <h2 className="text-sub text-text-gray">
-              {t('header.subtitle', {
-                ns: 'common',
-                studentId: user.studentNumber,
-                room: 'T207', // TODO: mock user room
-              })}
+              {user.roomNumber
+                ? t('header.subtitle.room', {
+                    ns: 'common',
+                    studentId: user.studentNumber,
+                    room: user.roomNumber,
+                  })
+                : t('header.subtitle.noRoom', { ns: 'common', studentId: user.studentNumber })}
             </h2>
           </div>
           <img src="/house-logo.png" alt="house-logo" className="h-15" />
         </div>
 
-        <SwitchCase
-          value={step}
-          caseBy={{
-            0: <Step0Card steps={steps} />,
-            1: <Step1Card steps={steps} />,
-            2: <Step2Card steps={steps} />,
-            3: (
-              <SwitchCase
-                value={status!}
-                caseBy={{
-                  failed: <Step3FailedCard />,
-                  passed: <Step3PassedCard />,
-                }}
-              />
-            ),
-          }}
-        />
+        <LayoutCard.Root isLoading={isLoading}>
+          <SwitchCase
+            value={step}
+            caseBy={{
+              0: <Step0Card steps={steps} />,
+              1: <Step1Card steps={steps} />,
+              2: <Step2Card steps={steps} />,
+              3: (
+                <SwitchCase
+                  value={status!}
+                  caseBy={{
+                    failed: <Step3FailedCard />,
+                    passed: <Step3PassedCard />,
+                  }}
+                />
+              ),
+            }}
+          />
+        </LayoutCard.Root>
       </div>
     </div>
   );

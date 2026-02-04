@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
-import { Button, Dialog, LayoutCard, Loading } from '@/common/components';
+import { Button, Dialog, LayoutCard } from '@/common/components';
 import { useAuth } from '@/features/auth';
 
 import { useApplicationForm } from '../../viewmodels';
@@ -99,20 +99,20 @@ export function ApplicationFrame() {
                 {t('header.title', { ns: 'common', name: user.name })}
               </h1>
               <h2 className="text-sub text-text-gray">
-                {t('header.subtitle', {
-                  ns: 'common',
-                  studentId: user.studentNumber,
-                  room: 'T207', // TODO: mock user room
-                })}
+                {user.roomNumber
+                  ? t('header.subtitle.room', {
+                      ns: 'common',
+                      studentId: user.studentNumber,
+                      room: user.roomNumber,
+                    })
+                  : t('header.subtitle.noRoom', { ns: 'common', studentId: user.studentNumber })}
               </h2>
             </div>
             <img src="/house-logo.png" alt="house-logo" className="h-15" />
           </div>
 
-          <LayoutCard.Root>
-            {isLoading ? (
-              <Loading className="h-full" />
-            ) : isNotFound || !isApplicationPeriod || !isTarget ? (
+          <LayoutCard.Root isLoading={isLoading}>
+            {isNotFound || !isApplicationPeriod || !isTarget ? (
               <NotPeriodOrTargetCard
                 applicationStartTime={applicationStartTime}
                 isTarget={isTarget}

@@ -6,10 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { $api } from '@/common/lib';
+import { useAuth } from '@/features/auth';
 
 import { ApiPaths } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = () => {
+  const { user } = useAuth();
   const { t } = useTranslation('move-out');
   const { data, error, isLoading } = $api.useQuery(
     'get',
@@ -20,6 +22,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
         if (error?.statusCode === 404 || error?.statusCode === 400) return false;
         return count < 3;
       },
+      enabled: !!user,
     },
   );
 
@@ -32,7 +35,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     } else {
       toast.error(t('error.internalServerError', { ns: 'common' }));
     }
-  }, [error, t]);
+  }, [user, error, t]);
 
   const applicationStartTime = useMemo(
     () => (data ? dayjs(data.applicationStartTime) : undefined),
@@ -53,10 +56,10 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
         day: dayjs(slot.startTime).startOf('day'),
         startTime: dayjs(slot.startTime),
         endTime: dayjs(slot.endTime),
-        // TODO: blocked by backend, 자신의 성별에 따라 closed 여부가 달라져야 한다.
         isClosed:
-          slot.maleReservedCount >= slot.maleCapacity &&
-          slot.femaleReservedCount >= slot.femaleCapacity,
+          user!.gender === 'MALE'
+            ? slot.maleReservedCount >= slot.maleCapacity
+            : slot.femaleReservedCount >= slot.femaleCapacity,
       }))
       .sort((a, b) => a.startTime.diff(b.startTime));
 
@@ -64,7 +67,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     const days = Object.keys(byDay).map((timestamp) => dayjs(Number(timestamp)).startOf('day'));
 
     return [byDay, days];
-  }, [data]);
+  }, [data, user]);
 
   const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
 
