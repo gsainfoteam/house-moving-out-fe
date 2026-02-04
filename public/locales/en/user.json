@@ -1,13 +1,29 @@
 {
-  "result": {
+  "steps": {
+    "label": "Step {{number}}",
+    "application": {
+      "button": "Apply Inspection",
+      "description": "Please apply for the inspection using the button below.",
+      "title": "Apply"
+    },
+    "waiting": {
+      "button": "Change Inspection Schedule",
+      "description": "Scheduled for {{inspectionDate}}.",
+      "title": "Waiting"
+    },
+    "in_progress": {
+      "button": "Waiting for Results",
+      "description": "The RA is currently inspecting your room. Please check the results in a moment.",
+      "title": "Inspecting"
+    },
     "failed": {
-      "accordionTitle": "Check Reasons for Failure",
-      "button": "Apply for Re-inspection",
-      "description": "Please check the reasons below and apply again.",
       "reasons": {
         "bathroom": "Insufficient bathroom cleaning",
         "deskDrawer": "Insufficient desk drawer organization"
       },
+      "accordionTitle": "Check Reasons for Failure",
+      "button": "Apply for Re-examination",
+      "description": "Please check the reasons below and apply again.",
       "retry": {
         "cancel": "Cancel",
         "description": "You have {{remainCount}} re-examinations remaining.",
@@ -21,31 +37,18 @@
       "description": "All procedures have been completed. Thank you for your cooperation.",
       "title": "Moving Out Inspection Passed"
     },
-    "notTarget": {
+    "results": {
+      "title": "Results"
+    },
+    "not_period": {
+      "button": "Preview Inspection Criteria",
+      "description": "The next inspection application starts from {{startTime}}.",
+      "title": "It is not the moving out inspection period."
+    },
+    "not_target": {
       "button": "Preview Inspection Criteria",
       "description": "If you have any questions, please click the \"Contact Us\" button below.",
       "title": "You are not eligible to apply for a move-out inspection."
-    }
-  },
-  "steps": {
-    "label": "Step {{number}}",
-    "step0": {
-      "button": "Apply Inspection",
-      "description": "Please apply for the inspection using the button below.",
-      "title": "Apply"
-    },
-    "step1": {
-      "button": "Change Inspection Schedule",
-      "description": "Scheduled for {{inspectionDate}}.",
-      "title": "Waiting"
-    },
-    "step2": {
-      "button": "Waiting for Results",
-      "description": "The RA is currently inspecting your room. Please check the results in a moment.",
-      "title": "Inspecting"
-    },
-    "step3": {
-      "title": "Results"
     }
   },
   "application": {
@@ -75,10 +78,5 @@
       "notStartedOrEnded": "It is currently not within the inspection application period."
     },
     "title": "Please select the inspection date"
-  },
-  "notPeriod": {
-    "button": "Preview Inspection Criteria",
-    "description": "The next inspection application starts from {{startTime}}.",
-    "title": "It is not the moving out inspection period."
   }
 }

@@ -5,17 +5,24 @@ import { toast } from 'sonner';
 
 import { $api } from '@/common/lib';
 
-import { ApiPaths } from '../../models';
+import { ApiPaths, type ApplyInspectionResponse } from '../../models';
 
-export const useApplyInspection = () => {
+export const useApplyInspection = ({
+  onSuccess,
+  onFull,
+}: {
+  onSuccess?: (data: ApplyInspectionResponse) => void;
+  onFull?: () => void;
+}) => {
   const { t } = useTranslation('user');
   const queryClient = useQueryClient();
 
   return $api.useMutation('post', ApiPaths.MoveOutController_applyInspection, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
       });
+      onSuccess?.(data);
     },
     onError: (error) => {
       if (error?.statusCode === 400) {
@@ -25,10 +32,9 @@ export const useApplyInspection = () => {
       } else if (error?.statusCode == 403) {
         toast.error(t('application.error.notStartedOrEnded'));
       } else if (error?.statusCode == 404) {
-        // 퇴사 검사 신청 대상이 아닌 경우 -> view에서 처리
+        // 퇴사 검사 신청 대상이 아닌 경우 -> main frame에서 처리됨
       } else if (error?.statusCode === 409) {
-        toast.error(t('application.error.alreadyExistsOrFull'));
-        // 검사 신청이 이미 존재하거나 슬롯이 가득찬 경우 -> 다이얼로그
+        onFull?.();
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }

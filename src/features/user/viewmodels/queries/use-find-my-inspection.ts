@@ -9,14 +9,20 @@ import { $api } from '@/common/lib';
 import { ApiPaths } from '../../models';
 
 export const useFindMyInspection = ({
-  onSuccess,
+  onPassed,
   onFailed,
+  onFoundWaiting,
+  onFoundInProgress,
+  onNotFound,
 }: {
-  onSuccess: () => void;
+  onPassed: () => void;
   onFailed: () => void;
+  onFoundWaiting: () => void;
+  onFoundInProgress: () => void;
+  onNotFound: () => void;
 }) => {
   const { t } = useTranslation('user');
-  const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
+  const { data, error, isLoading, isSuccess } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findMyInspection,
     {},
@@ -33,19 +39,40 @@ export const useFindMyInspection = ({
     if (error.statusCode === 401) {
       toast.error(t('error.unauthorized', { ns: 'common' }));
     } else if (error?.statusCode === 404) {
-      // view에서 step=0으로 처리됨
+      onNotFound?.();
     } else {
       toast.error(t('error.internalServerError', { ns: 'common' }));
     }
-  }, [error, t, onFailed]);
+  }, [error, onNotFound, t]);
 
   useEffect(() => {
-    if (isError) {
-      onFailed?.();
-    } else if (isSuccess) {
-      onSuccess?.();
+    if (isSuccess) {
+      if (data.isPassed === true) {
+        onPassed?.();
+      } else if (data.isPassed === false) {
+        onFailed?.();
+      } else if (data.isPassed === undefined) {
+        const startTime = dayjs(data.inspectionSlot.startTime);
+        const endTime = dayjs(data.inspectionSlot.endTime);
+        const now = dayjs();
+
+        if (now.isAfter(startTime) && now.isBefore(endTime)) {
+          onFoundInProgress?.();
+        } else {
+          onFoundWaiting?.();
+        }
+      }
     }
-  }, [isError, isSuccess, onFailed, onSuccess]);
+  }, [
+    data?.inspectionSlot.endTime,
+    data?.inspectionSlot.startTime,
+    data?.isPassed,
+    isSuccess,
+    onFoundInProgress,
+    onFoundWaiting,
+    onFailed,
+    onPassed,
+  ]);
 
   const inspectionStartTime = useMemo(
     () => (data ? dayjs(data.inspectionSlot.startTime) : undefined),

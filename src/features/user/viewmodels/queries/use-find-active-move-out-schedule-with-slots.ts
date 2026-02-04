@@ -12,12 +12,16 @@ import { ApiPaths } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = ({
   onNotTarget,
+  onNotPeriod,
+  onSuccess,
 }: {
   onNotTarget?: () => void;
+  onNotPeriod?: () => void;
+  onSuccess?: () => void;
 }) => {
   const { user } = useAuth();
   const { t } = useTranslation('user');
-  const { data, error, isLoading, isError } = $api.useQuery(
+  const { data, error, isLoading, isError, isSuccess } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,
     {},
@@ -31,17 +35,20 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   );
 
   useEffect(() => {
-    if (!error) return;
-    if (error.statusCode === 401) {
-      toast.error(t('error.unauthorized', { ns: 'common' }));
-    } else if (error?.statusCode === 403) {
-      onNotTarget?.();
-    } else if (error?.statusCode === 404) {
-      // not found frame으로 view에서 처리됨
+    if (isSuccess) {
+      onSuccess?.();
     } else {
-      toast.error(t('error.internalServerError', { ns: 'common' }));
+      if (error?.statusCode === 401) {
+        toast.error(t('error.unauthorized', { ns: 'common' }));
+      } else if (error?.statusCode === 403) {
+        onNotTarget?.();
+      } else if (error?.statusCode === 404) {
+        onNotPeriod?.();
+      } else {
+        toast.error(t('error.internalServerError', { ns: 'common' }));
+      }
     }
-  }, [user, error, t, onNotTarget]);
+  }, [error?.statusCode, isSuccess, onNotPeriod, onNotTarget, onSuccess, t]);
 
   const applicationStartTime = useMemo(
     () => (data ? dayjs(data.applicationStartTime) : undefined),
@@ -52,6 +59,21 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     () => (data ? dayjs(data.applicationEndTime) : undefined),
     [data],
   );
+
+  const isApplicationPeriod = useMemo(
+    () =>
+      applicationStartTime != null &&
+      applicationEndTime != null &&
+      dayjs().isAfter(applicationStartTime) &&
+      dayjs().isBefore(applicationEndTime),
+    [applicationStartTime, applicationEndTime],
+  );
+
+  useEffect(() => {
+    if (isApplicationPeriod) {
+      onNotPeriod?.();
+    }
+  }, [isApplicationPeriod, onNotPeriod]);
 
   const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
     if (!data?.inspectionSlots?.length) return [{}, []];
@@ -83,5 +105,6 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     applicationEndTime,
     inspectionSlotsByDayTimestamp,
     inspectionDays,
+    isApplicationPeriod,
   };
 };

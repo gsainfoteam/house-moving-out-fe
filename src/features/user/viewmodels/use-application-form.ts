@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import dayjs from 'dayjs';
 import { useForm, useWatch } from 'react-hook-form';
 import z from 'zod';
 
@@ -17,21 +16,19 @@ const applicationFormSchema = z
 
 export type ApplicationFormValues = z.infer<typeof applicationFormSchema>;
 
-export type UseApplicationFormOptions = {
-  onSuccess: () => void;
-  onFull: () => void;
-};
-
-export const useApplicationForm = ({ onSuccess, onFull }: UseApplicationFormOptions) => {
+export const useApplicationForm = ({
+  onSuccess,
+  onFull,
+}: Parameters<typeof useApplyInspection>[0]) => {
   const {
     applicationStartTime,
     applicationEndTime,
     inspectionDays,
     inspectionSlotsByDayTimestamp,
     isLoading,
-    isNotFound,
-  } = useFindActiveMoveOutScheduleWithSlots();
-  const { mutateAsync: applyInspection } = useApplyInspection();
+    isError,
+  } = useFindActiveMoveOutScheduleWithSlots({});
+  const { mutate: applyInspection } = useApplyInspection({ onSuccess, onFull });
 
   const form = useForm<ApplicationFormValues>({
     resolver: zodResolver(applicationFormSchema),
@@ -49,36 +46,17 @@ export const useApplicationForm = ({ onSuccess, onFull }: UseApplicationFormOpti
 
   const selectedDaySlots = useMemo(
     () =>
-      inspectionDayTimestamp != null
-        ? (inspectionSlotsByDayTimestamp[inspectionDayTimestamp] ?? [])
-        : [],
+      inspectionDayTimestamp != null ? inspectionSlotsByDayTimestamp[inspectionDayTimestamp] : [],
     [inspectionDayTimestamp, inspectionSlotsByDayTimestamp],
   );
 
-  const isApplicationPeriod = useMemo(
-    () =>
-      applicationStartTime != null &&
-      applicationEndTime != null &&
-      dayjs().isAfter(applicationStartTime) &&
-      dayjs().isBefore(applicationEndTime),
-    [applicationStartTime, applicationEndTime],
-  );
-
-  const onSubmit = form.handleSubmit(async (data) => {
+  const onSubmit = form.handleSubmit((data) => {
     if (data.inspectionSlotUuid == null) return;
 
-    // NOTE: applicationUuid를 리턴하는데 아직 쓰는 곳이 없음.
-    await applyInspection({
+    // NOTE: applicationUuid를 onSuccess에서 리턴하는데 아직 쓰는 곳이 없음.
+    applyInspection({
       body: { inspectionSlotUuid: data.inspectionSlotUuid },
-    })
-      .then(() => {
-        onSuccess?.();
-      })
-      .catch((err) => {
-        if (err?.statusCode === 409) {
-          onFull?.();
-        }
-      });
+    });
   });
 
   return {
@@ -86,9 +64,8 @@ export const useApplicationForm = ({ onSuccess, onFull }: UseApplicationFormOpti
     applicationStartTime,
     applicationEndTime,
     inspectionDays,
-    isApplicationPeriod,
     isLoading,
-    isNotFound,
+    isError,
     selectedDaySlots,
     inspectionDayTimestamp,
     onSubmit,

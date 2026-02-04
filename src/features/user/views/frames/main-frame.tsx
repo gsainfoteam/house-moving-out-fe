@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
@@ -12,7 +12,69 @@ import { useAuth } from '@/features/auth';
 import { useFindActiveMoveOutScheduleWithSlots, useFindMyInspection } from '../../viewmodels';
 import { Accordion, Steps } from '../components';
 
-function Step0Card({ steps }: { steps: Steps.Step[] }) {
+import type { Dayjs } from 'dayjs';
+
+function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs }) {
+  const { t } = useTranslation('user');
+
+  return (
+    <>
+      <LayoutCard.Center>
+        <LayoutCard.Header>
+          <LayoutCard.Media>
+            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
+          </LayoutCard.Media>
+          <LayoutCard.Text>
+            <LayoutCard.Title className="text-text-black">
+              {t('steps.not_period.title')}
+            </LayoutCard.Title>
+            {applicationStartTime && (
+              <LayoutCard.Description>
+                {t('steps.not_period.description', {
+                  startTime: applicationStartTime.format('MM/DD'),
+                })}
+              </LayoutCard.Description>
+            )}
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Center>
+      <LayoutCard.Footer>
+        <Button variant="outline" className="w-full">
+          {t('steps.not_period.button')}
+        </Button>
+      </LayoutCard.Footer>
+    </>
+  );
+}
+
+function NotTargetCard() {
+  const { t } = useTranslation('user');
+
+  return (
+    <>
+      <LayoutCard.Center>
+        <LayoutCard.Header>
+          <LayoutCard.Media>
+            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
+          </LayoutCard.Media>
+          <LayoutCard.Text>
+            <LayoutCard.Title className="text-text-black">
+              {t('steps.not_target.title')}
+            </LayoutCard.Title>
+            <LayoutCard.Description>{t('steps.not_target.description')}</LayoutCard.Description>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Center>
+      <LayoutCard.Footer>
+        <Button variant="outline" className="w-full">
+          {t('steps.not_target.button')}
+        </Button>
+      </LayoutCard.Footer>
+    </>
+  );
+}
+
+function ApplicationCard({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('user');
 
   return (
@@ -22,14 +84,14 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <Button variant="default" className="w-full" asChild>
-          <Link to="/application">{t('steps.step0.button')}</Link>
+          <Link to="/application">{t('steps.application.button')}</Link>
         </Button>
       </LayoutCard.Footer>
     </>
   );
 }
 
-function Step1Card({ steps }: { steps: Steps.Step[] }) {
+function WaitingCard({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('user');
 
   return (
@@ -39,14 +101,14 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <Button variant="outline" className="w-full">
-          {t('steps.step1.button')}
+          {t('steps.waiting.button')}
         </Button>
       </LayoutCard.Footer>
     </>
   );
 }
 
-function Step2Card({ steps }: { steps: Steps.Step[] }) {
+function InProgressCard({ steps }: { steps: Steps.Step[] }) {
   const { t } = useTranslation('user');
 
   return (
@@ -56,17 +118,19 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <Button variant="disabled" className="w-full" disabled>
-          {t('steps.step2.button')}
+          {t('steps.in_progress.button')}
         </Button>
       </LayoutCard.Footer>
     </>
   );
 }
 
-function Step3FailedCard() {
+function FailedCard() {
   const { t } = useTranslation('user');
+
+  // TODO: mock failed reasons
   const failedReasons = useMemo(
-    () => [t('result.failed.reasons.deskDrawer'), t('result.failed.reasons.bathroom')],
+    () => [t('steps.failed.reasons.deskDrawer'), t('steps.failed.reasons.bathroom')],
     [t],
   );
 
@@ -79,13 +143,13 @@ function Step3FailedCard() {
           </LayoutCard.Media>
           <LayoutCard.Text>
             <LayoutCard.Title className="text-status-fail">
-              {t('result.failed.title')}
+              {t('steps.failed.title')}
             </LayoutCard.Title>
-            <LayoutCard.Description>{t('result.failed.description')}</LayoutCard.Description>
+            <LayoutCard.Description>{t('steps.failed.description')}</LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
         <LayoutCard.Body>
-          <Accordion title={t('result.failed.accordionTitle')}>
+          <Accordion title={t('steps.failed.accordionTitle')}>
             <ul className="flex flex-col gap-2">
               {failedReasons.map((reason) => (
                 <li key={reason} className="text-box2 text-text-black flex items-center gap-2">
@@ -102,25 +166,25 @@ function Step3FailedCard() {
         <Dialog.Root>
           <Dialog.Trigger asChild>
             <Button variant="failed" className="w-full">
-              {t('result.failed.button')}
+              {t('steps.failed.button')}
             </Button>
           </Dialog.Trigger>
           <Dialog.Content>
             <Dialog.Header>
               <ModalBang className="mb-3" />
-              <Dialog.Title>{t('result.failed.retry.title')}</Dialog.Title>
+              <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
               <Dialog.Description>
                 {/* TODO: mock remain count */}
-                {t('result.failed.retry.description', { remainCount: 2 })}
+                {t('steps.failed.retry.description', { remainCount: 2 })}
               </Dialog.Description>
             </Dialog.Header>
             <Dialog.Footer>
               <Dialog.Close asChild>
-                <Button variant="failed-outline">{t('result.failed.retry.cancel')}</Button>
+                <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
               </Dialog.Close>
               {/* TODO: retry submit */}
               <Button variant="failed" className="w-full">
-                {t('result.failed.retry.submit')}
+                {t('steps.failed.retry.submit')}
               </Button>
             </Dialog.Footer>
           </Dialog.Content>
@@ -130,34 +194,7 @@ function Step3FailedCard() {
   );
 }
 
-function Step3NotTargetCard() {
-  const { t } = useTranslation('user');
-
-  return (
-    <>
-      <LayoutCard.Center>
-        <LayoutCard.Header>
-          <LayoutCard.Media>
-            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
-          </LayoutCard.Media>
-          <LayoutCard.Text>
-            <LayoutCard.Title className="text-text-black">
-              {t('result.notTarget.title')}
-            </LayoutCard.Title>
-            <LayoutCard.Description>{t('result.notTarget.description')}</LayoutCard.Description>
-          </LayoutCard.Text>
-        </LayoutCard.Header>
-      </LayoutCard.Center>
-      <LayoutCard.Footer>
-        <Button variant="outline" className="w-full">
-          {t('result.notTarget.button')}
-        </Button>
-      </LayoutCard.Footer>
-    </>
-  );
-}
-
-function Step3PassedCard() {
+function PassedCard() {
   const { t } = useTranslation('user');
 
   return (
@@ -169,61 +206,77 @@ function Step3PassedCard() {
           </LayoutCard.Media>
           <LayoutCard.Text>
             <LayoutCard.Title className="text-primary-main">
-              {t('result.passed.title')}
+              {t('steps.passed.title')}
             </LayoutCard.Title>
-            <LayoutCard.Description>{t('result.passed.description')}</LayoutCard.Description>
+            <LayoutCard.Description>{t('steps.passed.description')}</LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
       </LayoutCard.Center>
       <LayoutCard.Footer>
         <Button variant="default" className="w-full">
-          {t('result.passed.button')}
+          {t('steps.passed.button')}
         </Button>
       </LayoutCard.Footer>
     </>
   );
 }
 
+type Status =
+  | 'not_period'
+  | 'not_target'
+  | 'application'
+  | 'waiting'
+  | 'in_progress'
+  | 'failed'
+  | 'passed';
+
 export function MainFrame() {
-  const [step, setStep] = useState(0);
-  const [status, setStatus] = useState<'passed' | 'failed' | 'notTarget' | undefined>(undefined);
-
-  const { isLoading: isLoadingSchedule } = useFindActiveMoveOutScheduleWithSlots({
-    onNotTarget: () => {
-      setStep(3);
-      setStatus('notTarget');
-    },
-  });
-  const { isLoading: isLoadingInspection, inspectionStartTime } = useFindMyInspection({
-    onSuccess: () => {
-      setStep(1);
-    },
-    onFailed: () => {
-      setStep(0);
-    },
-  });
-
   const { t } = useTranslation('user');
   const { user } = useAuth();
+  const [status, setStatus] = useState<Status>('not_period');
+
+  const { isLoading: isLoadingSchedule, applicationStartTime } =
+    useFindActiveMoveOutScheduleWithSlots({
+      onNotTarget: () => setStatus('not_target'),
+      onNotPeriod: () => setStatus('not_period'),
+      onSuccess: () => setStatus('application'),
+    });
+
+  const setStatusIfSchedulePresent = useCallback(
+    (status: Status) => {
+      if (applicationStartTime != null) {
+        setStatus(status);
+      }
+    },
+    [applicationStartTime],
+  );
+
+  const { isLoading: isLoadingInspection, inspectionStartTime } = useFindMyInspection({
+    onNotFound: () => setStatusIfSchedulePresent('application'),
+    onFoundWaiting: () => setStatusIfSchedulePresent('waiting'),
+    onFoundInProgress: () => setStatusIfSchedulePresent('in_progress'),
+    onFailed: () => setStatusIfSchedulePresent('failed'),
+    onPassed: () => setStatusIfSchedulePresent('passed'),
+  });
 
   const steps = useMemo(
     () => [
       {
-        title: t('steps.step0.title'),
-        description: t('steps.step0.description'),
+        title: t('steps.application.title'),
+        description: t('steps.application.description'),
       },
       {
-        title: t('steps.step1.title'),
-        description: t('steps.step1.description', {
+        title: t('steps.waiting.title'),
+        description: t('steps.waiting.description', {
           inspectionDate: inspectionStartTime?.format('MM/DD(ddd) A hh:mm'),
         }),
       },
       {
-        title: t('steps.step2.title'),
-        description: t('steps.step2.description'),
+        title: t('steps.in_progress.title'),
+        description: t('steps.in_progress.description'),
       },
       {
-        title: t('steps.step3.title'),
+        title: t('steps.results.title'),
         description: undefined,
       },
     ],
@@ -255,21 +308,15 @@ export function MainFrame() {
 
         <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
           <SwitchCase
-            value={step}
+            value={status}
             caseBy={{
-              0: <Step0Card steps={steps} />,
-              1: <Step1Card steps={steps} />,
-              2: <Step2Card steps={steps} />,
-              3: (
-                <SwitchCase
-                  value={status!}
-                  caseBy={{
-                    failed: <Step3FailedCard />,
-                    notTarget: <Step3NotTargetCard />,
-                    passed: <Step3PassedCard />,
-                  }}
-                />
-              ),
+              not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
+              not_target: <NotTargetCard />,
+              application: <ApplicationCard steps={steps} />,
+              waiting: <WaitingCard steps={steps} />,
+              in_progress: <InProgressCard steps={steps} />,
+              failed: <FailedCard />,
+              passed: <PassedCard />,
             }}
           />
         </LayoutCard.Root>

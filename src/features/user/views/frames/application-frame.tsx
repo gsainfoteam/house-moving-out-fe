@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
-import dayjs, { type Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -14,37 +14,6 @@ import { useAuth } from '@/features/auth';
 import { useApplicationForm } from '../../viewmodels';
 import { DateSelect, TimeSelect } from '../components';
 
-function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs }) {
-  const { t } = useTranslation('user');
-
-  return (
-    <>
-      <LayoutCard.Center>
-        <LayoutCard.Header>
-          <LayoutCard.Media>
-            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
-          </LayoutCard.Media>
-          <LayoutCard.Text>
-            <LayoutCard.Title className="text-text-black">{t('notPeriod.title')}</LayoutCard.Title>
-            {applicationStartTime && (
-              <LayoutCard.Description>
-                {t('notPeriod.description', {
-                  startTime: applicationStartTime.format('MM/DD'),
-                })}
-              </LayoutCard.Description>
-            )}
-          </LayoutCard.Text>
-        </LayoutCard.Header>
-      </LayoutCard.Center>
-      <LayoutCard.Footer>
-        <Button variant="outline" className="w-full">
-          {t('notPeriod.button')}
-        </Button>
-      </LayoutCard.Footer>
-    </>
-  );
-}
-
 export function ApplicationFrame() {
   const { t } = useTranslation('user');
   const { user } = useAuth();
@@ -55,21 +24,14 @@ export function ApplicationFrame() {
 
   const {
     form: { control, formState, setValue },
-    applicationStartTime,
     inspectionDays,
-    isApplicationPeriod,
     isLoading,
-    isError,
     inspectionDayTimestamp,
     selectedDaySlots,
     onSubmit,
   } = useApplicationForm({
-    onSuccess: () => {
-      setSuccessDialogOpen(true);
-    },
-    onFull: () => {
-      setFullDialogOpen(true);
-    },
+    onSuccess: () => setSuccessDialogOpen(true),
+    onFull: () => setFullDialogOpen(true),
   });
 
   if (!user) return null;
@@ -97,69 +59,63 @@ export function ApplicationFrame() {
           </div>
 
           <LayoutCard.Root isLoading={isLoading}>
-            {isError || !isApplicationPeriod ? (
-              <NotPeriodCard applicationStartTime={applicationStartTime} />
-            ) : (
-              <>
-                <LayoutCard.Header>
-                  <LayoutCard.Text>
-                    <LayoutCard.Title className="text-primary-main">
-                      {t('application.title')}
-                    </LayoutCard.Title>
-                    <LayoutCard.Description>{t('application.description')}</LayoutCard.Description>
-                  </LayoutCard.Text>
-                </LayoutCard.Header>
-                <LayoutCard.Body>
-                  <div className="h-full w-full">
-                    <Controller
-                      control={control}
-                      name="inspectionDayTimestamp"
-                      render={({ field }) => (
-                        <DateSelect
-                          days={inspectionDays}
-                          value={field.value != null ? dayjs(field.value).startOf('day') : null}
-                          onChange={(day) => {
-                            field.onChange(day.valueOf());
-                            setValue('inspectionSlotUuid', null);
-                          }}
-                        />
-                      )}
+            <LayoutCard.Header>
+              <LayoutCard.Text>
+                <LayoutCard.Title className="text-primary-main">
+                  {t('application.title')}
+                </LayoutCard.Title>
+                <LayoutCard.Description>{t('application.description')}</LayoutCard.Description>
+              </LayoutCard.Text>
+            </LayoutCard.Header>
+            <LayoutCard.Body>
+              <div className="h-full w-full">
+                <Controller
+                  control={control}
+                  name="inspectionDayTimestamp"
+                  render={({ field }) => (
+                    <DateSelect
+                      days={inspectionDays}
+                      value={field.value != null ? dayjs(field.value).startOf('day') : null}
+                      onChange={(day) => {
+                        field.onChange(day.valueOf());
+                        setValue('inspectionSlotUuid', null);
+                      }}
                     />
-                    {inspectionDayTimestamp != null && (
-                      <Controller
-                        control={control}
-                        name="inspectionSlotUuid"
-                        render={({ field }) => (
-                          <div className="mt-6 grid grid-cols-3 gap-2">
-                            {selectedDaySlots.map((slot) => (
-                              <TimeSelect
-                                key={slot.uuid}
-                                slot={slot}
-                                value={field.value}
-                                onChange={(s) => field.onChange(s.uuid)}
-                              />
-                            ))}
-                          </div>
-                        )}
-                      />
+                  )}
+                />
+                {inspectionDayTimestamp != null && (
+                  <Controller
+                    control={control}
+                    name="inspectionSlotUuid"
+                    render={({ field }) => (
+                      <div className="mt-6 grid grid-cols-3 gap-2">
+                        {selectedDaySlots.map((slot) => (
+                          <TimeSelect
+                            key={slot.uuid}
+                            slot={slot}
+                            value={field.value}
+                            onChange={(s) => field.onChange(s.uuid)}
+                          />
+                        ))}
+                      </div>
                     )}
-                  </div>
-                </LayoutCard.Body>
-                <LayoutCard.Footer className="mt-auto">
-                  <Button variant="outline" asChild>
-                    <Link to="/">{t('application.button.cancel')}</Link>
-                  </Button>
-                  <Button
-                    variant="default"
-                    className="w-full"
-                    disabled={!formState.isValid}
-                    onClick={() => setNoticeDialogOpen(true)}
-                  >
-                    {t('application.button.next')}
-                  </Button>
-                </LayoutCard.Footer>
-              </>
-            )}
+                  />
+                )}
+              </div>
+            </LayoutCard.Body>
+            <LayoutCard.Footer className="mt-auto">
+              <Button variant="outline" asChild>
+                <Link to="/">{t('application.button.cancel')}</Link>
+              </Button>
+              <Button
+                variant="default"
+                className="w-full"
+                disabled={!formState.isValid}
+                onClick={() => setNoticeDialogOpen(true)}
+              >
+                {t('application.button.next')}
+              </Button>
+            </LayoutCard.Footer>
           </LayoutCard.Root>
         </div>
       </div>
