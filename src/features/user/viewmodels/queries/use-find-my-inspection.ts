@@ -15,7 +15,7 @@ export const useFindMyInspection = ({
   onSuccess: () => void;
   onFailed: () => void;
 }) => {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findMyInspection,

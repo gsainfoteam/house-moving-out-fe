@@ -12,7 +12,7 @@ import { ApiPaths } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = () => {
   const { user } = useAuth();
-  const { t } = useTranslation('move-out');
+  const { t } = useTranslation('user');
   const { data, error, isLoading } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,

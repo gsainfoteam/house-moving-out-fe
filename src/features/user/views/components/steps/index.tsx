@@ -22,7 +22,7 @@ function StepLine({ status }: { status: Steps.LineStatus }) {
 }
 
 export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
 
   const getStepStatus = (index: number): Steps.StepStatus => {
     if (index < activeStepIndex) return 'completed';

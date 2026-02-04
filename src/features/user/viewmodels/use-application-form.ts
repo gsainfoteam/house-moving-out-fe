@@ -20,14 +20,9 @@ export type ApplicationFormValues = z.infer<typeof applicationFormSchema>;
 export type UseApplicationFormOptions = {
   onSuccess: () => void;
   onFull: () => void;
-  onNotTarget: () => void;
 };
 
-export const useApplicationForm = ({
-  onSuccess,
-  onFull,
-  onNotTarget,
-}: UseApplicationFormOptions) => {
+export const useApplicationForm = ({ onSuccess, onFull }: UseApplicationFormOptions) => {
   const {
     applicationStartTime,
     applicationEndTime,
@@ -80,9 +75,7 @@ export const useApplicationForm = ({
         onSuccess?.();
       })
       .catch((err) => {
-        if (err?.statusCode === 404) {
-          onNotTarget?.();
-        } else if (err?.statusCode === 409) {
+        if (err?.statusCode === 409) {
           onFull?.();
         }
       });

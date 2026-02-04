@@ -8,7 +8,7 @@ import { $api } from '@/common/lib';
 import { ApiPaths } from '../../models';
 
 export const useApplyInspection = () => {
-  const { t } = useTranslation('move-out');
+  const { t } = useTranslation('user');
   const queryClient = useQueryClient();
 
   return $api.useMutation('post', ApiPaths.MoveOutController_applyInspection, {

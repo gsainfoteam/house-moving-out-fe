@@ -13,7 +13,7 @@ import { useFindMyInspection } from '../../viewmodels';
 import { Accordion, Steps } from '../components';
 
 function Step0Card({ steps }: { steps: Steps.Step[] }) {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
 
   return (
     <>
@@ -30,7 +30,7 @@ function Step0Card({ steps }: { steps: Steps.Step[] }) {
 }
 
 function Step1Card({ steps }: { steps: Steps.Step[] }) {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
 
   return (
     <>
@@ -47,7 +47,7 @@ function Step1Card({ steps }: { steps: Steps.Step[] }) {
 }
 
 function Step2Card({ steps }: { steps: Steps.Step[] }) {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
 
   return (
     <>
@@ -64,7 +64,7 @@ function Step2Card({ steps }: { steps: Steps.Step[] }) {
 }
 
 function Step3FailedCard() {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
   const failedReasons = useMemo(
     () => [t('result.failed.reasons.deskDrawer'), t('result.failed.reasons.bathroom')],
     [t],
@@ -130,8 +130,35 @@ function Step3FailedCard() {
   );
 }
 
+function Step3NotTargetCard() {
+  const { t } = useTranslation('user');
+
+  return (
+    <>
+      <LayoutCard.Center>
+        <LayoutCard.Header>
+          <LayoutCard.Media>
+            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
+          </LayoutCard.Media>
+          <LayoutCard.Text>
+            <LayoutCard.Title className="text-text-black">
+              {t('result.notTarget.title')}
+            </LayoutCard.Title>
+            <LayoutCard.Description>{t('result.notTarget.description')}</LayoutCard.Description>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Center>
+      <LayoutCard.Footer>
+        <Button variant="outline" className="w-full">
+          {t('result.notTarget.button')}
+        </Button>
+      </LayoutCard.Footer>
+    </>
+  );
+}
+
 function Step3PassedCard() {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
 
   return (
     <>
@@ -159,7 +186,7 @@ function Step3PassedCard() {
 
 export function MainFrame() {
   const [step, setStep] = useState(0);
-  const [status, setStatus] = useState<'passed' | 'failed' | undefined>(undefined);
+  const [status, setStatus] = useState<'passed' | 'failed' | 'notTarget' | undefined>(undefined);
 
   const { isLoading, inspectionStartTime } = useFindMyInspection({
     onSuccess: () => {
@@ -170,7 +197,7 @@ export function MainFrame() {
     },
   });
 
-  const { t } = useTranslation('main');
+  const { t } = useTranslation('user');
   const { user } = useAuth();
 
   const steps = useMemo(
@@ -232,6 +259,7 @@ export function MainFrame() {
                   value={status!}
                   caseBy={{
                     failed: <Step3FailedCard />,
+                    notTarget: <Step3NotTargetCard />,
                     passed: <Step3PassedCard />,
                   }}
                 />

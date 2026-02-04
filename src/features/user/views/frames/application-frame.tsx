@@ -14,14 +14,8 @@ import { useAuth } from '@/features/auth';
 import { useApplicationForm } from '../../viewmodels';
 import { DateSelect, TimeSelect } from '../components';
 
-function NotPeriodOrTargetCard({
-  applicationStartTime,
-  isTarget,
-}: {
-  applicationStartTime?: Dayjs;
-  isTarget: boolean;
-}) {
-  const { t } = useTranslation('move-out');
+function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs }) {
+  const { t } = useTranslation('user');
 
   return (
     <>
@@ -31,16 +25,12 @@ function NotPeriodOrTargetCard({
             <img src="./3d/not-period.png" alt="not-period" className="h-60" />
           </LayoutCard.Media>
           <LayoutCard.Text>
-            <LayoutCard.Title className="text-text-black">
-              {isTarget ? t('notPeriod.title') : t('notTarget.title')}
-            </LayoutCard.Title>
+            <LayoutCard.Title className="text-text-black">{t('notPeriod.title')}</LayoutCard.Title>
             {applicationStartTime && (
               <LayoutCard.Description>
-                {isTarget
-                  ? t('notPeriod.description', {
-                      startTime: applicationStartTime.format('MM/DD'),
-                    })
-                  : t('notTarget.description')}
+                {t('notPeriod.description', {
+                  startTime: applicationStartTime.format('MM/DD'),
+                })}
               </LayoutCard.Description>
             )}
           </LayoutCard.Text>
@@ -56,9 +46,8 @@ function NotPeriodOrTargetCard({
 }
 
 export function ApplicationFrame() {
-  const { t } = useTranslation('move-out');
+  const { t } = useTranslation('user');
   const { user } = useAuth();
-  const [isTarget, setIsTarget] = useState(true);
 
   const [noticeDialogOpen, setNoticeDialogOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
@@ -80,10 +69,6 @@ export function ApplicationFrame() {
     },
     onFull: () => {
       setFullDialogOpen(true);
-    },
-    // TODO: blocked by backed, /active에서 403 에러를 받게 되면 아래 콜백은 제거
-    onNotTarget: () => {
-      setIsTarget(false);
     },
   });
 
@@ -112,11 +97,8 @@ export function ApplicationFrame() {
           </div>
 
           <LayoutCard.Root isLoading={isLoading}>
-            {isNotFound || !isApplicationPeriod || !isTarget ? (
-              <NotPeriodOrTargetCard
-                applicationStartTime={applicationStartTime}
-                isTarget={isTarget}
-              />
+            {isNotFound || !isApplicationPeriod ? (
+              <NotPeriodCard applicationStartTime={applicationStartTime} />
             ) : (
               <>
                 <LayoutCard.Header>
