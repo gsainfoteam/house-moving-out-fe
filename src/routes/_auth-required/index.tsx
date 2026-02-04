@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { z } from 'zod';
 
-import { MainFrame } from '@/features/main';
+import { MainFrame } from '@/features/user';
 
 export const Route = createFileRoute('/_auth-required/')({
   validateSearch: z
