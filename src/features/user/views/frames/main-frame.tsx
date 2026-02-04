@@ -14,6 +14,36 @@ import { Accordion, Steps } from '../components';
 
 import type { Dayjs } from 'dayjs';
 
+function StatusSteps({
+  activeStepIndex,
+  inspectionStartTime,
+}: {
+  activeStepIndex: number;
+  inspectionStartTime?: Dayjs;
+}) {
+  const { t } = useTranslation('user');
+
+  return (
+    <Steps activeStepIndex={activeStepIndex} className="w-full">
+      <Steps.Item
+        title={t('steps.application.title')}
+        description={t('steps.application.description')}
+      />
+      <Steps.Item
+        title={t('steps.waiting.title')}
+        description={t('steps.waiting.description', {
+          inspectionDate: inspectionStartTime?.format('MM/DD(ddd) A hh:mm'),
+        })}
+      />
+      <Steps.Item
+        title={t('steps.in_progress.title')}
+        description={t('steps.in_progress.description')}
+      />
+      <Steps.Item title={t('steps.results.title')} />
+    </Steps>
+  );
+}
+
 function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs }) {
   const { t } = useTranslation('user');
 
@@ -74,13 +104,13 @@ function NotTargetCard() {
   );
 }
 
-function ApplicationCard({ steps }: { steps: Steps.Step[] }) {
+function ApplicationCard() {
   const { t } = useTranslation('user');
 
   return (
     <>
       <LayoutCard.Body className="justify-between">
-        <Steps steps={steps} activeStepIndex={0} className="w-full" />
+        <StatusSteps activeStepIndex={0} />
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <Button variant="default" className="w-full" asChild>
@@ -91,13 +121,13 @@ function ApplicationCard({ steps }: { steps: Steps.Step[] }) {
   );
 }
 
-function WaitingCard({ steps }: { steps: Steps.Step[] }) {
+function WaitingCard({ inspectionStartTime }: { inspectionStartTime?: Dayjs }) {
   const { t } = useTranslation('user');
 
   return (
     <>
       <LayoutCard.Body className="justify-between">
-        <Steps steps={steps} activeStepIndex={1} className="w-full" />
+        <StatusSteps activeStepIndex={1} inspectionStartTime={inspectionStartTime} />
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <Button variant="outline" className="w-full">
@@ -108,13 +138,13 @@ function WaitingCard({ steps }: { steps: Steps.Step[] }) {
   );
 }
 
-function InProgressCard({ steps }: { steps: Steps.Step[] }) {
+function InProgressCard() {
   const { t } = useTranslation('user');
 
   return (
     <>
       <LayoutCard.Body className="justify-between">
-        <Steps steps={steps} activeStepIndex={2} className="w-full" />
+        <StatusSteps activeStepIndex={2} />
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <Button variant="disabled" className="w-full" disabled>
@@ -259,30 +289,6 @@ export function MainFrame() {
     onPassed: () => setStatusIfSchedulePresent('passed'),
   });
 
-  const steps = useMemo(
-    () => [
-      {
-        title: t('steps.application.title'),
-        description: t('steps.application.description'),
-      },
-      {
-        title: t('steps.waiting.title'),
-        description: t('steps.waiting.description', {
-          inspectionDate: inspectionStartTime?.format('MM/DD(ddd) A hh:mm'),
-        }),
-      },
-      {
-        title: t('steps.in_progress.title'),
-        description: t('steps.in_progress.description'),
-      },
-      {
-        title: t('steps.results.title'),
-        description: undefined,
-      },
-    ],
-    [inspectionStartTime, t],
-  );
-
   if (!user) return null;
 
   return (
@@ -312,9 +318,9 @@ export function MainFrame() {
             caseBy={{
               not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
               not_target: <NotTargetCard />,
-              application: <ApplicationCard steps={steps} />,
-              waiting: <WaitingCard steps={steps} />,
-              in_progress: <InProgressCard steps={steps} />,
+              application: <ApplicationCard />,
+              waiting: <WaitingCard inspectionStartTime={inspectionStartTime} />,
+              in_progress: <InProgressCard />,
               failed: <FailedCard />,
               passed: <PassedCard />,
             }}
