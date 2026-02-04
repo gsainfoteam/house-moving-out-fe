@@ -9,7 +9,7 @@ import { Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { cn } from '@/common/utils';
 import { useAuth } from '@/features/auth';
 
-import { useFindMyInspection } from '../../viewmodels';
+import { useFindActiveMoveOutScheduleWithSlots, useFindMyInspection } from '../../viewmodels';
 import { Accordion, Steps } from '../components';
 
 function Step0Card({ steps }: { steps: Steps.Step[] }) {
@@ -188,7 +188,13 @@ export function MainFrame() {
   const [step, setStep] = useState(0);
   const [status, setStatus] = useState<'passed' | 'failed' | 'notTarget' | undefined>(undefined);
 
-  const { isLoading, inspectionStartTime } = useFindMyInspection({
+  const { isLoading: isLoadingSchedule } = useFindActiveMoveOutScheduleWithSlots({
+    onNotTarget: () => {
+      setStep(3);
+      setStatus('notTarget');
+    },
+  });
+  const { isLoading: isLoadingInspection, inspectionStartTime } = useFindMyInspection({
     onSuccess: () => {
       setStep(1);
     },
@@ -247,7 +253,7 @@ export function MainFrame() {
           <img src="/house-logo.png" alt="house-logo" className="h-15" />
         </div>
 
-        <LayoutCard.Root isLoading={isLoading}>
+        <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
           <SwitchCase
             value={step}
             caseBy={{

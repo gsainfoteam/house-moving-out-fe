@@ -59,7 +59,7 @@ export function ApplicationFrame() {
     inspectionDays,
     isApplicationPeriod,
     isLoading,
-    isNotFound,
+    isError,
     inspectionDayTimestamp,
     selectedDaySlots,
     onSubmit,
@@ -97,7 +97,7 @@ export function ApplicationFrame() {
           </div>
 
           <LayoutCard.Root isLoading={isLoading}>
-            {isNotFound || !isApplicationPeriod ? (
+            {isError || !isApplicationPeriod ? (
               <NotPeriodCard applicationStartTime={applicationStartTime} />
             ) : (
               <>

@@ -10,10 +10,14 @@ import { useAuth } from '@/features/auth';
 
 import { ApiPaths } from '../../models';
 
-export const useFindActiveMoveOutScheduleWithSlots = () => {
+export const useFindActiveMoveOutScheduleWithSlots = ({
+  onNotTarget,
+}: {
+  onNotTarget?: () => void;
+}) => {
   const { user } = useAuth();
   const { t } = useTranslation('user');
-  const { data, error, isLoading } = $api.useQuery(
+  const { data, error, isLoading, isError } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,
     {},
@@ -30,12 +34,14 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     if (!error) return;
     if (error.statusCode === 401) {
       toast.error(t('error.unauthorized', { ns: 'common' }));
+    } else if (error?.statusCode === 403) {
+      onNotTarget?.();
     } else if (error?.statusCode === 404) {
       // not found frame으로 view에서 처리됨
     } else {
       toast.error(t('error.internalServerError', { ns: 'common' }));
     }
-  }, [user, error, t]);
+  }, [user, error, t, onNotTarget]);
 
   const applicationStartTime = useMemo(
     () => (data ? dayjs(data.applicationStartTime) : undefined),
@@ -69,12 +75,10 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     return [byDay, days];
   }, [data, user]);
 
-  const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
-
   return {
     data,
     isLoading,
-    isNotFound,
+    isError,
     applicationStartTime,
     applicationEndTime,
     inspectionSlotsByDayTimestamp,
