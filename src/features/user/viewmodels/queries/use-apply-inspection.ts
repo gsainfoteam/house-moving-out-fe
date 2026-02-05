@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { $api } from '@/common/lib';
 
 import { ApiPaths, type ApplicationUuidDto } from '../../models';
-import { useApplicationStore } from '../stores/use-application-store';
+import { useApplicationStore } from '../stores';
 
 export const useApplyInspection = ({
   onSuccess,
