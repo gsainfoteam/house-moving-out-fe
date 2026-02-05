@@ -1,29 +1,56 @@
 {
+  "application": {
+    "button": {
+      "cancel": "이전",
+      "next": "다음"
+    },
+    "description": "원하는 날짜와 시간을 선택하면 퇴사 검사 일정이 확정됩니다.",
+    "dialog": {
+      "full": {
+        "button": "닫기",
+        "title": "해당 시간대는 마감되었습니다"
+      },
+      "modifyCooldown": {
+        "button": "확인",
+        "title": "검사 시간이 1시간 이하로 남아 수정이 불가능합니다."
+      },
+      "notice": {
+        "button": "확인",
+        "description": "아래로 스크롤하여 주의사항을 모두 확인해주세요.",
+        "title": "주의사항을 확인해주세요"
+      },
+      "success": {
+        "button": "확인",
+        "title": "신청이 완료되었습니다"
+      },
+      "update": {
+        "button": "확인",
+        "title": "수정이 완료되었습니다"
+      }
+    },
+    "error": {
+      "alreadyExistsOrFull": "이미 신청이 되었거나 선택한 시간의 정원이 가득 찼습니다.",
+      "invalidUuid": "잘못된 신청 UUID입니다.",
+      "notFound": "해당 검사 일정 정보를 찾을 수 없습니다.",
+      "notStartedOrEnded": "현재는 퇴사 검사 신청 기간이 아닙니다.",
+      "ownerCanCancel": "퇴사 검사 일정은 신청자만 취소할 수 있습니다."
+    },
+    "title": "검사 날짜를 선택해주세요"
+  },
   "steps": {
-    "label": "{{number}}단계",
     "application": {
       "button": "퇴사 검사 신청하기",
       "description": "하단의 버튼을 통해\n퇴사 검사를 신청해주세요.",
       "title": "검사 신청"
     },
-    "waiting": {
-      "button": "검사 일정 변경하기",
-      "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
-      "title": "검사 대기"
-    },
-    "in_progress": {
-      "button": "검사 결과 대기 중",
-      "description": "퇴사 검사 진행 중입니다.\n잠시 뒤에 검사 결과를 확인해주세요.",
-      "title": "검사 중"
-    },
     "failed": {
+      "accordionTitle": "불통과 사유 확인하기",
+      "button": "재검사 신청하기",
+      "description": "아래 사유를 확인하고 다시 신청해주세요.",
       "reasons": {
         "bathroom": "화장실 청소 미흡",
         "deskDrawer": "책상 서랍 정리 미흡"
       },
-      "accordionTitle": "불통과 사유 확인하기",
-      "button": "재검사 신청하기",
-      "description": "아래 사유를 확인하고 다시 신청해주세요.",
       "retry": {
         "cancel": "이전",
         "description": "재검사 가능 횟수가 {{remainCount}}회 남았습니다.",
@@ -32,14 +59,12 @@
       },
       "title": "재검사가 필요합니다."
     },
-    "passed": {
-      "button": "홈으로",
-      "description": "모든 절차가 완료되었습니다. 협조해주셔서 감사합니다.",
-      "title": "퇴사 검사가 통과되었습니다."
+    "in_progress": {
+      "button": "검사 결과 대기 중",
+      "description": "퇴사 검사 진행 중입니다.\n잠시 뒤에 검사 결과를 확인해주세요.",
+      "title": "검사 중"
     },
-    "results": {
-      "title": "검사 결과"
-    },
+    "label": "{{number}}단계",
     "not_period": {
       "button": "퇴사 검사 기준 미리보기",
       "description": "다음 검사 신청은 {{startTime}}부터 시작됩니다.",
@@ -49,34 +74,31 @@
       "button": "퇴사 검사 기준 미리보기",
       "description": "문의사항이 있으신 경우, 하단의 문의하기 버튼을 클릭해주세요.",
       "title": "퇴사 검사 신청 대상이 아닙니다."
+    },
+    "passed": {
+      "button": "홈으로",
+      "description": "모든 절차가 완료되었습니다. 협조해주셔서 감사합니다.",
+      "title": "퇴사 검사가 통과되었습니다."
+    },
+    "results": {
+      "title": "검사 결과"
+    },
+    "waiting": {
+      "cancel_button": "검사 취소하기",
+      "cancelled": {
+        "button": {
+          "cancel": "이전",
+          "submit": "취소"
+        },
+        "description": {
+          "cancelled": "취소된 내역은 복구할 수 없습니다.",
+          "no_show": "검사 시작 1시간 이내에 취소하시면 노쇼로 기록되며, 검사 가능 횟수가 1회 차감됩니다."
+        },
+        "title": "검사를 취소하시겠습니까?"
+      },
+      "change_button": "검사 일정 변경하기",
+      "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
+      "title": "검사 대기"
     }
-  },
-  "application": {
-    "button": {
-      "cancel": "이전",
-      "next": "다음"
-    },
-    "description": "원하는 날짜와 시간을 선택하면 퇴사 검사 일정이 확정됩니다.",
-    "dialog": {
-      "check": {
-        "button": "확인",
-        "title": "신청이 완료되었습니다"
-      },
-      "full": {
-        "button": "닫기",
-        "title": "해당 시간대는 마감되었습니다"
-      },
-      "notice": {
-        "button": "확인",
-        "description": "아래로 스크롤하여 주의사항을 모두 확인해주세요.",
-        "title": "주의사항을 확인해주세요"
-      }
-    },
-    "error": {
-      "alreadyExistsOrFull": "이미 신청이 되었거나 선택한 시간의 정원이 가득 찼습니다.",
-      "notFound": "해당 검사 일정 정보를 찾을 수 없습니다.",
-      "notStartedOrEnded": "현재는 퇴사 검사 신청 기간이 아닙니다."
-    },
-    "title": "검사 날짜를 선택해주세요"
   }
 }

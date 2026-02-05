@@ -21,6 +21,8 @@ export function ApplicationFrame() {
   const [noticeDialogOpen, setNoticeDialogOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [fullDialogOpen, setFullDialogOpen] = useState(false);
+  const [modifyCooldownDialogOpen, setModifyCooldownDialogOpen] = useState(false);
+  const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
 
   const {
     form: { control, formState, setValue },
@@ -30,8 +32,15 @@ export function ApplicationFrame() {
     selectedDaySlots,
     onSubmit,
   } = useApplicationForm({
-    onSuccess: () => setSuccessDialogOpen(true),
-    onFull: () => setFullDialogOpen(true),
+    applyInspection: {
+      onSuccess: () => setSuccessDialogOpen(true),
+      onFull: () => setFullDialogOpen(true),
+    },
+    updateInspection: {
+      onModifyCooldown: () => setModifyCooldownDialogOpen(true),
+      onFull: () => setFullDialogOpen(true),
+      onSuccess: () => setUpdateDialogOpen(true),
+    },
   });
 
   if (!user) return null;
@@ -155,12 +164,12 @@ export function ApplicationFrame() {
         <Dialog.Content>
           <Dialog.Header>
             <ModalCheck className="mb-3" />
-            <Dialog.Title>{t('application.dialog.check.title')}</Dialog.Title>
+            <Dialog.Title>{t('application.dialog.success.title')}</Dialog.Title>
           </Dialog.Header>
           <Dialog.Footer>
             <Dialog.Close asChild>
               <Button variant="default" className="w-full">
-                {t('application.dialog.check.button')}
+                {t('application.dialog.success.button')}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>
@@ -176,6 +185,36 @@ export function ApplicationFrame() {
             <Dialog.Close asChild>
               <Button variant="failed" className="w-full">
                 {t('application.dialog.full.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+      <Dialog.Root isOpen={updateDialogOpen} onOpenChange={setUpdateDialogOpen}>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalCheck className="mb-3" />
+            <Dialog.Title>{t('application.dialog.update.title')}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="default" className="w-full">
+                {t('application.dialog.update.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+      <Dialog.Root isOpen={modifyCooldownDialogOpen} onOpenChange={setModifyCooldownDialogOpen}>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalX className="mb-3" />
+            <Dialog.Title>{t('application.dialog.modifyCooldown.title')}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full">
+                {t('application.dialog.modifyCooldown.button')}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>

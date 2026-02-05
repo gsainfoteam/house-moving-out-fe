@@ -15,11 +15,11 @@ export const useFindMyInspection = ({
   onFoundInProgress,
   onNotFound,
 }: {
-  onPassed: () => void;
-  onFailed: () => void;
-  onFoundWaiting: () => void;
-  onFoundInProgress: () => void;
-  onNotFound: () => void;
+  onPassed?: () => void;
+  onFailed?: () => void;
+  onFoundWaiting?: () => void;
+  onFoundInProgress?: () => void;
+  onNotFound?: () => void;
 }) => {
   const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess } = $api.useQuery(
@@ -79,9 +79,12 @@ export const useFindMyInspection = ({
     [data],
   );
 
+  const inspectionSlotUuid = useMemo(() => (data ? data.inspectionSlot.uuid : undefined), [data]);
+
   return {
     data,
     isLoading,
     inspectionStartTime,
+    inspectionSlotUuid,
   };
 };

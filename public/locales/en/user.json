@@ -1,29 +1,56 @@
 {
+  "application": {
+    "button": {
+      "cancel": "Cancel",
+      "next": "Next"
+    },
+    "description": "Selecting the date and time will confirm your exit inspection schedule.",
+    "dialog": {
+      "full": {
+        "button": "Close",
+        "title": "This time slot is closed."
+      },
+      "modifyCooldown": {
+        "button": "Confirm",
+        "title": "Inspection time under 1 hour, modifications unavailable"
+      },
+      "notice": {
+        "button": "OK",
+        "description": "Scroll down to review all important notices.",
+        "title": "Please check the precautions"
+      },
+      "success": {
+        "button": "Confirm",
+        "title": "Application complete"
+      },
+      "update": {
+        "button": "Confirm",
+        "title": "Modification complete"
+      }
+    },
+    "error": {
+      "alreadyExistsOrFull": "You have already applied or the selected time slot is full.",
+      "invalidUuid": "Invalid application UUID.",
+      "notFound": "The inspection schedule information could not be found.",
+      "notStartedOrEnded": "It is currently not within the inspection application period.",
+      "ownerCanCancel": "Only the applicant can cancel the inspection schedule."
+    },
+    "title": "Please select the inspection date"
+  },
   "steps": {
-    "label": "Step {{number}}",
     "application": {
       "button": "Apply Inspection",
       "description": "Please apply for the inspection using the button below.",
       "title": "Apply"
     },
-    "waiting": {
-      "button": "Change Inspection Schedule",
-      "description": "Scheduled for {{inspectionDate}}.",
-      "title": "Waiting"
-    },
-    "in_progress": {
-      "button": "Waiting for Results",
-      "description": "The RA is currently inspecting your room. Please check the results in a moment.",
-      "title": "Inspecting"
-    },
     "failed": {
+      "accordionTitle": "Check Reasons for Failure",
+      "button": "Apply for Re-examination",
+      "description": "Please check the reasons below and apply again.",
       "reasons": {
         "bathroom": "Insufficient bathroom cleaning",
         "deskDrawer": "Insufficient desk drawer organization"
       },
-      "accordionTitle": "Check Reasons for Failure",
-      "button": "Apply for Re-examination",
-      "description": "Please check the reasons below and apply again.",
       "retry": {
         "cancel": "Cancel",
         "description": "You have {{remainCount}} re-examinations remaining.",
@@ -32,14 +59,12 @@
       },
       "title": "Re-inspection Required"
     },
-    "passed": {
-      "button": "Go Home",
-      "description": "All procedures have been completed. Thank you for your cooperation.",
-      "title": "Moving Out Inspection Passed"
+    "in_progress": {
+      "button": "Waiting for Results",
+      "description": "The RA is currently inspecting your room. Please check the results in a moment.",
+      "title": "Inspecting"
     },
-    "results": {
-      "title": "Results"
-    },
+    "label": "Step {{number}}",
     "not_period": {
       "button": "Preview Inspection Criteria",
       "description": "The next inspection application starts from {{startTime}}.",
@@ -49,34 +74,31 @@
       "button": "Preview Inspection Criteria",
       "description": "If you have any questions, please click the \"Contact Us\" button below.",
       "title": "You are not eligible to apply for a move-out inspection."
+    },
+    "passed": {
+      "button": "Go Home",
+      "description": "All procedures have been completed. Thank you for your cooperation.",
+      "title": "Moving Out Inspection Passed"
+    },
+    "results": {
+      "title": "Results"
+    },
+    "waiting": {
+      "cancel_button": "Cancel inspection",
+      "cancelled": {
+        "button": {
+          "cancel": "Back",
+          "submit": "Cancel"
+        },
+        "description": {
+          "cancelled": "Once canceled, it cannot be restored.",
+          "no_show": "If you cancel within 1 hour of the inspection start time, it will be recorded as a no-show and one inspection attempt will be deducted."
+        },
+        "title": "Do you want to cancel the inspection?"
+      },
+      "change_button": "Change Inspection Schedule",
+      "description": "Scheduled for {{inspectionDate}}.",
+      "title": "Waiting"
     }
-  },
-  "application": {
-    "button": {
-      "cancel": "Cancel",
-      "next": "Next"
-    },
-    "description": "Selecting the date and time will confirm your exit inspection schedule.",
-    "dialog": {
-      "check": {
-        "button": "Confirm",
-        "title": "Application complete"
-      },
-      "full": {
-        "button": "Close",
-        "title": "This time slot is closed."
-      },
-      "notice": {
-        "button": "OK",
-        "description": "Scroll down to review all important notices.",
-        "title": "Please check the precautions"
-      }
-    },
-    "error": {
-      "alreadyExistsOrFull": "You have already applied or the selected time slot is full.",
-      "notFound": "The inspection schedule information could not be found.",
-      "notStartedOrEnded": "It is currently not within the inspection application period."
-    },
-    "title": "Please select the inspection date"
   }
 }

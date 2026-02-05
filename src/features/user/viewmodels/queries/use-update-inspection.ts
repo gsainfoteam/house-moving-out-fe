@@ -1,0 +1,45 @@
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+
+import { $api } from '@/common/lib';
+
+import { ApiPaths, type ApplicationUuidDto } from '../../models';
+import { useApplicationStore } from '../stores';
+
+// TEST: onModifyCooldown 시 쿨다운 다이얼로그
+// TEST: onFull 시 마감되었습니다 다이얼로그
+// TEST: onSuccess 시 수정되었습니다 다이얼로그
+export const useUpdateInspection = ({
+  onModifyCooldown,
+  onFull,
+  onSuccess,
+}: {
+  onModifyCooldown?: () => void;
+  onFull?: () => void;
+  onSuccess?: (data: ApplicationUuidDto) => void;
+}) => {
+  const { setApplicationUuid } = useApplicationStore();
+
+  const { t } = useTranslation('user');
+  return $api.useMutation('patch', ApiPaths.MoveOutController_updateInspection, {
+    onSuccess: (data) => {
+      setApplicationUuid(data.applicationUuid);
+      onSuccess?.(data);
+    },
+    onError: (error) => {
+      if (error?.stausCode === 400) {
+        toast.error(t('error.badRequest', { ns: 'common' }));
+      } else if (error?.statusCode === 401) {
+        toast.error(t('error.unauthorized', { ns: 'common' }));
+      } else if (error?.statusCode === 403) {
+        onModifyCooldown?.();
+      } else if (error?.statusCode === 404) {
+        toast.error(t('application.error.invalidUuid'));
+      } else if (error?.statusCode === 409) {
+        onFull?.();
+      } else {
+        toast.error(t('error.internalServerError', { ns: 'common' }));
+      }
+    },
+  });
+};

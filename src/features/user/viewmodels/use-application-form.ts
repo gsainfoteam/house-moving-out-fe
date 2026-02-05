@@ -4,8 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import z from 'zod';
 
+import { useUpdateInspection } from './queries';
 import { useApplyInspection } from './queries/use-apply-inspection';
 import { useFindActiveMoveOutScheduleWithSlots } from './queries/use-find-active-move-out-schedule-with-slots';
+import { useFindMyInspection } from './queries/use-find-my-inspection';
+import { useApplicationStore } from './stores';
 
 const applicationFormSchema = z
   .object({
@@ -17,9 +20,16 @@ const applicationFormSchema = z
 export type ApplicationFormValues = z.infer<typeof applicationFormSchema>;
 
 export const useApplicationForm = ({
-  onSuccess,
-  onFull,
-}: Parameters<typeof useApplyInspection>[0]) => {
+  applyInspection: { onSuccess: onApplySuccess, onFull: onApplyFull },
+  updateInspection: {
+    onModifyCooldown: onUpdateModifyCooldown,
+    onFull: onUpdateFull,
+    onSuccess: onUpdateSuccess,
+  },
+}: {
+  applyInspection: Parameters<typeof useApplyInspection>[0];
+  updateInspection: Parameters<typeof useUpdateInspection>[0];
+}) => {
   const {
     applicationStartTime,
     applicationEndTime,
@@ -28,13 +38,23 @@ export const useApplicationForm = ({
     isLoading,
     isError,
   } = useFindActiveMoveOutScheduleWithSlots({});
-  const { mutate: applyInspection } = useApplyInspection({ onSuccess, onFull });
+  const { inspectionStartTime, inspectionSlotUuid } = useFindMyInspection({});
+  const { mutate: applyInspection } = useApplyInspection({
+    onSuccess: onApplySuccess,
+    onFull: onApplyFull,
+  });
+  const { mutate: updateInspection } = useUpdateInspection({
+    onSuccess: onUpdateSuccess,
+    onFull: onUpdateFull,
+    onModifyCooldown: onUpdateModifyCooldown,
+  });
+  const applicationUuid = useApplicationStore((state) => state.applicationUuid);
 
   const form = useForm<ApplicationFormValues>({
     resolver: zodResolver(applicationFormSchema),
     defaultValues: {
-      inspectionDayTimestamp: null,
-      inspectionSlotUuid: null,
+      inspectionDayTimestamp: inspectionStartTime?.startOf('day').valueOf() ?? null,
+      inspectionSlotUuid: inspectionSlotUuid ?? null,
     },
     mode: 'onChange',
   });
@@ -52,11 +72,18 @@ export const useApplicationForm = ({
 
   const onSubmit = form.handleSubmit((data) => {
     if (data.inspectionSlotUuid == null) return;
-
-    // NOTE: applicationUuid를 onSuccess에서 리턴하는데 아직 쓰는 곳이 없음.
-    applyInspection({
-      body: { inspectionSlotUuid: data.inspectionSlotUuid },
-    });
+    if (applicationUuid != null) {
+      updateInspection({
+        params: {
+          path: { uuid: applicationUuid },
+        },
+        body: { inspectionSlotUuid: data.inspectionSlotUuid },
+      });
+    } else {
+      applyInspection({
+        body: { inspectionSlotUuid: data.inspectionSlotUuid },
+      });
+    }
   });
 
   return {

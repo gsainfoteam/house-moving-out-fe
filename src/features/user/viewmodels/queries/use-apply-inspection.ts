@@ -5,23 +5,26 @@ import { toast } from 'sonner';
 
 import { $api } from '@/common/lib';
 
-import { ApiPaths, type ApplyInspectionResponse } from '../../models';
+import { ApiPaths, type ApplicationUuidDto } from '../../models';
+import { useApplicationStore } from '../stores/use-application-store';
 
 export const useApplyInspection = ({
   onSuccess,
   onFull,
 }: {
-  onSuccess?: (data: ApplyInspectionResponse) => void;
+  onSuccess?: (data: ApplicationUuidDto) => void;
   onFull?: () => void;
 }) => {
   const { t } = useTranslation('user');
   const queryClient = useQueryClient();
+  const { setApplicationUuid } = useApplicationStore();
 
   return $api.useMutation('post', ApiPaths.MoveOutController_applyInspection, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
       });
+      setApplicationUuid(data.applicationUuid ?? null);
       onSuccess?.(data);
     },
     onError: (error) => {
