@@ -14,7 +14,7 @@ export const useUpdateInspection = ({
   onModifyCooldown?: () => void;
   onFull?: () => void;
   onSuccess?: (data: ApplicationUuidDto) => void;
-}) => {
+} = {}) => {
   const { setApplicationUuid } = useApplicationStore();
 
   const { t } = useTranslation('user');

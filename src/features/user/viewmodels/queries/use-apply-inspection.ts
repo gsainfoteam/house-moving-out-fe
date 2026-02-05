@@ -14,7 +14,7 @@ export const useApplyInspection = ({
 }: {
   onSuccess?: (data: ApplicationUuidDto) => void;
   onFull?: () => void;
-}) => {
+} = {}) => {
   const { t } = useTranslation('user');
   const queryClient = useQueryClient();
   const { setApplicationUuid } = useApplicationStore();
