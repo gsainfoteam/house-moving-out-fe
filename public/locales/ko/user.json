@@ -31,7 +31,7 @@
     "error": {
       "alreadyExistsOrFull": "이미 신청이 되었거나 선택한 시간의 정원이 가득 찼습니다.",
       "invalidUuid": "잘못된 신청 UUID입니다.",
-      "notFound": "해당 검사 일정 정보를 찾을 수 없습니다.",
+      "notFound": "검사 일정 정보를 찾을 수 없습니다.",
       "notStartedOrEnded": "현재는 퇴사 검사 신청 기간이 아닙니다.",
       "ownerCanCancel": "퇴사 검사 일정은 신청자만 취소할 수 있습니다."
     },
