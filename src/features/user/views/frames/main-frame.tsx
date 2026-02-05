@@ -380,7 +380,8 @@ export function MainFrame() {
                 if (applicationUuid == null) return;
                 await cancelInspection({ params: { path: { uuid: applicationUuid } } })
                   .then(() => setIsCancelled(true))
-                  .catch(() => {});
+                  .catch(() => {})
+                  .finally(() => setIsCancelDialogOpen(false));
               }}
             >
               {t('steps.waiting.cancel.button.submit')}
