@@ -21,13 +21,14 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
 }) => {
   const { user } = useAuth();
   const { t } = useTranslation('user');
-  const { data, error, isLoading, isError, isSuccess } = $api.useQuery(
+  const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,
     {},
     {
       retry(count, error) {
-        if (error?.statusCode === 404 || error?.statusCode === 400) return false;
+        if (error?.statusCode === 404 || error?.statusCode === 400 || error?.statusCode === 403)
+          return false;
         return count < 3;
       },
       enabled: !!user,
@@ -37,7 +38,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   useEffect(() => {
     if (isSuccess) {
       onSuccess?.();
-    } else {
+    } else if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
       } else if (error?.statusCode === 403) {
@@ -48,7 +49,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }
     }
-  }, [error?.statusCode, isSuccess, onNotPeriod, onNotTarget, onSuccess, t]);
+  }, [error?.statusCode, isError, isSuccess, onNotPeriod, onNotTarget, onSuccess, t]);
 
   const applicationStartTime = useMemo(
     () => (data ? dayjs(data.applicationStartTime) : undefined),
@@ -70,7 +71,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   );
 
   useEffect(() => {
-    if (isApplicationPeriod) {
+    if (!isApplicationPeriod) {
       onNotPeriod?.();
     }
   }, [isApplicationPeriod, onNotPeriod]);
