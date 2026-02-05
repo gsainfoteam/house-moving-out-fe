@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
@@ -56,11 +56,20 @@ export const useApplicationForm = ({
   const form = useForm<ApplicationFormValues>({
     resolver: zodResolver(applicationFormSchema),
     defaultValues: {
-      inspectionDayTimestamp: inspectionStartTime?.startOf('day').valueOf() ?? null,
-      inspectionSlotUuid: inspectionSlotUuid ?? null,
+      inspectionDayTimestamp: null,
+      inspectionSlotUuid: null,
     },
     mode: 'onChange',
   });
+
+  useEffect(() => {
+    if (inspectionStartTime && inspectionSlotUuid) {
+      form.reset({
+        inspectionDayTimestamp: inspectionStartTime.startOf('day').valueOf(),
+        inspectionSlotUuid,
+      });
+    }
+  }, [inspectionStartTime, inspectionSlotUuid, form]);
 
   const inspectionDayTimestamp = useWatch({
     control: form.control,
