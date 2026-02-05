@@ -4,10 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import z from 'zod';
 
-import { useUpdateInspection } from './queries';
-import { useApplyInspection } from './queries/use-apply-inspection';
-import { useFindActiveMoveOutScheduleWithSlots } from './queries/use-find-active-move-out-schedule-with-slots';
-import { useFindMyInspection } from './queries/use-find-my-inspection';
+import {
+  useApplyInspection,
+  useFindActiveMoveOutScheduleWithSlots,
+  useFindMyInspection,
+  useUpdateInspection,
+} from './queries';
 import { useApplicationStore } from './stores';
 
 const applicationFormSchema = z
