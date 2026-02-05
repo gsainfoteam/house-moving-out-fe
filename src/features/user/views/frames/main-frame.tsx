@@ -305,11 +305,11 @@ export function MainFrame() {
 
   const setStatusIfSchedulePresent = useCallback(
     (status: Status) => {
-      if (applicationStartTime != null) {
+      if (isSuccess) {
         setStatus(status);
       }
     },
-    [applicationStartTime],
+    [isSuccess],
   );
 
   const { isLoading: isLoadingInspection, inspectionStartTime } = useFindMyInspection(isSuccess, {
