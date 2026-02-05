@@ -22,7 +22,7 @@ export const useFindMyInspection = ({
   onNotFound?: () => void;
 }) => {
   const { t } = useTranslation('user');
-  const { data, error, isLoading, isSuccess } = $api.useQuery(
+  const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findMyInspection,
     {},
@@ -33,17 +33,6 @@ export const useFindMyInspection = ({
       },
     },
   );
-
-  useEffect(() => {
-    if (!error) return;
-    if (error.statusCode === 401) {
-      toast.error(t('error.unauthorized', { ns: 'common' }));
-    } else if (error?.statusCode === 404) {
-      onNotFound?.();
-    } else {
-      toast.error(t('error.internalServerError', { ns: 'common' }));
-    }
-  }, [error, onNotFound, t]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -62,16 +51,28 @@ export const useFindMyInspection = ({
           onFoundWaiting?.();
         }
       }
+    } else if (isError) {
+      if (error?.statusCode === 401) {
+        toast.error(t('error.unauthorized', { ns: 'common' }));
+      } else if (error?.statusCode === 404) {
+        onNotFound?.();
+      } else {
+        toast.error(t('error.internalServerError', { ns: 'common' }));
+      }
     }
   }, [
     data?.inspectionSlot.endTime,
     data?.inspectionSlot.startTime,
     data?.isPassed,
+    error?.statusCode,
+    isError,
     isSuccess,
+    onFailed,
     onFoundInProgress,
     onFoundWaiting,
-    onFailed,
+    onNotFound,
     onPassed,
+    t,
   ]);
 
   const inspectionStartTime = useMemo(
