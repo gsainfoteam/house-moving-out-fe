@@ -6,9 +6,6 @@ import { $api } from '@/common/lib';
 import { ApiPaths, type ApplicationUuidDto } from '../../models';
 import { useApplicationStore } from '../stores';
 
-// TEST: onModifyCooldown 시 쿨다운 다이얼로그
-// TEST: onFull 시 마감되었습니다 다이얼로그
-// TEST: onSuccess 시 수정되었습니다 다이얼로그
 export const useUpdateInspection = ({
   onModifyCooldown,
   onFull,

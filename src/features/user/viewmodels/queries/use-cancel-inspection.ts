@@ -8,8 +8,6 @@ import { ApiPaths } from '../../models';
 import { useApplicationStore } from '../stores';
 import { useFindMyInspection } from './use-find-my-inspection';
 
-// TEST: onCancelled 시 취소되었습니다 다이얼로그
-// TEST: onNoShow 시 노쇼 다이얼로그
 export const useCancelInspection = ({
   onCancelled,
   onNoShow,
