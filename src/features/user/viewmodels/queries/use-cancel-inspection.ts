@@ -18,7 +18,7 @@ export const useCancelInspection = ({
   onNoShow?: () => void;
 }) => {
   const { setApplicationUuid } = useApplicationStore();
-  const { inspectionStartTime } = useFindMyInspection({});
+  const { inspectionStartTime } = useFindMyInspection(true);
   const { t } = useTranslation('user');
 
   return $api.useMutation('delete', ApiPaths.MoveOutController_cancelInspection, {

@@ -37,8 +37,9 @@ export const useApplicationForm = ({
     inspectionSlotsByDayTimestamp,
     isLoading,
     isError,
-  } = useFindActiveMoveOutScheduleWithSlots({});
-  const { inspectionStartTime, inspectionSlotUuid } = useFindMyInspection({});
+    isSuccess,
+  } = useFindActiveMoveOutScheduleWithSlots();
+  const { inspectionStartTime, inspectionSlotUuid } = useFindMyInspection(isSuccess);
   const { mutate: applyInspection } = useApplyInspection({
     onSuccess: onApplySuccess,
     onFull: onApplyFull,
@@ -93,6 +94,7 @@ export const useApplicationForm = ({
     inspectionDays,
     isLoading,
     isError,
+    isSuccess,
     selectedDaySlots,
     inspectionDayTimestamp,
     onSubmit,

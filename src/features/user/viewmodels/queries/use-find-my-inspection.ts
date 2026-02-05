@@ -8,25 +8,29 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
-export const useFindMyInspection = ({
-  onPassed,
-  onFailed,
-  onFoundWaiting,
-  onFoundInProgress,
-  onNotFound,
-}: {
-  onPassed?: () => void;
-  onFailed?: () => void;
-  onFoundWaiting?: () => void;
-  onFoundInProgress?: () => void;
-  onNotFound?: () => void;
-}) => {
+export const useFindMyInspection = (
+  enabled: boolean,
+  {
+    onPassed,
+    onFailed,
+    onFoundWaiting,
+    onFoundInProgress,
+    onNotFound,
+  }: {
+    onPassed?: () => void;
+    onFailed?: () => void;
+    onFoundWaiting?: () => void;
+    onFoundInProgress?: () => void;
+    onNotFound?: () => void;
+  } = {},
+) => {
   const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findMyInspection,
     {},
     {
+      enabled,
       retry(count, error) {
         if (error?.statusCode === 404 || error?.statusCode === 400) return false;
         return count < 3;
@@ -85,6 +89,7 @@ export const useFindMyInspection = ({
   return {
     data,
     isLoading,
+    isSuccess,
     inspectionStartTime,
     inspectionSlotUuid,
   };

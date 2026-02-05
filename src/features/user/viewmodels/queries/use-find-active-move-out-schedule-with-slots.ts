@@ -18,7 +18,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   onNotTarget?: () => void;
   onNotPeriod?: () => void;
   onSuccess?: () => void;
-}) => {
+} = {}) => {
   const { user } = useAuth();
   const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
@@ -102,6 +102,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     data,
     isLoading,
     isError,
+    isSuccess,
     applicationStartTime,
     applicationEndTime,
     inspectionSlotsByDayTimestamp,

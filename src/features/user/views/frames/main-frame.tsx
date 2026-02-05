@@ -293,12 +293,15 @@ export function MainFrame() {
     onNoShow: () => setCancelInspectionDialog((prev) => ({ ...prev, type: 'no_show' })),
   });
 
-  const { isLoading: isLoadingSchedule, applicationStartTime } =
-    useFindActiveMoveOutScheduleWithSlots({
-      onNotTarget: () => setStatus('not_target'),
-      onNotPeriod: () => setStatus('not_period'),
-      onSuccess: () => setStatus('application'),
-    });
+  const {
+    isLoading: isLoadingSchedule,
+    applicationStartTime,
+    isSuccess,
+  } = useFindActiveMoveOutScheduleWithSlots({
+    onNotTarget: () => setStatus('not_target'),
+    onNotPeriod: () => setStatus('not_period'),
+    onSuccess: () => setStatus('application'),
+  });
 
   const setStatusIfSchedulePresent = useCallback(
     (status: Status) => {
@@ -309,7 +312,7 @@ export function MainFrame() {
     [applicationStartTime],
   );
 
-  const { isLoading: isLoadingInspection, inspectionStartTime } = useFindMyInspection({
+  const { isLoading: isLoadingInspection, inspectionStartTime } = useFindMyInspection(isSuccess, {
     onNotFound: () => setStatusIfSchedulePresent('application'),
     onFoundWaiting: () => setStatusIfSchedulePresent('waiting'),
     onFoundInProgress: () => setStatusIfSchedulePresent('in_progress'),
