@@ -84,17 +84,18 @@
       "title": "검사 결과"
     },
     "waiting": {
-      "cancel_button": "검사 취소하기",
-      "cancelled": {
+      "cancel": {
         "button": {
           "cancel": "이전",
           "submit": "취소"
         },
-        "description": {
-          "cancelled": "취소된 내역은 복구할 수 없습니다.",
-          "no_show": "검사 시작 1시간 이내에 취소하시면 노쇼로 기록되며, 검사 가능 횟수가 1회 차감됩니다."
-        },
+        "description": "검사 시작 1시간 이내에 취소하시면 노쇼로 기록되며, 검사 가능 횟수가 1회 차감됩니다.",
         "title": "검사를 취소하시겠습니까?"
+      },
+      "cancel_button": "검사 취소하기",
+      "cancelled": {
+        "button": "확인",
+        "title": "취소되었습니다"
       },
       "change_button": "검사 일정 변경하기",
       "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",

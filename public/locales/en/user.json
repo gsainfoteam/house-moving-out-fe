@@ -84,17 +84,18 @@
       "title": "Results"
     },
     "waiting": {
-      "cancel_button": "Cancel inspection",
-      "cancelled": {
+      "cancel": {
         "button": {
           "cancel": "Back",
           "submit": "Cancel"
         },
-        "description": {
-          "cancelled": "Once canceled, it cannot be restored.",
-          "no_show": "If you cancel within 1 hour of the inspection start time, it will be recorded as a no-show and one inspection attempt will be deducted."
-        },
+        "description": "If you cancel within 1 hour of the inspection start time, it will be recorded as a no-show and one inspection attempt will be deducted.",
         "title": "Do you want to cancel the inspection?"
+      },
+      "cancel_button": "Cancel inspection",
+      "cancelled": {
+        "button": "Confirm",
+        "title": "Inspection Cancelled"
       },
       "change_button": "Change Inspection Schedule",
       "description": "Scheduled for {{inspectionDate}}.",

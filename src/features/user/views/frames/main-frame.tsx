@@ -127,11 +127,9 @@ function ApplicationCard() {
 }
 
 function WaitingCard({
-  type,
   onClick,
   inspectionStartTime,
 }: {
-  type: CancelInspectionType;
   onClick: () => void;
   inspectionStartTime?: Dayjs;
 }) {
@@ -153,24 +151,35 @@ function WaitingCard({
             <Dialog.Content>
               <Dialog.Header>
                 <ModalBang className="mb-3" />
-                <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
-                <Dialog.Description>
-                  {type === 'cancelled'
-                    ? t('steps.waiting.cancelled.description.cancelled')
-                    : t('steps.waiting.cancelled.description.no_show')}
-                </Dialog.Description>
+                <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
+                <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
               </Dialog.Header>
               <Dialog.Footer>
                 <Dialog.Close asChild>
                   <Button variant="failed-outline" className="w-full">
-                    {t('steps.waiting.cancelled.button.cancel')}
+                    {t('steps.waiting.cancel.button.cancel')}
                   </Button>
                 </Dialog.Close>
-                <Dialog.Close asChild>
-                  <Button variant="failed" className="w-full" onClick={onClick}>
-                    {t('steps.waiting.cancelled.button.submit')}
-                  </Button>
-                </Dialog.Close>
+                <Dialog.Root>
+                  <Dialog.Trigger asChild>
+                    <Button variant="failed" className="w-full" onClick={onClick}>
+                      {t('steps.waiting.cancel.button.submit')}
+                    </Button>
+                  </Dialog.Trigger>
+                  <Dialog.Content>
+                    <Dialog.Header>
+                      <ModalBang className="mb-3" />
+                      <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
+                    </Dialog.Header>
+                    <Dialog.Footer>
+                      <Dialog.Close asChild>
+                        <Button variant="failed" className="w-full">
+                          {t('steps.waiting.cancelled.button')}
+                        </Button>
+                      </Dialog.Close>
+                    </Dialog.Footer>
+                  </Dialog.Content>
+                </Dialog.Root>
               </Dialog.Footer>
             </Dialog.Content>
           </Dialog.Root>
@@ -305,8 +314,6 @@ type Status =
   | 'failed'
   | 'passed';
 
-type CancelInspectionType = 'cancelled' | 'no_show';
-
 export function MainFrame() {
   const { t } = useTranslation('user');
   const { user } = useAuth();
@@ -339,14 +346,7 @@ export function MainFrame() {
     onPassed: () => setStatusIfSchedulePresent('passed'),
   });
 
-  const [cancelInspectionType, setCancelInspectionType] =
-    useState<CancelInspectionType>('cancelled');
-
-  const { mutate: cancelInspection } = useCancelInspection({
-    onCancelled: () => setCancelInspectionType('cancelled'),
-    onNoShow: () => setCancelInspectionType('no_show'),
-  });
-
+  const { mutate: cancelInspection } = useCancelInspection();
   const applicationUuid = useApplicationStore((state) => state.applicationUuid)!;
 
   if (!user) return null;
@@ -382,8 +382,10 @@ export function MainFrame() {
               waiting: (
                 <WaitingCard
                   inspectionStartTime={inspectionStartTime}
-                  type={cancelInspectionType}
-                  onClick={() => cancelInspection({ params: { path: { uuid: applicationUuid! } } })}
+                  onClick={() => {
+                    if (applicationUuid)
+                      cancelInspection({ params: { path: { uuid: applicationUuid } } });
+                  }}
                 />
               ),
               in_progress: <InProgressCard />,
