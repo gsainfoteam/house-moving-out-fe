@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import ModalBang from '@/assets/modal-bang.svg?react';
 import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
 import { Button, Dialog, LayoutCard } from '@/common/components';
@@ -208,7 +209,7 @@ export function ApplicationFrame() {
       <Dialog.Root isOpen={modifyCooldownDialogOpen} onOpenChange={setModifyCooldownDialogOpen}>
         <Dialog.Content>
           <Dialog.Header>
-            <ModalX className="mb-3" />
+            <ModalBang className="mb-3" />
             <Dialog.Title>{t('application.dialog.modifyCooldown.title')}</Dialog.Title>
           </Dialog.Header>
           <Dialog.Footer>

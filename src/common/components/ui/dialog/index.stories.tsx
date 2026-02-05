@@ -1,3 +1,6 @@
+import ModalBang from '@/assets/modal-bang.svg?react';
+import ModalCheck from '@/assets/modal-check.svg?react';
+import ModalX from '@/assets/modal-x.svg?react';
 import { OverlayProvider } from '@/common/lib';
 
 import { Button } from '../button';
@@ -221,6 +224,169 @@ function ScrollDemo() {
           <Dialog.Footer>
             <Dialog.Close asChild>
               <Button>닫기</Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+    </div>
+  );
+}
+
+export const InspectionCancellation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '퇴사 검사 취소 다이얼로그 (일반 취소 / 노쇼 분기)를 확인하는 스토리입니다.',
+      },
+    },
+  },
+  render: () => <InspectionCancellationDemo />,
+};
+
+export const ApplicationDialogs: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '퇴사 검사 신청/수정 관련 다이얼로그들 (성공/마감/쿨다운/수정완료)을 확인하는 스토리입니다.',
+      },
+    },
+  },
+  render: () => <ApplicationDialogsDemo />,
+};
+
+function InspectionCancellationDemo() {
+  return (
+    <div className="flex items-center justify-center gap-4">
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button variant="failed-outline">일반 취소</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalBang className="mb-3" />
+            <Dialog.Title>검사를 취소하시겠습니까?</Dialog.Title>
+            <Dialog.Description>취소된 내역은 복구할 수 없습니다.</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed-outline" className="w-full">
+                이전
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full">
+                취소하기
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button variant="failed">노쇼 취소</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalBang className="mb-3" />
+            <Dialog.Title>검사를 취소하시겠습니까?</Dialog.Title>
+            <Dialog.Description>
+              검사 시작 1시간 이내에 취소하시면 노쇼로 기록되며, 검사 가능 횟수가 1회 차감됩니다.
+            </Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed-outline" className="w-full">
+                이전
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full">
+                취소하기
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+    </div>
+  );
+}
+
+function ApplicationDialogsDemo() {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-4">
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button>신청 완료</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalCheck className="mb-3" />
+            <Dialog.Title>신청이 완료되었습니다</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="default" className="w-full">
+                확인
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button variant="failed">시간대 마감</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalX className="mb-3" />
+            <Dialog.Title>해당 시간대는 마감되었습니다</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full">
+                닫기
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button>수정 완료</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalCheck className="mb-3" />
+            <Dialog.Title>수정이 완료되었습니다</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="default" className="w-full">
+                확인
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button variant="failed-outline">수정 쿨다운</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalBang className="mb-3" />
+            <Dialog.Title>검사 시간이 1시간 이하로 남아 수정이 불가능합니다.</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full">
+                확인
+              </Button>
             </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Content>
