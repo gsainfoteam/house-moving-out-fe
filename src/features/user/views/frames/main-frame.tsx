@@ -127,11 +127,13 @@ function ApplicationCard() {
 }
 
 function WaitingCard({
+  type,
+  onClick,
   inspectionStartTime,
-  onCancelClick,
 }: {
+  type: CancelInspectionType;
+  onClick: () => void;
   inspectionStartTime?: Dayjs;
-  onCancelClick: () => void;
 }) {
   const { t } = useTranslation('user');
 
@@ -142,12 +144,36 @@ function WaitingCard({
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <div className="flex w-full flex-col items-center justify-center gap-3">
-          <button
-            className="text-text-gray text-sub2 cursor-pointer underline"
-            onClick={onCancelClick}
-          >
-            {t('steps.waiting.cancel_button')}
-          </button>
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <button className="text-text-gray text-sub2 cursor-pointer underline">
+                {t('steps.waiting.cancel_button')}
+              </button>
+            </Dialog.Trigger>
+            <Dialog.Content>
+              <Dialog.Header>
+                <ModalBang className="mb-3" />
+                <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
+                <Dialog.Description>
+                  {type === 'cancelled'
+                    ? t('steps.waiting.cancelled.description.cancelled')
+                    : t('steps.waiting.cancelled.description.no_show')}
+                </Dialog.Description>
+              </Dialog.Header>
+              <Dialog.Footer>
+                <Dialog.Close asChild>
+                  <Button variant="failed-outline" className="w-full">
+                    {t('steps.waiting.cancelled.button.cancel')}
+                  </Button>
+                </Dialog.Close>
+                <Dialog.Close asChild>
+                  <Button variant="failed" className="w-full" onClick={onClick}>
+                    {t('steps.waiting.cancelled.button.submit')}
+                  </Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </Dialog.Content>
+          </Dialog.Root>
           <Button variant="outline" className="w-full" asChild>
             <Link to="/application">{t('steps.waiting.change_button')}</Link>
           </Button>
@@ -279,19 +305,12 @@ type Status =
   | 'failed'
   | 'passed';
 
+type CancelInspectionType = 'cancelled' | 'no_show';
+
 export function MainFrame() {
   const { t } = useTranslation('user');
   const { user } = useAuth();
   const [status, setStatus] = useState<Status>('not_period');
-  const [cancelInspectionDialog, setCancelInspectionDialog] = useState<{
-    open: boolean;
-    type: 'cancelled' | 'no_show';
-  }>({ open: false, type: 'cancelled' });
-
-  const { mutate: cancelInspection } = useCancelInspection({
-    onCancelled: () => setCancelInspectionDialog((prev) => ({ ...prev, type: 'cancelled' })),
-    onNoShow: () => setCancelInspectionDialog((prev) => ({ ...prev, type: 'no_show' })),
-  });
 
   const {
     isLoading: isLoadingSchedule,
@@ -320,86 +339,60 @@ export function MainFrame() {
     onPassed: () => setStatusIfSchedulePresent('passed'),
   });
 
+  const [cancelInspectionType, setCancelInspectionType] =
+    useState<CancelInspectionType>('cancelled');
+
+  const { mutate: cancelInspection } = useCancelInspection({
+    onCancelled: () => setCancelInspectionType('cancelled'),
+    onNoShow: () => setCancelInspectionType('no_show'),
+  });
+
   const applicationUuid = useApplicationStore((state) => state.applicationUuid)!;
 
   if (!user) return null;
 
   return (
-    <>
-      <div className={cn(status === 'passed' ? 'bg-bg-green' : 'bg-bg-surface', 'h-dvh px-5 py-6')}>
-        <div className="mx-auto flex h-full w-full max-w-100 flex-col gap-5">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col gap-2">
-              <h1 className="text-h1 text-text-black font-bold">
-                {t('header.title', { ns: 'common', name: user.name })}
-              </h1>
-              <h2 className="text-sub text-text-gray">
-                {user.roomNumber
-                  ? t('header.subtitle.room', {
-                      ns: 'common',
-                      studentId: user.studentNumber,
-                      room: user.roomNumber,
-                    })
-                  : t('header.subtitle.noRoom', { ns: 'common', studentId: user.studentNumber })}
-              </h2>
-            </div>
-            <img src="/house-logo.png" alt="house-logo" className="h-15" />
+    <div className={cn(status === 'passed' ? 'bg-bg-green' : 'bg-bg-surface', 'h-dvh px-5 py-6')}>
+      <div className="mx-auto flex h-full w-full max-w-100 flex-col gap-5">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-h1 text-text-black font-bold">
+              {t('header.title', { ns: 'common', name: user.name })}
+            </h1>
+            <h2 className="text-sub text-text-gray">
+              {user.roomNumber
+                ? t('header.subtitle.room', {
+                    ns: 'common',
+                    studentId: user.studentNumber,
+                    room: user.roomNumber,
+                  })
+                : t('header.subtitle.noRoom', { ns: 'common', studentId: user.studentNumber })}
+            </h2>
           </div>
-
-          <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
-            <SwitchCase
-              value={status}
-              caseBy={{
-                not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
-                not_target: <NotTargetCard />,
-                application: <ApplicationCard />,
-                waiting: (
-                  <WaitingCard
-                    inspectionStartTime={inspectionStartTime}
-                    onCancelClick={() =>
-                      setCancelInspectionDialog((prev) => ({ ...prev, open: !prev.open }))
-                    }
-                  />
-                ),
-                in_progress: <InProgressCard />,
-                failed: <FailedCard />,
-                passed: <PassedCard />,
-              }}
-            />
-          </LayoutCard.Root>
+          <img src="/house-logo.png" alt="house-logo" className="h-15" />
         </div>
+
+        <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
+          <SwitchCase
+            value={status}
+            caseBy={{
+              not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
+              not_target: <NotTargetCard />,
+              application: <ApplicationCard />,
+              waiting: (
+                <WaitingCard
+                  inspectionStartTime={inspectionStartTime}
+                  type={cancelInspectionType}
+                  onClick={() => cancelInspection({ params: { path: { uuid: applicationUuid! } } })}
+                />
+              ),
+              in_progress: <InProgressCard />,
+              failed: <FailedCard />,
+              passed: <PassedCard />,
+            }}
+          />
+        </LayoutCard.Root>
       </div>
-      <Dialog.Root
-        isOpen={cancelInspectionDialog.open}
-        onOpenChange={(open) => setCancelInspectionDialog((prev) => ({ ...prev, open }))}
-      >
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
-            <Dialog.Description>
-              {cancelInspectionDialog.type === 'cancelled'
-                ? t('steps.waiting.cancelled.description.cancelled')
-                : t('steps.waiting.cancelled.description.no_show')}
-            </Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed-outline" className="w-full">
-                {t('steps.waiting.cancelled.button.cancel')}
-              </Button>
-            </Dialog.Close>
-            <Dialog.Close asChild>
-              <Button
-                variant="failed"
-                className="w-full"
-                onClick={() => cancelInspection({ params: { path: { uuid: applicationUuid! } } })}
-              >
-                {t('steps.waiting.cancelled.button.submit')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
-    </>
+    </div>
   );
 }
