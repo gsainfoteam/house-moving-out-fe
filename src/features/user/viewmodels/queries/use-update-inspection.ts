@@ -27,7 +27,7 @@ export const useUpdateInspection = ({
       onSuccess?.(data);
     },
     onError: (error) => {
-      if (error?.stausCode === 400) {
+      if (error?.statusCode === 400) {
         toast.error(t('error.badRequest', { ns: 'common' }));
       } else if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
