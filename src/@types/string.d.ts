@@ -1,4 +1,4 @@
 interface String {
-  toLowerCase<S extends String>(this: S): Lowercase<S>;
-  toUpperCase<S extends String>(this: S): Uppercase<S>;
+  toLowerCase<S extends string>(this: S): Lowercase<S>;
+  toUpperCase<S extends string>(this: S): Uppercase<S>;
 }
