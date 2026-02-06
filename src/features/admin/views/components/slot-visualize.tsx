@@ -62,8 +62,9 @@ export function SlotVisualize({
                     key={d}
                     className={cn(
                       'bg-green-200',
-                      (capacity ? item.reservedCount >= capacity : item.reservedCount > 0) &&
-                        'bg-red-200',
+                      (capacity === null
+                        ? item.reservedCount > 0
+                        : item.reservedCount >= capacity) && 'bg-red-200',
                       selectedSlots.includes(item.uuid) && 'bg-yellow-300',
                       onClick && 'cursor-pointer',
                     )}
