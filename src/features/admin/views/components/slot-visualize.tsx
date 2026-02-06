@@ -69,13 +69,16 @@ export function SlotVisualize({
                 if (!item) return <td key={d} className={cn(onClick && 'cursor-not-allowed')} />;
                 return (
                   <td
-                    onMouseDown={() => (pressing.current = !selectedSlots.includes(item.uuid))}
+                    onMouseDown={() => {
+                      const mode = !selectedSlots.includes(item.uuid);
+                      pressing.current = mode;
+                      return onClick?.(item.uuid, mode);
+                    }}
                     onMouseMove={() => {
                       const mode = pressing.current;
                       if (mode === null) return;
                       return onClick?.(item.uuid, mode);
                     }}
-                    onClick={() => onClick?.(item.uuid, !selectedSlots.includes(item.uuid))}
                     key={d}
                     className={cn(
                       'bg-green-200',
