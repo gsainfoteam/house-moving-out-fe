@@ -23,7 +23,7 @@ export type ApplicationFormValues = z.infer<typeof applicationFormSchema>;
 export const useApplicationForm = ({
   applyInspection: { onSuccess: onApplySuccess, onFull: onApplyFull } = {},
   updateInspection: {
-    onModifyCooldown: onUpdateModifyCooldown,
+    onModifyTimeRestricted,
     onFull: onUpdateFull,
     onSuccess: onUpdateSuccess,
   } = {},
@@ -49,7 +49,7 @@ export const useApplicationForm = ({
   const { mutate: updateInspection } = useUpdateInspection({
     onSuccess: onUpdateSuccess,
     onFull: onUpdateFull,
-    onModifyCooldown: onUpdateModifyCooldown,
+    onModifyTimeRestricted: onModifyTimeRestricted,
   });
 
   const form = useForm<ApplicationFormValues>({

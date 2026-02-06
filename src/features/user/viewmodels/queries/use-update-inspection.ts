@@ -6,11 +6,11 @@ import { $api } from '@/common/lib';
 import { ApiPaths, type ApplicationUuidDto } from '../../models';
 
 export const useUpdateInspection = ({
-  onModifyCooldown,
+  onModifyTimeRestricted,
   onFull,
   onSuccess,
 }: {
-  onModifyCooldown?: () => void;
+  onModifyTimeRestricted?: () => void;
   onFull?: () => void;
   onSuccess?: (data: ApplicationUuidDto) => void;
 } = {}) => {
@@ -25,7 +25,7 @@ export const useUpdateInspection = ({
       } else if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
       } else if (error?.statusCode === 403) {
-        onModifyCooldown?.();
+        onModifyTimeRestricted?.();
       } else if (error?.statusCode === 404) {
         toast.error(t('application.error.invalidUuid'));
       } else if (error?.statusCode === 409) {

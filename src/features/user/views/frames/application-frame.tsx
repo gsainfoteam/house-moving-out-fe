@@ -22,7 +22,7 @@ export function ApplicationFrame() {
   const [noticeDialogOpen, setNoticeDialogOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [fullDialogOpen, setFullDialogOpen] = useState(false);
-  const [modifyCooldownDialogOpen, setModifyCooldownDialogOpen] = useState(false);
+  const [modifyTimeRestrictedDialogOpen, setModifyTimeRestrictedDialogOpen] = useState(false);
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
 
   const {
@@ -38,9 +38,9 @@ export function ApplicationFrame() {
       onFull: () => setFullDialogOpen(true),
     },
     updateInspection: {
-      onModifyCooldown: () => setModifyCooldownDialogOpen(true),
-      onFull: () => setFullDialogOpen(true),
+      onModifyTimeRestricted: () => setModifyTimeRestrictedDialogOpen(true),
       onSuccess: () => setUpdateDialogOpen(true),
+      onFull: () => setFullDialogOpen(true),
     },
   });
 
@@ -206,7 +206,10 @@ export function ApplicationFrame() {
           </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Root>
-      <Dialog.Root isOpen={modifyCooldownDialogOpen} onOpenChange={setModifyCooldownDialogOpen}>
+      <Dialog.Root
+        isOpen={modifyTimeRestrictedDialogOpen}
+        onOpenChange={setModifyTimeRestrictedDialogOpen}
+      >
         <Dialog.Content>
           <Dialog.Header>
             <ModalBang className="mb-3" />
