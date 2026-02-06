@@ -44,6 +44,14 @@
     },
     "detail": {
       "applicationTime": "Application Time",
+      "capacity": {
+        "female": "Female capacity",
+        "male": "Male capacity"
+      },
+      "inspectors": {
+        "female": "Female inspectors",
+        "male": "Male inspectors"
+      },
       "notFound": "Moving out inspection not found.",
       "status": "Status"
     },

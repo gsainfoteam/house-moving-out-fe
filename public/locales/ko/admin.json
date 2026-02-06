@@ -43,6 +43,14 @@
     },
     "detail": {
       "applicationTime": "신청기간",
+      "capacity": {
+        "female": "여자 최대 검사 수",
+        "male": "남자 최대 검사 수"
+      },
+      "inspectors": {
+        "female": "여자 검사위원 수",
+        "male": "남자 검사위원 수"
+      },
       "notFound": "존재하지 않는 퇴사검사입니다",
       "status": "상태"
     },

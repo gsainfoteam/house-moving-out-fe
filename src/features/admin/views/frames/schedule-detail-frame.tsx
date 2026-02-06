@@ -16,6 +16,9 @@ export function ScheduleDetailFrame() {
   if (error) return <div className="p-4">{t('schedule.detail.notFound')}</div>;
   if (!schedule) return <Loading />;
 
+  const maleCapacity = schedule.inspectionSlots[0].maleCapacity;
+  const femaleCapacity = schedule.inspectionSlots[0].femaleCapacity;
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <div>
@@ -33,6 +36,18 @@ export function ScheduleDetailFrame() {
         <div>
           {t('schedule.create.summary.semester.label')}: {schedule.currentSemester.year}{' '}
           {schedule.currentSemester.season}
+        </div>
+        <div>
+          {t('schedule.detail.capacity.male')}: {maleCapacity}
+        </div>
+        <div>
+          {t('schedule.detail.capacity.female')}: {femaleCapacity}
+        </div>
+        <div>
+          {t('schedule.detail.inspectors.male')}: {0}/{Math.ceil(maleCapacity / 2)}
+        </div>
+        <div>
+          {t('schedule.detail.inspectors.female')}: {0}/{Math.ceil(femaleCapacity / 2)}
         </div>
       </div>
       <div className="flex gap-2">

@@ -53,7 +53,7 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
                     key={d}
                     className={cn('bg-green-200', reservedCount === capacity && 'bg-red-200')}
                   >
-                    {reservedCount}/{capacity}
+                    {reservedCount}
                   </td>
                 );
               })}
