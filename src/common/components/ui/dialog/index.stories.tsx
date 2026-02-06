@@ -5,8 +5,7 @@ import { I18nextProvider, useTranslation } from 'react-i18next';
 import ModalBang from '@/assets/modal-bang.svg?react';
 import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
-import { OverlayProvider } from '@/common/lib';
-import i18n from '@/common/lib/i18n';
+import { i18n, OverlayProvider } from '@/common/lib';
 
 import { Button } from '../button';
 
