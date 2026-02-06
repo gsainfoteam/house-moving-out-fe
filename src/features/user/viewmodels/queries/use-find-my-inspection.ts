@@ -86,8 +86,10 @@ export const useFindMyInspection = (
 
   const inspectionSlotUuid = useMemo(() => (data ? data.inspectionSlot.uuid : undefined), [data]);
 
+  const applicationUuid = useMemo(() => (data ? data.uuid : undefined), [data]);
+
   return {
-    data,
+    applicationUuid,
     isLoading,
     isSuccess,
     inspectionStartTime,

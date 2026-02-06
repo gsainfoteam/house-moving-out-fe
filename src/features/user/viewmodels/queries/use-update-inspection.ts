@@ -4,7 +4,6 @@ import { toast } from 'sonner';
 import { $api } from '@/common/lib';
 
 import { ApiPaths, type ApplicationUuidDto } from '../../models';
-import { useApplicationStore } from '../stores';
 
 export const useUpdateInspection = ({
   onModifyCooldown,
@@ -15,12 +14,9 @@ export const useUpdateInspection = ({
   onFull?: () => void;
   onSuccess?: (data: ApplicationUuidDto) => void;
 } = {}) => {
-  const { setApplicationUuid } = useApplicationStore();
-
   const { t } = useTranslation('user');
   return $api.useMutation('patch', ApiPaths.MoveOutController_updateInspection, {
     onSuccess: (data) => {
-      setApplicationUuid(data.applicationUuid);
       onSuccess?.(data);
     },
     onError: (error) => {

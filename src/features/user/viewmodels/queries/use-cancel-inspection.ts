@@ -6,16 +6,13 @@ import { toast } from 'sonner';
 import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
-import { useApplicationStore } from '../stores';
 
 export const useCancelInspection = () => {
   const queryClient = useQueryClient();
-  const { setApplicationUuid } = useApplicationStore();
   const { t } = useTranslation('user');
 
   return $api.useMutation('delete', ApiPaths.MoveOutController_cancelInspection, {
     onSuccess: () => {
-      setApplicationUuid(null);
       queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findMyInspection],
       });

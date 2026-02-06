@@ -10,7 +10,6 @@ import {
   useFindMyInspection,
   useUpdateInspection,
 } from './queries';
-import { useApplicationStore } from './stores';
 
 const applicationFormSchema = z
   .object({
@@ -41,7 +40,8 @@ export const useApplicationForm = ({
     isError,
     isSuccess,
   } = useFindActiveMoveOutScheduleWithSlots();
-  const { inspectionStartTime, inspectionSlotUuid } = useFindMyInspection(isSuccess);
+  const { inspectionStartTime, inspectionSlotUuid, applicationUuid } =
+    useFindMyInspection(isSuccess);
   const { mutate: applyInspection } = useApplyInspection({
     onSuccess: onApplySuccess,
     onFull: onApplyFull,
@@ -51,7 +51,6 @@ export const useApplicationForm = ({
     onFull: onUpdateFull,
     onModifyCooldown: onUpdateModifyCooldown,
   });
-  const applicationUuid = useApplicationStore((state) => state.applicationUuid);
 
   const form = useForm<ApplicationFormValues>({
     resolver: zodResolver(applicationFormSchema),

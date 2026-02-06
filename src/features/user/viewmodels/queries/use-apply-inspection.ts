@@ -6,7 +6,6 @@ import { toast } from 'sonner';
 import { $api } from '@/common/lib';
 
 import { ApiPaths, type ApplicationUuidDto } from '../../models';
-import { useApplicationStore } from '../stores';
 
 export const useApplyInspection = ({
   onSuccess,
@@ -17,14 +16,12 @@ export const useApplyInspection = ({
 } = {}) => {
   const { t } = useTranslation('user');
   const queryClient = useQueryClient();
-  const { setApplicationUuid } = useApplicationStore();
 
   return $api.useMutation('post', ApiPaths.MoveOutController_applyInspection, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
       });
-      setApplicationUuid(data.applicationUuid ?? null);
       onSuccess?.(data);
     },
     onError: (error) => {

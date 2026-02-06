@@ -10,7 +10,6 @@ import { cn } from '@/common/utils';
 import { useAuth } from '@/features/auth';
 
 import {
-  useApplicationStore,
   useCancelInspection,
   useFindActiveMoveOutScheduleWithSlots,
   useFindMyInspection,
@@ -300,7 +299,11 @@ export function MainFrame() {
     [isSuccess],
   );
 
-  const { isLoading: isLoadingInspection, inspectionStartTime } = useFindMyInspection(isSuccess, {
+  const {
+    isLoading: isLoadingInspection,
+    inspectionStartTime,
+    applicationUuid,
+  } = useFindMyInspection(isSuccess, {
     onNotFound: () => setStatusIfSchedulePresent('application'),
     onFoundWaiting: () => setStatusIfSchedulePresent('waiting'),
     onFoundInProgress: () => setStatusIfSchedulePresent('in_progress'),
@@ -309,7 +312,6 @@ export function MainFrame() {
   });
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
-  const applicationUuid = useApplicationStore((state) => state.applicationUuid);
 
   // TODO: HMF-36 선언적 overlay 조작이 매우 급함...
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
