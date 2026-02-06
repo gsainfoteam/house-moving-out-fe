@@ -1,4 +1,6 @@
-import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-router';
+import { createFileRoute, Link, Navigate, Outlet, useRouter } from '@tanstack/react-router';
+
+import { HomeIcon } from 'lucide-react';
 
 import { Loading } from '@/common/components';
 import { useAuth, useToken } from '@/features/auth';
@@ -14,9 +16,14 @@ function Inner() {
   if (!isAdmin) return <Navigate to="/" replace />;
 
   return (
-    <>
+    <div>
+      <header className="flex items-center border-b border-gray-200 p-3">
+        <Link to="/admin">
+          <HomeIcon />
+        </Link>
+      </header>
       <Outlet />
-    </>
+    </div>
   );
 }
 
