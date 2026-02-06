@@ -1,9 +1,26 @@
 {
   "inspectors": {
     "create": {
-      "action": "검사위원 추가"
+      "action": "검사위원 추가",
+      "email": {
+        "label": "이메일"
+      },
+      "gender": {
+        "label": "성별"
+      },
+      "name": {
+        "label": "이름"
+      },
+      "slots": {
+        "label": "검사 시간"
+      }
     },
-    "list": "검사위원 목록"
+    "list": {
+      "actions": {
+        "delete": "삭제",
+        "label": "작업"
+      }
+    }
   },
   "schedule": {
     "create": {

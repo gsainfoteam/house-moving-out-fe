@@ -1,10 +1,24 @@
 {
   "inspectors": {
     "create": {
-      "action": "Add Inspector"
+      "action": "Add Inspector",
+      "email": {
+        "label": "Email"
+      },
+      "gender": {
+        "label": "Gender"
+      },
+      "name": {
+        "label": "Name"
+      },
+      "slots": {
+        "label": "Inspection Time"
+      }
     },
     "list": "Inspector List"
   },
+  "inspectors.list.actions.delete": "Delete",
+  "inspectors.list.actions.label": "Actions",
   "schedule": {
     "create": {
       "action": "Create",

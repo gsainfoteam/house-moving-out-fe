@@ -1,6 +1,7 @@
 import { Link, useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { Trash } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Loading } from '@/common/components';
@@ -28,7 +29,36 @@ export function InspectorsListFrame() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <div>{JSON.stringify(inspectors)}</div>
+      <div>
+        <table className="w-full text-center [&_td,th]:border [&_td,th]:px-1">
+          <thead>
+            <tr>
+              <th>{t('inspectors.create.name.label')}</th>
+              <th>{t('inspectors.create.email.label')}</th>
+              <th>{t('inspectors.create.gender.label')}</th>
+              <th>{t('inspectors.create.slots.label')}</th>
+              <th>{t('inspectors.list.actions.label')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {inspectors.map((i) => (
+              <tr key={i.uuid}>
+                <td>{i.name}</td>
+                <td>{i.email}</td>
+                <td>{i.gender}</td>
+                <td>{i.availableSlots.map((i) => dayjs(i.startTime)).map((t) => t.format())}</td>
+                <td className="py-1">
+                  <div className="flex justify-center">
+                    <Button size="icon" className="bg-red-600">
+                      <Trash />
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className="flex gap-2">
         <SlotSummary
           type="male"
