@@ -12,7 +12,10 @@ import { useCreateInspector } from './queries/use-create-inspector';
 const schema = z.object({
   name: z.string().min(1),
   gender: z.enum(Gender),
-  studentNumber: z.string().refine((s) => !Number.isNaN(Number.parseInt(s))),
+  studentNumber: z
+    .string()
+    .pipe(z.coerce.number())
+    .transform((n) => n.toString()),
   email: z.email(),
   availableSlotUuids: z.uuid().array(),
 });
