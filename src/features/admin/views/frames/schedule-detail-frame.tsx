@@ -44,10 +44,10 @@ export function ScheduleDetailFrame() {
           {t('schedule.detail.capacity.female')}: {femaleCapacity}
         </div>
         <div>
-          {t('schedule.detail.inspectors.male')}: {0}/{Math.ceil(maleCapacity / 2)}
+          {t('schedule.detail.inspectors.male')}: {Math.ceil(maleCapacity / 2)}
         </div>
         <div>
-          {t('schedule.detail.inspectors.female')}: {0}/{Math.ceil(femaleCapacity / 2)}
+          {t('schedule.detail.inspectors.female')}: {Math.ceil(femaleCapacity / 2)}
         </div>
       </div>
       <div className="flex gap-2">

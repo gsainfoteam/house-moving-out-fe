@@ -81,8 +81,8 @@
         "male": "Male capacity"
       },
       "inspectors": {
-        "female": "Female inspectors",
-        "male": "Male inspectors"
+        "female": "Required female inspectors",
+        "male": "Required male inspectors"
       },
       "notFound": "Moving out inspection not found.",
       "status": "Status"
