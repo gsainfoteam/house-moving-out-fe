@@ -1,9 +1,29 @@
 {
   "application": {
+    "detail": {
+      "appliedAt": "신청 일시",
+      "id": "#",
+      "inspectedAt": "검사 일시",
+      "inspector": "검사위원",
+      "name": "이름",
+      "phoneNumber": "전화번호",
+      "result": "결과",
+      "roomNumber": "호실",
+      "studentNumber": "학번",
+      "type": "검사 종류"
+    },
     "list": "신청 목록"
+  },
+  "inspectionType": {
+    "first": "초검",
+    "second": "재검"
   },
   "inspectors": {
     "list": "검사위원 목록"
+  },
+  "result": {
+    "failed": "불통",
+    "passed": "통과"
   },
   "schedule": {
     "create": {

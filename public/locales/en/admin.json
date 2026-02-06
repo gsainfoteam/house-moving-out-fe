@@ -1,9 +1,29 @@
 {
   "application": {
+    "detail": {
+      "appliedAt": "Applied At",
+      "id": "id",
+      "inspectedAt": "Inspected At",
+      "inspector": "Inspector",
+      "name": "Name",
+      "phoneNumber": "phone#",
+      "result": "Result",
+      "roomNumber": "Room#",
+      "studentNumber": "Student#",
+      "type": "Inspection Type"
+    },
     "list": "Inspection Application List"
+  },
+  "inspectionType": {
+    "first": "First",
+    "second": "Second"
   },
   "inspectors": {
     "list": "Inspector List"
+  },
+  "result": {
+    "failed": "Failed",
+    "passed": "Passed"
   },
   "schedule": {
     "create": {
