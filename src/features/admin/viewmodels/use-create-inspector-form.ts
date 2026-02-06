@@ -12,10 +12,7 @@ import { useCreateInspector } from './queries/use-create-inspector';
 const schema = z.object({
   name: z.string().min(1),
   gender: z.enum(Gender),
-  studentNumber: z
-    .string()
-    .pipe(z.coerce.number())
-    .transform((n) => n.toString()),
+  studentNumber: z.string().regex(/^\d{8}$/),
   email: z.email(),
   availableSlotUuids: z.uuid().array(),
 });
