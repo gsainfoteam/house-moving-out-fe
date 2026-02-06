@@ -1,5 +1,7 @@
 import { useEffect, useMemo } from 'react';
 
+import { useNavigate } from '@tanstack/react-router';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import z from 'zod';
@@ -31,6 +33,7 @@ export const useApplicationForm = ({
   applyInspection: Parameters<typeof useApplyInspection>[0];
   updateInspection: Parameters<typeof useUpdateInspection>[0];
 }) => {
+  const navigate = useNavigate();
   const {
     applicationStartTime,
     applicationEndTime,
@@ -42,11 +45,11 @@ export const useApplicationForm = ({
   } = useFindActiveMoveOutScheduleWithSlots();
   const { inspectionStartTime, inspectionSlotUuid, applicationUuid } =
     useFindMyInspection(isSuccess);
-  const { mutate: applyInspection } = useApplyInspection({
+  const { mutateAsync: applyInspection } = useApplyInspection({
     onSuccess: onApplySuccess,
     onFull: onApplyFull,
   });
-  const { mutate: updateInspection } = useUpdateInspection({
+  const { mutateAsync: updateInspection } = useUpdateInspection({
     onSuccess: onUpdateSuccess,
     onFull: onUpdateFull,
     onModifyTimeRestricted: onModifyTimeRestricted,
@@ -81,20 +84,17 @@ export const useApplicationForm = ({
     [inspectionDayTimestamp, inspectionSlotsByDayTimestamp],
   );
 
-  const onSubmit = form.handleSubmit((data) => {
-    if (data.inspectionSlotUuid == null) return;
-    if (applicationUuid != null) {
-      updateInspection({
-        params: {
-          path: { uuid: applicationUuid },
-        },
-        body: { inspectionSlotUuid: data.inspectionSlotUuid },
-      });
-    } else {
-      applyInspection({
-        body: { inspectionSlotUuid: data.inspectionSlotUuid },
-      });
-    }
+  const onSubmit = form.handleSubmit(({ inspectionSlotUuid }) => {
+    if (inspectionSlotUuid == null) return;
+
+    const request = applicationUuid
+      ? updateInspection({
+          params: { path: { uuid: applicationUuid } },
+          body: { inspectionSlotUuid },
+        })
+      : applyInspection({ body: { inspectionSlotUuid } });
+
+    request.then(() => navigate({ to: '/' })).catch(() => {});
   });
 
   return {
