@@ -19,7 +19,7 @@ function Inner() {
 
   return (
     <div className="flex h-dvh flex-col">
-      <header className="flex items-center gap-4 border-b border-gray-200 p-3">
+      <header className="flex items-center gap-4 border-b border-gray-200 p-3 px-4">
         <Link to="/admin">
           <HomeIcon />
         </Link>
