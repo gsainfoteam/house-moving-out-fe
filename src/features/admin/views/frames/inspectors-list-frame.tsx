@@ -35,7 +35,7 @@ export function InspectorsListFrame() {
   return (
     <div className="flex flex-col gap-4 p-4">
       <div>
-        <table className="w-full text-center [&_td,th]:border [&_td,th]:px-1">
+        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:px-1">
           <thead>
             <tr>
               <th>{t('inspectors.create.name.label')}</th>
