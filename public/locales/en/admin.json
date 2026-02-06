@@ -37,6 +37,10 @@
       "actions": {
         "label": "Actions"
       },
+      "summary": {
+        "female": "Female Inspectors",
+        "male": "Male inspectors"
+      },
       "title": "Inspector List"
     }
   },
@@ -91,7 +95,11 @@
         "male": "Required male inspectors"
       },
       "notFound": "Moving out inspection not found.",
-      "status": "Status"
+      "status": "Status",
+      "summary": {
+        "female": "Female Summary",
+        "male": "Male Summary"
+      }
     },
     "empty": "There are no moving out schedules",
     "list": "Schedule List"

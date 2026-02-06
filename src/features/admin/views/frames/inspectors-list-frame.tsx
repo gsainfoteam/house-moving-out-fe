@@ -75,7 +75,7 @@ export function InspectorsListFrame() {
       </div>
       <div className="flex gap-2">
         <SlotVisualize
-          title="male"
+          title={t('inspectors.list.summary.male')}
           capacity={null}
           slots={schedule.inspectionSlots.map((s) => ({
             ...s,
@@ -85,7 +85,7 @@ export function InspectorsListFrame() {
           }))}
         />
         <SlotVisualize
-          title="female"
+          title={t('inspectors.list.summary.female')}
           capacity={null}
           slots={schedule.inspectionSlots.map((s) => ({
             ...s,

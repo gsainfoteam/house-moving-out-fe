@@ -56,7 +56,7 @@ export function ScheduleDetailFrame() {
             ...s,
             reservedCount: s.maleReservedCount,
           }))}
-          title="male"
+          title={t('schedule.detail.summary.male')}
           capacity={schedule.inspectionSlots[0].maleCapacity}
         />
         <SlotVisualize
@@ -64,7 +64,7 @@ export function ScheduleDetailFrame() {
             ...s,
             reservedCount: s.femaleReservedCount,
           }))}
-          title="male"
+          title={t('schedule.detail.summary.female')}
           capacity={schedule.inspectionSlots[0].maleCapacity}
         />
       </div>
