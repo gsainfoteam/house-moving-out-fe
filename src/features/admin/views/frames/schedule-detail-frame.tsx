@@ -1,9 +1,9 @@
-import { Link, useParams } from '@tanstack/react-router';
+import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Loading } from '@/common/components';
+import { Loading } from '@/common/components';
 
 import { useGetMoveOutScheduleQuery } from '../../viewmodels';
 import { SlotSummary } from '../components/slot-summary';
@@ -38,21 +38,6 @@ export function ScheduleDetailFrame() {
         <SlotSummary slots={schedule.inspectionSlots} type="male" />
         <SlotSummary slots={schedule.inspectionSlots} type="female" />
       </div>
-      <Button asChild>
-        <Link to="/admin/schedules/$uuid/targets" params={{ uuid }}>
-          {t('target.list')}
-        </Link>
-      </Button>
-      <Button asChild>
-        <Link to="/admin/schedules/$uuid/applications" params={{ uuid }}>
-          {t('application.list')}
-        </Link>
-      </Button>
-      <Button asChild>
-        <Link to="/admin/schedules/$uuid/inspectors" params={{ uuid }}>
-          {t('inspectors.list')}
-        </Link>
-      </Button>
     </div>
   );
 }
