@@ -117,7 +117,7 @@ export function CreateInspectorFrame() {
                   end: dayjs(i.endTime),
                 })),
             )
-              .map((r) => `${r.start.format('ddd hh:mm')}~${r.end.format('ddd hh:mm')}`)
+              .map((r) => `${r.start.format('ddd HH:mm')}~${r.end.format('ddd HH:mm')}`)
               .join(', ')}
           </li>
         </ul>
