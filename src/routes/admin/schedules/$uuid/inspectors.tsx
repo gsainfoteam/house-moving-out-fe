@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/admin/schedules/$uuid/inspectors')({
-  component: RouteComponent,
-});
+import { InspectorsListFrame } from '@/features/admin';
 
-function RouteComponent() {
-  return <div>Hello "/admin/schedules/$uuid/inspectors"!</div>;
-}
+export const Route = createFileRoute('/admin/schedules/$uuid/inspectors')({
+  component: InspectorsListFrame,
+});
