@@ -56,9 +56,9 @@ export function InspectorsListFrame() {
                 <td>{i.gender}</td>
                 <td className="whitespace-pre-wrap">
                   {getTimeRange(
-                    i.availableSlots.map((i) => ({
-                      start: dayjs(i.startTime),
-                      end: dayjs(i.endTime),
+                    i.availableSlots.map((s) => ({
+                      start: dayjs(s.startTime),
+                      end: dayjs(s.endTime),
                     })),
                   )
                     .map((r) => `${r.start.format('ddd hh:mm')}~${r.end.format('ddd hh:mm')}`)
@@ -91,7 +91,7 @@ export function InspectorsListFrame() {
             ...s,
             reservedCount:
               Math.ceil(s.maleCapacity / 2) -
-              maleSlotTimes.filter((t) => t.isSame(s.startTime)).length,
+              maleSlotTimes.filter((st) => st.isSame(s.startTime)).length,
           }))}
         />
         <SlotVisualize
@@ -101,7 +101,7 @@ export function InspectorsListFrame() {
             ...s,
             reservedCount:
               Math.ceil(s.femaleCapacity / 2) -
-              femaleSlotTimes.filter((t) => t.isSame(s.startTime)).length,
+              femaleSlotTimes.filter((st) => st.isSame(s.startTime)).length,
           }))}
         />
       </div>
