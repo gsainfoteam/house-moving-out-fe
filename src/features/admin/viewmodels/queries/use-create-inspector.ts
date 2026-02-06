@@ -11,6 +11,9 @@ export const useCreateInspector = () => {
       queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.InspectorController_getInspectors],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['get', ApiPaths.MoveOutController_findInspectorsByScheduleUuid],
+      });
     },
   });
 };
