@@ -20,7 +20,7 @@ export function InspectorsListFrame() {
   const { data: inspectors, error: inspectorsError } = useInspectorsOfSchedule(uuid);
   const { t } = useTranslation('admin');
   const { data: schedule, error: scheduleError } = useGetMoveOutScheduleQuery(uuid);
-  const { mutateAsync: deleteInspector } = useDeleteInspector();
+  const { mutate: deleteInspector } = useDeleteInspector();
 
   if (scheduleError || inspectorsError)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
