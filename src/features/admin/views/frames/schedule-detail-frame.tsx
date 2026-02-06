@@ -39,6 +39,16 @@ export function ScheduleDetailFrame() {
         <SlotSummary slots={schedule.inspectionSlots} type="female" />
       </div>
       <Button asChild>
+        <Link to="/admin/schedules/$uuid/targets" params={{ uuid }}>
+          {t('target.list')}
+        </Link>
+      </Button>
+      <Button asChild>
+        <Link to="/admin/schedules/$uuid/applications" params={{ uuid }}>
+          {t('application.list')}
+        </Link>
+      </Button>
+      <Button asChild>
         <Link to="/admin/schedules/$uuid/inspectors" params={{ uuid }}>
           {t('inspectors.list')}
         </Link>

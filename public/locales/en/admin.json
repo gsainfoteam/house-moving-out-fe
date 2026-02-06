@@ -1,4 +1,7 @@
 {
+  "application": {
+    "list": "Inspection Application List"
+  },
   "inspectors": {
     "list": "Inspector List"
   },
@@ -49,5 +52,8 @@
     },
     "empty": "There are no moving out schedules",
     "list": "Schedule List"
+  },
+  "target": {
+    "list": "Target Room List"
   }
 }
