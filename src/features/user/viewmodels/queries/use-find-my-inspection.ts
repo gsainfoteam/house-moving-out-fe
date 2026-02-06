@@ -80,13 +80,16 @@ export const useFindMyInspection = (
   ]);
 
   const inspectionStartTime = useMemo(
-    () => (data ? dayjs(data.inspectionSlot.startTime) : undefined),
-    [data],
+    () => (isSuccess ? dayjs(data.inspectionSlot.startTime) : undefined),
+    [data, isSuccess],
   );
 
-  const inspectionSlotUuid = useMemo(() => (data ? data.inspectionSlot.uuid : undefined), [data]);
+  const inspectionSlotUuid = useMemo(
+    () => (isSuccess ? data.inspectionSlot.uuid : undefined),
+    [data, isSuccess],
+  );
 
-  const applicationUuid = useMemo(() => (data ? data.uuid : undefined), [data]);
+  const applicationUuid = useMemo(() => (isSuccess ? data.uuid : undefined), [data, isSuccess]);
 
   return {
     applicationUuid,

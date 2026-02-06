@@ -13,8 +13,11 @@ export const useCancelInspection = () => {
 
   return $api.useMutation('delete', ApiPaths.MoveOutController_cancelInspection, {
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findMyInspection],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
       });
     },
     onError: (error) => {

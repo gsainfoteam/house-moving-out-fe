@@ -1,3 +1,5 @@
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -15,8 +17,16 @@ export const useUpdateInspection = ({
   onSuccess?: (data: ApplicationUuidDto) => void;
 } = {}) => {
   const { t } = useTranslation('user');
+  const queryClient = useQueryClient();
+
   return $api.useMutation('patch', ApiPaths.MoveOutController_updateInspection, {
     onSuccess: (data) => {
+      queryClient.removeQueries({
+        queryKey: ['get', ApiPaths.MoveOutController_findMyInspection],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
+      });
       onSuccess?.(data);
     },
     onError: (error) => {
