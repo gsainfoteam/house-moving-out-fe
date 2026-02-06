@@ -98,8 +98,7 @@ export function CreateInspectorFrame() {
             slots={schedule.inspectionSlots.map((s) => ({
               ...s,
               reservedCount:
-                Math.ceil(capacity / 2) -
-                slotTimes.filter((st) => st.isSame(s.startTime)).length * 2,
+                Math.ceil(capacity / 2) - slotTimes.filter((st) => st.isSame(s.startTime)).length,
             }))}
           />
         )}
