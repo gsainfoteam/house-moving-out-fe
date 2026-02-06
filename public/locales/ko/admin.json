@@ -1,5 +1,8 @@
 {
   "inspectors": {
+    "create": {
+      "action": "검사위원 추가"
+    },
     "list": "검사위원 목록"
   },
   "schedule": {

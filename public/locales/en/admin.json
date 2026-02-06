@@ -1,5 +1,8 @@
 {
   "inspectors": {
+    "create": {
+      "action": "Add Inspector"
+    },
     "list": "Inspector List"
   },
   "schedule": {

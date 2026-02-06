@@ -1,9 +1,9 @@
-import {
-  PathsMoveOutInspectionTargetsGetParametersQueryCurrentSeason as Season,
-  type components,
-} from '@/@types/api-schema';
+import { type components } from '@/@types/api-schema';
 
 export type MoveOutSchedule = components['schemas']['MoveOutScheduleResDto'];
 export type InspectionSlot = components['schemas']['InspectionSlotResDto'];
-export { Season };
+export {
+  PathsMoveOutInspectionTargetsGetParametersQueryCurrentSeason as Season,
+  InspectorResDtoGender as Gender,
+} from '@/@types/api-schema';
 export { ApiPaths } from '@/@types/api-schema';

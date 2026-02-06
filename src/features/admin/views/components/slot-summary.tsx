@@ -51,7 +51,7 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
                 return (
                   <td
                     key={d}
-                    className={cn('bg-green-200', reservedCount === capacity && 'bg-red-200')}
+                    className={cn('bg-green-200', reservedCount >= capacity && 'bg-red-200')}
                   >
                     {reservedCount}
                   </td>
