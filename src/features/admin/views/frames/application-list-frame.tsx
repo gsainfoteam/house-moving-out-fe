@@ -23,6 +23,7 @@ export function ApplicationListFrame() {
         <tbody>
           {[...Array(10)]
             .map(() => ({
+              // TODO: replace with real data
               id: crypto.randomUUID(),
               roomNumber: 'G310',
               studentNumber: '20250000',
