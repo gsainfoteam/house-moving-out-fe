@@ -40,6 +40,7 @@ export function InspectorsListFrame() {
             <tr>
               <th>{t('inspectors.create.name.label')}</th>
               <th>{t('inspectors.create.email.label')}</th>
+              <th>{t('inspectors.create.studentNumber.label')}</th>
               <th>{t('inspectors.create.gender.label')}</th>
               <th>{t('inspectors.create.slots.label')}</th>
               <th>{t('inspectors.list.actions.label')}</th>
@@ -50,6 +51,7 @@ export function InspectorsListFrame() {
               <tr key={i.uuid}>
                 <td>{i.name}</td>
                 <td>{i.email}</td>
+                <td>{i.studentNumber}</td>
                 <td>{i.gender}</td>
                 <td>{i.availableSlots.map((i) => dayjs(i.startTime)).map((t) => t.format())}</td>
                 <td className="py-1">
