@@ -13,7 +13,7 @@ export const getTimeRange = (list: Range[]): Range[] => {
     const idx = queue.pop();
     if (idx === undefined) return result;
     unseen.delete(idx);
-    const currentBlock = list[idx];
+    const currentBlock = { ...list[idx] };
 
     for (;;) {
       const nextBlock = [...unseen].find((i) => list[i].start.isSame(currentBlock.end));
