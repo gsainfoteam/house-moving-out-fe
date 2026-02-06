@@ -91,6 +91,7 @@ export function CreateInspectorFrame() {
         <label>{t('inspectors.create.slots.label')}</label>
         {gender && (
           <SlotVisualize
+            inverseMode
             onClick={toggleSlot}
             selectedSlots={slots}
             title={gender.toString()}

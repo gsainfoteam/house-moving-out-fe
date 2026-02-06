@@ -12,12 +12,15 @@ export function SlotVisualize({
   capacity,
   onClick,
   selectedSlots = [],
+  inverseMode = false,
 }: {
   slots: { uuid: string; startTime: string; reservedCount: number }[];
   title: string;
   capacity: number;
   onClick?: (slotUuid: string) => void;
   selectedSlots?: string[];
+  /** visualize for inspectors */
+  inverseMode?: boolean;
 }) {
   if (slots.length === 0) return null;
 
@@ -61,7 +64,8 @@ export function SlotVisualize({
                     key={d}
                     className={cn(
                       'bg-green-200',
-                      item.reservedCount >= capacity && 'bg-red-200',
+                      (inverseMode ? item.reservedCount > 0 : item.reservedCount >= capacity) &&
+                        'bg-red-200',
                       selectedSlots.includes(item.uuid) && 'bg-yellow-300',
                       onClick && 'cursor-pointer',
                     )}

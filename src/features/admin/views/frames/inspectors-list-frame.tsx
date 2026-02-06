@@ -61,6 +61,7 @@ export function InspectorsListFrame() {
       </div>
       <div className="flex gap-2">
         <SlotVisualize
+          inverseMode
           title="male"
           capacity={schedule.inspectionSlots[0].maleCapacity}
           slots={schedule.inspectionSlots.map((s) => ({
@@ -70,6 +71,7 @@ export function InspectorsListFrame() {
           }))}
         />
         <SlotVisualize
+          inverseMode
           title="female"
           capacity={schedule.inspectionSlots[0].femaleCapacity}
           slots={schedule.inspectionSlots.map((s) => ({
