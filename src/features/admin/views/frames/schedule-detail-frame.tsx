@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Loading } from '@/common/components';
 
 import { useGetMoveOutScheduleQuery } from '../../viewmodels';
-import { SlotSummary } from '../components/slot-summary';
+import { SlotVisualize } from '../components/slot-visualize';
 
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/' });
@@ -51,8 +51,22 @@ export function ScheduleDetailFrame() {
         </div>
       </div>
       <div className="flex gap-2">
-        <SlotSummary slots={schedule.inspectionSlots} type="male" />
-        <SlotSummary slots={schedule.inspectionSlots} type="female" />
+        <SlotVisualize
+          slots={schedule.inspectionSlots.map((s) => ({
+            ...s,
+            reservedCount: s.maleReservedCount,
+          }))}
+          title="male"
+          capacity={schedule.inspectionSlots[0].maleCapacity}
+        />
+        <SlotVisualize
+          slots={schedule.inspectionSlots.map((s) => ({
+            ...s,
+            reservedCount: s.femaleReservedCount,
+          }))}
+          title="male"
+          capacity={schedule.inspectionSlots[0].maleCapacity}
+        />
       </div>
       <Button asChild>
         <Link to="/admin/schedules/$uuid/inspectors" params={{ uuid }}>

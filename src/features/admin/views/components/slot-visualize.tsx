@@ -3,12 +3,18 @@ import { groupBy } from 'es-toolkit/array';
 
 import { cn } from '@/common/utils';
 
-import type { InspectionSlot } from '../../models';
-
 const START_HOUR = 10;
 const END_HOUR = 18;
 
-export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'male' | 'female' }) {
+export function SlotVisualize({
+  slots,
+  title,
+  capacity,
+}: {
+  slots: { startTime: string; reservedCount: number }[];
+  title: string;
+  capacity: number;
+}) {
   if (slots.length === 0) return null;
 
   const groupedSlot = groupBy(slots, (s) => ((dayjs(s.startTime).day() + 6) % 7) + 1);
@@ -23,7 +29,7 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
     >
       <thead>
         <tr>
-          <td>{type}</td>
+          <td>{title}</td>
           <th>{sunday.day(4).format('D dd')}</th>
           <th>{sunday.day(5).format('D dd')}</th>
           <th>{sunday.day(6).format('D dd')}</th>
@@ -45,15 +51,12 @@ export function SlotSummary({ slots, type }: { slots: InspectionSlot[]; type: 'm
                   (s) => dayjs(s.startTime).diff(startOfDay, 'h', true) === START_HOUR + i / 2,
                 );
                 if (!item) return <td key={d} />;
-                const reservedCount =
-                  type === 'male' ? item.maleReservedCount : item.femaleReservedCount;
-                const capacity = type === 'male' ? item.maleCapacity : item.femaleCapacity;
                 return (
                   <td
                     key={d}
-                    className={cn('bg-green-200', reservedCount >= capacity && 'bg-red-200')}
+                    className={cn('bg-green-200', item.reservedCount >= capacity && 'bg-red-200')}
                   >
-                    {reservedCount}
+                    {item.reservedCount}
                   </td>
                 );
               })}

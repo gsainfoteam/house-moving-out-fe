@@ -8,7 +8,7 @@ import { Button, Loading } from '@/common/components';
 
 import { Gender } from '../../models';
 import { useGetMoveOutScheduleQuery, useInspectorsOfSchedule } from '../../viewmodels';
-import { SlotSummary } from '../components/slot-summary';
+import { SlotVisualize } from '../components/slot-visualize';
 
 export function InspectorsListFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/' });
@@ -60,19 +60,21 @@ export function InspectorsListFrame() {
         </table>
       </div>
       <div className="flex gap-2">
-        <SlotSummary
-          type="male"
+        <SlotVisualize
+          title="male"
+          capacity={schedule.inspectionSlots[0].maleCapacity}
           slots={schedule.inspectionSlots.map((s) => ({
             ...s,
-            maleReservedCount:
+            reservedCount:
               s.maleCapacity - maleSlotTimes.filter((t) => t.isSame(s.startTime)).length * 2,
           }))}
         />
-        <SlotSummary
-          type="female"
+        <SlotVisualize
+          title="female"
+          capacity={schedule.inspectionSlots[0].femaleCapacity}
           slots={schedule.inspectionSlots.map((s) => ({
             ...s,
-            femaleReservedCount:
+            reservedCount:
               s.femaleCapacity - femaleSlotTimes.filter((t) => t.isSame(s.startTime)).length * 2,
           }))}
         />
