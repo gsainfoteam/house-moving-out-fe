@@ -23,6 +23,9 @@ const schema = z.object({
 export const useCreateInspectorForm = () => {
   const { register, handleSubmit, formState, setValue, getValues, control } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: {
+      availableSlotUuids: [],
+    },
   });
   const { mutateAsync: createInspector } = useCreateInspector();
   const { t } = useTranslation('admin');
@@ -50,7 +53,7 @@ export const useCreateInspectorForm = () => {
   const setGender = (gender: Gender) => setValue('gender', gender);
   const gender = useWatch({ control, name: 'gender' });
   const toggleSlot = (uuid: string) => {
-    const value = getValues('availableSlotUuids') ?? [];
+    const value = getValues('availableSlotUuids');
     const contains = value.includes(uuid);
     setValue('availableSlotUuids', contains ? value.filter((v) => v !== uuid) : [...value, uuid]);
   };
