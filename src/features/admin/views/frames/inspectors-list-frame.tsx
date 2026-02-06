@@ -73,23 +73,23 @@ export function InspectorsListFrame() {
       </div>
       <div className="flex gap-2">
         <SlotVisualize
-          inverseMode
           title="male"
-          capacity={schedule.inspectionSlots[0].maleCapacity}
+          capacity={null}
           slots={schedule.inspectionSlots.map((s) => ({
             ...s,
             reservedCount:
-              s.maleCapacity - maleSlotTimes.filter((t) => t.isSame(s.startTime)).length * 2,
+              Math.ceil(s.maleCapacity / 2) -
+              maleSlotTimes.filter((t) => t.isSame(s.startTime)).length,
           }))}
         />
         <SlotVisualize
-          inverseMode
           title="female"
-          capacity={schedule.inspectionSlots[0].femaleCapacity}
+          capacity={null}
           slots={schedule.inspectionSlots.map((s) => ({
             ...s,
             reservedCount:
-              s.femaleCapacity - femaleSlotTimes.filter((t) => t.isSame(s.startTime)).length * 2,
+              Math.ceil(s.femaleCapacity / 2) -
+              femaleSlotTimes.filter((t) => t.isSame(s.startTime)).length,
           }))}
         />
       </div>

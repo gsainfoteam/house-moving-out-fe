@@ -91,14 +91,14 @@ export function CreateInspectorFrame() {
         <label>{t('inspectors.create.slots.label')}</label>
         {gender && (
           <SlotVisualize
-            inverseMode
             onClick={toggleSlot}
             selectedSlots={slots}
             title={gender.toString()}
-            capacity={capacity}
+            capacity={null}
             slots={schedule.inspectionSlots.map((s) => ({
               ...s,
-              reservedCount: capacity - slotTimes.filter((t) => t.isSame(s.startTime)).length * 2,
+              reservedCount:
+                Math.ceil(capacity / 2) - slotTimes.filter((t) => t.isSame(s.startTime)).length * 2,
             }))}
           />
         )}
