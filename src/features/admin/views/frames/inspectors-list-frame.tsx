@@ -7,7 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { Button, Loading } from '@/common/components';
 
 import { Gender } from '../../models';
-import { useGetMoveOutScheduleQuery, useInspectorsOfSchedule } from '../../viewmodels';
+import {
+  useDeleteInspector,
+  useGetMoveOutScheduleQuery,
+  useInspectorsOfSchedule,
+} from '../../viewmodels';
 import { SlotVisualize } from '../components/slot-visualize';
 
 export function InspectorsListFrame() {
@@ -15,6 +19,7 @@ export function InspectorsListFrame() {
   const { data: inspectors, error: inspectorsError } = useInspectorsOfSchedule(uuid);
   const { t } = useTranslation('admin');
   const { data: schedule, error: scheduleError } = useGetMoveOutScheduleQuery(uuid);
+  const { mutateAsync: deleteInspector } = useDeleteInspector();
 
   if (scheduleError || inspectorsError)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
@@ -49,7 +54,14 @@ export function InspectorsListFrame() {
                 <td>{i.availableSlots.map((i) => dayjs(i.startTime)).map((t) => t.format())}</td>
                 <td className="py-1">
                   <div className="flex justify-center">
-                    <Button size="icon" className="bg-red-600">
+                    <Button
+                      size="icon"
+                      className="bg-red-600"
+                      onClick={() =>
+                        // TODO: add confirm modal after HMF-36
+                        deleteInspector({ params: { path: { id: i.uuid } } })
+                      }
+                    >
                       <Trash />
                     </Button>
                   </div>
