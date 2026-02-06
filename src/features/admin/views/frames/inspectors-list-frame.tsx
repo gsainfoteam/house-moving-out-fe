@@ -11,7 +11,7 @@ import { useGetMoveOutScheduleQuery, useInspectorsOfSchedule } from '../../viewm
 import { SlotSummary } from '../components/slot-summary';
 
 export function InspectorsListFrame() {
-  const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors' });
+  const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/' });
   const { data: inspectors, error: inspectorsError } = useInspectorsOfSchedule(uuid);
   const { t } = useTranslation('admin');
   const { data: schedule, error: scheduleError } = useGetMoveOutScheduleQuery(uuid);
@@ -78,7 +78,7 @@ export function InspectorsListFrame() {
         />
       </div>
       <Button asChild>
-        <Link to="/admin/schedules/$uuid/inspectors" params={{ uuid }}>
+        <Link to="/admin/schedules/$uuid/inspectors/new" params={{ uuid }}>
           {t('inspectors.create.action')}
         </Link>
       </Button>

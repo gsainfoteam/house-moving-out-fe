@@ -17,8 +17,7 @@
     },
     "list": "Inspector List"
   },
-  "inspectors.list.actions.delete": "Delete",
-  "inspectors.list.actions.label": "Actions",
+  "inspectors.list.actions.label": "",
   "schedule": {
     "create": {
       "action": "Create",
