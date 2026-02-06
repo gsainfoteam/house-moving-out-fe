@@ -74,6 +74,7 @@ function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs 
       </LayoutCard.Center>
       <LayoutCard.Footer>
         <Button variant="outline" className="w-full">
+          {/* TODO: 버튼 기능 추가 */}
           {t('steps.not_period.button')}
         </Button>
       </LayoutCard.Footer>
@@ -101,6 +102,7 @@ function NotTargetCard() {
       </LayoutCard.Center>
       <LayoutCard.Footer>
         <Button variant="outline" className="w-full">
+          {/* TODO: 버튼 기능 추가 */}
           {t('steps.not_target.button')}
         </Button>
       </LayoutCard.Footer>
@@ -258,6 +260,7 @@ function PassedCard() {
         </LayoutCard.Header>
       </LayoutCard.Center>
       <LayoutCard.Footer>
+        {/* TODO: 버튼 기능 추가 */}
         <Button variant="default" className="w-full">
           {t('steps.passed.button')}
         </Button>
