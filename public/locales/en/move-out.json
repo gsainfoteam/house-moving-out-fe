@@ -22,7 +22,6 @@
     },
     "error": {
       "alreadyExistsOrFull": "You have already applied or the selected time slot is full.",
-      "notFound": "The inspection schedule information could not be found.",
       "notStartedOrEnded": "It is currently not within the inspection application period."
     },
     "title": "Please select the inspection date"
