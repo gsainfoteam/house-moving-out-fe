@@ -137,9 +137,11 @@ export function ApplicationFrame() {
           </Dialog.Header>
           <Dialog.Body>
             <ol className="list-decimal space-y-2 pl-5">
-              {t('application.dialog.notice.items', { returnObjects: true }).map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
+              {Array.from(t('application.dialog.notice.items', { returnObjects: true })).map(
+                (item: string, index: number) => (
+                  <li key={index}>{item}</li>
+                ),
+              )}
             </ol>
           </Dialog.Body>
           <Dialog.Footer>
