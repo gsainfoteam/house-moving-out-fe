@@ -16,7 +16,7 @@ function Inner() {
   if (!isAdmin) return <Navigate to="/" replace />;
 
   return (
-    <div>
+    <div className="flex h-dvh flex-col">
       <header className="flex items-center border-b border-gray-200 p-3">
         <Link to="/admin">
           <HomeIcon />
