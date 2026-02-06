@@ -10,7 +10,10 @@
         "label": "이메일",
         "placeholder": "m@gm.gist.ac.kr"
       },
-      "error": "생성에 실패했습니다",
+      "error": {
+        "create": "생성에 실패했습니다",
+        "formError": "입력 칸을 확인해주세요"
+      },
       "gender": {
         "label": "성별"
       },
@@ -30,10 +33,13 @@
         "label": "생성 요약"
       }
     },
-    "list": "검사위원 목록"
+    "list": {
+      "actions": {
+        "label": "액션"
+      },
+      "title": "검사위원 목록"
+    }
   },
-  "inspectors.create.error.formError": "",
-  "inspectors.list.actions.label": "",
   "schedule": {
     "create": {
       "action": "생성하기",

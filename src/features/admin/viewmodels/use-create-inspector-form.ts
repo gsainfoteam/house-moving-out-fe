@@ -30,7 +30,7 @@ export const useCreateInspectorForm = () => {
       await toast
         .promise(createInspector({ body: { inspectors: [data] } }), {
           success: () => t('inspectors.create.succeed'),
-          error: t('inspectors.create.error'),
+          error: t('inspectors.create.error.create'),
         })
         .unwrap();
 

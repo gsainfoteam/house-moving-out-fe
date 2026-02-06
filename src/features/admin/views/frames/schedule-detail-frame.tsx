@@ -70,7 +70,7 @@ export function ScheduleDetailFrame() {
       </div>
       <Button asChild>
         <Link to="/admin/schedules/$uuid/inspectors" params={{ uuid }}>
-          {t('inspectors.list')}
+          {t('inspectors.list.title')}
         </Link>
       </Button>
     </div>

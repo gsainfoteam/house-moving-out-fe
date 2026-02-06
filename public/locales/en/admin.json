@@ -10,7 +10,10 @@
         "label": "Email",
         "placeholder": "m@gm.gist.ac.kr"
       },
-      "error": "Failed to create inspector",
+      "error": {
+        "create": "Failed to create inspector",
+        "formError": "Please check forms"
+      },
       "gender": {
         "label": "Gender"
       },
@@ -30,10 +33,13 @@
         "label": "Creation Summary"
       }
     },
-    "list": "Inspector List"
+    "list": {
+      "actions": {
+        "label": "Actions"
+      },
+      "title": "Inspector List"
+    }
   },
-  "inspectors.create.error.formError": "",
-  "inspectors.list.actions.label": "",
   "schedule": {
     "create": {
       "action": "Create",
