@@ -285,30 +285,21 @@ export function MainFrame() {
     applicationStartTime,
     isSuccess,
   } = useFindActiveMoveOutScheduleWithSlots({
-    onNotTarget: () => setStatus('not_target'),
-    onNotPeriod: () => setStatus('not_period'),
-    onSuccess: () => setStatus('application'),
+    onNotTarget: useCallback(() => setStatus('not_target'), []),
+    onNotPeriod: useCallback(() => setStatus('not_period'), []),
+    onSuccess: useCallback(() => setStatus('application'), []),
   });
-
-  const setStatusIfSchedulePresent = useCallback(
-    (status: Status) => {
-      if (isSuccess) {
-        setStatus(status);
-      }
-    },
-    [isSuccess],
-  );
 
   const {
     isLoading: isLoadingInspection,
     inspectionStartTime,
     applicationUuid,
   } = useFindMyInspection(isSuccess, {
-    onNotFound: () => setStatusIfSchedulePresent('application'),
-    onFoundWaiting: () => setStatusIfSchedulePresent('waiting'),
-    onFoundInProgress: () => setStatusIfSchedulePresent('in_progress'),
-    onFailed: () => setStatusIfSchedulePresent('failed'),
-    onPassed: () => setStatusIfSchedulePresent('passed'),
+    onNotFound: useCallback(() => setStatus('application'), []),
+    onFoundWaiting: useCallback(() => setStatus('waiting'), []),
+    onFoundInProgress: useCallback(() => setStatus('in_progress'), []),
+    onFailed: useCallback(() => setStatus('failed'), []),
+    onPassed: useCallback(() => setStatus('passed'), []),
   });
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
