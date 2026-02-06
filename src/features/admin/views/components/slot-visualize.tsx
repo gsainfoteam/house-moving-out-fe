@@ -10,10 +10,14 @@ export function SlotVisualize({
   slots,
   title,
   capacity,
+  onClick,
+  selectedSlots = [],
 }: {
-  slots: { startTime: string; reservedCount: number }[];
+  slots: { uuid: string; startTime: string; reservedCount: number }[];
   title: string;
   capacity: number;
+  onClick?: (slotUuid: string) => void;
+  selectedSlots?: string[];
 }) {
   if (slots.length === 0) return null;
 
@@ -50,11 +54,17 @@ export function SlotVisualize({
                 const item = groupedSlot[d]?.find(
                   (s) => dayjs(s.startTime).diff(startOfDay, 'h', true) === START_HOUR + i / 2,
                 );
-                if (!item) return <td key={d} />;
+                if (!item) return <td key={d} className={cn(onClick && 'cursor-not-allowed')} />;
                 return (
                   <td
+                    onClick={() => onClick?.(item.uuid)}
                     key={d}
-                    className={cn('bg-green-200', item.reservedCount >= capacity && 'bg-red-200')}
+                    className={cn(
+                      'bg-green-200',
+                      item.reservedCount >= capacity && 'bg-red-200',
+                      selectedSlots.includes(item.uuid) && 'bg-yellow-300',
+                      onClick && 'cursor-pointer',
+                    )}
                   >
                     {item.reservedCount}
                   </td>

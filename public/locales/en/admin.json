@@ -1,22 +1,38 @@
 {
+  "gender": {
+    "female": "Female",
+    "male": "Male"
+  },
   "inspectors": {
     "create": {
       "action": "Add Inspector",
       "email": {
-        "label": "Email"
+        "label": "Email",
+        "placeholder": "m@gm.gist.ac.kr"
       },
+      "error": "Failed to create inspector",
       "gender": {
         "label": "Gender"
       },
       "name": {
-        "label": "Name"
+        "label": "Name",
+        "placeholder": "김지니"
       },
       "slots": {
         "label": "Inspection Time"
+      },
+      "studentNumber": {
+        "label": "Student Id",
+        "placeholder": "2025xxxx"
+      },
+      "succeed": "Inspector Created",
+      "summary": {
+        "label": "Creation Summary"
       }
     },
     "list": "Inspector List"
   },
+  "inspectors.create.error.formError": "",
   "inspectors.list.actions.label": "",
   "schedule": {
     "create": {

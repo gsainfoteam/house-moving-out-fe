@@ -1,27 +1,39 @@
 {
+  "gender": {
+    "female": "여자",
+    "male": "남자"
+  },
   "inspectors": {
     "create": {
       "action": "검사위원 추가",
       "email": {
-        "label": "이메일"
+        "label": "이메일",
+        "placeholder": "m@gm.gist.ac.kr"
       },
+      "error": "생성에 실패했습니다",
       "gender": {
         "label": "성별"
       },
       "name": {
-        "label": "이름"
+        "label": "이름",
+        "placeholder": "김지니"
       },
       "slots": {
         "label": "검사 시간"
+      },
+      "studentNumber": {
+        "label": "학번",
+        "placeholder": "2025xxxx"
+      },
+      "succeed": "생성에 성공했습니다",
+      "summary": {
+        "label": "생성 요약"
       }
     },
-    "list": {
-      "actions": {
-        "delete": "삭제",
-        "label": "작업"
-      }
-    }
+    "list": "검사위원 목록"
   },
+  "inspectors.create.error.formError": "",
+  "inspectors.list.actions.label": "",
   "schedule": {
     "create": {
       "action": "생성하기",

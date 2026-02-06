@@ -1,17 +1,38 @@
 import { useParams } from '@tanstack/react-router';
 
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Input } from '@/common/components';
+import { Button, Input, Loading } from '@/common/components';
 
 import { Gender } from '../../models';
-import { useCreateInspectorForm, useInspectorsOfSchedule } from '../../viewmodels';
+import {
+  useCreateInspectorForm,
+  useGetMoveOutScheduleQuery,
+  useInspectorsOfSchedule,
+} from '../../viewmodels';
+import { SlotVisualize } from '../components/slot-visualize';
 
 export function CreateInspectorFrame() {
   const { t } = useTranslation('admin');
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/new' });
-  const { register, onSubmit, isSubmitting, setGender, gender, errors } = useCreateInspectorForm();
-  const { data: schedule } = useInspectorsOfSchedule(uuid);
+  const { register, onSubmit, isSubmitting, setGender, gender, errors, toggleSlot, slots } =
+    useCreateInspectorForm();
+  const { data: inspectors, error: inspectorsError } = useInspectorsOfSchedule(uuid);
+  const { data: schedule, error: scheduleError } = useGetMoveOutScheduleQuery(uuid);
+
+  if (scheduleError || inspectorsError)
+    return <div className="p-4">{t('schedule.detail.notFound')}</div>;
+  if (!schedule || !inspectors) return <Loading />;
+
+  const slotTimes = inspectors
+    .filter((i) => i.gender === gender)
+    .flatMap((i) => i.availableSlots.map((s) => dayjs(s.startTime)));
+
+  const capacity =
+    gender === Gender.MALE
+      ? schedule.inspectionSlots[0].maleCapacity
+      : schedule.inspectionSlots[0].femaleCapacity;
 
   return (
     <form className="flex min-h-dvh flex-col gap-4 p-4" onSubmit={onSubmit}>
@@ -67,11 +88,26 @@ export function CreateInspectorFrame() {
         </label>
       </div>
       <div>
-        <div>{t('schedule.create.summary.label')}</div>
+        <label>{t('inspectors.create.slots.label')}</label>
+        {gender && (
+          <SlotVisualize
+            onClick={toggleSlot}
+            selectedSlots={slots}
+            title={gender.toString()}
+            capacity={capacity}
+            slots={schedule.inspectionSlots.map((s) => ({
+              ...s,
+              reservedCount: capacity - slotTimes.filter((t) => t.isSame(s.startTime)).length * 2,
+            }))}
+          />
+        )}
+      </div>
+      <div>
+        <div>{t('inspectors.create.summary.label')}</div>
         <ul className="list-disc pl-4"></ul>
       </div>
       <Button disabled={isSubmitting} className="mt-auto">
-        {t('schedule.create.action')}
+        {t('inspectors.create.action')}
       </Button>
     </form>
   );
