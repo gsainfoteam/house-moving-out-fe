@@ -135,5 +135,6 @@ export const useCreateScheduleForm = () => {
     yearSemester,
     isSubmitting: formState.isSubmitting,
     inspectionTimeRange,
+    errors: formState.errors,
   };
 };
