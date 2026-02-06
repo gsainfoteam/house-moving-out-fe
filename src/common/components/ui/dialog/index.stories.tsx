@@ -203,6 +203,8 @@ function OverlayStackDemo() {
 }
 
 function ScrollDemo() {
+  const { t } = useTranslation('user');
+
   return (
     <div className="flex items-center justify-center">
       <Dialog.Root closeOnBackdrop>
@@ -217,16 +219,11 @@ function ScrollDemo() {
             </Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
-            {Array.from({ length: 10 }).map((_, index) => (
-              <p key={index} className="mb-4 leading-normal">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
-            ))}
+            <ol className="list-decimal space-y-2 pl-5">
+              {t('application.dialog.notice.items', { returnObjects: true }).map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ol>
           </Dialog.Body>
           <Dialog.Footer>
             <Dialog.Close asChild>
