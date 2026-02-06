@@ -60,6 +60,9 @@ export function TargetListFrame() {
             <th>{t('target.detail.name')}</th>
             <th>{t('target.detail.admissionYear')}</th>
             <th>{t('target.detail.name')}</th>
+            <th>{t('target.detail.type')}</th>
+            <th>{t('target.detail.lastInspection')}</th>
+            <th>{t('target.detail.inspectionCount')}</th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +89,13 @@ export function TargetListFrame() {
                   {ts[2]?.admissionYear}
                 </td>
                 <td>{ts[2]?.studentName}</td>
+                <td>
+                  {(threeRooms.includes(roomNumber) ? ts.length === 3 : ts.length === 2)
+                    ? t('type.all')
+                    : t('type.individual')}
+                </td>
+                <td>-</td>
+                <td>0</td>
               </tr>
             ),
           )}

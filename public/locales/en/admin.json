@@ -57,12 +57,19 @@
   "target": {
     "detail": {
       "admissionYear": "Admission Year",
+      "inspectionCount": "# of Inspection",
+      "lastInspection": "Last Inspection",
       "name": "Name",
-      "roomNumber": "Room #"
+      "roomNumber": "Room #",
+      "type": "Inspection Type"
     },
     "error": {
       "load": "Load Error"
     },
     "list": "Target Room List"
+  },
+  "type": {
+    "all": "All Inspection",
+    "individual": "Individual Inspection"
   }
 }
