@@ -1,6 +1,6 @@
 import { Link, Outlet } from '@tanstack/react-router';
 
-import { Clipboard, House, LayoutDashboard, Pencil } from 'lucide-react';
+import { Clipboard, LayoutDashboard, Pencil, Target } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ScheduleLayoutFrame() {
@@ -17,7 +17,7 @@ export function ScheduleLayoutFrame() {
           from="/admin/schedules/$uuid"
           className="flex gap-2"
         >
-          <House />
+          <Target />
           {t('target.list')}
         </Link>
         <Link
