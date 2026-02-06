@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import dayjs from 'dayjs';
 import { groupBy } from 'es-toolkit/array';
 
@@ -17,9 +19,17 @@ export function SlotVisualize({
   title: string;
   /** null to visualize for inspectors */
   capacity: number | null;
-  onClick?: (slotUuid: string) => void;
+  onClick?: (slotUuid: string, enable: boolean) => void;
   selectedSlots?: string[];
 }) {
+  const pressing = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    const up = () => (pressing.current = null);
+    document.addEventListener('mouseup', up);
+    return () => document.removeEventListener('mouseup', up);
+  }, []);
+
   if (slots.length === 0) return null;
 
   const groupedSlot = groupBy(slots, (s) => ((dayjs(s.startTime).day() + 6) % 7) + 1);
@@ -30,6 +40,7 @@ export function SlotVisualize({
       className={cn(
         '[&_td]:border [&_td]:px-2 [&_td]:text-center',
         '[&_th]:border [&_th]:px-2 [&_th]:text-center',
+        'select-none',
       )}
     >
       <thead>
@@ -58,7 +69,13 @@ export function SlotVisualize({
                 if (!item) return <td key={d} className={cn(onClick && 'cursor-not-allowed')} />;
                 return (
                   <td
-                    onClick={() => onClick?.(item.uuid)}
+                    onMouseDown={() => (pressing.current = !selectedSlots.includes(item.uuid))}
+                    onMouseMove={() => {
+                      const mode = pressing.current;
+                      if (mode === null) return;
+                      return onClick?.(item.uuid, mode);
+                    }}
+                    onClick={() => onClick?.(item.uuid, !selectedSlots.includes(item.uuid))}
                     key={d}
                     className={cn(
                       'bg-green-200',

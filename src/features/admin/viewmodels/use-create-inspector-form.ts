@@ -52,10 +52,9 @@ export const useCreateInspectorForm = () => {
 
   const setGender = (gender: Gender) => setValue('gender', gender);
   const gender = useWatch({ control, name: 'gender' });
-  const toggleSlot = (uuid: string) => {
+  const toggleSlot = (uuid: string, enable: boolean) => {
     const value = getValues('availableSlotUuids');
-    const contains = value.includes(uuid);
-    setValue('availableSlotUuids', contains ? value.filter((v) => v !== uuid) : [...value, uuid]);
+    setValue('availableSlotUuids', enable ? [...value, uuid] : value.filter((v) => v !== uuid));
   };
   const slots = useWatch({ control, name: 'availableSlotUuids' });
 
