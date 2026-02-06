@@ -13,6 +13,7 @@ import {
   useInspectorsOfSchedule,
 } from '../../viewmodels';
 import { SlotVisualize } from '../components/slot-visualize';
+import { getTimeRange } from '../utils/get-time-range';
 
 export function InspectorsListFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/' });
@@ -53,7 +54,16 @@ export function InspectorsListFrame() {
                 <td>{i.email}</td>
                 <td>{i.studentNumber}</td>
                 <td>{i.gender}</td>
-                <td>{i.availableSlots.map((i) => dayjs(i.startTime)).map((t) => t.format())}</td>
+                <td className="whitespace-pre-wrap">
+                  {getTimeRange(
+                    i.availableSlots.map((i) => ({
+                      start: dayjs(i.startTime),
+                      end: dayjs(i.endTime),
+                    })),
+                  )
+                    .map((r) => `${r.start.format('ddd hh:mm')}~${r.end.format('ddd hh:mm')}`)
+                    .join('\n')}
+                </td>
                 <td className="py-1">
                   <div className="flex justify-center">
                     <Button

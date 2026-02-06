@@ -12,6 +12,7 @@ import {
   useInspectorsOfSchedule,
 } from '../../viewmodels';
 import { SlotVisualize } from '../components/slot-visualize';
+import { getTimeRange } from '../utils/get-time-range';
 
 export function CreateInspectorFrame() {
   const { t } = useTranslation('admin');
@@ -105,7 +106,21 @@ export function CreateInspectorFrame() {
       </div>
       <div>
         <div>{t('inspectors.create.summary.label')}</div>
-        <ul className="list-disc pl-4"></ul>
+        <ul className="list-disc pl-4">
+          <li>
+            {t('inspectors.create.slots.label')}:{' '}
+            {getTimeRange(
+              schedule.inspectionSlots
+                .filter((i) => slots.includes(i.uuid))
+                .map((i) => ({
+                  start: dayjs(i.startTime),
+                  end: dayjs(i.endTime),
+                })),
+            )
+              .map((r) => `${r.start.format('ddd hh:mm')}~${r.end.format('ddd hh:mm')}`)
+              .join(', ')}
+          </li>
+        </ul>
       </div>
       <Button disabled={isSubmitting} className="mt-auto">
         {t('inspectors.create.action')}
