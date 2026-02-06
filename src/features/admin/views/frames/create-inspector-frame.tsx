@@ -93,7 +93,7 @@ export function CreateInspectorFrame() {
           <SlotVisualize
             onClick={toggleSlot}
             selectedSlots={slots}
-            title={t(`gender.${gender.toLowerCase() as Lowercase<Gender>}`)}
+            title={t(`gender.${gender.toLowerCase()}`)}
             capacity={null}
             slots={schedule.inspectionSlots.map((s) => ({
               ...s,
