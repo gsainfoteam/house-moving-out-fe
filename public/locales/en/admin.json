@@ -55,6 +55,14 @@
     "main": "Dashboard"
   },
   "target": {
+    "detail": {
+      "admissionYear": "Admission Year",
+      "name": "Name",
+      "roomNumber": "Room #"
+    },
+    "error": {
+      "load": "Load Error"
+    },
     "list": "Target Room List"
   }
 }

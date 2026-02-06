@@ -54,6 +54,14 @@
     "main": "대시보드"
   },
   "target": {
+    "detail": {
+      "admissionYear": "학번",
+      "name": "이름",
+      "roomNumber": "호실 번호"
+    },
+    "error": {
+      "load": "불러올 수 없습니다"
+    },
     "list": "검사 대상자 목록"
   }
 }
