@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Loading } from '@/common/components';
 
 import { useGetMoveOutScheduleQuery } from '../../viewmodels';
-import { SlotVisualize } from '../components/slot-visualize';
+import { SlotVisualize } from '../components';
 
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/' });

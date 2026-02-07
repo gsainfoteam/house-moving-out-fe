@@ -12,7 +12,7 @@ import {
   useGetMoveOutScheduleQuery,
   useInspectorsOfSchedule,
 } from '../../viewmodels';
-import { SlotVisualize } from '../components/slot-visualize';
+import { SlotVisualize } from '../components';
 import { getTimeRange } from '../utils/get-time-range';
 
 export function InspectorsListFrame() {
