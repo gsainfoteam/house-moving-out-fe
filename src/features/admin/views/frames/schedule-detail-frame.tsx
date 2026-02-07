@@ -10,10 +10,10 @@ import { SlotVisualize } from '../components';
 
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/' });
-  const { data: schedule, error } = useGetMoveOutScheduleQuery(uuid);
+  const { data: schedule, isNotFound } = useGetMoveOutScheduleQuery(uuid);
   const { t } = useTranslation('admin');
 
-  if (error) return <div className="p-4">{t('schedule.detail.notFound')}</div>;
+  if (isNotFound) return <div className="p-4">{t('schedule.detail.notFound')}</div>;
   if (!schedule) return <Loading />;
 
   const maleCapacity = schedule.inspectionSlots[0].maleCapacity;

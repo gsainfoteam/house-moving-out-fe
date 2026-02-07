@@ -17,12 +17,12 @@ import { getTimeRange } from '../utils/get-time-range';
 
 export function InspectorsListFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/' });
-  const { data: inspectors, error: inspectorsError } = useInspectorsOfSchedule(uuid);
+  const { data: inspectors, isNotFound: isInspectorsNotFound } = useInspectorsOfSchedule(uuid);
   const { t } = useTranslation('admin');
-  const { data: schedule, error: scheduleError } = useGetMoveOutScheduleQuery(uuid);
+  const { data: schedule, isNotFound: isScheduleNotFound } = useGetMoveOutScheduleQuery(uuid);
   const { mutate: deleteInspector } = useDeleteInspector();
 
-  if (scheduleError || inspectorsError)
+  if (isScheduleNotFound || isInspectorsNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
   if (!schedule || !inspectors) return <Loading />;
 

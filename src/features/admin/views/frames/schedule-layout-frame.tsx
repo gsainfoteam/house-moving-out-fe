@@ -47,7 +47,7 @@ export function ScheduleLayoutFrame() {
         <LinkButton to="." icon={<LayoutDashboard />} text={t('schedule.main')} />
         <LinkButton to="./targets" icon={<Target />} text={t('target.list')} />
         <LinkButton to="./applications" icon={<Pencil />} text={t('application.list')} />
-        <LinkButton to="./inspectors" icon={<Clipboard />} text={t('inspectors.list')} />
+        <LinkButton to="./inspectors" icon={<Clipboard />} text={t('inspectors.list.title')} />
       </aside>
       <Outlet />
     </div>

@@ -19,11 +19,11 @@ export function CreateInspectorFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/new' });
   const { register, onSubmit, isSubmitting, setGender, gender, errors, toggleSlot, slots } =
     useCreateInspectorForm();
-  const { data: inspectors, error: inspectorsError } = useInspectorsOfSchedule(uuid);
-  const { data: schedule, error: scheduleError } = useGetMoveOutScheduleQuery(uuid);
+  const { data: inspectors, isNotFound: isInspectorsNotFound } = useInspectorsOfSchedule(uuid);
+  const { data: schedule, isNotFound: isScheduleNotFound } = useGetMoveOutScheduleQuery(uuid);
 
-  if (scheduleError || inspectorsError)
-    return <div className="p-4">{t('schedule.detail.notFound')}</div>;
+  if (isScheduleNotFound || isInspectorsNotFound)
+    return <div className="p-4">{t('inspectors.error.notFound')}</div>;
   if (!schedule || !inspectors) return <Loading />;
 
   const slotTimes = inspectors
