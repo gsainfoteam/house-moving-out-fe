@@ -1,9 +1,9 @@
-import { Link, useParams } from '@tanstack/react-router';
+import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Loading } from '@/common/components';
+import { Loading } from '@/common/components';
 
 import { useGetMoveOutScheduleQuery } from '../../viewmodels';
 import { SlotVisualize } from '../components';
@@ -68,11 +68,6 @@ export function ScheduleDetailFrame() {
           capacity={schedule.inspectionSlots[0].maleCapacity}
         />
       </div>
-      <Button asChild>
-        <Link to="/admin/schedules/$uuid/inspectors" params={{ uuid }}>
-          {t('inspectors.list.title')}
-        </Link>
-      </Button>
     </div>
   );
 }

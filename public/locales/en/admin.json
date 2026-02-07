@@ -1,4 +1,7 @@
 {
+  "application": {
+    "list": "Inspection Application List"
+  },
   "gender": {
     "female": "Female",
     "male": "Male"
@@ -102,6 +105,10 @@
       }
     },
     "empty": "There are no moving out schedules",
-    "list": "Schedule List"
+    "list": "Schedule List",
+    "main": "Dashboard"
+  },
+  "target": {
+    "list": "Target Room List"
   }
 }

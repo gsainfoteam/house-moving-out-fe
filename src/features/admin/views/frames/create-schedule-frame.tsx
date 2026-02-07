@@ -11,7 +11,7 @@ export function CreateScheduleFrame() {
     useCreateScheduleForm();
 
   return (
-    <form className="flex min-h-dvh flex-col gap-4 p-4" onSubmit={onSubmit}>
+    <form className="flex flex-1 flex-col gap-4 p-4" onSubmit={onSubmit}>
       <div>
         <label>
           {t('schedule.create.title.label')}:

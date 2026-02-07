@@ -14,7 +14,7 @@ export function ScheduleListFrame() {
   if (!schedules) return <Loading />;
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <main className="flex flex-1 flex-col gap-4 p-4">
       {schedules.length > 0 ? (
         schedules.map((schedule) => (
           <Link key={schedule.uuid} to="/admin/schedules/$uuid" params={{ uuid: schedule.uuid }}>
@@ -24,9 +24,9 @@ export function ScheduleListFrame() {
       ) : (
         <div>{t('schedule.empty')}</div>
       )}
-      <Button asChild>
+      <Button asChild className="mt-auto">
         <Link to="/admin/schedules/new">{t('schedule.create.action')}</Link>
       </Button>
-    </div>
+    </main>
   );
 }
