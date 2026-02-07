@@ -1,4 +1,7 @@
 {
+  "application": {
+    "list": "Inspection Application List"
+  },
   "inspectors": {
     "list": "Inspector List"
   },
@@ -48,6 +51,10 @@
       "status": "Status"
     },
     "empty": "There are no moving out schedules",
-    "list": "Schedule List"
+    "list": "Schedule List",
+    "main": "Dashboard"
+  },
+  "target": {
+    "list": "Target Room List"
   }
 }
