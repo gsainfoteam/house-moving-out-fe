@@ -145,15 +145,16 @@ export function ApplicationFrame() {
             </ol>
           </Dialog.Body>
           <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button
-                variant="default"
-                onClick={() => onSubmit()} // prevent default를 끔
-                disabled={formState.isSubmitting}
-              >
-                {t('application.dialog.notice.button')}
-              </Button>
-            </Dialog.Close>
+            <Button
+              variant="default"
+              onClick={async () => {
+                await onSubmit();
+                setNoticeDialogOpen(false);
+              }}
+              disabled={formState.isSubmitting}
+            >
+              {t('application.dialog.notice.button')}
+            </Button>
           </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Root>
