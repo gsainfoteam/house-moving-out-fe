@@ -147,10 +147,7 @@ export function ApplicationFrame() {
           <Dialog.Footer>
             <Button
               variant="default"
-              onClick={async () => {
-                await onSubmit();
-                setNoticeDialogOpen(false);
-              }}
+              onClick={() => onSubmit().then(() => setNoticeDialogOpen(false))}
               disabled={formState.isSubmitting}
             >
               {t('application.dialog.notice.button')}

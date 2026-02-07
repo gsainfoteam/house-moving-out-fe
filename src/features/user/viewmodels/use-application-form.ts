@@ -94,7 +94,7 @@ export const useApplicationForm = ({
         })
       : applyInspection({ body: { inspectionSlotUuid } });
 
-    request.then(() => navigate({ to: '/' })).catch(() => {});
+    return request.then(() => navigate({ to: '/' })).catch(() => {});
   });
 
   return {
