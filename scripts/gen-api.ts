@@ -39,7 +39,7 @@ async function generateApiSchema() {
     for (const path in swaggerJson.paths) {
       for (const method in swaggerJson.paths[path]) {
         for (const response in swaggerJson.paths[path][method].responses) {
-          if (Number.parseInt(response) >= 400) continue;
+          if (Number.parseInt(response) < 400) continue;
           const content = swaggerJson.paths[path][method].responses[response].content;
           if (content) continue;
           swaggerJson.paths[path][method].responses[response].content = {
