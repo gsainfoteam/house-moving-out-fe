@@ -18,20 +18,20 @@
         "button": "OK",
         "description": "Scroll down to review all important notices.",
         "title": "Please check the precautions",
-        "items": [
-          "If you are not in your room on your registered time, the checking will be cancelled.",
-          "Make sure to prepare before your examination time.",
-          "Make sure to take out all of your loads before the moving-out checking.",
-          "Make sure to clean all the trash and take it to the 1st floor spaces for putting garbage.",
-          "You should do re-checking until it's literally passed.",
-          "However you are unable to apply room-checking process due to the personal reasons or not, it is samely treated as not passing the checking process.",
-          "There will be penalty points if you couldn't pass the checking process.",
-          "There will be additional penalty for bad cleaning room states(Just for the students that could not passed for the checking).",
-          "You can apply for the re-checking through this site again!",
-          "The moving-out inspection is only available three times in total, and if you do not pass the moving-out inspection for three times, the moving-out inspection will be non-fulfillment.",
-          "You can change your inspection schedule at least 1 hour before of the inspection time, and cancellations made within 1 hour of the inspection time will be treated as a no-show.",
-          "If a problem arises, penalty points will be assessed according to the \"University Dormitory Rules.\" The \"University Dormitory Rules\" can be found on the GIST Portal - Manual/Regulations - Academic Support Team - University Dormitory Rules.."
-        ]
+        "items": {
+          "0": "If you are not in your room on your registered time, the checking will be cancelled.",
+          "1": "Make sure to prepare before your examination time.",
+          "2": "Make sure to take out all of your loads before the moving-out checking.",
+          "3": "Make sure to clean all the trash and take it to the 1st floor spaces for putting garbage.",
+          "4": "You should do re-checking until it's literally passed.",
+          "5": "However you are unable to apply room-checking process due to the personal reasons or not, it is samely treated as not passing the checking process.",
+          "6": "There will be penalty points if you couldn't pass the checking process.",
+          "7": "There will be additional penalty for bad cleaning room states(Just for the students that could not passed for the checking).",
+          "8": "You can apply for the re-checking through this site again!",
+          "9": "The moving-out inspection is only available three times in total, and if you do not pass the moving-out inspection for three times, the moving-out inspection will be non-fulfillment.",
+          "10": "You can change your inspection schedule at least 1 hour before of the inspection time, and cancellations made within 1 hour of the inspection time will be treated as a no-show.",
+          "11": "If a problem arises, penalty points will be assessed according to the \"University Dormitory Rules.\" The \"University Dormitory Rules\" can be found on the GIST Portal - Manual/Regulations - Academic Support Team - University Dormitory Rules.."
+        }
       },
       "success": {
         "button": "Confirm",
