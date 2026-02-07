@@ -25,7 +25,7 @@ export const useLogin = ({ showToast = false }: { showToast?: boolean } = {}) =>
         if (showToast) {
           toast.error(t('error.invalidIdpToken'));
         }
-      } else if (error?.statusCode === 403) {
+      } else if (error?.statusCode === 403 && 'requiredConsents' in error) {
         useAuthPrompt.getState().setRequiredConsents(error.requiredConsents);
         navigate({ to: '/auth/consent' });
       } else {
