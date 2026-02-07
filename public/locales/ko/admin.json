@@ -36,6 +36,9 @@
         "label": "생성 요약"
       }
     },
+    "error": {
+      "notFound": "존재하지 않는 검사위원 입니다"
+    },
     "list": {
       "actions": {
         "label": "액션"

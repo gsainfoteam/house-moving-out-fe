@@ -36,6 +36,9 @@
         "label": "Creation Summary"
       }
     },
+    "error": {
+      "notFound": "Inspector not found"
+    },
     "list": {
       "actions": {
         "label": "Actions"
