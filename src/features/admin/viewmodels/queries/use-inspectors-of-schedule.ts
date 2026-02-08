@@ -23,7 +23,9 @@ export const useInspectorsOfSchedule = (scheduleUuid: string) => {
 
   useEffect(() => {
     if (!isError) return;
-    if (error.statusCode === 401) {
+    if (error.statusCode === 400) {
+      toast.error(t('error.badRequest', { ns: 'common' }));
+    } else if (error.statusCode === 401) {
       toast.error(t('error.unauthorized', { ns: 'common' }));
     } else if (error?.statusCode === 404) {
       // view에서 처리
