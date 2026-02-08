@@ -61,11 +61,7 @@
         "formError": "Please check input forms"
       },
       "excel": {
-        "count_one": "{{count}} inspection target detected.",
-        "count_other": "{{count}} inspection targets detected.",
-        "error": "Failed to upload excel",
-        "label": "Room Assignments Excel File",
-        "uploading": "Uploading Excel file. Don't close window..."
+        "label": "Room Assignments Excel File"
       },
       "inspectionStartWeek": {
         "label": "Inspection Starting Week"
