@@ -1,3 +1,5 @@
+import { Children, isValidElement, type ReactElement, type ReactNode } from 'react';
+
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -21,8 +23,12 @@ function StepLine({ status }: { status: Steps.LineStatus }) {
   return <div className={Steps.lineStyles({ status })} />;
 }
 
-export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
-  const { t } = useTranslation('main');
+export function Steps({ activeStepIndex, className, children }: Steps.Props) {
+  const { t } = useTranslation('user');
+
+  const items = Children.toArray(children).filter((child): child is ReactElement<Steps.ItemProps> =>
+    isValidElement(child),
+  );
 
   const getStepStatus = (index: number): Steps.StepStatus => {
     if (index < activeStepIndex) return 'completed';
@@ -38,9 +44,10 @@ export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
 
   return (
     <div className={cn('flex flex-col', className)}>
-      {steps.map((step, index) => {
+      {items.map((item, index) => {
+        const step = item.props;
         const status = getStepStatus(index);
-        const isLast = index === steps.length - 1;
+        const isLast = index === items.length - 1;
 
         return (
           <div key={index} className={cn('flex min-h-30 gap-4', isLast && 'min-h-0')}>
@@ -71,17 +78,28 @@ export function Steps({ steps, activeStepIndex, className }: Steps.Props) {
   );
 }
 
+function StepsItem(_props: Steps.ItemProps) {
+  return null;
+}
+
 export namespace Steps {
+  export type ItemProps = {
+    title: ReactNode;
+    description?: ReactNode;
+  };
+
   export type Step = {
     title: string;
     description?: string;
   };
 
   export type Props = {
-    steps: Step[];
     activeStepIndex: number;
     className?: string;
+    children: ReactNode;
   };
+
+  export const Item = StepsItem;
 
   export const indicatorStyles = cv({
     base: ['flex size-10 items-center justify-center rounded-full'],

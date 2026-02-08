@@ -1,6 +1,6 @@
 import { I18nextProvider, useTranslation } from 'react-i18next';
 
-import i18n from '@/common/lib/i18n';
+import { i18n } from '@/common/lib';
 
 import { LanguageToggle } from '.';
 

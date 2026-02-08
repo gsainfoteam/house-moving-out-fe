@@ -10,7 +10,10 @@
     "logout": "로그아웃"
   },
   "header": {
-    "subtitle": "학번: {{studentId}} | 호실: {{room}}",
+    "subtitle": {
+      "noRoom": "학번: {{studentId}}",
+      "room": "학번: {{studentId}} | 호실: {{room}}"
+    },
     "title": "{{name}}님의 퇴사 검사 현황"
   },
   "inquiryDrawer": {

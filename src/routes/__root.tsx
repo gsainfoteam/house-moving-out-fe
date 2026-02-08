@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 
-import { Loading } from '@/common/components/loading';
+import { Loading } from '@/common/components';
 
 export const Route = createRootRoute({
   component: () => (

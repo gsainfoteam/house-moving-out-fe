@@ -1,0 +1,119 @@
+{
+  "application": {
+    "button": {
+      "cancel": "Cancel",
+      "next": "Next"
+    },
+    "description": "Selecting the date and time will confirm your exit inspection schedule.",
+    "dialog": {
+      "full": {
+        "button": "Close",
+        "title": "This time slot is closed."
+      },
+      "modifyCooldown": {
+        "button": "Confirm",
+        "title": "Inspection time under 1 hour, modifications unavailable"
+      },
+      "notice": {
+        "button": "OK",
+        "description": "Scroll down to review all important notices.",
+        "title": "Please check the precautions",
+        "items": {
+          "0": "If you are not in your room on your registered time, the checking will be cancelled.",
+          "1": "Make sure to prepare before your examination time.",
+          "2": "Make sure to take out all of your loads before the moving-out checking.",
+          "3": "Make sure to clean all the trash and take it to the 1st floor spaces for putting garbage.",
+          "4": "You should do re-checking until it's literally passed.",
+          "5": "However you are unable to apply room-checking process due to the personal reasons or not, it is samely treated as not passing the checking process.",
+          "6": "There will be penalty points if you couldn't pass the checking process.",
+          "7": "There will be additional penalty for bad cleaning room states(Just for the students that could not passed for the checking).",
+          "8": "You can apply for the re-checking through this site again!",
+          "9": "The moving-out inspection is only available three times in total, and if you do not pass the moving-out inspection for three times, the moving-out inspection will be non-fulfillment.",
+          "10": "You can change your inspection schedule at least 1 hour before of the inspection time, and cancellations made within 1 hour of the inspection time will be treated as a no-show.",
+          "11": "If a problem arises, penalty points will be assessed according to the \"University Dormitory Rules.\" The \"University Dormitory Rules\" can be found on the GIST Portal - Manual/Regulations - Academic Support Team - University Dormitory Rules.."
+        }
+      },
+      "success": {
+        "button": "Confirm",
+        "title": "Application complete"
+      },
+      "update": {
+        "button": "Confirm",
+        "title": "Modification complete"
+      }
+    },
+    "error": {
+      "alreadyExistsOrFull": "You have already applied or the selected time slot is full.",
+      "invalidUuid": "Invalid application UUID.",
+      "notFound": "The inspection schedule information could not be found.",
+      "notStartedOrEnded": "It is currently not within the inspection application period.",
+      "ownerCanCancel": "Only the applicant can cancel the inspection schedule."
+    },
+    "title": "Please select the inspection date"
+  },
+  "steps": {
+    "application": {
+      "button": "Apply Inspection",
+      "description": "Please apply for the inspection using the button below.",
+      "title": "Apply"
+    },
+    "failed": {
+      "accordionTitle": "Check Reasons for Failure",
+      "button": "Apply for Re-examination",
+      "description": "Please check the reasons below and apply again.",
+      "reasons": {
+        "bathroom": "Insufficient bathroom cleaning",
+        "deskDrawer": "Insufficient desk drawer organization"
+      },
+      "retry": {
+        "cancel": "Cancel",
+        "description": "You have {{remainCount}} re-examinations remaining.",
+        "submit": "Request",
+        "title": "Request re-examination?"
+      },
+      "title": "Re-inspection Required"
+    },
+    "in_progress": {
+      "button": "Waiting for Results",
+      "description": "The RA is currently inspecting your room. Please check the results in a moment.",
+      "title": "Inspecting"
+    },
+    "label": "Step {{number}}",
+    "not_period": {
+      "button": "Preview Inspection Criteria",
+      "description": "The next inspection application starts from {{startTime}}.",
+      "title": "It is not the moving out inspection period."
+    },
+    "not_target": {
+      "button": "Preview Inspection Criteria",
+      "description": "If you have any questions, please click the \"Contact Us\" button below.",
+      "title": "You are not eligible to apply for a move-out inspection."
+    },
+    "passed": {
+      "button": "Go Home",
+      "description": "All procedures have been completed. Thank you for your cooperation.",
+      "title": "Moving Out Inspection Passed"
+    },
+    "results": {
+      "title": "Results"
+    },
+    "waiting": {
+      "cancel": {
+        "button": {
+          "cancel": "Back",
+          "submit": "Cancel"
+        },
+        "description": "If you cancel within 1 hour of the inspection start time, it will be recorded as a no-show and one inspection attempt will be deducted.",
+        "title": "Do you want to cancel the inspection?"
+      },
+      "cancel_button": "Cancel inspection",
+      "cancelled": {
+        "button": "Confirm",
+        "title": "Inspection Cancelled"
+      },
+      "change_button": "Change Inspection Schedule",
+      "description": "Scheduled for {{inspectionDate}}.",
+      "title": "Waiting"
+    }
+  }
+}

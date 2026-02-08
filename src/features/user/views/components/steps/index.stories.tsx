@@ -40,9 +40,15 @@ type Story = StoryObj<typeof Steps>;
 
 export const Playground: Story = {
   args: {
-    steps: mockSteps,
     activeStepIndex: 0,
   },
+  render: (args) => (
+    <Steps activeStepIndex={args.activeStepIndex}>
+      {mockSteps.map((step, index) => (
+        <Steps.Item key={index} title={step.title} description={step.description} />
+      ))}
+    </Steps>
+  ),
 };
 
 export const AllStates: Story = {
@@ -50,19 +56,35 @@ export const AllStates: Story = {
     <div className="flex flex-col gap-12">
       <div>
         <h3 className="text-h2 mb-4 font-bold">Step 1 Active</h3>
-        <Steps steps={mockSteps} activeStepIndex={0} />
+        <Steps activeStepIndex={0}>
+          {mockSteps.map((step, index) => (
+            <Steps.Item key={index} title={step.title} description={step.description} />
+          ))}
+        </Steps>
       </div>
       <div>
         <h3 className="text-h2 mb-4 font-bold">Step 2 Active</h3>
-        <Steps steps={mockSteps} activeStepIndex={1} />
+        <Steps activeStepIndex={1}>
+          {mockSteps.map((step, index) => (
+            <Steps.Item key={index} title={step.title} description={step.description} />
+          ))}
+        </Steps>
       </div>
       <div>
         <h3 className="text-h2 mb-4 font-bold">Step 3 Active</h3>
-        <Steps steps={mockSteps} activeStepIndex={2} />
+        <Steps activeStepIndex={2}>
+          {mockSteps.map((step, index) => (
+            <Steps.Item key={index} title={step.title} description={step.description} />
+          ))}
+        </Steps>
       </div>
       <div>
         <h3 className="text-h2 mb-4 font-bold">Step 4 Active</h3>
-        <Steps steps={mockSteps} activeStepIndex={3} />
+        <Steps activeStepIndex={3}>
+          {mockSteps.map((step, index) => (
+            <Steps.Item key={index} title={step.title} description={step.description} />
+          ))}
+        </Steps>
       </div>
     </div>
   ),

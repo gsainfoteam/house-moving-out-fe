@@ -1,4 +1,11 @@
-import { OverlayProvider } from '@/common/lib';
+import { useState } from 'react';
+
+import { I18nextProvider, useTranslation } from 'react-i18next';
+
+import ModalBang from '@/assets/modal-bang.svg?react';
+import ModalCheck from '@/assets/modal-check.svg?react';
+import ModalX from '@/assets/modal-x.svg?react';
+import { i18n, OverlayProvider } from '@/common/lib';
 
 import { Button } from '../button';
 
@@ -44,9 +51,11 @@ const meta: Meta<OptionsArgs> = {
   },
   decorators: [
     (Story) => (
-      <OverlayProvider>
-        <Story />
-      </OverlayProvider>
+      <I18nextProvider i18n={i18n}>
+        <OverlayProvider>
+          <Story />
+        </OverlayProvider>
+      </I18nextProvider>
     ),
   ],
 };
@@ -193,6 +202,8 @@ function OverlayStackDemo() {
 }
 
 function ScrollDemo() {
+  const { t } = useTranslation('user');
+
   return (
     <div className="flex items-center justify-center">
       <Dialog.Root closeOnBackdrop>
@@ -205,6 +216,202 @@ function ScrollDemo() {
             <Dialog.Description>
               길어지는 내용이 있을 때 내부 스크롤을 확인해 주세요.
             </Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Body>
+            <ol className="list-decimal space-y-2 pl-5">
+              {Object.values(t('application.dialog.notice.items', { returnObjects: true })).map(
+                (item: string, index: number) => (
+                  <li key={index}>{item}</li>
+                ),
+              )}
+            </ol>
+          </Dialog.Body>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button>닫기</Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+    </div>
+  );
+}
+
+export const InspectionCancellation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '퇴사 검사 취소 다이얼로그 (nested dialog 패턴)를 확인하는 스토리입니다. 취소하기 버튼을 누르면 취소 완료 다이얼로그가 나타납니다.',
+      },
+    },
+  },
+  render: () => <InspectionCancellationDemo />,
+};
+
+export const ApplicationDialogs: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '퇴사 검사 신청/수정 관련 다이얼로그들 (성공/마감/쿨다운/수정완료)을 확인하는 스토리입니다.',
+      },
+    },
+  },
+  render: () => <ApplicationDialogsDemo />,
+};
+
+function InspectionCancellationDemo() {
+  const { t } = useTranslation('user');
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isResultOpen, setIsResultOpen] = useState(false);
+
+  return (
+    <div className="flex items-center justify-center gap-4">
+      {/* 확인 다이얼로그 */}
+      <Dialog.Root isOpen={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
+        <Dialog.Trigger asChild>
+          <Button variant="failed-outline">일반 취소 (Controlled)</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalBang className="mb-3" />
+            <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
+            <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button
+                variant="failed-outline"
+                className="w-full"
+                onClick={() => setIsConfirmOpen(false)}
+              >
+                {t('steps.waiting.cancel.button.cancel')}
+              </Button>
+            </Dialog.Close>
+            <Button
+              variant="failed"
+              className="w-full"
+              onClick={() => {
+                setIsConfirmOpen(false);
+                setIsResultOpen(true);
+              }}
+            >
+              {t('steps.waiting.cancel.button.submit')}
+            </Button>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      {/* 취소 완료 다이얼로그 */}
+      <Dialog.Root isOpen={isResultOpen} onOpenChange={setIsResultOpen}>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalBang className="mb-3" />
+            <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full" onClick={() => setIsResultOpen(false)}>
+                {t('steps.waiting.cancelled.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+    </div>
+  );
+}
+
+function ApplicationDialogsDemo() {
+  const { t } = useTranslation('user');
+
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-4">
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button>신청 완료</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalCheck className="mb-3" />
+            <Dialog.Title>{t('application.dialog.success.title')}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="default" className="w-full">
+                {t('application.dialog.success.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button variant="failed">시간대 마감</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalX className="mb-3" />
+            <Dialog.Title>{t('application.dialog.full.title')}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full">
+                {t('application.dialog.full.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button>수정 완료</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalCheck className="mb-3" />
+            <Dialog.Title>{t('application.dialog.update.title')}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="default" className="w-full">
+                {t('application.dialog.update.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button variant="failed-outline">수정 쿨다운</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <ModalBang className="mb-3" />
+            <Dialog.Title>{t('application.dialog.modifyCooldown.title')}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.Close asChild>
+              <Button variant="failed" className="w-full">
+                {t('application.dialog.modifyCooldown.button')}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger asChild>
+          <Button variant="outline">주의사항 확인</Button>
+        </Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
+            <Dialog.Description>{t('application.dialog.notice.description')}</Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
             {Array.from({ length: 10 }).map((_, index) => (
@@ -220,7 +427,7 @@ function ScrollDemo() {
           </Dialog.Body>
           <Dialog.Footer>
             <Dialog.Close asChild>
-              <Button>닫기</Button>
+              <Button variant="default">{t('application.dialog.notice.button')}</Button>
             </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Content>
