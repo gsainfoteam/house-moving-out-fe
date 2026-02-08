@@ -11,7 +11,7 @@ import { ApiPaths } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = () => {
   const { t } = useTranslation('move-out');
-  const { data, error, isLoading } = $api.useQuery(
+  const { data, error, isError, isLoading } = $api.useQuery(
     'get',
     ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,
     {},
@@ -24,7 +24,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
   );
 
   useEffect(() => {
-    if (!error) return;
+    if (!isError) return;
     if (error.statusCode === 401) {
       toast.error(t('error.unauthorized', { ns: 'common' }));
     } else if (error?.statusCode === 404) {
@@ -32,7 +32,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     } else {
       toast.error(t('error.internalServerError', { ns: 'common' }));
     }
-  }, [error, t]);
+  }, [error, isError, t]);
 
   const applicationStartTime = useMemo(
     () => (data ? dayjs(data.applicationStartTime) : undefined),
