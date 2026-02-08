@@ -106,7 +106,6 @@ export const useCreateScheduleForm = () => {
           {
             loading: t('schedule.create.loading'),
             success: (result) => t('schedule.create.succeed', { uuid: result.uuid }),
-            error: t('schedule.create.error.creating'),
           },
         )
         .unwrap();
