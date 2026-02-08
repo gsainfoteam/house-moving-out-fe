@@ -28,7 +28,7 @@
         "label": "Inspection Time"
       },
       "studentNumber": {
-        "label": "Student Id",
+        "label": "Student ID",
         "placeholder": "2025xxxx"
       },
       "succeed": "Inspector Created",
