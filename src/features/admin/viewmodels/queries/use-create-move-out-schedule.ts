@@ -22,7 +22,9 @@ export const useCreateMoveOutSchedule = () => {
       });
     },
     onError: (error) => {
-      if (error.statusCode === 401) {
+      if (error.statusCode === 400) {
+        toast.error(t('error.badRequest', { ns: 'common' }));
+      } else if (error.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
