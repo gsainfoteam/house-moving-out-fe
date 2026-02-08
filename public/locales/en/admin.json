@@ -88,8 +88,8 @@
     "detail": {
       "applicationTime": "Application Time",
       "capacity": {
-        "female": "Female capacity",
-        "male": "Male capacity"
+        "female": "Female Capacity",
+        "male": "Male Capacity"
       },
       "inspectors": {
         "female": "Required female inspectors",
