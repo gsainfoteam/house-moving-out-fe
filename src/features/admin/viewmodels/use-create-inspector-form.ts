@@ -37,7 +37,7 @@ export const useCreateInspectorForm = () => {
         })
         .unwrap();
 
-      navigate({
+      await navigate({
         to: '/admin/schedules/$uuid/inspectors',
         from: '/admin/schedules/$uuid/inspectors/new',
       });
