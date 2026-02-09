@@ -93,9 +93,9 @@ export const useCreateScheduleForm = () => {
           create({
             body: {
               currentYear: yearSemester.year,
-              currentSeason: Season[yearSemester.semester.toUpperCase() as Uppercase<Semester>],
+              currentSeason: Season[yearSemester.semester.toUpperCase()],
               nextYear: nextSemester.year,
-              nextSeason: Season[nextSemester.semester.toUpperCase() as Uppercase<Semester>],
+              nextSeason: Season[nextSemester.semester.toUpperCase()],
               file: form.file[0],
               applicationStartTime,
               applicationEndTime: last(inspectionTimeRange)!.start,
