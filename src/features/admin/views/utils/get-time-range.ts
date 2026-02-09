@@ -7,15 +7,15 @@ export const getTimeRange = (list: Range[]): Range[] => {
   if (list.length === 0) return [];
 
   const unseen = new Set(range(list.length));
-  const queue = [0];
+  let nextIndex: number | null = 0;
 
   const result: Range[] = [];
 
   for (;;) {
-    const idx = queue.pop();
-    if (idx === undefined) return result;
-    unseen.delete(idx);
-    const currentBlock = { ...list[idx] };
+    if (nextIndex === null) return result;
+    unseen.delete(nextIndex);
+    const currentBlock = { ...list[nextIndex] };
+    nextIndex = null;
 
     for (;;) {
       const nextBlock = [...unseen].find((i) => list[i].start.isSame(currentBlock.end));
@@ -32,7 +32,7 @@ export const getTimeRange = (list: Range[]): Range[] => {
         if (v === undefined) {
           return result;
         } else {
-          queue.push(v);
+          nextIndex = v;
           break;
         }
       }
