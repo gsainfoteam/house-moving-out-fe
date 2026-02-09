@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import dayjs from 'dayjs';
+import { range } from 'es-toolkit';
 import { groupBy } from 'es-toolkit/array';
 
 import { cn } from '@/common/utils';
@@ -53,49 +54,51 @@ export function SlotVisualize({
         </tr>
       </thead>
       <tbody>
-        {[...Array((END_HOUR - START_HOUR) * 2)].map((_, i) => {
-          const startHour = sunday.add(START_HOUR + i / 2, 'hour');
-          const endHour = startHour.add(30, 'm');
-          return (
-            <tr key={i}>
-              <th>
-                {startHour.format('HH:mm')} ~ {endHour.format('HH:mm')}
-              </th>
-              {[4, 5, 6, 7].map((d) => {
-                const startOfDay = sunday.day(d);
-                const item = groupedSlot[d]?.find(
-                  (s) => dayjs(s.startTime).diff(startOfDay, 'h', true) === START_HOUR + i / 2,
-                );
-                if (!item) return <td key={d} className={cn(onClick && 'cursor-not-allowed')} />;
-                return (
-                  <td
-                    onMouseDown={() => {
-                      const mode = !selectedSlots.includes(item.uuid);
-                      pressing.current = mode;
-                      return onClick?.(item.uuid, mode);
-                    }}
-                    onMouseMove={() => {
-                      const mode = pressing.current;
-                      if (mode === null) return;
-                      return onClick?.(item.uuid, mode);
-                    }}
-                    key={d}
-                    className={cn(
-                      'bg-green-200',
-                      (capacity === null
-                        ? item.reservedCount > 0
-                        : item.reservedCount >= capacity) && 'bg-red-200',
-                      selectedSlots.includes(item.uuid) && 'bg-yellow-300',
-                      onClick && 'cursor-pointer',
-                    )}
-                  >
-                    {item.reservedCount}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
+        {range(START_HOUR, END_HOUR)
+          .flatMap((i) => [i, i + 0.5])
+          .map((h, i) => {
+            const startHour = sunday.add(h, 'hour');
+            const endHour = startHour.add(30, 'm');
+            return (
+              <tr key={i}>
+                <th>
+                  {startHour.format('HH:mm')} ~ {endHour.format('HH:mm')}
+                </th>
+                {[4, 5, 6, 7].map((d) => {
+                  const startOfDay = sunday.day(d);
+                  const item = groupedSlot[d]?.find(
+                    (s) => dayjs(s.startTime).diff(startOfDay, 'h', true) === START_HOUR + i / 2,
+                  );
+                  if (!item) return <td key={d} className={cn(onClick && 'cursor-not-allowed')} />;
+                  return (
+                    <td
+                      onMouseDown={() => {
+                        const mode = !selectedSlots.includes(item.uuid);
+                        pressing.current = mode;
+                        return onClick?.(item.uuid, mode);
+                      }}
+                      onMouseMove={() => {
+                        const mode = pressing.current;
+                        if (mode === null) return;
+                        return onClick?.(item.uuid, mode);
+                      }}
+                      key={d}
+                      className={cn(
+                        'bg-green-200',
+                        (capacity === null
+                          ? item.reservedCount > 0
+                          : item.reservedCount >= capacity) && 'bg-red-200',
+                        selectedSlots.includes(item.uuid) && 'bg-yellow-300',
+                        onClick && 'cursor-pointer',
+                      )}
+                    >
+                      {item.reservedCount}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );
