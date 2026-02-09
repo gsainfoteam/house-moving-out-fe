@@ -7,7 +7,7 @@ import { useCreateScheduleForm } from '../../viewmodels';
 
 export function CreateScheduleFrame() {
   const { t } = useTranslation('admin');
-  const { register, onSubmit, yearSemester, isSubmitting, inspectionTimeRange } =
+  const { register, onSubmit, yearSemester, isSubmitting, inspectionTimeRange, errors } =
     useCreateScheduleForm();
 
   return (
@@ -15,25 +15,38 @@ export function CreateScheduleFrame() {
       <div>
         <label>
           {t('schedule.create.title.label')}:
-          <Input placeholder={t('schedule.create.title.placeholder')} {...register('title')} />
+          <Input
+            error={errors.title?.message}
+            placeholder={t('schedule.create.title.placeholder')}
+            {...register('title')}
+          />
         </label>
       </div>
       <div>
         <label>
           {t('schedule.create.applicationStartTime.label')}:
-          <Input type="datetime-local" {...register('applicationStartTime')} />
+          <Input
+            error={errors.applicationStartTime?.message}
+            type="datetime-local"
+            {...register('applicationStartTime')}
+          />
         </label>
       </div>
       <div>
         <label>
           {t('schedule.create.inspectionStartWeek.label')}:
-          <Input type="date" {...register('inspectionStartWeek')} />
+          <Input
+            error={errors.inspectionStartWeek?.message}
+            type="date"
+            {...register('inspectionStartWeek')}
+          />
         </label>
       </div>
       <div>
         <label>
           {t('schedule.create.excel.label')}
           <Input
+            error={errors.file?.message}
             type="file"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
             {...register('file')}

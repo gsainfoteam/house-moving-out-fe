@@ -35,6 +35,24 @@ async function generateApiSchema() {
     const swaggerJson = await response.json();
 
     console.log('Generating TypeScript types...');
+
+    for (const path in swaggerJson.paths) {
+      for (const method in swaggerJson.paths[path]) {
+        for (const response in swaggerJson.paths[path][method].responses) {
+          if (Number.parseInt(response) < 400) continue;
+          const content = swaggerJson.paths[path][method].responses[response].content;
+          if (content) continue;
+          swaggerJson.paths[path][method].responses[response].content = {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/ErrorDto',
+              },
+            },
+          };
+        }
+      }
+    }
+
     const ast = await openapiTS(swaggerJson, {
       enum: true,
       dedupeEnums: true,

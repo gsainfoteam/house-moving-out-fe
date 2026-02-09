@@ -14,12 +14,56 @@
     },
     "list": "Inspection Application List"
   },
+  "gender": {
+    "female": "Female",
+    "male": "Male"
+  },
   "inspectionType": {
     "first": "First",
     "second": "Second"
   },
   "inspectors": {
-    "list": "Inspector List"
+    "create": {
+      "action": "Add Inspector",
+      "email": {
+        "label": "Email",
+        "placeholder": "m@gm.gist.ac.kr"
+      },
+      "error": {
+        "formError": "Please check forms"
+      },
+      "gender": {
+        "label": "Gender"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "김지니"
+      },
+      "slots": {
+        "label": "Inspection Time"
+      },
+      "studentNumber": {
+        "label": "Student ID",
+        "placeholder": "2025xxxx"
+      },
+      "succeed": "Inspector Created",
+      "summary": {
+        "label": "Creation Summary"
+      }
+    },
+    "error": {
+      "notFound": "Inspector not found"
+    },
+    "list": {
+      "actions": {
+        "label": "Actions"
+      },
+      "summary": {
+        "female": "Female Inspectors",
+        "male": "Male Inspectors"
+      },
+      "title": "Inspector List"
+    }
   },
   "result": {
     "failed": "Failed",
@@ -32,15 +76,10 @@
         "label": "Application Start Time"
       },
       "error": {
-        "creating": "An error occurred when creating schedule",
         "formError": "Please check input forms"
       },
       "excel": {
-        "count_one": "{{count}} inspection target detected.",
-        "count_other": "{{count}} inspection targets detected.",
-        "error": "Failed to upload excel",
-        "label": "Room Assignments Excel File",
-        "uploading": "Uploading Excel file. Don't close window..."
+        "label": "Room Assignments Excel File"
       },
       "inspectionStartWeek": {
         "label": "Inspection Starting Week"
@@ -67,8 +106,20 @@
     },
     "detail": {
       "applicationTime": "Application Time",
+      "capacity": {
+        "female": "Female Capacity",
+        "male": "Male Capacity"
+      },
+      "inspectors": {
+        "female": "Required female inspectors",
+        "male": "Required male inspectors"
+      },
       "notFound": "Moving out inspection not found.",
-      "status": "Status"
+      "status": "Status",
+      "summary": {
+        "female": "Female Summary",
+        "male": "Male Summary"
+      }
     },
     "empty": "There are no moving out schedules",
     "list": "Schedule List",

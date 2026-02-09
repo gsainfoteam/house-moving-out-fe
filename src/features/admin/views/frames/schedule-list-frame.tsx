@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Loading } from '@/common/components';
 
 import { useFindAllMoveOutSchedules } from '../../viewmodels';
-import { ScheduleCard } from '../components/schedule-card';
+import { ScheduleCard } from '../components';
 
 export function ScheduleListFrame() {
   const { data: schedules } = useFindAllMoveOutSchedules();
