@@ -43,7 +43,7 @@ export function ApplicationListFrame() {
                 <td>{a.name}</td>
                 <td>{a.phoneNumber}</td>
                 <td>{dayjs(a.appliedAt).format('MM-DD HH:mm')}</td>
-                <td>{dayjs(a.appliedAt).format('ddd HH:mm')}</td>
+                <td>{dayjs(a.inspectedAt).format('ddd HH:mm')}</td>
                 {/* t('inspectionType.first') */}
                 {/* t('inspectionType.second') */}
                 <td>{t(`inspectionType.${a.type}`)}</td>
