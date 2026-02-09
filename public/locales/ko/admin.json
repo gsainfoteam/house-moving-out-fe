@@ -14,7 +14,6 @@
         "placeholder": "m@gm.gist.ac.kr"
       },
       "error": {
-        "create": "생성에 실패했습니다",
         "formError": "입력 칸을 확인해주세요"
       },
       "gender": {

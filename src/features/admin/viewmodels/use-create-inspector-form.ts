@@ -30,13 +30,8 @@ export const useCreateInspectorForm = () => {
 
   const onSubmit = handleSubmit(
     async (data) => {
-      await toast
-        .promise(createInspector({ body: { inspectors: [data] } }), {
-          success: () => t('inspectors.create.succeed'),
-          error: t('inspectors.create.error.create'),
-        })
-        .unwrap();
-
+      await createInspector({ body: { inspectors: [data] } });
+      toast.success(t('inspectors.create.succeed'));
       await navigate({
         to: '/admin/schedules/$uuid/inspectors',
         from: '/admin/schedules/$uuid/inspectors/new',
