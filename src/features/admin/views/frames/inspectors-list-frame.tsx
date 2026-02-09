@@ -13,7 +13,7 @@ import {
   useInspectorsOfSchedule,
 } from '../../viewmodels';
 import { SlotVisualize } from '../components';
-import { getTimeRange } from '../utils/get-time-range';
+import { getTimeRange } from '../utils';
 
 export function InspectorsListFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/' });

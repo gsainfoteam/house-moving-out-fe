@@ -12,7 +12,7 @@ import {
   useInspectorsOfSchedule,
 } from '../../viewmodels';
 import { SlotVisualize } from '../components';
-import { getTimeRange } from '../utils/get-time-range';
+import { getTimeRange } from '../utils';
 
 export function CreateInspectorFrame() {
   const { t } = useTranslation('admin');
