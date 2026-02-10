@@ -14,11 +14,11 @@ const loaderMap: Record<Language, () => Promise<ILocale>> = {
 
 i18n.on('languageChanged', async (lng: Language) => {
   try {
+    const prevLocale = dayjs.locale();
     dayjs.locale(lng);
     const loader = loaderMap[lng];
     if (!loader) throw new Error(`Unsupported language: ${lng}`);
     const locale = await loader();
-    const prevLocale = dayjs.locale();
     dayjs.locale(locale);
     if (prevLocale !== lng) {
       i18n.changeLanguage(lng);
