@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { cn } from 'tailwind-variants';
+
+import { cn } from '@/common/utils';
 
 import type { ScheduleStatus } from '../../models';
 
