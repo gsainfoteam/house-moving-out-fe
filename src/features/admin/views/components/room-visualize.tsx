@@ -14,23 +14,60 @@ const config = {
 
 const disabledRooms = ['G101', 'G201', 'I119', 'I201', 'I102', 'I103'];
 
+const cellBase = cn(
+  'border border-icon-light-gray transition-colors duration-150 min-w-18 px-2 py-1.5',
+);
+const roomHeaderCell = cn(
+  'bg-bg-surface text-text-black text-box2 font-medium text-center tabular-nums',
+);
+const statusCell = cn('text-box2 text-center font-medium');
+
+const statusStyles: Record<
+  | 'disabled'
+  | 'passed'
+  | 'failed'
+  | 'not_inspected'
+  | 'will_be_cleaned'
+  | 'single'
+  | 'single_passed',
+  string
+> = {
+  disabled: cn('bg-status-inactive text-text-gray'),
+  passed: cn('bg-icon-green text-text-black'),
+  failed: cn('bg-icon-red text-text-black'),
+  not_inspected: cn('bg-icon-red text-text-black'),
+  will_be_cleaned: cn('bg-status-progress text-text-white'),
+  single: cn('bg-icon-red text-text-black'),
+  single_passed: cn('bg-status-pending text-text-black'),
+};
+
 export function RoomVisualize() {
   const { t } = useTranslation('admin');
   return (
-    <table className="text-center [&_td,&_th]:border [&_td,&_th]:px-2">
-      {Object.entries(config).map(([house, counts], index) => (
+    <table className="text-box2 w-full border-collapse">
+      {Object.entries(config).map(([house, counts], configIndex) => (
         <tbody key={house}>
-          {range(1, Math.max(...counts) + 1).map((index) => (
-            <tr key={index}>
+          <tr>
+            <th className={cn(cellBase)} rowSpan={Math.max(...counts) + 1}>
+              {house}
+            </th>
+            {range(1, 7).map((floor) => (
+              <th key={floor} className={cn(cellBase, roomHeaderCell)} scope="col" colSpan={2}>
+                {floor}층
+              </th>
+            ))}
+          </tr>
+          {range(1, Math.max(...counts) + 1).map((roomIndex) => (
+            <tr key={roomIndex}>
               {range(1, 7).map((floor) => {
-                if (counts[floor - 1] < index)
+                if (counts[floor - 1] < roomIndex)
                   return (
                     <React.Fragment key={floor}>
-                      <th />
-                      <td />
+                      <th className={cn(cellBase, roomHeaderCell, 'bg-transparent')} />
+                      <td className={cn(cellBase, 'bg-bg-surface/40')} aria-hidden />
                     </React.Fragment>
                   );
-                const roomNumber = `${house}${floor}${index.toString().padStart(2, '0')}`;
+                const roomNumber = `${house}${floor}${roomIndex.toString().padStart(2, '0')}`;
                 const status = disabledRooms.includes(roomNumber)
                   ? 'disabled'
                   : (
@@ -43,27 +80,22 @@ export function RoomVisualize() {
                         'single_passed',
                       ] as const
                     )[Math.floor(Math.random() * 10)];
+                // t('status.disabled')
+                // t('status.passed')
+                // t('status.failed')
+                // t('status.not_inspected')
+                // t('status.will_be_cleaned')
+                // t('status.single')
+                // t('status.single_passed')
                 return (
                   <React.Fragment key={floor}>
-                    <th>{roomNumber}</th>
+                    <th className={cn(cellBase, roomHeaderCell)} scope="row" title={roomNumber}>
+                      {roomNumber}
+                    </th>
                     <td
-                      className={cn(
-                        status === 'disabled' && 'bg-gray-400',
-                        status === 'passed' && 'bg-green-200',
-                        status === 'failed' && 'bg-red-200',
-                        status === 'not_inspected' && 'bg-red-200',
-                        status === 'will_be_cleaned' && 'bg-purple-600',
-                        status === 'single' && 'bg-red-200',
-                        status === 'single_passed' && 'bg-yellow-200',
-                      )}
+                      className={cn(cellBase, statusCell, statusStyles[status])}
+                      title={t(`status.${status}`)}
                     >
-                      {/* t('status.passed') */}
-                      {/* t('status.disabled') */}
-                      {/* t('status.failed') */}
-                      {/* t('status.not_inspected') */}
-                      {/* t('status.will_be_cleaned') */}
-                      {/* t('status.single') */}
-                      {/* t('status.single_passed') */}
                       {status && t(`status.${status}`)}
                     </td>
                   </React.Fragment>
@@ -71,9 +103,9 @@ export function RoomVisualize() {
               })}
             </tr>
           ))}
-          {index !== Object.entries(config).length - 1 && (
+          {configIndex !== Object.entries(config).length - 1 && (
             <tr>
-              <td colSpan={14} className="h-2 [&&]:border-none" />
+              <td colSpan={13} className="h-2 border-none bg-transparent" />
             </tr>
           )}
         </tbody>
