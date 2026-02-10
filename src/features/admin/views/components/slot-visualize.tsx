@@ -12,7 +12,7 @@ const END_HOUR = 18;
 const cellBase = cn('border border-gray-200 transition-colors duration-150 min-w-10');
 const headerCell = cn('bg-bg-surface/80 font-medium text-text-black px-3 py-2 text-center');
 const timeCell = cn(
-  'bg-bg-surface/60 text-text-gray px-2 py-1.5 text-left text-sub font-medium w-0 whitespace-nowrap',
+  'bg-bg-surface/60 text-text-gray px-2 py-1.5 text-sub font-medium w-28 whitespace-nowrap',
 );
 
 export function SlotVisualize({
@@ -46,10 +46,7 @@ export function SlotVisualize({
     <table className="text-box2 bg-bg-white w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border border-gray-200 shadow-sm select-none">
       <thead>
         <tr>
-          <th
-            className={cn(cellBase, headerCell, 'text-text-black text-left font-semibold')}
-            scope="col"
-          >
+          <th className={cn(cellBase, headerCell, 'text-text-black font-semibold')} scope="col">
             {title}
           </th>
           <th className={cn(cellBase, headerCell)} scope="col">
@@ -79,7 +76,7 @@ export function SlotVisualize({
                   scope="row"
                   title={`${startHour.format('HH:mm')} ~ ${endHour.format('HH:mm')}`}
                 >
-                  {startHour.format('HH:mm')}–{endHour.format('HH:mm')}
+                  {startHour.format('HH:mm')}-{endHour.format('HH:mm')}
                 </th>
                 {[4, 5, 6, 7].map((d) => {
                   const startOfDay = sunday.day(d);
