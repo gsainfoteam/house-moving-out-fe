@@ -3,7 +3,7 @@ import { createFileRoute, Link, Navigate, Outlet, useRouter } from '@tanstack/re
 import { HomeIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Loading } from '@/common/components';
+import { LanguageToggle, Loading } from '@/common/components';
 import { useAuth, useToken } from '@/features/auth';
 
 export const Route = createFileRoute('/admin')({
@@ -27,7 +27,7 @@ function Inner() {
           <HomeIcon className="size-5 shrink-0" aria-hidden />
           <span className="text-sub2">{t('home')}</span>
         </Link>
-        <nav className="flex items-center gap-1">
+        <nav className="flex flex-1 items-center gap-1">
           <Link
             to="/admin/schedules"
             className="text-sub2 text-text-black hover:bg-bg-surface hover:text-primary-main rounded-lg px-3 py-2 font-medium transition-colors"
@@ -35,6 +35,7 @@ function Inner() {
             {t('schedule.list')}
           </Link>
         </nav>
+        <LanguageToggle />
       </header>
       <main className="flex min-h-0 flex-1 overflow-auto">
         <Outlet />
