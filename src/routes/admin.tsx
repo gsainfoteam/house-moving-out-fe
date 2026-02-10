@@ -35,7 +35,9 @@ function Inner() {
             {t('schedule.list')}
           </Link>
         </nav>
-        <LanguageToggle />
+        <div className="px-2">
+          <LanguageToggle />
+        </div>
       </header>
       <main className="flex min-h-0 flex-1 overflow-auto">
         <Outlet />
