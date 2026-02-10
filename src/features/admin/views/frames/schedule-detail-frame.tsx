@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Loading } from '@/common/components';
 
 import { useGetMoveOutScheduleQuery } from '../../viewmodels';
-import { SlotVisualize } from '../components';
+import { RoomVisualize, SlotVisualize } from '../components';
 
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/' });
@@ -67,6 +67,9 @@ export function ScheduleDetailFrame() {
           title={t('schedule.detail.summary.female')}
           capacity={schedule.inspectionSlots[0].maleCapacity}
         />
+      </div>
+      <div>
+        <RoomVisualize />
       </div>
     </div>
   );

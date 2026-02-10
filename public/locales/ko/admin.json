@@ -105,6 +105,14 @@
     "list": "스케줄 목록",
     "main": "대시보드"
   },
+  "status": {
+    "disabled": "미사용",
+    "failed": "불통",
+    "not_inspected": "미이행",
+    "passed": "통과",
+    "single": "1인 퇴검",
+    "will_be_cleaned": "업체 청소"
+  },
   "target": {
     "list": "검사 대상자 목록"
   }

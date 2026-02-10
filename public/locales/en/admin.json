@@ -105,6 +105,14 @@
     "list": "Schedule List",
     "main": "Dashboard"
   },
+  "status": {
+    "disabled": "Disabled",
+    "failed": "Failed",
+    "not_inspected": "Not Inspected",
+    "passed": "Passed",
+    "single": "Single inspection",
+    "will_be_cleaned": "Will be cleaned"
+  },
   "target": {
     "list": "Target Room List"
   }
