@@ -106,6 +106,10 @@
     "empty": "There are no moving out schedules",
     "list": "Schedule List",
     "main": "Dashboard",
+    "sidebar": {
+      "collapse": "Collapse sidebar",
+      "expand": "Expand sidebar"
+    },
     "statistics": {
       "all_not_inspected": "All not inspected",
       "all_passed": "All passed",
