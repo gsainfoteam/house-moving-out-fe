@@ -10,9 +10,9 @@ const START_HOUR = 10;
 const END_HOUR = 18;
 
 const cellBase = cn('border border-gray-200 transition-colors duration-150 min-w-10');
-const headerCell = cn('bg-bg-surface font-medium text-text-black px-3 py-2 text-center');
+const headerCell = cn('bg-bg-surface/80 font-medium text-text-black px-3 py-2 text-center');
 const timeCell = cn(
-  'bg-bg-surface/80 text-text-gray px-2 py-1.5 text-left text-sub font-medium w-0 whitespace-nowrap',
+  'bg-bg-surface/60 text-text-gray px-2 py-1.5 text-left text-sub font-medium w-0 whitespace-nowrap',
 );
 
 export function SlotVisualize({
@@ -43,7 +43,7 @@ export function SlotVisualize({
   const sunday = dayjs(slots[0].startTime).day(0).startOf('d');
 
   return (
-    <table className="text-box2 w-full min-w-[200px] border-collapse overflow-hidden rounded-lg border-hidden shadow-sm select-none">
+    <table className="text-box2 bg-bg-white w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border border-gray-200 shadow-sm select-none">
       <thead>
         <tr>
           <th

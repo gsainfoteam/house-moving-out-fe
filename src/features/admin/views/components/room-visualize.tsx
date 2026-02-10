@@ -15,10 +15,10 @@ const config = {
 const disabledRooms = ['G101', 'G201', 'I119', 'I201', 'I102', 'I103'];
 
 const cellBase = cn(
-  'border border-icon-light-gray transition-colors duration-150 min-w-18 px-2 py-1.5',
+  'border border-icon-light-gray transition-colors duration-150 min-w-18 px-2 py-1.5 bg-bg-surface/60',
 );
 const roomHeaderCell = cn(
-  'bg-bg-surface text-text-black text-box2 font-medium text-center tabular-nums',
+  'bg-bg-surface/80 text-text-black text-box2 font-medium text-center tabular-nums',
 );
 const statusCell = cn('text-box2 text-center font-medium');
 
@@ -44,7 +44,7 @@ const statusStyles: Record<
 export function RoomVisualize() {
   const { t } = useTranslation('admin');
   return (
-    <table className="text-box2 w-full border-collapse">
+    <table className="text-box2 bg-bg-white w-full border-collapse">
       {Object.entries(config).map(([house, counts], configIndex) => (
         <tbody key={house}>
           <tr>
@@ -63,8 +63,8 @@ export function RoomVisualize() {
                 if (counts[floor - 1] < roomIndex)
                   return (
                     <React.Fragment key={floor}>
-                      <th className={cn(cellBase, roomHeaderCell, 'bg-transparent')} />
-                      <td className={cn(cellBase, 'bg-bg-surface/40')} aria-hidden />
+                      <th className={cn(cellBase, roomHeaderCell)} />
+                      <td className={cn(cellBase)} aria-hidden />
                     </React.Fragment>
                   );
                 const roomNumber = `${house}${floor}${roomIndex.toString().padStart(2, '0')}`;
@@ -105,7 +105,7 @@ export function RoomVisualize() {
           ))}
           {configIndex !== Object.entries(config).length - 1 && (
             <tr>
-              <td colSpan={13} className="h-2 border-none bg-transparent" />
+              <td colSpan={13} className="bg-bg-surface h-2 border-none" />
             </tr>
           )}
         </tbody>
