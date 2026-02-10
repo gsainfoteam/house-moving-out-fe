@@ -38,7 +38,11 @@ export function ScheduleDetailFrame() {
                 schedule.status === 'CANCELED' && 'bg-icon-red/80 text-status-fail',
               )}
             >
-              {schedule.status}
+              {/* t('schedule.status.active') */}
+              {/* t('schedule.status.completed') */}
+              {/* t('schedule.status.draft') */}
+              {/* t('schedule.status.canceled') */}
+              {t(`schedule.status.${schedule.status.toLowerCase()}`)}
             </span>
           </div>
         </div>

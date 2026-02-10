@@ -112,6 +112,12 @@
       "male_amount": "Male amount",
       "progress": "Inspection progress",
       "title": "Inspection Statictics"
+    },
+    "status": {
+      "active": "Active",
+      "canceled": "Canceled",
+      "completed": "Completed",
+      "draft": "Draft"
     }
   },
   "status": {

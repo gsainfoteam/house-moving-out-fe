@@ -112,6 +112,12 @@
       "male_amount": "남자층 검사대상 수",
       "progress": "검사 진행률",
       "title": "검사 통계"
+    },
+    "status": {
+      "active": "진행중",
+      "canceled": "취소됨",
+      "completed": "완료됨",
+      "draft": "임시저장"
     }
   },
   "status": {
