@@ -2,6 +2,7 @@
   "application": {
     "list": "신청 목록"
   },
+  "floor": "{{count}}층",
   "gender": {
     "female": "여자",
     "male": "남자"

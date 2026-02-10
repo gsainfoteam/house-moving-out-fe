@@ -126,11 +126,6 @@ export function SlotVisualize({
                         onClick && 'cursor-pointer',
                         onClick && 'hover:opacity-60',
                       )}
-                      title={
-                        isFull
-                          ? `예약 ${item.reservedCount}${capacity != null ? ` / ${capacity}` : ''}`
-                          : `예약 ${item.reservedCount}`
-                      }
                     >
                       {item.reservedCount}
                     </td>

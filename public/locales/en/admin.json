@@ -2,6 +2,8 @@
   "application": {
     "list": "Inspection Application List"
   },
+  "floor_one": "{{count}}F",
+  "floor_other": "{{count}}F",
   "gender": {
     "female": "Female",
     "male": "Male"

@@ -53,7 +53,7 @@ export function RoomVisualize() {
             </th>
             {range(1, 7).map((floor) => (
               <th key={floor} className={cn(cellBase, roomHeaderCell)} scope="col" colSpan={2}>
-                {floor}층
+                {t('floor', { count: floor })}
               </th>
             ))}
           </tr>
