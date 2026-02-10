@@ -23,7 +23,6 @@ export function ScheduleDetailFrame() {
     <div className="flex flex-col gap-4 p-4">
       <section
         className="flex flex-col gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
-        data-tsd-source="/src/features/admin/views/frames/schedule-detail-frame.tsx:28:7"
       >
         <div className="flex flex-col gap-3 border-b border-gray-100 pb-4">
           <div className="flex flex-wrap items-center gap-2">
