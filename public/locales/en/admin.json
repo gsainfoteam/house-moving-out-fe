@@ -95,7 +95,6 @@
         "male": "Required male inspectors"
       },
       "notFound": "Moving out inspection not found.",
-      "status": "Status",
       "summary": {
         "female": "Female Summary",
         "male": "Male Summary"
@@ -111,7 +110,8 @@
       "all_waiting_target": "All waiting inspection",
       "female_amount": "Female amount",
       "male_amount": "Male amount",
-      "progress": "Inspection progress"
+      "progress": "Inspection progress",
+      "title": "Inspection Statictics"
     }
   },
   "status": {

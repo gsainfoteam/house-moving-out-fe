@@ -95,7 +95,6 @@
         "male": "남자 필요 검사위원 수"
       },
       "notFound": "존재하지 않는 퇴사검사입니다",
-      "status": "상태",
       "summary": {
         "female": "여자 신청 현황",
         "male": "남자 신청 현황"
@@ -111,7 +110,8 @@
       "all_waiting_target": "검사 예정 방 수",
       "female_amount": "여자층 검사대상 수",
       "male_amount": "남자층 검사대상 수",
-      "progress": "검사 진행률"
+      "progress": "검사 진행률",
+      "title": "검사 통계"
     }
   },
   "status": {

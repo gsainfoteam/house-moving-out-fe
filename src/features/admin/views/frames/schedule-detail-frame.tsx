@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Loading } from '@/common/components';
+import { cn } from '@/common/utils';
 
 import { useGetMoveOutScheduleQuery } from '../../viewmodels';
 import { RoomVisualize, SlotVisualize } from '../components';
@@ -21,58 +22,103 @@ export function ScheduleDetailFrame() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <div>
-        <div>ID: {schedule.uuid}</div>
-        <div>
-          {t('schedule.create.title.label')}: {schedule.title}
-        </div>
-        <div>
-          {t('schedule.detail.status')}: {schedule.status}
-        </div>
-        <div>
-          {t('schedule.detail.applicationTime')}:{' '}
-          {`${dayjs(schedule.applicationStartTime).format('LLLL')} ~ ${dayjs(schedule.applicationEndTime).format('LLLL')}`}
-        </div>
-        <div>
-          {t('schedule.create.summary.semester.label')}: {schedule.currentSemester.year}{' '}
-          {schedule.currentSemester.season}
-        </div>
-        <div>
-          {t('schedule.detail.capacity.male')}: {maleCapacity}
-        </div>
-        <div>
-          {t('schedule.detail.capacity.female')}: {femaleCapacity}
-        </div>
-        <div>
-          {t('schedule.detail.inspectors.male')}: {Math.ceil(maleCapacity / 2)}
-        </div>
-        <div>
-          {t('schedule.detail.inspectors.female')}: {Math.ceil(femaleCapacity / 2)}
-        </div>
-        <div>
-          <div>
-            {t('schedule.statistics.all_not_inspected')}: {0}
-          </div>
-          <div>
-            {t('schedule.statistics.all_single_target')}: {0}
-          </div>
-          <div>
-            {t('schedule.statistics.all_waiting_target')}: {0}
-          </div>
-          <div>
-            {t('schedule.statistics.all_passed')}: {0}
-          </div>
-          <div>
-            {t('schedule.statistics.progress')}: {0}%
-          </div>
-          <div>
-            {t('schedule.statistics.male_amount')}: {0}
-          </div>
-          <div>
-            {t('schedule.statistics.female_amount')}: {0}
+      <section
+        className="flex flex-col gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+        data-tsd-source="/src/features/admin/views/frames/schedule-detail-frame.tsx:28:7"
+      >
+        <div className="flex flex-col gap-3 border-b border-gray-100 pb-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="text-h2 text-text-black font-bold">{schedule.title}</h2>
+            <span
+              className={cn(
+                'text-box2 rounded-full px-2.5 py-0.5 font-medium',
+                schedule.status === 'ACTIVE' && 'bg-bg-green text-primary-main',
+                schedule.status === 'COMPLETED' && 'bg-icon-light-gray text-text-gray',
+                schedule.status === 'DRAFT' && 'bg-icon-light-gray text-text-gray',
+                schedule.status === 'CANCELED' && 'bg-icon-red/80 text-status-fail',
+              )}
+            >
+              {schedule.status}
+            </span>
           </div>
         </div>
-      </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sub text-text-gray">{t('schedule.detail.applicationTime')}</span>
+            <p className="text-box text-text-black">
+              {`${dayjs(schedule.applicationStartTime).format('LLLL')} ~ ${dayjs(schedule.applicationEndTime).format('LLLL')}`}
+            </p>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sub text-text-gray">
+              {t('schedule.create.summary.semester.label')}
+            </span>
+            <p className="text-box text-text-black">
+              {schedule.currentSemester.year} {schedule.currentSemester.season}
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-bg-surface/60 grid grid-cols-2 gap-3 rounded-lg p-4">
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sub text-text-gray">{t('schedule.detail.capacity.male')}</span>
+            <span className="text-box text-text-black font-semibold">{maleCapacity}</span>
+          </div>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sub text-text-gray">{t('schedule.detail.capacity.female')}</span>
+            <span className="text-box text-text-black font-semibold">{femaleCapacity}</span>
+          </div>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sub text-text-gray">{t('schedule.detail.inspectors.male')}</span>
+            <span className="text-box text-text-black font-semibold">
+              {Math.ceil(maleCapacity / 2)}
+            </span>
+          </div>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sub text-text-gray">
+              {t('schedule.detail.inspectors.female')}
+            </span>
+            <span className="text-box text-text-black font-semibold">
+              {Math.ceil(femaleCapacity / 2)}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <h3 className="text-sub2 text-text-gray font-medium">{t('schedule.statistics.title')}</h3>
+          <div className="grid grid-cols-3 gap-x-4 gap-y-2">
+            <div className="text-box2 text-text-black flex justify-between">
+              <span className="text-text-gray">{t('schedule.statistics.all_not_inspected')}</span>
+              <span className="font-medium">0</span>
+            </div>
+            <div className="text-box2 text-text-black flex justify-between">
+              <span className="text-text-gray">{t('schedule.statistics.all_single_target')}</span>
+              <span className="font-medium">0</span>
+            </div>
+            <div className="text-box2 text-text-black flex justify-between">
+              <span className="text-text-gray">{t('schedule.statistics.all_waiting_target')}</span>
+              <span className="font-medium">0</span>
+            </div>
+            <div className="text-box2 text-text-black flex justify-between">
+              <span className="text-text-gray">{t('schedule.statistics.all_passed')}</span>
+              <span className="font-medium">0</span>
+            </div>
+            <div className="text-box2 text-text-black flex justify-between">
+              <span className="text-text-gray">{t('schedule.statistics.progress')}</span>
+              <span className="font-medium">0%</span>
+            </div>
+            <div className="text-box2 text-text-black flex justify-between">
+              <span className="text-text-gray">{t('schedule.statistics.male_amount')}</span>
+              <span className="font-medium">{0}</span>
+            </div>
+            <div className="text-box2 text-text-black flex justify-between">
+              <span className="text-text-gray">{t('schedule.statistics.female_amount')}</span>
+              <span className="font-medium">{0}</span>
+            </div>
+          </div>
+        </div>
+      </section>
       <div className="flex gap-2">
         <SlotVisualize
           slots={schedule.inspectionSlots.map((s) => ({
