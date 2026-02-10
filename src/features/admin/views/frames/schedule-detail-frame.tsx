@@ -32,11 +32,11 @@ export function ScheduleDetailFrame() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1.5">
             <span className="text-sub text-text-gray">{t('schedule.detail.applicationTime')}</span>
             <p className="text-box text-text-black">
-              {`${dayjs(schedule.applicationStartTime).format('LLLL')} ~ ${dayjs(schedule.applicationEndTime).format('LLLL')}`}
+              {`${dayjs(schedule.applicationStartTime).format('l ddd LT')} ~ ${dayjs(schedule.applicationEndTime).format('l ddd LT')}`}
             </p>
           </div>
           <div className="flex flex-col gap-1.5">
@@ -52,7 +52,7 @@ export function ScheduleDetailFrame() {
           </div>
         </div>
 
-        <div className="bg-bg-surface/60 grid grid-cols-2 gap-3 rounded-lg p-4">
+        <div className="bg-bg-surface/60 grid grid-cols-4 gap-3 rounded-lg p-4">
           <div className="flex flex-col gap-0.5">
             <span className="text-sub text-text-gray">{t('schedule.detail.capacity.male')}</span>
             <span className="text-box text-text-black font-semibold">{maleCapacity}</span>
