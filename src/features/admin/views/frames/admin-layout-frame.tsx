@@ -4,14 +4,13 @@ import { HomeIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { LanguageToggle } from '@/common/components';
+import { cn } from '@/common/utils';
 
 function SmallScreenBlocker() {
   const { t } = useTranslation('admin');
   return (
     <div className="bg-bg-surface fixed inset-0 z-30 flex flex-col items-center justify-center gap-4 px-6 text-center xl:hidden">
-      <h1 className="text-title3 font-semibold text-text-black">
-        {t('smallScreen.title')}
-      </h1>
+      <h1 className="text-title3 text-text-black font-semibold">{t('smallScreen.title')}</h1>
       <p className="text-body2 text-text-gray">
         {t('smallScreen.descriptionLine1')}
         <br />
@@ -26,8 +25,13 @@ export function AdminLayoutFrame() {
 
   return (
     <>
-      <SmallScreenBlocker />
-      <div className="bg-bg-surface hidden h-dvh flex-col xl:flex">
+      {!import.meta.env.DEV && <SmallScreenBlocker />}
+      <div
+        className={cn(
+          'bg-bg-surface h-dvh flex-col',
+          import.meta.env.DEV ? 'flex' : 'hidden xl:flex',
+        )}
+      >
         <header className="bg-bg-white flex shrink-0 items-center gap-6 border-b border-gray-200 px-4 py-3 shadow-sm">
           <Link
             to="/admin"
