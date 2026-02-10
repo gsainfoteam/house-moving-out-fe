@@ -12,7 +12,7 @@ const config = {
   T: [22, 22, 22, 21, 21, 21],
 };
 
-const disabledRooms = ['G101', 'G201', 'I119', 'I201', 'I102', 'I103'];
+const disabledRooms = ['G101', 'G201', 'I119', 'I201', 'T102', 'T103'];
 
 const cellBase = cn(
   'border border-icon-light-gray transition-colors duration-150 min-w-18 px-2 py-1.5 bg-bg-surface/60',
