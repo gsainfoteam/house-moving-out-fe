@@ -126,7 +126,7 @@ export function ScheduleDetailFrame() {
             reservedCount: s.femaleReservedCount,
           }))}
           title={t('schedule.detail.summary.female')}
-          capacity={schedule.inspectionSlots[0].maleCapacity}
+          capacity={schedule.inspectionSlots[0].femaleCapacity}
         />
       </div>
       <div>
