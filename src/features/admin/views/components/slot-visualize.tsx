@@ -9,6 +9,12 @@ import { cn } from '@/common/utils';
 const START_HOUR = 10;
 const END_HOUR = 18;
 
+const cellBase = cn('border border-gray-200 transition-colors duration-150 min-w-10');
+const headerCell = cn('bg-bg-surface font-medium text-text-black px-3 py-2 text-center');
+const timeCell = cn(
+  'bg-bg-surface/80 text-text-gray px-2 py-1.5 text-left text-sub font-medium w-0 whitespace-nowrap',
+);
+
 export function SlotVisualize({
   slots,
   title,
@@ -37,20 +43,27 @@ export function SlotVisualize({
   const sunday = dayjs(slots[0].startTime).day(0).startOf('d');
 
   return (
-    <table
-      className={cn(
-        '[&_td]:border [&_td]:px-2 [&_td]:text-center',
-        '[&_th]:border [&_th]:px-2 [&_th]:text-center',
-        'select-none',
-      )}
-    >
+    <table className="text-box2 w-full min-w-[200px] border-collapse overflow-hidden rounded-lg border-hidden shadow-sm select-none">
       <thead>
         <tr>
-          <td>{title}</td>
-          <th>{sunday.day(4).format('D dd')}</th>
-          <th>{sunday.day(5).format('D dd')}</th>
-          <th>{sunday.day(6).format('D dd')}</th>
-          <th>{sunday.day(7).format('D dd')}</th>
+          <th
+            className={cn(cellBase, headerCell, 'text-text-black text-left font-semibold')}
+            scope="col"
+          >
+            {title}
+          </th>
+          <th className={cn(cellBase, headerCell)} scope="col">
+            {sunday.day(4).format('D dd')}
+          </th>
+          <th className={cn(cellBase, headerCell)} scope="col">
+            {sunday.day(5).format('D dd')}
+          </th>
+          <th className={cn(cellBase, headerCell)} scope="col">
+            {sunday.day(6).format('D dd')}
+          </th>
+          <th className={cn(cellBase, headerCell)} scope="col">
+            {sunday.day(7).format('D dd')}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -61,19 +74,39 @@ export function SlotVisualize({
             const endHour = startHour.add(30, 'm');
             return (
               <tr key={i}>
-                <th>
-                  {startHour.format('HH:mm')} ~ {endHour.format('HH:mm')}
+                <th
+                  className={cn(cellBase, timeCell)}
+                  scope="row"
+                  title={`${startHour.format('HH:mm')} ~ ${endHour.format('HH:mm')}`}
+                >
+                  {startHour.format('HH:mm')}–{endHour.format('HH:mm')}
                 </th>
                 {[4, 5, 6, 7].map((d) => {
                   const startOfDay = sunday.day(d);
                   const item = groupedSlot[d]?.find(
                     (s) => dayjs(s.startTime).diff(startOfDay, 'h', true) === START_HOUR + i / 2,
                   );
-                  if (!item) return <td key={d} className={cn(onClick && 'cursor-not-allowed')} />;
+                  if (!item)
+                    return (
+                      <td
+                        key={d}
+                        data-empty
+                        className={cn(
+                          cellBase,
+                          'bg-icon-light-gray/60 text-text-gray',
+                          onClick && 'cursor-not-allowed',
+                        )}
+                        aria-hidden
+                      />
+                    );
+                  const isFull =
+                    capacity === null ? item.reservedCount > 0 : item.reservedCount >= capacity;
+                  const isSelected = selectedSlots.includes(item.uuid);
                   return (
                     <td
+                      data-slot
                       onMouseDown={() => {
-                        const mode = !selectedSlots.includes(item.uuid);
+                        const mode = !isSelected;
                         pressing.current = mode;
                         return onClick?.(item.uuid, mode);
                       }}
@@ -84,13 +117,20 @@ export function SlotVisualize({
                       }}
                       key={d}
                       className={cn(
-                        'bg-green-200',
-                        (capacity === null
-                          ? item.reservedCount > 0
-                          : item.reservedCount >= capacity) && 'bg-red-200',
-                        selectedSlots.includes(item.uuid) && 'bg-yellow-300',
+                        cellBase,
+                        'text-text-black px-2 py-1.5 text-center font-medium tabular-nums',
+                        isSelected &&
+                          'ring-primary-main bg-primary-main text-text-white ring-2 ring-inset',
+                        !isSelected && isFull && 'bg-icon-red text-text-black',
+                        !isSelected && !isFull && 'bg-bg-green text-text-black',
                         onClick && 'cursor-pointer',
+                        onClick && 'hover:opacity-60',
                       )}
+                      title={
+                        isFull
+                          ? `예약 ${item.reservedCount}${capacity != null ? ` / ${capacity}` : ''}`
+                          : `예약 ${item.reservedCount}`
+                      }
                     >
                       {item.reservedCount}
                     </td>
