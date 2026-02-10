@@ -6,6 +6,7 @@
     "female": "여자",
     "male": "남자"
   },
+  "home": "홈",
   "inspectors": {
     "create": {
       "action": "검사위원 추가",

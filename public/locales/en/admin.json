@@ -6,6 +6,7 @@
     "female": "Female",
     "male": "Male"
   },
+  "home": "Home",
   "inspectors": {
     "create": {
       "action": "Add Inspector",

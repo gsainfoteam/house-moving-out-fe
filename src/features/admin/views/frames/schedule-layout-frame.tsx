@@ -23,17 +23,20 @@ const LinkButton = ({
 }) => {
   const location = useLocation();
   const props = useLinkProps({ to, from: '/admin/schedules/$uuid' });
+  const isActive = location.pathname === props.href;
 
   return (
     <Link
       to={to}
       from="/admin/schedules/$uuid"
       className={cn(
-        'flex gap-2 rounded-xl p-2 hover:bg-gray-100',
-        location.pathname === props.href && 'bg-gray-100',
+        'flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sub2 transition-colors',
+        isActive
+          ? 'bg-primary-main/12 font-medium text-primary-main'
+          : 'text-text-gray hover:bg-bg-surface hover:text-text-black',
       )}
     >
-      {icon}
+      <span className={cn('shrink-0 [&>svg]:size-4', isActive && 'text-primary-main')}>{icon}</span>
       {text}
     </Link>
   );
@@ -42,14 +45,16 @@ const LinkButton = ({
 export function ScheduleLayoutFrame() {
   const { t } = useTranslation('admin');
   return (
-    <div className="flex flex-1">
-      <aside className="flex shrink-0 flex-col gap-1 border-r border-gray-200 p-2">
+    <div className="flex min-h-0 flex-1">
+      <aside className="flex w-52 shrink-0 flex-col gap-0.5 border-r border-gray-200 bg-bg-white p-3">
         <LinkButton to="." icon={<LayoutDashboard />} text={t('schedule.main')} />
         <LinkButton to="./targets" icon={<Target />} text={t('target.list')} />
         <LinkButton to="./applications" icon={<Pencil />} text={t('application.list')} />
         <LinkButton to="./inspectors" icon={<Clipboard />} text={t('inspectors.list.title')} />
       </aside>
-      <Outlet />
+      <div className="min-h-0 min-w-0 flex-1 overflow-auto">
+        <Outlet />
+      </div>
     </div>
   );
 }
