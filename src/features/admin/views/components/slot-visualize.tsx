@@ -53,16 +53,16 @@ export function SlotVisualize({
             {title}
           </th>
           <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(4).format('D dd')}
+            {sunday.day(4).format('D ddd')}
           </th>
           <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(5).format('D dd')}
+            {sunday.day(5).format('D ddd')}
           </th>
           <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(6).format('D dd')}
+            {sunday.day(6).format('D ddd')}
           </th>
           <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(7).format('D dd')}
+            {sunday.day(7).format('D ddd')}
           </th>
         </tr>
       </thead>
