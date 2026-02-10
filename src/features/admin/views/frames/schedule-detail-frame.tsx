@@ -51,25 +51,25 @@ export function ScheduleDetailFrame() {
         </div>
         <div>
           <div>
-            {t('schedule.statistics.all_not_inspected')}: {127}
+            {t('schedule.statistics.all_not_inspected')}: {0}
           </div>
           <div>
-            {t('schedule.statistics.all_single_target')}: {127}
+            {t('schedule.statistics.all_single_target')}: {0}
           </div>
           <div>
-            {t('schedule.statistics.all_waiting_target')}: {127}
+            {t('schedule.statistics.all_waiting_target')}: {0}
           </div>
           <div>
-            {t('schedule.statistics.all_passed')}: {127}
+            {t('schedule.statistics.all_passed')}: {0}
           </div>
           <div>
-            {t('schedule.statistics.progress')}: {127}
+            {t('schedule.statistics.progress')}: {0}%
           </div>
           <div>
-            {t('schedule.statistics.male_amount')}: {127}
+            {t('schedule.statistics.male_amount')}: {0}
           </div>
           <div>
-            {t('schedule.statistics.female_amount')}: {127}
+            {t('schedule.statistics.female_amount')}: {0}
           </div>
         </div>
       </div>
