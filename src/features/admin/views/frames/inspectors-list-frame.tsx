@@ -53,7 +53,7 @@ export function InspectorsListFrame() {
                 <td>{i.name}</td>
                 <td>{i.email}</td>
                 <td>{i.studentNumber}</td>
-                <td>{i.gender}</td>
+                <td>{t(`gender.${i.gender.toLowerCase()}`)}</td>
                 <td className="whitespace-pre-wrap">
                   {getTimeRange(
                     i.availableSlots.map((s) => ({
