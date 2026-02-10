@@ -25,7 +25,7 @@ function Inner() {
           className="text-text-gray hover:bg-bg-surface hover:text-text-black flex items-center gap-2 rounded-lg p-2 transition-colors"
         >
           <HomeIcon className="size-5 shrink-0" aria-hidden />
-          <span className="text-sub2 hidden sm:inline">{t('home')}</span>
+          <span className="text-sub2">{t('home')}</span>
         </Link>
         <nav className="flex items-center gap-1">
           <Link
