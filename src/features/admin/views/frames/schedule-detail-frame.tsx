@@ -55,7 +55,10 @@ export function ScheduleDetailFrame() {
               {t('schedule.create.summary.semester.label')}
             </span>
             <p className="text-box text-text-black">
-              {schedule.currentSemester.year} {schedule.currentSemester.season}
+              {schedule.currentSemester.year}{' '}
+              {t(
+                `schedule.create.summary.semester.${schedule.currentSemester.season.toLowerCase()}`,
+              )}
             </p>
           </div>
         </div>
