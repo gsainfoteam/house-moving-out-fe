@@ -4,10 +4,9 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Loading } from '@/common/components';
-import { cn } from '@/common/utils';
 
 import { useGetMoveOutScheduleQuery } from '../../viewmodels';
-import { RoomVisualize, SlotVisualize } from '../components';
+import { RoomVisualize, ScheduleStatusBadge, SlotVisualize } from '../components';
 
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/' });
@@ -29,21 +28,7 @@ export function ScheduleDetailFrame() {
         <div className="flex flex-col gap-3 border-b border-gray-100 pb-4">
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-h2 text-text-black font-bold">{schedule.title}</h2>
-            <span
-              className={cn(
-                'text-box2 rounded-full px-2.5 py-0.5 font-medium',
-                schedule.status === 'ACTIVE' && 'bg-bg-green text-primary-main',
-                schedule.status === 'COMPLETED' && 'bg-icon-light-gray text-text-gray',
-                schedule.status === 'DRAFT' && 'bg-icon-light-gray text-text-gray',
-                schedule.status === 'CANCELED' && 'bg-icon-red/80 text-status-fail',
-              )}
-            >
-              {/* t('schedule.status.active') */}
-              {/* t('schedule.status.completed') */}
-              {/* t('schedule.status.draft') */}
-              {/* t('schedule.status.canceled') */}
-              {t(`schedule.status.${schedule.status.toLowerCase()}`)}
-            </span>
+            <ScheduleStatusBadge status={schedule.status} />
           </div>
         </div>
 
