@@ -30,9 +30,9 @@ const LinkButton = ({
       to={to}
       from="/admin/schedules/$uuid"
       className={cn(
-        'flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sub2 transition-colors',
+        'text-sub2 flex items-center gap-2.5 rounded-lg px-3 py-2.5 transition-colors',
         isActive
-          ? 'bg-primary-main/12 font-medium text-primary-main'
+          ? 'bg-primary-main/12 text-primary-main font-medium'
           : 'text-text-gray hover:bg-bg-surface hover:text-text-black',
       )}
     >
@@ -45,8 +45,8 @@ const LinkButton = ({
 export function ScheduleLayoutFrame() {
   const { t } = useTranslation('admin');
   return (
-    <div className="flex min-h-0 flex-1">
-      <aside className="flex w-52 shrink-0 flex-col gap-0.5 border-r border-gray-200 bg-bg-white p-3">
+    <div className="flex flex-1">
+      <aside className="bg-bg-white flex w-52 shrink-0 flex-col gap-0.5 border-r border-gray-200 p-3">
         <LinkButton to="." icon={<LayoutDashboard />} text={t('schedule.main')} />
         <LinkButton to="./targets" icon={<Target />} text={t('target.list')} />
         <LinkButton to="./applications" icon={<Pencil />} text={t('application.list')} />

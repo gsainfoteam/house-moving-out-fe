@@ -18,11 +18,11 @@ function Inner() {
   if (!isAdmin) return <Navigate to="/" replace />;
 
   return (
-    <div className="flex h-dvh flex-col bg-bg-surface">
-      <header className="flex shrink-0 items-center gap-6 border-b border-gray-200 bg-bg-white px-4 py-3 shadow-sm">
+    <div className="bg-bg-surface flex h-dvh flex-col">
+      <header className="bg-bg-white flex shrink-0 items-center gap-6 border-b border-gray-200 px-4 py-3 shadow-sm">
         <Link
           to="/admin"
-          className="flex items-center gap-2 rounded-lg p-2 text-text-gray transition-colors hover:bg-bg-surface hover:text-text-black"
+          className="text-text-gray hover:bg-bg-surface hover:text-text-black flex items-center gap-2 rounded-lg p-2 transition-colors"
         >
           <HomeIcon className="size-5 shrink-0" aria-hidden />
           <span className="text-sub2 hidden sm:inline">{t('home')}</span>
@@ -30,13 +30,13 @@ function Inner() {
         <nav className="flex items-center gap-1">
           <Link
             to="/admin/schedules"
-            className="rounded-lg px-3 py-2 text-sub2 font-medium text-text-black transition-colors hover:bg-bg-surface hover:text-primary-main"
+            className="text-sub2 text-text-black hover:bg-bg-surface hover:text-primary-main rounded-lg px-3 py-2 font-medium transition-colors"
           >
             {t('schedule.list')}
           </Link>
         </nav>
       </header>
-      <main className="min-h-0 flex-1 overflow-auto">
+      <main className="flex min-h-0 flex-1 overflow-auto">
         <Outlet />
       </main>
     </div>
