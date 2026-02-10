@@ -11,7 +11,7 @@ export function ScheduleListFrame() {
   const { data: schedules } = useFindAllMoveOutSchedules();
   const { t } = useTranslation('admin');
 
-  if (!schedules) return <Loading />;
+  if (!schedules) return <Loading containerClassName="w-full h-auto" />;
 
   return (
     <main className="flex flex-1 flex-col gap-4 p-4">

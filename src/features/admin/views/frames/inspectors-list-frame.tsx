@@ -24,7 +24,7 @@ export function InspectorsListFrame() {
 
   if (isScheduleNotFound || isInspectorsNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
-  if (!schedule || !inspectors) return <Loading />;
+  if (!schedule || !inspectors) return <Loading containerClassName="h-full" />;
 
   const maleSlotTimes = inspectors
     .filter((i) => i.gender === Gender.MALE)

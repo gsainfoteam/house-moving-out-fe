@@ -14,7 +14,7 @@ export function ScheduleDetailFrame() {
   const { t } = useTranslation('admin');
 
   if (isNotFound) return <div className="p-4">{t('schedule.detail.notFound')}</div>;
-  if (!schedule) return <Loading />;
+  if (!schedule) return <Loading containerClassName="h-full" />;
 
   const maleCapacity = schedule.inspectionSlots[0].maleCapacity;
   const femaleCapacity = schedule.inspectionSlots[0].femaleCapacity;
