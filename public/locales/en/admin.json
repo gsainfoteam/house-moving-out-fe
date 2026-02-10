@@ -103,7 +103,16 @@
     },
     "empty": "There are no moving out schedules",
     "list": "Schedule List",
-    "main": "Dashboard"
+    "main": "Dashboard",
+    "statistics": {
+      "all_not_inspected": "All not inspected",
+      "all_passed": "All passed",
+      "all_single_target": "All not inspected single",
+      "all_waiting_target": "All waiting inspection",
+      "female_amount": "Female amount",
+      "male_amount": "Male amount",
+      "progress": "Inspection progress"
+    }
   },
   "status": {
     "disabled": "Disabled",
@@ -111,6 +120,7 @@
     "not_inspected": "Not Inspected",
     "passed": "Passed",
     "single": "Single inspection",
+    "single_passed": "Single Passed",
     "will_be_cleaned": "Will be cleaned"
   },
   "target": {

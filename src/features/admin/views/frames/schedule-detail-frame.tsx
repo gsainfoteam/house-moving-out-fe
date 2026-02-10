@@ -49,6 +49,29 @@ export function ScheduleDetailFrame() {
         <div>
           {t('schedule.detail.inspectors.female')}: {Math.ceil(femaleCapacity / 2)}
         </div>
+        <div>
+          <div>
+            {t('schedule.statistics.all_not_inspected')}: {127}
+          </div>
+          <div>
+            {t('schedule.statistics.all_single_target')}: {127}
+          </div>
+          <div>
+            {t('schedule.statistics.all_waiting_target')}: {127}
+          </div>
+          <div>
+            {t('schedule.statistics.all_passed')}: {127}
+          </div>
+          <div>
+            {t('schedule.statistics.progress')}: {127}
+          </div>
+          <div>
+            {t('schedule.statistics.male_amount')}: {127}
+          </div>
+          <div>
+            {t('schedule.statistics.female_amount')}: {127}
+          </div>
+        </div>
       </div>
       <div className="flex gap-2">
         <SlotVisualize

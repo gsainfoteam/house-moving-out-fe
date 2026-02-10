@@ -33,9 +33,16 @@ export function RoomVisualize() {
                 const roomNumber = `${house}${floor}${index.toString().padStart(2, '0')}`;
                 const status = disabledRooms.includes(roomNumber)
                   ? 'disabled'
-                  : (['passed', 'failed', 'not_inspected', 'will_be_cleaned', 'single'] as const)[
-                      Math.floor(Math.random() * 10)
-                    ];
+                  : (
+                      [
+                        'passed',
+                        'failed',
+                        'not_inspected',
+                        'will_be_cleaned',
+                        'single',
+                        'single_passed',
+                      ] as const
+                    )[Math.floor(Math.random() * 10)];
                 return (
                   <React.Fragment key={floor}>
                     <th>{roomNumber}</th>
@@ -46,7 +53,8 @@ export function RoomVisualize() {
                         status === 'failed' && 'bg-red-200',
                         status === 'not_inspected' && 'bg-red-200',
                         status === 'will_be_cleaned' && 'bg-purple-600',
-                        status === 'single' && 'bg-yellow-200',
+                        status === 'single' && 'bg-red-200',
+                        status === 'single_passed' && 'bg-yellow-200',
                       )}
                     >
                       {/* t('status.passed') */}
@@ -55,6 +63,7 @@ export function RoomVisualize() {
                       {/* t('status.not_inspected') */}
                       {/* t('status.will_be_cleaned') */}
                       {/* t('status.single') */}
+                      {/* t('status.single_passed') */}
                       {status && t(`status.${status}`)}
                     </td>
                   </React.Fragment>
