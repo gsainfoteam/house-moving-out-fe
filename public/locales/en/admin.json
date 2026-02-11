@@ -20,11 +20,11 @@
     "female": "Female",
     "male": "Male"
   },
+  "home": "Home",
   "inspectionType": {
     "first": "First",
     "second": "Second"
   },
-  "home": "Home",
   "inspectors": {
     "create": {
       "action": "Add Inspector",
@@ -148,9 +148,9 @@
     }
   },
   "smallScreen": {
-    "title": "Please use a larger screen",
     "descriptionLine1": "The admin page is optimized for desktop.",
-    "descriptionLine2": "Please open this page on a wider screen (e.g. laptop or desktop browser)."
+    "descriptionLine2": "Please open this page on a wider screen (e.g. laptop or desktop browser).",
+    "title": "Please use a larger screen"
   },
   "status": {
     "disabled": "Disabled",
