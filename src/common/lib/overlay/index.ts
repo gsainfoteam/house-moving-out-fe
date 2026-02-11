@@ -4,3 +4,6 @@ export * from './use-overlay';
 export * from './overlay-portal';
 export * from './overlay-stack-context';
 export * from './overlay-provider';
+export * from './overlay-store';
+export * from './overlay-context';
+export * from './overlay-host';
