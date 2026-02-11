@@ -1,6 +1,5 @@
 import { Body as DrawerBody } from './body';
 import { Close as DrawerClose } from './close';
-import { Content as DrawerContent } from './content';
 import { Description as DrawerDescription } from './description';
 import { Footer as DrawerFooter } from './footer';
 import { Header as DrawerHeader } from './header';
@@ -14,23 +13,31 @@ import { Title as DrawerTitle } from './title';
  * overlay.open()으로 열며, OverlayHost 안에서만 사용합니다.
  *
  * @see Drawer.Root
- * @see Drawer.Content
  * @see Drawer.Header
+ * @see Drawer.Title
+ * @see Drawer.Description
  * @see Drawer.Body
  * @see Drawer.Footer
+ * @see Drawer.Close
  *
  * @example
  * ```tsx
- * overlay.open(({ close }) => (
+ * overlay.open(() => (
  *   <Drawer.Root>
- *     <Drawer.Content>...</Drawer.Content>
+ *     <Drawer.Header>
+ *       <Drawer.Title>제목</Drawer.Title>
+ *       <Drawer.Description>설명</Drawer.Description>
+ *     </Drawer.Header>
+ *     <Drawer.Body>본문</Drawer.Body>
+ *     <Drawer.Footer>
+ *       <Drawer.Close asChild><Button>닫기</Button></Drawer.Close>
+ *     </Drawer.Footer>
  *   </Drawer.Root>
  * ));
  * ```
  */
 export const Drawer = {
   Root: DrawerRoot,
-  Content: DrawerContent,
   Body: DrawerBody,
   Header: DrawerHeader,
   Title: DrawerTitle,
@@ -42,10 +49,6 @@ export const Drawer = {
 export namespace Drawer {
   export namespace Root {
     export type Props = DrawerRoot.Props;
-  }
-
-  export namespace Content {
-    export type Props = DrawerContent.Props;
   }
 
   export namespace Body {

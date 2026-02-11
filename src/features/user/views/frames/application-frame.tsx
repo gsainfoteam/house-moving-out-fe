@@ -21,76 +21,68 @@ export function ApplicationFrame() {
   const openSuccessDialog = () =>
     overlay.open(() => (
       <Dialog.Root>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalCheck className="mb-3" />
-            <Dialog.Title>{t('application.dialog.success.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="default" className="w-full">
-                {t('application.dialog.success.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
+        <Dialog.Header>
+          <ModalCheck className="mb-3" />
+          <Dialog.Title>{t('application.dialog.success.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="default" className="w-full">
+              {t('application.dialog.success.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
       </Dialog.Root>
     ));
 
   const openFullDialog = () =>
     overlay.open(() => (
       <Dialog.Root>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalX className="mb-3" />
-            <Dialog.Title>{t('application.dialog.full.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed" className="w-full">
-                {t('application.dialog.full.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
+        <Dialog.Header>
+          <ModalX className="mb-3" />
+          <Dialog.Title>{t('application.dialog.full.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed" className="w-full">
+              {t('application.dialog.full.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
       </Dialog.Root>
     ));
 
   const openUpdateDialog = () =>
     overlay.open(() => (
       <Dialog.Root>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalCheck className="mb-3" />
-            <Dialog.Title>{t('application.dialog.update.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="default" className="w-full">
-                {t('application.dialog.update.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
+        <Dialog.Header>
+          <ModalCheck className="mb-3" />
+          <Dialog.Title>{t('application.dialog.update.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="default" className="w-full">
+              {t('application.dialog.update.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
       </Dialog.Root>
     ));
 
   const openModifyTimeRestrictedDialog = () =>
     overlay.open(() => (
       <Dialog.Root>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalBang className="mb-3" />
-            <Dialog.Title>{t('application.dialog.modifyCooldown.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed" className="w-full">
-                {t('application.dialog.modifyCooldown.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
+        <Dialog.Header>
+          <ModalBang className="mb-3" />
+          <Dialog.Title>{t('application.dialog.modifyCooldown.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed" className="w-full">
+              {t('application.dialog.modifyCooldown.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
       </Dialog.Root>
     ));
 
@@ -193,32 +185,30 @@ export function ApplicationFrame() {
                 onClick={() =>
                   overlay.open(({ close }) => (
                     <Dialog.Root>
-                      <Dialog.Content>
-                        <Dialog.Header>
-                          <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
-                          <Dialog.Description>
-                            {t('application.dialog.notice.description')}
-                          </Dialog.Description>
-                        </Dialog.Header>
-                        <Dialog.Body>
-                          <ol className="list-decimal space-y-2 pl-5">
-                            {Object.values(
-                              t('application.dialog.notice.items', { returnObjects: true }),
-                            ).map((item: string, index: number) => (
-                              <li key={index}>{item}</li>
-                            ))}
-                          </ol>
-                        </Dialog.Body>
-                        <Dialog.Footer>
-                          <Button
-                            variant="default"
-                            onClick={() => onSubmit().then(() => close())}
-                            disabled={formState.isSubmitting}
-                          >
-                            {t('application.dialog.notice.button')}
-                          </Button>
-                        </Dialog.Footer>
-                      </Dialog.Content>
+                      <Dialog.Header>
+                        <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
+                        <Dialog.Description>
+                          {t('application.dialog.notice.description')}
+                        </Dialog.Description>
+                      </Dialog.Header>
+                      <Dialog.Body>
+                        <ol className="list-decimal space-y-2 pl-5">
+                          {Object.values(
+                            t('application.dialog.notice.items', { returnObjects: true }),
+                          ).map((item: string, index: number) => (
+                            <li key={index}>{item}</li>
+                          ))}
+                        </ol>
+                      </Dialog.Body>
+                      <Dialog.Footer>
+                        <Button
+                          variant="default"
+                          onClick={() => onSubmit().then(() => close())}
+                          disabled={formState.isSubmitting}
+                        >
+                          {t('application.dialog.notice.button')}
+                        </Button>
+                      </Dialog.Footer>
                     </Dialog.Root>
                   ))
                 }

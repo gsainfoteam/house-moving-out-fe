@@ -217,25 +217,23 @@ function FailedCard() {
           onClick={() =>
             overlay.open(() => (
               <Dialog.Root>
-                <Dialog.Content>
-                  <Dialog.Header>
-                    <ModalBang className="mb-3" />
-                    <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
-                    <Dialog.Description>
-                      {/* TODO: mock remain count */}
-                      {t('steps.failed.retry.description', { remainCount: 2 })}
-                    </Dialog.Description>
-                  </Dialog.Header>
-                  <Dialog.Footer>
-                    <Dialog.Close asChild>
-                      <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
-                    </Dialog.Close>
-                    {/* TODO: retry submit */}
-                    <Button variant="failed" className="w-full">
-                      {t('steps.failed.retry.submit')}
-                    </Button>
-                  </Dialog.Footer>
-                </Dialog.Content>
+                <Dialog.Header>
+                  <ModalBang className="mb-3" />
+                  <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
+                  <Dialog.Description>
+                    {/* TODO: mock remain count */}
+                    {t('steps.failed.retry.description', { remainCount: 2 })}
+                  </Dialog.Description>
+                </Dialog.Header>
+                <Dialog.Footer>
+                  <Dialog.Close asChild>
+                    <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
+                  </Dialog.Close>
+                  {/* TODO: retry submit */}
+                  <Button variant="failed" className="w-full">
+                    {t('steps.failed.retry.submit')}
+                  </Button>
+                </Dialog.Footer>
               </Dialog.Root>
             ))
           }
@@ -316,51 +314,47 @@ export function MainFrame() {
   const openCancelDialog = useCallback(() => {
     overlay.open(({ close }) => (
       <Dialog.Root>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalBang className="mb-3" />
-            <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
-            <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed-outline" className="w-full">
-                {t('steps.waiting.cancel.button.cancel')}
-              </Button>
-            </Dialog.Close>
-            <Button
-              variant="failed"
-              className="w-full"
-              onClick={async () => {
-                if (applicationUuid == null) return;
-                await cancelInspection({ params: { path: { uuid: applicationUuid } } })
-                  .then(() => {
-                    close();
-                    overlay.open(() => (
-                      <Dialog.Root>
-                        <Dialog.Content>
-                          <Dialog.Header>
-                            <ModalBang className="mb-3" />
-                            <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
-                          </Dialog.Header>
-                          <Dialog.Footer>
-                            <Dialog.Close asChild>
-                              <Button variant="failed" className="w-full">
-                                {t('steps.waiting.cancelled.button')}
-                              </Button>
-                            </Dialog.Close>
-                          </Dialog.Footer>
-                        </Dialog.Content>
-                      </Dialog.Root>
-                    ));
-                  })
-                  .catch(() => {});
-              }}
-            >
-              {t('steps.waiting.cancel.button.submit')}
+        <Dialog.Header>
+          <ModalBang className="mb-3" />
+          <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
+          <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed-outline" className="w-full">
+              {t('steps.waiting.cancel.button.cancel')}
             </Button>
-          </Dialog.Footer>
-        </Dialog.Content>
+          </Dialog.Close>
+          <Button
+            variant="failed"
+            className="w-full"
+            onClick={async () => {
+              if (applicationUuid == null) return;
+              await cancelInspection({ params: { path: { uuid: applicationUuid } } })
+                .then(() => {
+                  close();
+                  overlay.open(() => (
+                    <Dialog.Root>
+                      <Dialog.Header>
+                        <ModalBang className="mb-3" />
+                        <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
+                      </Dialog.Header>
+                      <Dialog.Footer>
+                        <Dialog.Close asChild>
+                          <Button variant="failed" className="w-full">
+                            {t('steps.waiting.cancelled.button')}
+                          </Button>
+                        </Dialog.Close>
+                      </Dialog.Footer>
+                    </Dialog.Root>
+                  ));
+                })
+                .catch(() => {});
+            }}
+          >
+            {t('steps.waiting.cancel.button.submit')}
+          </Button>
+        </Dialog.Footer>
       </Dialog.Root>
     ));
   }, [cancelInspection, applicationUuid, t]);

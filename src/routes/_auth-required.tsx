@@ -38,24 +38,22 @@ function AuthRequiredLayout() {
           onClick={() =>
             overlay.open(() => (
               <Drawer.Root>
-                <Drawer.Content>
-                  <Drawer.Header>
-                    <Drawer.Title>{t('inquiryDrawer.title')}</Drawer.Title>
-                  </Drawer.Header>
-                  <Drawer.Body>
-                    <p>{t('inquiryDrawer.instagram')}</p>
-                    <p>{t('inquiryDrawer.email')}</p>
-                    <br />
-                    <a
-                      href="https://sites.google.com/view/gisthouse/home/%EC%9E%90%EC%A3%BC%ED%95%98%EB%8A%94-%EC%A7%88%EB%AC%B8faq?authuser=0"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-underline cursor-pointer"
-                    >
-                      {t('inquiryDrawer.faq')}
-                    </a>
-                  </Drawer.Body>
-                </Drawer.Content>
+                <Drawer.Header>
+                  <Drawer.Title>{t('inquiryDrawer.title')}</Drawer.Title>
+                </Drawer.Header>
+                <Drawer.Body>
+                  <p>{t('inquiryDrawer.instagram')}</p>
+                  <p>{t('inquiryDrawer.email')}</p>
+                  <br />
+                  <a
+                    href="https://sites.google.com/view/gisthouse/home/%EC%9E%90%EC%A3%BC%ED%95%98%EB%8A%94-%EC%A7%88%EB%AC%B8faq?authuser=0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-underline cursor-pointer"
+                  >
+                    {t('inquiryDrawer.faq')}
+                  </a>
+                </Drawer.Body>
               </Drawer.Root>
             ))
           }

@@ -1,6 +1,5 @@
 import { Body as DialogBody } from './body';
 import { Close as DialogClose } from './close';
-import { Content as DialogContent } from './content';
 import { Description as DialogDescription } from './description';
 import { Footer as DialogFooter } from './footer';
 import { Header as DialogHeader } from './header';
@@ -14,23 +13,31 @@ import { Title as DialogTitle } from './title';
  * overlay.open()으로 열며, OverlayHost 안에서만 사용합니다.
  *
  * @see Dialog.Root
- * @see Dialog.Content
  * @see Dialog.Header
+ * @see Dialog.Title
+ * @see Dialog.Description
  * @see Dialog.Body
  * @see Dialog.Footer
+ * @see Dialog.Close
  *
  * @example
  * ```tsx
- * overlay.open(({ close }) => (
+ * overlay.open(() => (
  *   <Dialog.Root>
- *     <Dialog.Content>...</Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>제목</Dialog.Title>
+ *       <Dialog.Description>설명</Dialog.Description>
+ *     </Dialog.Header>
+ *     <Dialog.Body>본문</Dialog.Body>
+ *     <Dialog.Footer>
+ *       <Dialog.Close asChild><Button>닫기</Button></Dialog.Close>
+ *     </Dialog.Footer>
  *   </Dialog.Root>
  * ));
  * ```
  */
 export const Dialog = {
   Root: DialogRoot,
-  Content: DialogContent,
   Body: DialogBody,
   Header: DialogHeader,
   Title: DialogTitle,
@@ -42,10 +49,6 @@ export const Dialog = {
 export namespace Dialog {
   export namespace Root {
     export type Props = DialogRoot.Props;
-  }
-
-  export namespace Content {
-    export type Props = DialogContent.Props;
   }
 
   export namespace Body {
