@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Link } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
@@ -10,6 +8,7 @@ import ModalBang from '@/assets/modal-bang.svg?react';
 import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
 import { Button, Dialog, LayoutCard } from '@/common/components';
+import { overlay } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
 import { useApplicationForm } from '../../viewmodels';
@@ -19,11 +18,73 @@ export function ApplicationFrame() {
   const { t } = useTranslation('user');
   const { user } = useAuth();
 
-  const [noticeDialogOpen, setNoticeDialogOpen] = useState(false);
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-  const [fullDialogOpen, setFullDialogOpen] = useState(false);
-  const [modifyTimeRestrictedDialogOpen, setModifyTimeRestrictedDialogOpen] = useState(false);
-  const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
+  const openSuccessDialog = () =>
+    overlay.open(() => (
+      <Dialog.Root>
+        <Dialog.Header>
+          <ModalCheck className="mb-3" />
+          <Dialog.Title>{t('application.dialog.success.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="default" className="w-full">
+              {t('application.dialog.success.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
+      </Dialog.Root>
+    ));
+
+  const openFullDialog = () =>
+    overlay.open(() => (
+      <Dialog.Root>
+        <Dialog.Header>
+          <ModalX className="mb-3" />
+          <Dialog.Title>{t('application.dialog.full.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed" className="w-full">
+              {t('application.dialog.full.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
+      </Dialog.Root>
+    ));
+
+  const openUpdateDialog = () =>
+    overlay.open(() => (
+      <Dialog.Root>
+        <Dialog.Header>
+          <ModalCheck className="mb-3" />
+          <Dialog.Title>{t('application.dialog.update.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="default" className="w-full">
+              {t('application.dialog.update.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
+      </Dialog.Root>
+    ));
+
+  const openModifyTimeRestrictedDialog = () =>
+    overlay.open(() => (
+      <Dialog.Root>
+        <Dialog.Header>
+          <ModalBang className="mb-3" />
+          <Dialog.Title>{t('application.dialog.modifyCooldown.title')}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed" className="w-full">
+              {t('application.dialog.modifyCooldown.button')}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
+      </Dialog.Root>
+    ));
 
   const {
     form: { control, formState, setValue },
@@ -34,13 +95,13 @@ export function ApplicationFrame() {
     onSubmit,
   } = useApplicationForm({
     applyInspection: {
-      onSuccess: () => setSuccessDialogOpen(true),
-      onFull: () => setFullDialogOpen(true),
+      onSuccess: openSuccessDialog,
+      onFull: openFullDialog,
     },
     updateInspection: {
-      onModifyTimeRestricted: () => setModifyTimeRestrictedDialogOpen(true),
-      onSuccess: () => setUpdateDialogOpen(true),
-      onFull: () => setFullDialogOpen(true),
+      onModifyTimeRestricted: openModifyTimeRestrictedDialog,
+      onSuccess: openUpdateDialog,
+      onFull: openFullDialog,
     },
   });
 
@@ -121,7 +182,36 @@ export function ApplicationFrame() {
                 variant="default"
                 className="w-full"
                 disabled={!formState.isValid}
-                onClick={() => setNoticeDialogOpen(true)}
+                onClick={() =>
+                  overlay.open(({ close }) => (
+                    <Dialog.Root>
+                      <Dialog.Header>
+                        <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
+                        <Dialog.Description>
+                          {t('application.dialog.notice.description')}
+                        </Dialog.Description>
+                      </Dialog.Header>
+                      <Dialog.Body>
+                        <ol className="list-decimal space-y-2 pl-5">
+                          {Object.values(
+                            t('application.dialog.notice.items', { returnObjects: true }),
+                          ).map((item: string, index: number) => (
+                            <li key={index}>{item}</li>
+                          ))}
+                        </ol>
+                      </Dialog.Body>
+                      <Dialog.Footer>
+                        <Button
+                          variant="default"
+                          onClick={() => onSubmit().then(() => close())}
+                          disabled={formState.isSubmitting}
+                        >
+                          {t('application.dialog.notice.button')}
+                        </Button>
+                      </Dialog.Footer>
+                    </Dialog.Root>
+                  ))
+                }
               >
                 {t('application.button.next')}
               </Button>
@@ -129,95 +219,6 @@ export function ApplicationFrame() {
           </LayoutCard.Root>
         </div>
       </div>
-      <Dialog.Root isOpen={noticeDialogOpen} onOpenChange={setNoticeDialogOpen}>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
-            <Dialog.Description>{t('application.dialog.notice.description')}</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Body>
-            <ol className="list-decimal space-y-2 pl-5">
-              {Object.values(t('application.dialog.notice.items', { returnObjects: true })).map(
-                (item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ),
-              )}
-            </ol>
-          </Dialog.Body>
-          <Dialog.Footer>
-            <Button
-              variant="default"
-              onClick={() => onSubmit().then(() => setNoticeDialogOpen(false))}
-              disabled={formState.isSubmitting}
-            >
-              {t('application.dialog.notice.button')}
-            </Button>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
-      <Dialog.Root isOpen={successDialogOpen} onOpenChange={setSuccessDialogOpen}>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalCheck className="mb-3" />
-            <Dialog.Title>{t('application.dialog.success.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="default" className="w-full">
-                {t('application.dialog.success.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
-      <Dialog.Root isOpen={fullDialogOpen} onOpenChange={setFullDialogOpen}>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalX className="mb-3" />
-            <Dialog.Title>{t('application.dialog.full.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed" className="w-full">
-                {t('application.dialog.full.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
-      <Dialog.Root isOpen={updateDialogOpen} onOpenChange={setUpdateDialogOpen}>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalCheck className="mb-3" />
-            <Dialog.Title>{t('application.dialog.update.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="default" className="w-full">
-                {t('application.dialog.update.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
-      <Dialog.Root
-        isOpen={modifyTimeRestrictedDialogOpen}
-        onOpenChange={setModifyTimeRestrictedDialogOpen}
-      >
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalBang className="mb-3" />
-            <Dialog.Title>{t('application.dialog.modifyCooldown.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed" className="w-full">
-                {t('application.dialog.modifyCooldown.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
     </>
   );
 }

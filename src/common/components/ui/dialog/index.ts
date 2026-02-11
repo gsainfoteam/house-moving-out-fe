@@ -1,52 +1,43 @@
 import { Body as DialogBody } from './body';
 import { Close as DialogClose } from './close';
-import { Content as DialogContent } from './content';
 import { Description as DialogDescription } from './description';
 import { Footer as DialogFooter } from './footer';
 import { Header as DialogHeader } from './header';
 import { Root as DialogRoot } from './root';
 import { Title as DialogTitle } from './title';
-import { Trigger as DialogTrigger } from './trigger';
 
 /**
  * Dialog 컴포넌트
  *
  * 모달 다이얼로그 UI를 구성하는 컴포넌트 집합입니다.
- * 버튼 클릭 시 떠오르는 확인/경고/폼 등의 레이어를 구현할 때 사용합니다.
+ * overlay.open()으로 열며, OverlayHost 안에서만 사용합니다.
  *
  * @see Dialog.Root
- * @see Dialog.Trigger
- * @see Dialog.Content
  * @see Dialog.Header
+ * @see Dialog.Title
+ * @see Dialog.Description
  * @see Dialog.Body
  * @see Dialog.Footer
+ * @see Dialog.Close
  *
  * @example
  * ```tsx
- * <Dialog.Root>
- *   <Dialog.Trigger asChild>
- *     <Button>열기</Button>
- *   </Dialog.Trigger>
- *   <Dialog.Content>
+ * overlay.open(() => (
+ *   <Dialog.Root>
  *     <Dialog.Header>
  *       <Dialog.Title>제목</Dialog.Title>
- *       <Dialog.Description>설명 텍스트입니다.</Dialog.Description>
+ *       <Dialog.Description>설명</Dialog.Description>
  *     </Dialog.Header>
- *     <Dialog.Body>본문 내용</Dialog.Body>
+ *     <Dialog.Body>본문</Dialog.Body>
  *     <Dialog.Footer>
- *       <Dialog.Close asChild>
- *         <Button variant="outline">취소</Button>
- *       </Dialog.Close>
- *       <Button>확인</Button>
+ *       <Dialog.Close asChild><Button>닫기</Button></Dialog.Close>
  *     </Dialog.Footer>
- *   </Dialog.Content>
- * </Dialog.Root>
+ *   </Dialog.Root>
+ * ));
  * ```
  */
 export const Dialog = {
   Root: DialogRoot,
-  Trigger: DialogTrigger,
-  Content: DialogContent,
   Body: DialogBody,
   Header: DialogHeader,
   Title: DialogTitle,
@@ -58,14 +49,6 @@ export const Dialog = {
 export namespace Dialog {
   export namespace Root {
     export type Props = DialogRoot.Props;
-  }
-
-  export namespace Trigger {
-    export type Props = DialogTrigger.Props;
-  }
-
-  export namespace Content {
-    export type Props = DialogContent.Props;
   }
 
   export namespace Body {

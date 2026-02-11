@@ -1,52 +1,16 @@
-/* eslint-disable react-refresh/only-export-components */
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { last } from 'es-toolkit/array';
 
+import {
+  BASE_Z_INDEX,
+  OverlayStackContext,
+  type OverlayEntry,
+  type OverlayId,
+  type OverlayStackAPI,
+} from './overlay-stack-context';
 import { lockScroll, unlockScroll } from './scroll-lock';
 
-import type { OverlayOptions } from './use-overlay';
-
-type OverlayId = string;
-
-type RegisterOptions = Required<OverlayOptions> & {
-  close: () => void;
-  id: OverlayId;
-};
-
-type OverlayEntry = {
-  id: OverlayId;
-  zIndex: number;
-} & RegisterOptions;
-
-type OverlayStackAPI = {
-  entries: OverlayEntry[];
-  register: (opts: RegisterOptions) => {
-    id: OverlayId;
-    unregister: () => void;
-  };
-  bringToFront: (id: OverlayId) => void;
-};
-
-export const OverlayStackContext = createContext<OverlayStackAPI | null>(null);
-
-export function useOverlayStack() {
-  const ctx = useContext(OverlayStackContext);
-  if (!ctx) throw new Error('useOverlayStack must be used within OverlayProvider');
-  return ctx;
-}
-
-export type { OverlayEntry, OverlayId, OverlayStackAPI, RegisterOptions };
-
-export const BASE_Z_INDEX = 1000;
 const Z_INDEX_STEP = 10;
 
 const normalizeEntries = (entries: OverlayEntry[]) =>

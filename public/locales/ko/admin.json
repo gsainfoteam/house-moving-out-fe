@@ -14,6 +14,7 @@
     },
     "list": "신청 목록"
   },
+  "floor": "{{count}}층",
   "gender": {
     "female": "여자",
     "male": "남자"
@@ -22,6 +23,7 @@
     "first": "초검",
     "second": "재검"
   },
+  "home": "홈",
   "inspectors": {
     "create": {
       "action": "검사위원 추가",
@@ -115,7 +117,6 @@
         "male": "남자 필요 검사위원 수"
       },
       "notFound": "존재하지 않는 퇴사검사입니다",
-      "status": "상태",
       "summary": {
         "female": "여자 신청 현황",
         "male": "남자 신청 현황"
@@ -123,7 +124,41 @@
     },
     "empty": "생성된 퇴사검사 목록이 없습니다",
     "list": "스케줄 목록",
-    "main": "대시보드"
+    "main": "대시보드",
+    "sidebar": {
+      "collapse": "사이드바 접기",
+      "expand": "사이드바 펼치기"
+    },
+    "statistics": {
+      "all_not_inspected": "전체 퇴사검사 미이행 수",
+      "all_passed": "검사 완료된 방 수",
+      "all_single_target": "전체 1인퇴사 검사 수",
+      "all_waiting_target": "검사 예정 방 수",
+      "female_amount": "여자층 검사대상 수",
+      "male_amount": "남자층 검사대상 수",
+      "progress": "검사 진행률",
+      "title": "검사 통계"
+    },
+    "status": {
+      "active": "진행중",
+      "canceled": "취소됨",
+      "completed": "완료됨",
+      "draft": "임시저장"
+    }
+  },
+  "smallScreen": {
+    "descriptionLine1": "관리자 페이지는 데스크톱 환경에 최적화되어 있습니다.",
+    "descriptionLine2": "가로 폭이 넓은 화면(예: 노트북, 데스크톱 브라우저)에서 접속해 주세요.",
+    "title": "큰 화면에서 이용해 주세요"
+  },
+  "status": {
+    "disabled": "미사용",
+    "failed": "불통",
+    "not_inspected": "미이행",
+    "passed": "통과",
+    "single": "1인 퇴검",
+    "single_passed": "1인 통과",
+    "will_be_cleaned": "업체 청소"
   },
   "target": {
     "detail": {

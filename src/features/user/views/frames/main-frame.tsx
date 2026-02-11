@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
 import { Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
+import { overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 import { useAuth } from '@/features/auth';
 
@@ -210,32 +211,35 @@ function FailedCard() {
       </LayoutCard.Center>
 
       <LayoutCard.Footer>
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
-            <Button variant="failed" className="w-full">
-              {t('steps.failed.button')}
-            </Button>
-          </Dialog.Trigger>
-          <Dialog.Content>
-            <Dialog.Header>
-              <ModalBang className="mb-3" />
-              <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
-              <Dialog.Description>
-                {/* TODO: mock remain count */}
-                {t('steps.failed.retry.description', { remainCount: 2 })}
-              </Dialog.Description>
-            </Dialog.Header>
-            <Dialog.Footer>
-              <Dialog.Close asChild>
-                <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
-              </Dialog.Close>
-              {/* TODO: retry submit */}
-              <Button variant="failed" className="w-full">
-                {t('steps.failed.retry.submit')}
-              </Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Root>
+        <Button
+          variant="failed"
+          className="w-full"
+          onClick={() =>
+            overlay.open(() => (
+              <Dialog.Root>
+                <Dialog.Header>
+                  <ModalBang className="mb-3" />
+                  <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
+                  <Dialog.Description>
+                    {/* TODO: mock remain count */}
+                    {t('steps.failed.retry.description', { remainCount: 2 })}
+                  </Dialog.Description>
+                </Dialog.Header>
+                <Dialog.Footer>
+                  <Dialog.Close asChild>
+                    <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
+                  </Dialog.Close>
+                  {/* TODO: retry submit */}
+                  <Button variant="failed" className="w-full">
+                    {t('steps.failed.retry.submit')}
+                  </Button>
+                </Dialog.Footer>
+              </Dialog.Root>
+            ))
+          }
+        >
+          {t('steps.failed.button')}
+        </Button>
       </LayoutCard.Footer>
     </>
   );
@@ -307,9 +311,53 @@ export function MainFrame() {
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
 
-  // TODO: HMF-36 선언적 overlay 조작이 매우 급함...
-  const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
-  const [isCancelled, setIsCancelled] = useState(false);
+  const openCancelDialog = useCallback(() => {
+    overlay.open(({ close }) => (
+      <Dialog.Root>
+        <Dialog.Header>
+          <ModalBang className="mb-3" />
+          <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
+          <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed-outline" className="w-full">
+              {t('steps.waiting.cancel.button.cancel')}
+            </Button>
+          </Dialog.Close>
+          <Button
+            variant="failed"
+            className="w-full"
+            onClick={async () => {
+              if (applicationUuid == null) return;
+              await cancelInspection({ params: { path: { uuid: applicationUuid } } })
+                .then(() => {
+                  close();
+                  overlay.open(() => (
+                    <Dialog.Root>
+                      <Dialog.Header>
+                        <ModalBang className="mb-3" />
+                        <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
+                      </Dialog.Header>
+                      <Dialog.Footer>
+                        <Dialog.Close asChild>
+                          <Button variant="failed" className="w-full">
+                            {t('steps.waiting.cancelled.button')}
+                          </Button>
+                        </Dialog.Close>
+                      </Dialog.Footer>
+                    </Dialog.Root>
+                  ));
+                })
+                .catch(() => {});
+            }}
+          >
+            {t('steps.waiting.cancel.button.submit')}
+          </Button>
+        </Dialog.Footer>
+      </Dialog.Root>
+    ));
+  }, [cancelInspection, applicationUuid, t]);
 
   if (!user) return null;
 
@@ -345,7 +393,7 @@ export function MainFrame() {
                 waiting: (
                   <WaitingCard
                     inspectionStartTime={inspectionStartTime}
-                    onClick={() => setIsCancelDialogOpen(true)}
+                    onClick={openCancelDialog}
                   />
                 ),
                 in_progress: <InProgressCard />,
@@ -356,50 +404,6 @@ export function MainFrame() {
           </LayoutCard.Root>
         </div>
       </div>
-      <Dialog.Root isOpen={isCancelDialogOpen} onOpenChange={setIsCancelDialogOpen}>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalBang className="mb-3" />
-            <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
-            <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed-outline" className="w-full">
-                {t('steps.waiting.cancel.button.cancel')}
-              </Button>
-            </Dialog.Close>
-            <Button
-              variant="failed"
-              className="w-full"
-              onClick={async () => {
-                if (applicationUuid == null) return;
-                await cancelInspection({ params: { path: { uuid: applicationUuid } } })
-                  .then(() => setIsCancelled(true))
-                  .catch(() => {})
-                  .finally(() => setIsCancelDialogOpen(false));
-              }}
-            >
-              {t('steps.waiting.cancel.button.submit')}
-            </Button>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
-      <Dialog.Root isOpen={isCancelled} onOpenChange={setIsCancelled}>
-        <Dialog.Content>
-          <Dialog.Header>
-            <ModalBang className="mb-3" />
-            <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Close asChild>
-              <Button variant="failed" className="w-full">
-                {t('steps.waiting.cancelled.button')}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
     </>
   );
 }

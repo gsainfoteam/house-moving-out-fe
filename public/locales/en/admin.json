@@ -14,6 +14,8 @@
     },
     "list": "Inspection Application List"
   },
+  "floor_one": "{{count}}F",
+  "floor_other": "{{count}}F",
   "gender": {
     "female": "Female",
     "male": "Male"
@@ -22,6 +24,7 @@
     "first": "First",
     "second": "Second"
   },
+  "home": "Home",
   "inspectors": {
     "create": {
       "action": "Add Inspector",
@@ -115,7 +118,6 @@
         "male": "Required male inspectors"
       },
       "notFound": "Moving out inspection not found.",
-      "status": "Status",
       "summary": {
         "female": "Female Summary",
         "male": "Male Summary"
@@ -123,7 +125,41 @@
     },
     "empty": "There are no moving out schedules",
     "list": "Schedule List",
-    "main": "Dashboard"
+    "main": "Dashboard",
+    "sidebar": {
+      "collapse": "Collapse sidebar",
+      "expand": "Expand sidebar"
+    },
+    "statistics": {
+      "all_not_inspected": "All not inspected",
+      "all_passed": "All passed",
+      "all_single_target": "All not inspected single",
+      "all_waiting_target": "All waiting inspection",
+      "female_amount": "Female amount",
+      "male_amount": "Male amount",
+      "progress": "Inspection progress",
+      "title": "Inspection Statistics"
+    },
+    "status": {
+      "active": "Active",
+      "canceled": "Canceled",
+      "completed": "Completed",
+      "draft": "Draft"
+    }
+  },
+  "smallScreen": {
+    "title": "Please use a larger screen",
+    "descriptionLine1": "The admin page is optimized for desktop.",
+    "descriptionLine2": "Please open this page on a wider screen (e.g. laptop or desktop browser)."
+  },
+  "status": {
+    "disabled": "Disabled",
+    "failed": "Failed",
+    "not_inspected": "Not Inspected",
+    "passed": "Passed",
+    "single": "Single inspection",
+    "single_passed": "Single Passed",
+    "will_be_cleaned": "Will be cleaned"
   },
   "target": {
     "detail": {

@@ -24,7 +24,7 @@ export function InspectorsListFrame() {
 
   if (isScheduleNotFound || isInspectorsNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
-  if (!schedule || !inspectors) return <Loading containerClassName="h-auto flex-1" />;
+  if (!schedule || !inspectors) return <Loading containerClassName="h-full" />;
 
   const maleSlotTimes = inspectors
     .filter((i) => i.gender === Gender.MALE)
@@ -35,10 +35,10 @@ export function InspectorsListFrame() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <div>
-        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:px-1">
+      <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
-            <tr>
+            <tr className="bg-bg-surface/80 [&_th]:text-text-black [&_th]:font-medium">
               <th>{t('inspectors.create.name.label')}</th>
               <th>{t('inspectors.create.email.label')}</th>
               <th>{t('inspectors.create.studentNumber.label')}</th>
@@ -53,7 +53,7 @@ export function InspectorsListFrame() {
                 <td>{i.name}</td>
                 <td>{i.email}</td>
                 <td>{i.studentNumber}</td>
-                <td>{i.gender}</td>
+                <td>{t(`gender.${i.gender.toLowerCase()}`)}</td>
                 <td className="whitespace-pre-wrap">
                   {getTimeRange(
                     i.availableSlots.map((s) => ({

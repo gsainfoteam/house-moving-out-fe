@@ -36,7 +36,7 @@ export function CreateInspectorFrame() {
       : schedule.inspectionSlots[0].femaleCapacity;
 
   return (
-    <form className="flex min-h-dvh flex-col gap-4 p-4" onSubmit={onSubmit}>
+    <form className="flex flex-1 flex-col gap-4 p-4" onSubmit={onSubmit}>
       <div>
         <label>
           {t('inspectors.create.name.label')}:

@@ -14,8 +14,8 @@ import { AnimatePresence, motion, type MotionProps } from 'motion/react';
 
 import { cn } from '@/common/utils';
 
-import { OverlayPortal } from './portal.tsx';
-import { BASE_Z_INDEX, useOverlayStack } from './provider';
+import { OverlayPortal } from './overlay-portal';
+import { BASE_Z_INDEX, useOverlayStack } from './overlay-stack-context';
 import { useFocusTrap } from './use-focus-trap';
 
 export type OverlayOptions = {
@@ -44,6 +44,14 @@ export type OverlayApi = {
   Container: OverlayContainerComponent;
   Backdrop: OverlayBackdropComponent;
   FocusTrap: OverlayFocusTrapComponent;
+};
+
+export type BaseOverlayContextValue = {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  overlay: OverlayApi;
+  /** exit 애니메이션 종료 시 호출. 호출 시 스택에서 제거. */
+  onExitComplete?: () => void;
 };
 
 export function useOverlay(
