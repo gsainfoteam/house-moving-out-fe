@@ -17,7 +17,6 @@
       "notice": {
         "button": "OK",
         "description": "Scroll down to review all important notices.",
-        "title": "Please check the precautions",
         "items": {
           "0": "If you are not in your room on your registered time, the checking will be cancelled.",
           "1": "Make sure to prepare before your examination time.",
@@ -31,7 +30,8 @@
           "9": "The moving-out inspection is only available three times in total, and if you do not pass the moving-out inspection for three times, the moving-out inspection will be non-fulfillment.",
           "10": "You can change your inspection schedule at least 1 hour before of the inspection time, and cancellations made within 1 hour of the inspection time will be treated as a no-show.",
           "11": "If a problem arises, penalty points will be assessed according to the \"University Dormitory Rules.\" The \"University Dormitory Rules\" can be found on the GIST Portal - Manual/Regulations - Academic Support Team - University Dormitory Rules.."
-        }
+        },
+        "title": "Please check the precautions"
       },
       "success": {
         "button": "Confirm",
@@ -43,7 +43,6 @@
       }
     },
     "error": {
-      "alreadyExistsOrFull": "You have already applied or the selected time slot is full.",
       "invalidUuid": "Invalid application UUID.",
       "notFound": "The inspection schedule information could not be found.",
       "notStartedOrEnded": "It is currently not within the inspection application period.",

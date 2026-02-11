@@ -7,8 +7,17 @@ import type { VariantProps } from 'tailwind-variants';
 export const Input = forwardRef<
   HTMLInputElement,
   Input.Props & React.InputHTMLAttributes<HTMLInputElement>
->(({ className, variant, ...props }, ref) => {
-  return <input className={styles({ variant, className })} {...props} ref={ref} />;
+>(({ className, variant, error, ...props }, ref) => {
+  return (
+    <>
+      <input
+        className={styles({ variant: variant ?? (error ? 'error' : undefined), className })}
+        {...props}
+        ref={ref}
+      />
+      {error && <span className="text-status-fail mt-1 text-sm">{error}</span>}
+    </>
+  );
 });
 
 const styles = cv({
@@ -40,5 +49,6 @@ const styles = cv({
 export namespace Input {
   export type Props = {
     variant?: VariantProps<typeof styles>['variant'];
+    error?: string;
   };
 }

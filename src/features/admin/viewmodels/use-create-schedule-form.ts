@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import z from 'zod';
 
-import { useCompareSheets, useCreateMoveOutSchedule } from './queries';
+import { useCreateMoveOutSchedule } from './queries';
 import { Season } from '../models';
 
 const schema = z.object({
@@ -75,7 +75,6 @@ export const useCreateScheduleForm = () => {
     resolver: zodResolver(schema),
   });
   const { mutateAsync: create } = useCreateMoveOutSchedule();
-  const { mutateAsync: compareSheets } = useCompareSheets();
   const { t } = useTranslation('admin');
   const applicationStartTime = useWatch({ control, name: 'applicationStartTime' });
   const inspectionStartWeek = useWatch({ control, name: 'inspectionStartWeek' });
@@ -89,25 +88,15 @@ export const useCreateScheduleForm = () => {
       if (!yearSemester) throw new TypeError('year semester assertion');
       const nextSemester = getNextSemester(yearSemester);
 
-      const semester = {
-        currentYear: yearSemester.year,
-        currentSeason: Season[yearSemester.semester.toUpperCase() as Uppercase<Semester>],
-        nextYear: nextSemester.year,
-        nextSeason: Season[nextSemester.semester.toUpperCase() as Uppercase<Semester>],
-      };
-
-      await toast
-        .promise(compareSheets({ body: { ...semester, file: form.file[0] } }), {
-          loading: t('schedule.create.excel.uploading'),
-          success: (result) => t('schedule.create.excel.count', { count: result.count }),
-          error: t('schedule.create.excel.error'),
-        })
-        .unwrap();
       const result = await toast
         .promise(
           create({
             body: {
-              ...semester,
+              currentYear: yearSemester.year,
+              currentSeason: Season[yearSemester.semester.toUpperCase()],
+              nextYear: nextSemester.year,
+              nextSeason: Season[nextSemester.semester.toUpperCase()],
+              file: form.file[0],
               applicationStartTime,
               applicationEndTime: last(inspectionTimeRange)!.start,
               title: form.title,
@@ -117,7 +106,6 @@ export const useCreateScheduleForm = () => {
           {
             loading: t('schedule.create.loading'),
             success: (result) => t('schedule.create.succeed', { uuid: result.uuid }),
-            error: t('schedule.create.error.creating'),
           },
         )
         .unwrap();
@@ -135,5 +123,6 @@ export const useCreateScheduleForm = () => {
     yearSemester,
     isSubmitting: formState.isSubmitting,
     inspectionTimeRange,
+    errors: formState.errors,
   };
 };

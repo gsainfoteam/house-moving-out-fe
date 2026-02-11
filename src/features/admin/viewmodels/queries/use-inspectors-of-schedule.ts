@@ -7,11 +7,11 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
-export const useGetMoveOutScheduleQuery = (uuid: string) => {
+export const useInspectorsOfSchedule = (scheduleUuid: string) => {
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
-    ApiPaths.MoveOutController_findMoveOutScheduleWithSlots,
-    { params: { path: { uuid } } },
+    ApiPaths.MoveOutController_findInspectorsByScheduleUuid,
+    { params: { path: { uuid: scheduleUuid } } },
     {
       retry(count, error) {
         if (error?.statusCode === 404 || error?.statusCode === 400) return false;
@@ -23,7 +23,9 @@ export const useGetMoveOutScheduleQuery = (uuid: string) => {
 
   useEffect(() => {
     if (!isError) return;
-    if (error.statusCode === 401) {
+    if (error.statusCode === 400) {
+      toast.error(t('error.badRequest', { ns: 'common' }));
+    } else if (error.statusCode === 401) {
       toast.error(t('error.unauthorized', { ns: 'common' }));
     } else if (error?.statusCode === 404) {
       // view에서 처리

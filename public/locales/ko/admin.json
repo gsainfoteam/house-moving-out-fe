@@ -2,8 +2,54 @@
   "application": {
     "list": "신청 목록"
   },
+  "floor": "{{count}}층",
+  "gender": {
+    "female": "여자",
+    "male": "남자"
+  },
+  "home": "홈",
   "inspectors": {
-    "list": "검사위원 목록"
+    "create": {
+      "action": "검사위원 추가",
+      "email": {
+        "label": "이메일",
+        "placeholder": "m@gm.gist.ac.kr"
+      },
+      "error": {
+        "formError": "입력 칸을 확인해주세요"
+      },
+      "gender": {
+        "label": "성별"
+      },
+      "name": {
+        "label": "이름",
+        "placeholder": "김지니"
+      },
+      "slots": {
+        "label": "검사 시간"
+      },
+      "studentNumber": {
+        "label": "학번",
+        "placeholder": "2025xxxx"
+      },
+      "succeed": "생성에 성공했습니다",
+      "summary": {
+        "label": "생성 요약"
+      }
+    },
+    "error": {
+      "notFound": "존재하지 않는 검사위원 입니다"
+    },
+    "list": {
+      "actions": {
+        "label": "액션"
+      },
+      "summary": {
+        "female": "여자 검사위원",
+        "male": "남자 검사위원"
+      },
+      "title": "검사위원 목록"
+    }
   },
   "schedule": {
     "create": {
@@ -12,14 +58,10 @@
         "label": "신청 시작시각"
       },
       "error": {
-        "creating": "퇴사검사 생성 중 에러가 발생했습니다",
         "formError": "입력란을 확인해주세요"
       },
       "excel": {
-        "count": "{{count}}명의 피검사자가 인식 되었습니다.",
-        "error": "엑셀 업로드에 실패했습니다",
-        "label": "방배정표 파일",
-        "uploading": "엑셀 파일 업로드 중. 창을 닫지 마세요..."
+        "label": "방배정표 파일"
       },
       "inspectionStartWeek": {
         "label": "검사 시작 주"
@@ -46,12 +88,57 @@
     },
     "detail": {
       "applicationTime": "신청기간",
+      "capacity": {
+        "female": "여자 최대 검사 수",
+        "male": "남자 최대 검사 수"
+      },
+      "inspectors": {
+        "female": "여자 필요 검사위원 수",
+        "male": "남자 필요 검사위원 수"
+      },
       "notFound": "존재하지 않는 퇴사검사입니다",
-      "status": "상태"
+      "summary": {
+        "female": "여자 신청 현황",
+        "male": "남자 신청 현황"
+      }
     },
     "empty": "생성된 퇴사검사 목록이 없습니다",
     "list": "스케줄 목록",
-    "main": "대시보드"
+    "main": "대시보드",
+    "sidebar": {
+      "collapse": "사이드바 접기",
+      "expand": "사이드바 펼치기"
+    },
+    "statistics": {
+      "all_not_inspected": "전체 퇴사검사 미이행 수",
+      "all_passed": "검사 완료된 방 수",
+      "all_single_target": "전체 1인퇴사 검사 수",
+      "all_waiting_target": "검사 예정 방 수",
+      "female_amount": "여자층 검사대상 수",
+      "male_amount": "남자층 검사대상 수",
+      "progress": "검사 진행률",
+      "title": "검사 통계"
+    },
+    "status": {
+      "active": "진행중",
+      "canceled": "취소됨",
+      "completed": "완료됨",
+      "draft": "임시저장"
+    }
+  },
+  "smallScreen": {
+    "descriptionLine1": "관리자 페이지는 데스크톱 환경에 최적화되어 있습니다.",
+    "descriptionLine2": "가로 폭이 넓은 화면(예: 노트북, 데스크톱 브라우저)에서 접속해 주세요.",
+    "title": "큰 화면에서 이용해 주세요"
+  },
+  "status": {
+    "disabled": "미사용",
+    "failed": "불통",
+    "not_inspected": "미이행",
+    "passed": "통과",
+    "single": "1인 퇴검",
+    "single_passed": "1인 통과",
+    "will_be_cleaned": "업체 청소"
   },
   "target": {
     "list": "검사 대상자 목록"
