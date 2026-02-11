@@ -1,13 +1,10 @@
 import { createContext, useContext } from 'react';
 
-import type { OverlayApi } from '@/common/lib';
+import type { BaseOverlayContextValue } from '@/common/lib';
 
 export type DrawerSide = 'top' | 'right' | 'bottom' | 'left';
 
-export type DrawerContextValue = {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  overlay: OverlayApi;
+export type DrawerContextValue = BaseOverlayContextValue & {
   side: DrawerSide;
   titleId: string;
   descriptionId: string;

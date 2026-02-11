@@ -1,11 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import type { OverlayApi } from '@/common/lib';
+import type { BaseOverlayContextValue } from '@/common/lib';
 
-export type DialogContextValue = {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  overlay: OverlayApi;
+export type DialogContextValue = BaseOverlayContextValue & {
   titleId: string;
   descriptionId: string;
 };
