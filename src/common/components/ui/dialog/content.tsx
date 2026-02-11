@@ -17,7 +17,8 @@ import { useDialogContext } from './context';
  * @see Dialog.Footer
  */
 export const Content = ({ className, children, ...props }: MotionProps & Content.Props) => {
-  const { overlay, isOpen, titleId, descriptionId } = useDialogContext('Dialog.Content');
+  const { overlay, isOpen, titleId, descriptionId, onExitComplete } =
+    useDialogContext('Dialog.Content');
 
   return (
     <overlay.Container enabled={isOpen} className="flex items-center justify-center">
@@ -30,7 +31,7 @@ export const Content = ({ className, children, ...props }: MotionProps & Content
         enabled={isOpen}
       />
       <overlay.FocusTrap enabled={isOpen}>
-        <AnimatePresence>
+        <AnimatePresence onExitComplete={onExitComplete}>
           {isOpen ? (
             <motion.div
               variants={contentAnimation}

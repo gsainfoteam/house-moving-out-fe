@@ -24,7 +24,7 @@ export const Content = ({
   children,
   ...props
 }: MotionProps & Content.Props & { children: React.ReactNode }) => {
-  const { overlay, isOpen, side, titleId, descriptionId, onOpenChange } =
+  const { overlay, isOpen, side, titleId, descriptionId, onOpenChange, onExitComplete } =
     useDrawerContext('Drawer.Content');
   const dragRef = useRef<HTMLDivElement>(null);
   const handleDragEnd = useCallback(
@@ -74,7 +74,7 @@ export const Content = ({
         enabled={isOpen}
       />
       <overlay.FocusTrap enabled={isOpen}>
-        <AnimatePresence>
+        <AnimatePresence onExitComplete={onExitComplete}>
           {isOpen ? (
             <motion.div
               ref={dragRef}

@@ -1,12 +1,12 @@
-import { useCallback, useId, useState, type PropsWithChildren } from 'react';
+import { useCallback, useId, type PropsWithChildren } from 'react';
 
-import { useOverlay, type OverlayOptions } from '@/common/lib';
+import { useOverlayContext, useOverlay, type OverlayOptions } from '@/common/lib';
 
 import DialogContext from './context';
 
 /**
  * 다이얼로그 상태/오버레이 컨텍스트를 제공하는 루트 컴포넌트입니다.
- * @see Dialog.Trigger
+ * OverlayHost 안에서만 사용하며, overlay.open()으로 열립니다.
  * @see Dialog.Content
  */
 export const Root = ({
@@ -15,24 +15,8 @@ export const Root = ({
   closeOnEscape = true,
   closeOnBackdrop = true,
   trapFocus = true,
-  isOpen: isOpenProp,
-  onOpenChange,
 }: Root.Props) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
-  const isControlled = isOpenProp !== undefined;
-  const isOpen = isControlled ? isOpenProp : uncontrolledOpen;
-
-  const setOpen = useCallback(
-    (open: boolean) => {
-      if (!isControlled) {
-        setUncontrolledOpen(open);
-      }
-      onOpenChange?.(open);
-    },
-    [isControlled, onOpenChange],
-  );
-
-  const close = useCallback(() => setOpen(false), [setOpen]);
+  const { isOpen, close, unmount } = useOverlayContext();
   const overlay = useOverlay(isOpen, close, {
     lockScroll,
     closeOnEscape,
@@ -43,14 +27,22 @@ export const Root = ({
   const titleId = useId();
   const descriptionId = useId();
 
+  const onOpenChange = useCallback(
+    (open: boolean) => {
+      if (!open) close();
+    },
+    [close],
+  );
+
   return (
     <DialogContext.Provider
       value={{
         isOpen,
-        onOpenChange: setOpen,
+        onOpenChange,
         overlay,
         titleId,
         descriptionId,
+        onExitComplete: unmount,
       }}
     >
       {children}
@@ -59,9 +51,5 @@ export const Root = ({
 };
 
 export namespace Root {
-  export type Props = OverlayOptions &
-    PropsWithChildren<{
-      isOpen?: boolean;
-      onOpenChange?: (open: boolean) => void;
-    }>;
+  export type Props = OverlayOptions & PropsWithChildren;
 }
