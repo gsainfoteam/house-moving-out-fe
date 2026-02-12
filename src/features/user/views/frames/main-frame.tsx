@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import ModalBang from '@/assets/modal-bang.svg?react';
 import { Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { overlay } from '@/common/lib';
-import { cn } from '@/common/utils';
 import { useAuth } from '@/features/auth';
 
 import {
@@ -362,48 +361,21 @@ export function MainFrame() {
   if (!user) return null;
 
   return (
-    <>
-      <div className={cn(status === 'passed' ? 'bg-bg-green' : 'bg-bg-surface', 'h-dvh px-5 py-6')}>
-        <div className="mx-auto flex h-full w-full max-w-100 flex-col gap-5">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col gap-2">
-              <h1 className="text-h1 text-text-black font-bold">
-                {t('header.title', { ns: 'common', name: user.name })}
-              </h1>
-              <h2 className="text-sub text-text-gray">
-                {user.roomNumber
-                  ? t('header.subtitle.room', {
-                      ns: 'common',
-                      studentId: user.studentNumber,
-                      room: user.roomNumber,
-                    })
-                  : t('header.subtitle.noRoom', { ns: 'common', studentId: user.studentNumber })}
-              </h2>
-            </div>
-            <img src="/house-logo.png" alt="house-logo" className="h-15" />
-          </div>
-
-          <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
-            <SwitchCase
-              value={status}
-              caseBy={{
-                not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
-                not_target: <NotTargetCard />,
-                application: <ApplicationCard />,
-                waiting: (
-                  <WaitingCard
-                    inspectionStartTime={inspectionStartTime}
-                    onClick={openCancelDialog}
-                  />
-                ),
-                in_progress: <InProgressCard />,
-                failed: <FailedCard />,
-                passed: <PassedCard />,
-              }}
-            />
-          </LayoutCard.Root>
-        </div>
-      </div>
-    </>
+    <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
+      <SwitchCase
+        value={status}
+        caseBy={{
+          not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
+          not_target: <NotTargetCard />,
+          application: <ApplicationCard />,
+          waiting: (
+            <WaitingCard inspectionStartTime={inspectionStartTime} onClick={openCancelDialog} />
+          ),
+          in_progress: <InProgressCard />,
+          failed: <FailedCard />,
+          passed: <PassedCard />,
+        }}
+      />
+    </LayoutCard.Root>
   );
 }
