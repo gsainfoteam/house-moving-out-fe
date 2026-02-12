@@ -22,8 +22,8 @@ export function InspectionScheduleCard({
       )}
     >
       <div className="flex items-center gap-4">
-        <h1 className="text-text-black w-16 text-right tabular-nums">{time.format('HH:mm')}</h1>
-        <div className="bg-icon-light-gray h-8 w-px" aria-hidden />
+        <h1 className="text-text-black tabular-nums">{time.format('HH:mm')}</h1>
+        <div className="bg-icon-light-gray my-1 w-px self-stretch" aria-hidden />
         <div className="flex flex-col gap-1 leading-tight">
           <span className="text-box text-text-black">{roomLabel}</span>
           <span className="text-box2 text-text-gray">{residentName}</span>
@@ -56,7 +56,7 @@ export namespace InspectionScheduleCard {
   };
 
   export const statusStyle: Record<ScheduleStatus, string> = {
-    DRAFT: cn('bg-icon-gray text-text-black'),
+    DRAFT: cn('bg-icon-gray text-text-white'),
     ACTIVE: cn('bg-primary-main text-text-white'),
     COMPLETED: cn('bg-text-black text-text-white'),
     CANCELED: cn('bg-icon-red/80 text-status-fail'),
