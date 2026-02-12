@@ -1,0 +1,10 @@
+{
+  "schedule": {
+    "status": {
+      "active": "검사",
+      "canceled": "취소",
+      "completed": "완료",
+      "draft": "예정"
+    }
+  }
+}

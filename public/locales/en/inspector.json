@@ -1,0 +1,10 @@
+{
+  "schedule": {
+    "status": {
+      "active": "ACTIVE",
+      "canceled": "CANCELED",
+      "completed": "COMPLETED",
+      "draft": "DRAFT"
+    }
+  }
+}
