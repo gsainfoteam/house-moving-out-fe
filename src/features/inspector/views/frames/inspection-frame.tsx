@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { Accordion, Checkbox, LayoutCard } from '@/common/components';
+import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
 import { cn } from '@/common/utils';
 
 export function InspectionFrame() {
@@ -8,6 +8,9 @@ export function InspectionFrame() {
   const sections = t('checklist.sections', {
     returnObjects: true,
   });
+
+  // TODO: 체크 상태와 연동
+  const isAllChecked = false;
 
   return (
     <LayoutCard.Root className="min-h-0 flex-1 overflow-y-auto">
@@ -51,6 +54,17 @@ export function InspectionFrame() {
           );
         })}
       </LayoutCard.Body>
+      <LayoutCard.Footer>
+        {isAllChecked ? (
+          <Button variant="default" className="w-full">
+            특이사항 없음 (통과)
+          </Button>
+        ) : (
+          <Button variant="failed" className="w-full">
+            특이사항 있음 (불통과)
+          </Button>
+        )}
+      </LayoutCard.Footer>
     </LayoutCard.Root>
   );
 }

@@ -19,6 +19,7 @@ export function InspectionListFrame() {
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">
+        {/* TODO: 실제 일정 데이터 연동 */}
         <InspectionScheduleCard
           time={baseTime}
           roomLabel="T012호"
