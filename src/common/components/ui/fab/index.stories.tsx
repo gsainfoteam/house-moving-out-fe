@@ -7,7 +7,7 @@ import { Fab } from '.';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Fab> = {
-  title: 'Components/Fab',
+  title: 'Common/Fab',
   component: Fab,
   parameters: {
     layout: 'fullscreen',

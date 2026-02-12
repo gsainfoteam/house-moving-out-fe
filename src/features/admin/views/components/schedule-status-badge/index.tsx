@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { cn } from '@/common/utils';
 
-import type { ScheduleStatus } from '../../models';
+import type { ScheduleStatus } from '../../../models';
 
 export function ScheduleStatusBadge({ status }: { status: ScheduleStatus }) {
   const { t } = useTranslation('admin');

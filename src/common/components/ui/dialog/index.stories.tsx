@@ -20,7 +20,7 @@ type OptionsArgs = {
 };
 
 const meta: Meta<OptionsArgs> = {
-  title: 'Overlay/Dialog',
+  title: 'Common/Dialog',
   parameters: {
     layout: 'centered',
   },

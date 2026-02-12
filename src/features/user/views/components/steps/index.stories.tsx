@@ -21,7 +21,7 @@ const mockSteps: Steps.Step[] = [
 ];
 
 const meta: Meta<typeof Steps> = {
-  title: 'Components/Steps',
+  title: 'User/Steps',
   component: Steps,
   parameters: {
     layout: 'centered',

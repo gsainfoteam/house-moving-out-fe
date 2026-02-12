@@ -9,7 +9,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const mockDays = [0, 1, 2, 3].map((i) => dayjs().startOf('day').add(i, 'day'));
 
 const meta: Meta<typeof DateSelect> = {
-  title: 'Features/MoveOut/DateSelect',
+  title: 'User/DateSelect',
   component: DateSelect,
   parameters: {
     layout: 'centered',

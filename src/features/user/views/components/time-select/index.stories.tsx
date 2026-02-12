@@ -21,7 +21,7 @@ const mockSlotsWithClosed: TimeSelect.Slot[] = mockSlots.map((slot, i) => ({
 }));
 
 const meta: Meta<typeof TimeSelect> = {
-  title: 'Features/MoveOut/TimeSelect',
+  title: 'User/TimeSelect',
   component: TimeSelect,
   parameters: {
     layout: 'centered',

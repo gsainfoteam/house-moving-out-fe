@@ -7,7 +7,7 @@ import { Drawer } from './drawer';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta = {
-  title: 'Overlay',
+  title: 'Common/Overlay',
   parameters: {
     layout: 'fullscreen',
   },
