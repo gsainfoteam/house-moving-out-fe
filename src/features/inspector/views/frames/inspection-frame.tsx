@@ -43,9 +43,11 @@ export function InspectionFrame() {
               <Accordion.Content>
                 <ul className="text-box2 text-text-black flex flex-col gap-3">
                   {itemEntries.map(([itemKey, label]) => (
-                    <li key={itemKey} className="flex items-center justify-between gap-2">
-                      <span>{label}</span>
-                      <Checkbox />
+                    <li key={itemKey} className="flex items-center gap-2">
+                      <label className="flex w-full cursor-pointer items-center justify-between gap-2">
+                        <span>{label}</span>
+                        <Checkbox />
+                      </label>
                     </li>
                   ))}
                 </ul>
