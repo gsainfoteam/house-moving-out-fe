@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react';
 
 import { cn } from '@/common/utils';
 
-import { Loading } from '../loading';
+import { Loading } from '../ui';
 
 /**
  * 레이아웃 카드 루트 컨테이너입니다.

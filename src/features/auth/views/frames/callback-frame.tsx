@@ -4,7 +4,7 @@ import { useNavigate } from '@tanstack/react-router';
 
 import { useAuthContext } from 'react-oauth2-code-pkce';
 
-import { Loading } from '@/common/components/loading';
+import { Loading } from '@/common/components';
 
 import { useAuth } from '../../viewmodels';
 

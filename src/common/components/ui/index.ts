@@ -7,6 +7,7 @@ export * from './button';
 export * from './checkbox';
 export * from './fab';
 export * from './input';
+export * from './loading';
 
 // compound components
 export * from './dialog';
