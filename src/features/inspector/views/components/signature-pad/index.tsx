@@ -4,14 +4,7 @@ import SignatureCanvas from 'react-signature-canvas';
 
 import { cn } from '@/common/utils';
 
-const resolveCssVarColor = (color: string) => {
-  if (typeof window === 'undefined') return color;
-  const match = color.match(/var\((--[^)]+)\)/);
-  if (!match) return color;
-  const value = getComputedStyle(document.documentElement).getPropertyValue(match[1]).trim();
-  return value || color;
-};
-
+import { resolveCssVarColor } from '../../../utils';
 export namespace SignaturePad {
   export type Props = {
     className?: string;
