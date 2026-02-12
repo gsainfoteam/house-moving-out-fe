@@ -13,7 +13,7 @@ export function Layout({ className, children }: Layout.Props) {
 
   return (
     <div className={cn('bg-bg-surface h-dvh px-5 py-6', className)}>
-      <div className="mx-auto flex h-full w-full max-w-100 flex-col gap-5">
+      <div className="mx-auto flex h-full min-h-0 w-full max-w-100 flex-col gap-5">
         <div className="flex items-center justify-between">
           {user && (
             <div className="flex flex-col gap-2">

@@ -17,7 +17,9 @@ export function InspectionScheduleCard({
   return (
     <div
       className={cn(
-        'bg-bg-white flex w-full items-center justify-between rounded-2xl px-4 py-3 shadow-sm',
+        'bg-bg-white border-icon-light-gray hover:bg-bg-surface border transition-colors duration-200',
+        'flex w-full items-center justify-between rounded-xl',
+        'px-4 py-3',
         className,
       )}
     >
