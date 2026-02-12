@@ -80,7 +80,7 @@
         "title": "Miscellaneous",
         "items": {
           "floor": "Check floor",
-          "fire-extinguisher": "Check room structure",
+          "room-structure": "Check room structure",
           "power": "Check power supply"
         }
       },
@@ -88,7 +88,7 @@
         "title": "Issues",
         "items": {
           "extinguisher": "Fire extinguisher",
-          "entrance-light": "Shoe cabinet light",
+          "shoe-cabinet-light": "Shoe cabinet light",
           "chair": "Chair",
           "curtain": "Curtain",
           "blind": "Blind",

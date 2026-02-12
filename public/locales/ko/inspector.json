@@ -80,7 +80,7 @@
         "title": "기타",
         "items": {
           "floor": "방바닥 확인",
-          "fire-extinguisher": "방구조 확인",
+          "room-structure": "방구조 확인",
           "power": "전원 확인"
         }
       },
@@ -88,7 +88,7 @@
         "title": "이상 여부",
         "items": {
           "extinguisher": "소화기",
-          "entrance-light": "신발장 형광등",
+          "shoe-cabinet-light": "신발장 형광등",
           "chair": "의자",
           "curtain": "커튼",
           "blind": "블라인드",
