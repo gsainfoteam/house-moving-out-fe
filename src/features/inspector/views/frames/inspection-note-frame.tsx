@@ -6,16 +6,24 @@ import { Button, Input, LayoutCard } from '@/common/components';
 
 import { SignaturePad } from '../components';
 
+type ChecklistSection = {
+  title: string;
+  items?: Record<string, string>;
+};
+
 export function InspectionNoteFrame() {
   const { t } = useTranslation('inspector');
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
   const residentPadRef = useRef<SignaturePad.Handle | null>(null);
 
   // TODO: mockup picking issues
-  const sections = t('checklist.sections', { returnObjects: true });
+  const sections = t('checklist.sections', { returnObjects: true }) as Record<
+    string,
+    ChecklistSection
+  >;
   const issues = Object.values(sections)
     .flatMap((section) => Object.values(section.items ?? {}))
-    .slice(0, 5);
+    .slice(0, 5) as string[];
 
   // TODO: 특이사항 코멘트 작성 + 서명 입력 UI 구현
   return (
