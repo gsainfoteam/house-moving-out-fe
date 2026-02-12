@@ -11,10 +11,8 @@ export const Checkbox = forwardRef<
   return (
     <label className={cn('inline-flex cursor-pointer items-center', className)}>
       <input type="checkbox" ref={ref} className="peer sr-only" {...props} />
-      <span className="inline-flex items-center justify-center">
-        <CheckedIcon className="hidden size-4 peer-checked:block" />
-        <UncheckedIcon className="block size-4 peer-checked:hidden" />
-      </span>
+      <CheckedIcon className="hidden size-4 peer-checked:block" />
+      <UncheckedIcon className="block size-4 peer-checked:hidden" />
     </label>
   );
 });
