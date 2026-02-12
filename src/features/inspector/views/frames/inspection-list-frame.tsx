@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 import { LayoutCard } from '@/common/components';
 
@@ -8,14 +9,14 @@ import { InspectionScheduleCard } from '../components';
 const baseTime = dayjs().startOf('day').hour(10);
 
 export function InspectionListFrame() {
+  const { t } = useTranslation('inspector');
+
   return (
     <LayoutCard.Root>
       <LayoutCard.Header>
         <LayoutCard.Text>
-          <LayoutCard.Title>퇴사검사 일정</LayoutCard.Title>
-          <LayoutCard.Description>
-            우측의 검사 버튼을 눌러 검사를 시작하세요.
-          </LayoutCard.Description>
+          <LayoutCard.Title>{t('list.title')}</LayoutCard.Title>
+          <LayoutCard.Description>{t('list.description')}</LayoutCard.Description>
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">

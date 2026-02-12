@@ -75,7 +75,7 @@ export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
             onChange(internalRef.current.toDataURL());
           }}
           canvasProps={{
-            className: 'block h-40 w-full rounded-2xl bg-bg-white',
+            className: 'block h-30 w-full rounded-2xl bg-bg-white',
           }}
         />
       </div>

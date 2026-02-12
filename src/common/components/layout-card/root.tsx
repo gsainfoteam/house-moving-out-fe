@@ -12,7 +12,10 @@ import { Loading } from '../ui';
  */
 export const Root = ({ children, isLoading, className }: Root.Props) => (
   <div
-    className={cn('bg-bg-white flex h-full flex-col gap-6 rounded-3xl p-6 shadow-lg', className)}
+    className={cn(
+      'bg-bg-white flex h-full min-h-0 flex-col gap-6 overflow-y-auto rounded-3xl p-6 shadow-lg',
+      className,
+    )}
   >
     {isLoading ? <Loading containerClassName="h-full" /> : children}
   </div>

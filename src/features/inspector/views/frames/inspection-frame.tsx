@@ -13,7 +13,7 @@ export function InspectionFrame() {
   const isAllChecked = false;
 
   return (
-    <LayoutCard.Root className="min-h-0 flex-1 overflow-y-auto">
+    <LayoutCard.Root>
       <LayoutCard.Header>
         <LayoutCard.Text>
           {/* TODO: 실제 방/입주자 정보 연동 */}
@@ -57,11 +57,11 @@ export function InspectionFrame() {
       <LayoutCard.Footer>
         {isAllChecked ? (
           <Button variant="default" className="w-full">
-            특이사항 없음 (통과)
+            {t('checklist.cta.allClear')}
           </Button>
         ) : (
           <Button variant="failed" className="w-full">
-            특이사항 있음 (불통과)
+            {t('checklist.cta.hasIssues')}
           </Button>
         )}
       </LayoutCard.Footer>

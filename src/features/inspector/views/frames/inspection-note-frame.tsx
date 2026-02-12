@@ -1,28 +1,42 @@
 import { useRef } from 'react';
 
-import { Button, LayoutCard } from '@/common/components';
+import { useTranslation } from 'react-i18next';
+
+import { Button, Input, LayoutCard } from '@/common/components';
 
 import { SignaturePad } from '../components';
 
 export function InspectionNoteFrame() {
+  const { t } = useTranslation('inspector');
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
   const residentPadRef = useRef<SignaturePad.Handle | null>(null);
+
+  // TODO: mockup picking issues
+  const sections = t('checklist.sections', { returnObjects: true });
+  const issues = Object.values(sections)
+    .flatMap((section) => Object.values(section.items ?? {}))
+    .slice(0, 5);
 
   // TODO: 특이사항 코멘트 작성 + 서명 입력 UI 구현
   return (
     <LayoutCard.Root>
       <LayoutCard.Header>
         <LayoutCard.Text className="items-start text-left">
-          <LayoutCard.Title>특이사항 재확인</LayoutCard.Title>
-          <ul className="text-box2 text-text-gray mt-1 list-inside list-disc">
-            <li>책상 서랍 정리 미흡</li>
-            <li>욕실 청소 상태 다시 확인</li>
-          </ul>
+          <LayoutCard.Title>{t('note.title')}</LayoutCard.Title>
         </LayoutCard.Text>
       </LayoutCard.Header>
-      <LayoutCard.Body>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-box text-text-black">검사자 서명</h2>
+      <LayoutCard.Body className="w-full items-start">
+        <div className="flex w-full flex-col gap-4">
+          <ul className="text-box2 list-inside list-disc">
+            {issues.map((issue) => (
+              <li key={issue}>{issue}</li>
+            ))}
+          </ul>
+          {/* TODO: 특이사항 코멘트 작성 시 위에 추가 */}
+          <Input placeholder={t('note.commentPlaceholder')} />
+        </div>
+        <div className="flex w-full flex-col gap-2">
+          <h2 className="text-box text-text-black">{t('note.inspectorSignature')}</h2>
           <SignaturePad ref={inspectorPadRef} />
           <div className="flex justify-end">
             <Button
@@ -31,12 +45,12 @@ export function InspectionNoteFrame() {
               className="text-box2 px-4 py-2"
               onClick={() => inspectorPadRef.current?.clear()}
             >
-              서명 초기화
+              {t('note.resetSignature')}
             </Button>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-box text-text-black">퇴사자 서명</h2>
+        <div className="flex w-full flex-col gap-2">
+          <h2 className="text-box text-text-black">{t('note.residentSignature')}</h2>
           <SignaturePad ref={residentPadRef} />
           <div className="flex justify-end">
             <Button
@@ -45,14 +59,14 @@ export function InspectionNoteFrame() {
               className="text-box2 px-4 py-2"
               onClick={() => residentPadRef.current?.clear()}
             >
-              서명 초기화
+              {t('note.resetSignature')}
             </Button>
           </div>
         </div>
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <Button variant="failed" className="w-full">
-          검사 완료 (재검사 요청)
+          {t('note.submitWithReinspection')}
         </Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>

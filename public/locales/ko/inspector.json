@@ -7,7 +7,24 @@
       "draft": "예정"
     }
   },
+  "list": {
+    "title": "퇴사검사 일정",
+    "description": "우측의 검사 버튼을 눌러 퇴사 검사를 시작해 주세요."
+  },
+  "note": {
+    "title": "특이사항 재확인",
+    "inspectorSignature": "검사자 서명",
+    "residentSignature": "퇴사자 서명",
+    "resetSignature": "서명 초기화",
+    "submitWithReinspection": "검사 완료 (재검사 요청)",
+    "issues": ["책상 서랍 정리 미흡", "욕실 청소 상태 다시 확인"],
+    "commentPlaceholder": "추가 코멘트를 입력하세요."
+  },
   "checklist": {
+    "cta": {
+      "allClear": "특이사항 없음 (통과)",
+      "hasIssues": "특이사항 있음 (불통과)"
+    },
     "sections": {
       "entrance-shoe-cabinet": {
         "title": "현관 및 신발장",
