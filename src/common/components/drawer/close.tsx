@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes } from 'react';
 import { cn, mergeEventHandlers } from '@/common/utils';
 
 import { useDrawerContext } from './context';
-import { Slot } from '../slot';
+import { Slot } from '../ui';
 
 /**
  * 드로어를 닫는 트리거 컴포넌트입니다.

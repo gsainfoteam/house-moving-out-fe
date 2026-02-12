@@ -51,13 +51,12 @@ Components in `src/common/components/` are split into **`ui/`** (primitives) and
 - **No feature/domain imports**: Do not import from `@/features/*`, and do not use i18n/auth/viewmodels in the component implementation.
 - **Single-purpose building blocks**: Map to one HTML element or a small, generic pattern (e.g. `Button`, `Input`, `Checkbox`, `Loading`).
 - **Or composition utilities**: Components that only control rendering/composition with no domain logic (e.g. `Slot`, `SwitchCase`).
-- **Or overlay primitives**: Reusable overlay/feedback UI that does not depend on app context (e.g. `Dialog`, `Drawer`, `Fab`).
 
 Use `ui/` when the component is a generic building block that any feature can use without bringing in app-specific dependencies.
 
 #### Root level – Composite components
 
-- **Layout / pattern components**: Compose multiple subcomponents or primitives into one pattern (e.g. `LayoutCard` with Header, Body, Footer).
+- **Layout / pattern components**: Compose multiple subcomponents or primitives into one pattern (e.g. `LayoutCard`, `Accordion`, `Dialog`, `Drawer`, `Fab` with multiple subcomponents).
 - **Feature/app-aware components**: Depend on app or feature context (i18n, auth, viewmodels), e.g. `LanguageToggle` (i18n), `Layout` (useAuth).
 
 Do **not** put components that use `@/features/*`, `useTranslation`, `useAuth`, or feature viewmodels under `ui/`.

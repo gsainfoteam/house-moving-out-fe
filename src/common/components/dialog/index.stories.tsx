@@ -5,7 +5,7 @@ import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
 import { i18n, OverlayHost, overlay, OverlayProvider } from '@/common/lib';
 
-import { Button } from '../button';
+import { Button } from '../ui';
 
 import { Dialog } from '.';
 
