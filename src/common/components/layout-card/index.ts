@@ -38,7 +38,12 @@ import { Title as LayoutCardTitle } from './title';
  *       </LayoutCard.Text>
  *     </LayoutCard.Header>
  *     <LayoutCard.Body>
- *       <Accordion title="추가 정보">...</Accordion>
+ *       <Accordion.Root>
+ *         <Accordion.Header>
+ *           <Accordion.Title>추가 정보</Accordion.Title>
+ *         </Accordion.Header>
+ *         <Accordion.Content>...</Accordion.Content>
+ *       </Accordion.Root>
  *     </LayoutCard.Body>
  *   </LayoutCard.Center>
  *   <LayoutCard.Footer>

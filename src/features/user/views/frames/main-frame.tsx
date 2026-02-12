@@ -5,7 +5,7 @@ import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
-import { Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
+import { Accordion, Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
@@ -14,7 +14,7 @@ import {
   useFindActiveMoveOutScheduleWithSlots,
   useFindMyInspection,
 } from '../../viewmodels';
-import { Accordion, Steps } from '../components';
+import { Steps } from '../components';
 
 import type { Dayjs } from 'dayjs';
 
@@ -196,16 +196,21 @@ function FailedCard() {
           </LayoutCard.Text>
         </LayoutCard.Header>
         <LayoutCard.Body>
-          <Accordion title={t('steps.failed.accordionTitle')}>
-            <ul className="flex flex-col gap-2">
-              {failedReasons.map((reason) => (
-                <li key={reason} className="text-box2 text-text-black flex items-center gap-2">
-                  <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
-                  <span>{reason}</span>
-                </li>
-              ))}
-            </ul>
-          </Accordion>
+          <Accordion.Root>
+            <Accordion.Header>
+              <Accordion.Title>{t('steps.failed.accordionTitle')}</Accordion.Title>
+            </Accordion.Header>
+            <Accordion.Content>
+              <ul className="flex flex-col gap-2">
+                {failedReasons.map((reason) => (
+                  <li key={reason} className="text-box2 text-text-black flex items-center gap-2">
+                    <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
+                    <span>{reason}</span>
+                  </li>
+                ))}
+              </ul>
+            </Accordion.Content>
+          </Accordion.Root>
         </LayoutCard.Body>
       </LayoutCard.Center>
 
