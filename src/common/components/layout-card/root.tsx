@@ -14,7 +14,7 @@ export const Root = ({ children, isLoading, className }: Root.Props) => (
   <div
     className={cn('bg-bg-white flex h-full flex-col gap-6 rounded-3xl p-6 shadow-lg', className)}
   >
-    {isLoading ? <Loading className="h-full" /> : children}
+    {isLoading ? <Loading containerClassName="h-full" /> : children}
   </div>
 );
 
