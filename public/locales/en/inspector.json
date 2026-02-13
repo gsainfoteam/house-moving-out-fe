@@ -1,4 +1,9 @@
 {
+  "error": {
+    "forbidden": "You are not an inspector or not assigned to this application.",
+    "alreadyPassed": "Inspection result has already been marked as passed.",
+    "notFound": "Inspection application not found."
+  },
   "schedule": {
     "status": {
       "active": "ACTIVE",
