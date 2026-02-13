@@ -1,5 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 import { AuthProvider, type TAuthConfig } from 'react-oauth2-code-pkce';
 import { Toaster } from 'sonner';
@@ -43,6 +44,7 @@ export function App() {
           <OverlayHost />
           <Toaster />
           <RouterProvider router={router} />
+          {import.meta.env.DEV && <TanStackRouterDevtools router={router} position="bottom-left" />}
         </OverlayProvider>
       </QueryClientProvider>
     </AuthProvider>

@@ -1,5 +1,7 @@
-import { Outlet } from '@tanstack/react-router';
+import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
 
+import { isNotNil } from 'es-toolkit';
+import { ArrowRightLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import HomeIcon from '@/assets/icons/home.svg?react';
@@ -9,11 +11,17 @@ import { Drawer, Fab, Layout } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { useLanguage } from '@/common/viewmodels';
 import { useAuth } from '@/features/auth';
+import { Route as InspectorRoute } from '@/routes/_auth-required/_user/inspector/index';
 
 export function UserLayoutFrame() {
   const { t } = useTranslation('common');
   const { toggleLanguage } = useLanguage();
-  const { logOut } = useAuth({ showToast: true });
+  const { logOut, inspector } = useAuth({ showToast: true });
+
+  const navigate = useNavigate();
+  const { matches } = useRouterState();
+
+  const isInspectorRoute = matches.some((match) => match.routeId === InspectorRoute.id);
 
   return (
     <>
@@ -21,6 +29,18 @@ export function UserLayoutFrame() {
         <Outlet />
       </Layout>
       <Fab>
+        {isNotNil(inspector) && (
+          <Fab.Item
+            icon={<ArrowRightLeft className="size-6" />}
+            label={isInspectorRoute ? t('fab.toUserMode') : t('fab.toInspectorMode')}
+            onClick={() =>
+              navigate({
+                to: isInspectorRoute ? '/' : '/inspector',
+                replace: true,
+              })
+            }
+          />
+        )}
         <Fab.Item
           icon={<HomeIcon className="size-6" />}
           label={t('fab.inquiry')}

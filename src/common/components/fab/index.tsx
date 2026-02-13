@@ -40,7 +40,7 @@ function FabItem({ icon, label, last = false, className, onClick, ...props }: Fa
     <div className="relative">
       <button
         className={cn(
-          'bg-bg-white hover:bg-bg-surface inset-ring-icon-gray relative z-10 flex w-full items-center justify-center gap-3 rounded-full px-8 py-2.5',
+          'bg-bg-white hover:bg-bg-surface inset-ring-icon-gray relative z-10 flex w-full items-center justify-center gap-2.5 rounded-full px-5 py-2.5',
           className,
         )}
         onClick={(e) => {

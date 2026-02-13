@@ -7,7 +7,9 @@
   "fab": {
     "inquiry": "Inquiry",
     "languageChange": "Language",
-    "logout": "Logout"
+    "logout": "Logout",
+    "toInspectorMode": "To inspector mode",
+    "toUserMode": "To resident mode"
   },
   "header": {
     "subtitle": {

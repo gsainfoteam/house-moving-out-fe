@@ -7,7 +7,9 @@
   "fab": {
     "inquiry": "문의하기",
     "languageChange": "언어변경",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "toInspectorMode": "검사자 모드로",
+    "toUserMode": "피검사자 모드로"
   },
   "header": {
     "subtitle": {
