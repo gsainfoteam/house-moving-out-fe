@@ -7,7 +7,7 @@ import { useAuthContext } from 'react-oauth2-code-pkce';
 import { toast } from 'sonner';
 
 import { UserDtoRole } from '../models';
-import { useLogin, useLogout, useUser } from './queries';
+import { useGetInspector, useGetInspectors, useLogin, useLogout, useUser } from './queries';
 import { useToken } from './stores';
 
 export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => {
@@ -15,7 +15,8 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
   const { mutate: logInMutate, ...logInMutation } = useLogin({ showToast });
   const { mutate: logOut, ...logOutMutation } = useLogout({ showToast });
   const { token } = useToken();
-  const { data, isLoading, error, refetch } = useUser();
+  const { data: userData, isLoading, error: userError, refetch: refetchUser } = useUser();
+  const { data: inspectors, isLoading: isLoadingInspectors } = useGetInspectors();
   const { t } = useTranslation('auth');
   const navigate = useNavigate();
 
@@ -37,25 +38,56 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
   const user = useMemo(() => {
     if (!token) return null;
     if (isLoading) return undefined;
-    if (error) return null;
-    return data;
-  }, [data, error, isLoading, token]);
+    if (userError) return null;
+    return userData;
+  }, [userData, userError, isLoading, token]);
 
   const isAdmin = useMemo(
     () => (user === undefined ? undefined : user?.role === UserDtoRole.ADMIN),
     [user],
   );
 
+  const matchedInspector = useMemo(() => {
+    if (!user || !inspectors) return null;
+    return inspectors.find((insp) => insp.studentNumber === user.studentNumber) ?? undefined;
+  }, [user, inspectors]);
+
+  const {
+    data: inspectorData,
+    isLoading: isLoadingInspector,
+    error: inspectorError,
+    refetch: refetchInspector,
+  } = useGetInspector(matchedInspector?.uuid ?? '', !!matchedInspector);
+
+  const inspector = useMemo(() => {
+    if (!user || !matchedInspector) return undefined;
+    if (isLoadingInspectors || isLoadingInspector) return undefined;
+    if (inspectorError) return null;
+    return inspectorData;
+  }, [
+    inspectorData,
+    inspectorError,
+    isLoadingInspector,
+    isLoadingInspectors,
+    matchedInspector,
+    user,
+  ]);
+
   useEffect(() => {
-    if (token) {
-      refetch();
+    if (!token) return;
+
+    refetchUser();
+    if (matchedInspector) {
+      refetchInspector();
     }
-  }, [refetch, token]);
+  }, [matchedInspector, refetchInspector, refetchUser, token]);
 
   return {
     user,
+    inspector,
     isAdmin,
-    refetch,
+    refetchUser,
+    refetchInspector,
     idpLogIn,
     idpLogOut,
     logIn,
