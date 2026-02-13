@@ -3,19 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
 import { cn } from '@/common/utils';
 
-type ChecklistSection = {
-  title: string;
-  items?: Record<string, string>;
-};
+import { useInspectionChecklistForm } from '../../viewmodels';
 
 export function InspectionFrame() {
   const { t } = useTranslation('inspector');
-  const sections = t('checklist.sections', {
-    returnObjects: true,
-  }) as Record<string, ChecklistSection>;
-
-  // TODO: 체크 상태와 연동
-  const isAllChecked = false;
+  const {
+    form: { register },
+    sections,
+    getSectionProgress,
+    isAllChecked,
+  } = useInspectionChecklistForm();
 
   return (
     <LayoutCard.Root>
@@ -27,10 +24,8 @@ export function InspectionFrame() {
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">
         {Object.entries(sections).map(([sectionKey, section]) => {
-          const itemEntries = Object.entries(section.items ?? {}) as [string, string][];
-          const totalCount = itemEntries.length;
-          const completedCount = 0; // TODO: 체크 상태와 연동
-          const isCompleted = totalCount > 0 && completedCount === totalCount;
+          const itemEntries = Object.entries(section.items ?? {});
+          const { totalCount, completedCount, isCompleted } = getSectionProgress(sectionKey);
 
           return (
             <Accordion.Root key={sectionKey}>
@@ -51,7 +46,7 @@ export function InspectionFrame() {
                     <li key={itemKey} className="flex items-center gap-2">
                       <label className="flex w-full cursor-pointer items-center justify-between gap-2">
                         <span>{label}</span>
-                        <Checkbox />
+                        <Checkbox {...register(`${sectionKey}.${itemKey}`)} />
                       </label>
                     </li>
                   ))}
