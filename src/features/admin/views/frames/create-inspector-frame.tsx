@@ -16,7 +16,7 @@ import { getTimeRange } from '../utils';
 
 export function CreateInspectorFrame() {
   const { t } = useTranslation('admin');
-  const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/new' });
+  const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/inspectors/new' });
   const { register, onSubmit, isSubmitting, setGender, gender, errors, toggleSlot, slots } =
     useCreateInspectorForm();
   const { data: inspectors, isNotFound: isInspectorsNotFound } = useInspectorsOfSchedule(uuid);

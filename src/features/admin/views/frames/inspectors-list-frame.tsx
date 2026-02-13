@@ -16,7 +16,7 @@ import { SlotVisualize } from '../components';
 import { getTimeRange } from '../utils';
 
 export function InspectorsListFrame() {
-  const { uuid } = useParams({ from: '/admin/schedules/$uuid/inspectors/' });
+  const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/inspectors/' });
   const { data: inspectors, isNotFound: isInspectorsNotFound } = useInspectorsOfSchedule(uuid);
   const { t } = useTranslation('admin');
   const { data: schedule, isNotFound: isScheduleNotFound } = useGetMoveOutScheduleQuery(uuid);

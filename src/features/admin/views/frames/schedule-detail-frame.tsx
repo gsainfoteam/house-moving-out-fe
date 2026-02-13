@@ -9,7 +9,7 @@ import { useGetMoveOutScheduleQuery } from '../../viewmodels';
 import { RoomVisualize, ScheduleStatusBadge, SlotVisualize } from '../components';
 
 export function ScheduleDetailFrame() {
-  const { uuid } = useParams({ from: '/admin/schedules/$uuid/' });
+  const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/' });
   const { data: schedule, isNotFound } = useGetMoveOutScheduleQuery(uuid);
   const { t } = useTranslation('admin');
 
@@ -21,9 +21,7 @@ export function ScheduleDetailFrame() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <section
-        className="flex flex-col gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
-      >
+      <section className="flex flex-col gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-3 border-b border-gray-100 pb-4">
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-h2 text-text-black font-bold">{schedule.title}</h2>
