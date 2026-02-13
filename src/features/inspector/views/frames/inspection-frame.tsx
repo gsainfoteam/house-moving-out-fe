@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from '@tanstack/react-router';
+
 import { useTranslation } from 'react-i18next';
 
 import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
@@ -7,12 +9,14 @@ import { useInspectionChecklistForm } from '../../viewmodels';
 
 export function InspectionFrame() {
   const { t } = useTranslation('inspector');
+  const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/' });
   const {
     form: { register },
     sections,
     getSectionProgress,
     isAllChecked,
   } = useInspectionChecklistForm();
+  const navigate = useNavigate();
 
   return (
     <LayoutCard.Root>
@@ -57,15 +61,15 @@ export function InspectionFrame() {
         })}
       </LayoutCard.Body>
       <LayoutCard.Footer>
-        {isAllChecked ? (
-          <Button variant="default" className="w-full">
-            {t('checklist.cta.allClear')}
-          </Button>
-        ) : (
-          <Button variant="failed" className="w-full">
-            {t('checklist.cta.hasIssues')}
-          </Button>
-        )}
+        <Button
+          variant={isAllChecked ? 'default' : 'failed'}
+          className="w-full"
+          onClick={() => {
+            navigate({ to: '/inspector/$uuid/note', params: { uuid } });
+          }}
+        >
+          {isAllChecked ? t('checklist.cta.allClear') : t('checklist.cta.hasIssues')}
+        </Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>
   );

@@ -65,10 +65,31 @@ export const useInspectionChecklistForm = () => {
     return sectionKeys.every((sectionKey) => getSectionProgress(sectionKey).isCompleted);
   }, [sections, getSectionProgress]);
 
+  const getItemSlug = useCallback((sectionKey: string, itemKey: string) => {
+    return `${sectionKey}-${itemKey}`;
+  }, []);
+
+  const getItems = useCallback(() => {
+    const items: { slug: string; label: string; isChecked: boolean }[] = [];
+
+    Object.entries(sections).forEach(([sectionKey, section]) => {
+      const sectionValues = values?.[sectionKey] ?? {};
+      Object.entries(section.items ?? {}).forEach(([itemKey, label]) => {
+        const slug = getItemSlug(sectionKey, itemKey);
+        const isChecked = sectionValues[itemKey] ?? false;
+        items.push({ slug, label, isChecked });
+      });
+    });
+
+    return items;
+  }, [getItemSlug, sections, values]);
+
   return {
     form,
     sections,
     getSectionProgress,
     isAllChecked,
+    getItems,
+    getItemSlug,
   };
 };
