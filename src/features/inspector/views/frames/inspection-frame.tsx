@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { useInspectionChecklistForm } from '../../viewmodels';
+import { useInspectionChecklistContext } from '../../viewmodels';
 
 export function InspectionFrame() {
   const { t } = useTranslation('inspector');
@@ -15,7 +15,7 @@ export function InspectionFrame() {
     sections,
     getSectionProgress,
     isAllChecked,
-  } = useInspectionChecklistForm();
+  } = useInspectionChecklistContext();
   const navigate = useNavigate();
 
   return (

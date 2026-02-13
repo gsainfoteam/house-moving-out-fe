@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import z from 'zod';
 
 import { useSubmitInspectionResult } from './queries';
-import { useInspectionChecklistForm } from './use-inspection-checklist-form';
+import { useInspectionChecklistContext } from './use-inspection-checklist-context';
 
 type SignaturePadHandle = {
   clear: () => void;
@@ -29,7 +29,7 @@ export const useInspectionNoteForm = (
   residentPadRef: React.RefObject<SignaturePadHandle | null>,
 ) => {
   const { mutateAsync: submitInspectionResult } = useSubmitInspectionResult();
-  const { getItems } = useInspectionChecklistForm();
+  const { getItems } = useInspectionChecklistContext();
 
   const form = useForm<InspectionNoteFormValues>({
     resolver: zodResolver(inspectionNoteSchema),
