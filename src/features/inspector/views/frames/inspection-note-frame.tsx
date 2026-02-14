@@ -29,8 +29,8 @@ export function InspectionNoteFrame() {
           <LayoutCard.Title>{t('note.title')}</LayoutCard.Title>
         </LayoutCard.Text>
       </LayoutCard.Header>
-      <LayoutCard.Body className="w-full items-start">
-        <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
+      <form onSubmit={onSubmit}>
+        <LayoutCard.Body className="w-full items-start">
           <div className="flex w-full flex-col gap-4">
             {uncheckedItems.length > 0 && (
               <ul className="text-box2 list-inside list-disc">
@@ -83,18 +83,18 @@ export function InspectionNoteFrame() {
               </p>
             )}
           </div>
-          <LayoutCard.Footer className="mt-4">
-            <Button
-              type="submit"
-              variant="failed"
-              className="w-full"
-              disabled={form.formState.isSubmitting}
-            >
-              {t('note.submitWithReinspection')}
-            </Button>
-          </LayoutCard.Footer>
-        </form>
-      </LayoutCard.Body>
+        </LayoutCard.Body>
+        <LayoutCard.Footer>
+          <Button
+            type="submit"
+            variant="failed"
+            className="w-full"
+            disabled={form.formState.isSubmitting}
+          >
+            {t('note.submitWithReinspection')}
+          </Button>
+        </LayoutCard.Footer>
+      </form>
     </LayoutCard.Root>
   );
 }
