@@ -1,11 +1,15 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, useWatch } from 'react-hook-form';
 import { I18nextProvider, useTranslation } from 'react-i18next';
+import { z } from 'zod';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
 import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
 import { i18n, OverlayHost, overlay, OverlayProvider } from '@/common/lib';
+import { cn } from '@/common/utils';
 
-import { Button } from '../ui';
+import { Button, Checkbox } from '../ui';
 
 import { Dialog } from '.';
 
@@ -212,41 +216,71 @@ function OverlayStackDemo() {
 }
 
 function ScrollDemo() {
-  const { t } = useTranslation('user');
-
   return (
     <div className="flex items-center justify-center">
-      <Button
-        onClick={() =>
-          overlay.open(() => (
-            <Dialog.Root closeOnBackdrop>
-              <Dialog.Header>
-                <Dialog.Title>스크롤 확인</Dialog.Title>
-                <Dialog.Description>
-                  길어지는 내용이 있을 때 내부 스크롤을 확인해 주세요.
-                </Dialog.Description>
-              </Dialog.Header>
-              <Dialog.Body>
-                <ol className="list-decimal space-y-2 pl-5">
-                  {Object.values(t('application.dialog.notice.items', { returnObjects: true })).map(
-                    (item: string, index: number) => (
-                      <li key={index}>{item}</li>
-                    ),
-                  )}
-                </ol>
-              </Dialog.Body>
-              <Dialog.Footer>
-                <Dialog.Close asChild>
-                  <Button>닫기</Button>
-                </Dialog.Close>
-              </Dialog.Footer>
-            </Dialog.Root>
-          ))
-        }
-      >
+      <Button onClick={() => overlay.open(() => <ConsentScrollDialog />)}>
         Open scroll dialog
       </Button>
     </div>
+  );
+}
+
+const noticeFormSchema = z.record(
+  z.string(),
+  z
+    .boolean()
+    .default(false)
+    .refine((value) => value === true),
+);
+
+function ConsentScrollDialog() {
+  const { t } = useTranslation('user');
+  const items = Object.values(
+    t('application.dialog.notice.items', { returnObjects: true }) as Record<string, string>,
+  );
+
+  const {
+    control,
+    register,
+    formState: { isValid },
+  } = useForm({
+    resolver: zodResolver(noticeFormSchema),
+    defaultValues: Object.fromEntries(items.map((_, i) => [String(i), false])),
+    mode: 'onChange',
+  });
+
+  const values = useWatch({ control });
+
+  return (
+    <Dialog.Root closeOnBackdrop>
+      <Dialog.Header>
+        <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
+        <Dialog.Description>{t('application.dialog.notice.description')}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Body>
+        <ul className="flex flex-col gap-2">
+          {items.map((item, index) => (
+            <li
+              key={index}
+              className={cn(
+                'rounded-lg px-3 py-2.5 transition-colors',
+                values[index] ? 'bg-primary-main/10' : 'bg-bg-surface/30',
+              )}
+            >
+              <label className="text-box2 text-text-black flex cursor-pointer items-start gap-2 leading-normal">
+                <Checkbox {...register(String(index))} className="mt-0.5 shrink-0" />
+                {item}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </Dialog.Body>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button disabled={!isValid}>닫기</Button>
+        </Dialog.Close>
+      </Dialog.Footer>
+    </Dialog.Root>
   );
 }
 
