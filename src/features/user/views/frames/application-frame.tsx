@@ -10,19 +10,16 @@ import ModalX from '@/assets/modal-x.svg?react';
 import { Button, Checkbox, Dialog, LayoutCard } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
+import { useLoading } from '@/common/viewmodels';
 import { useAuth } from '@/features/auth';
 
 import { useApplicationForm, useNoticeConsentForm } from '../../viewmodels';
 import { DateSelect, TimeSelect } from '../components';
 
-function NoticeConsentDialog({
-  onConfirm,
-  isSubmitting,
-}: {
-  onConfirm: () => Promise<void>;
-  isSubmitting?: boolean;
-}) {
+function NoticeConsentDialog({ onConfirm }: { onConfirm: () => Promise<void> }) {
   const { t } = useTranslation('user');
+  const [isSubmitting, startLoading] = useLoading();
+
   const items = Object.values(
     t('application.dialog.notice.items', { returnObjects: true }) as Record<string, string>,
   );
@@ -57,7 +54,7 @@ function NoticeConsentDialog({
           variant="default"
           className="w-full"
           disabled={!isValid || isSubmitting}
-          onClick={onConfirm}
+          onClick={() => startLoading(onConfirm)}
         >
           {t('application.dialog.notice.button')}
         </Button>
@@ -215,10 +212,7 @@ export function ApplicationFrame() {
           disabled={!formState.isValid}
           onClick={() =>
             overlay.open(({ close }) => (
-              <NoticeConsentDialog
-                onConfirm={() => onSubmit().then(() => close())}
-                isSubmitting={formState.isSubmitting}
-              />
+              <NoticeConsentDialog onConfirm={() => onSubmit().then(() => close())} />
             ))
           }
         >
