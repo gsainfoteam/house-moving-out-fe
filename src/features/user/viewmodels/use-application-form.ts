@@ -20,8 +20,6 @@ const applicationFormSchema = z
   })
   .refine((data) => data.inspectionDayTimestamp != null && data.inspectionSlotUuid != null);
 
-export type ApplicationFormValues = z.infer<typeof applicationFormSchema>;
-
 export const useApplicationForm = ({
   applyInspection: { onSuccess: onApplySuccess, onFull: onApplyFull } = {},
   updateInspection: {
@@ -55,7 +53,7 @@ export const useApplicationForm = ({
     onModifyTimeRestricted: onModifyTimeRestricted,
   });
 
-  const form = useForm<ApplicationFormValues>({
+  const form = useForm({
     resolver: zodResolver(applicationFormSchema),
     defaultValues: {
       inspectionDayTimestamp: null,

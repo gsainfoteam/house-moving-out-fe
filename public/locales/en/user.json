@@ -44,6 +44,7 @@
     },
     "error": {
       "invalidUuid": "Invalid application UUID.",
+      "noAvailableInspector": "No inspector available for this time slot.",
       "notFound": "The inspection schedule information could not be found.",
       "notStartedOrEnded": "It is currently not within the inspection application period.",
       "ownerCanCancel": "Only the applicant can cancel the inspection schedule."

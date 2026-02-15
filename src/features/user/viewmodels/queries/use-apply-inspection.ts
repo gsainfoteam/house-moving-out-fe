@@ -34,8 +34,8 @@ export const useApplyInspection = ({
         toast.error(t('error.unauthorized', { ns: 'common' }));
       } else if (error?.statusCode == 403) {
         toast.error(t('application.error.notStartedOrEnded'));
-      } else if (error?.statusCode == 404) {
-        // 퇴사 검사 신청 대상이 아닌 경우 -> main frame에서 처리됨
+      } else if (error?.statusCode === 404) {
+        toast.error(t('application.error.noAvailableInspector'));
       } else if (error?.statusCode === 409) {
         onFull?.();
       } else {
