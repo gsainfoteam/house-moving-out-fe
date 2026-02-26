@@ -12,6 +12,9 @@
       "studentNumber": "Student#",
       "type": "Inspection Type"
     },
+    "error": {
+      "load": "Cannot load inspection application list"
+    },
     "list": "Inspection Application List"
   },
   "floor_one": "{{count}}F",

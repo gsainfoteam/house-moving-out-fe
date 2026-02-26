@@ -4,3 +4,4 @@ export * from './use-get-move-out-schedule';
 export * from './use-targets';
 export * from './use-inspectors-of-schedule';
 export * from './use-delete-inspector';
+export * from './use-applications';

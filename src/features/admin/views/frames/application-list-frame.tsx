@@ -1,8 +1,20 @@
+import { useParams } from '@tanstack/react-router';
+
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
+import { Loading } from '@/common/components';
+
+import { useApplications } from '../../viewmodels';
+
 export function ApplicationListFrame() {
+  const { uuid } = useParams({ from: '/admin/schedules/$uuid/applications' });
+  const { data, error } = useApplications(uuid);
   const { t } = useTranslation('admin');
+
+  if (error) return <div>{t('application.error.load')}</div>;
+  if (!data) return <Loading containerClassName="h-full" />;
+
   return (
     <main className="p-4">
       <table className="text-center [&_td,&_th]:border [&_td,&_th]:px-2">
@@ -21,38 +33,24 @@ export function ApplicationListFrame() {
           </tr>
         </thead>
         <tbody>
-          {[...Array(10)]
-            .map(() => ({
-              // TODO: replace with real data
-              id: crypto.randomUUID(),
-              roomNumber: 'G310',
-              studentNumber: '20250000',
-              name: '홍길동',
-              phoneNumber: '+82 10-0000-0000',
-              appliedAt: new Date().toString(),
-              inspectedAt: new Date().toString(),
-              type: 'first' as 'first' | 'second',
-              inspector: '홍길동',
-              result: 'passed' as 'passed' | 'failed',
-            }))
-            .map((a) => (
-              <tr key={a.id}>
-                <td>{a.id.slice(-4)}</td>
-                <td>{a.roomNumber}</td>
-                <td>{a.studentNumber}</td>
-                <td>{a.name}</td>
-                <td>{a.phoneNumber}</td>
-                <td>{dayjs(a.appliedAt).format('MM-DD HH:mm')}</td>
-                <td>{dayjs(a.inspectedAt).format('ddd HH:mm')}</td>
-                {/* t('inspectionType.first') */}
-                {/* t('inspectionType.second') */}
-                <td>{t(`inspectionType.${a.type}`)}</td>
-                <td>{a.inspector}</td>
-                {/* t('result.passed') */}
-                {/* t('result.failed') */}
-                <td>{t(`result.${a.result}`)}</td>
-              </tr>
-            ))}
+          {data.detailedApplications.map((a) => (
+            <tr key={a.uuid}>
+              <td>{a.uuid.slice(-4)}</td>
+              <td>{a.roomNumber}</td>
+              <td>{a.phoneNumber}</td>
+              <td>{a.phoneNumber}</td>
+              <td>{a.phoneNumber}</td>
+              <td>{dayjs(a.applicationTime).format('MM-DD HH:mm')}</td>
+              <td>{dayjs(a.inspectionTime).format('ddd HH:mm')}</td>
+              {/* t('inspectionType.first') */}
+              {/* t('inspectionType.second') */}
+              <td>{t(`inspectionType.${'first'}`)}</td>
+              <td>{a.inspectorName}</td>
+              <td>
+                {a.isPassed === null ? '-' : a.isPassed ? t(`result.passed`) : t(`result.failed`)}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </main>
