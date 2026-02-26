@@ -1,6 +1,6 @@
 import { OverlayHost, overlay, OverlayProvider } from '@/common/lib';
 
-import { Button } from '../button';
+import { Button } from '../ui';
 
 import { Drawer } from '.';
 
@@ -16,7 +16,7 @@ type OptionsArgs = {
 };
 
 const meta: Meta<OptionsArgs> = {
-  title: 'Overlay/Drawer',
+  title: 'Common/Drawer',
   parameters: {
     layout: 'fullscreen',
   },

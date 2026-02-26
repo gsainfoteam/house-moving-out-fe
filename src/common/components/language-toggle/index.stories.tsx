@@ -7,7 +7,7 @@ import { LanguageToggle } from '.';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof LanguageToggle> = {
-  title: 'Components/LanguageToggle',
+  title: 'Common/LanguageToggle',
   component: LanguageToggle,
   parameters: {
     layout: 'centered',

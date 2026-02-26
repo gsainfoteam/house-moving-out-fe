@@ -1,0 +1,106 @@
+{
+  "schedule": {
+    "status": {
+      "active": "ACTIVE",
+      "canceled": "CANCELED",
+      "completed": "COMPLETED",
+      "draft": "DRAFT"
+    }
+  },
+  "list": {
+    "title": "Move-out inspection schedules",
+    "description": "Tap the inspect button on the right to start the inspection."
+  },
+  "note": {
+    "title": "Review special notes",
+    "inspectorSignature": "Inspector signature",
+    "residentSignature": "Resident signature",
+    "resetSignature": "Clear signature",
+    "submitWithReinspection": "Complete inspection (request re-check)",
+    "issues": ["Desk drawer needs to be organized", "Please re-check bathroom cleanliness"],
+    "commentPlaceholder": "Enter additional comments."
+  },
+  "checklist": {
+    "cta": {
+      "allClear": "No issues (Pass)",
+      "hasIssues": "Has issues (Fail)"
+    },
+    "sections": {
+      "entrance-shoe-cabinet": {
+        "title": "Entrance & Shoe Cabinet",
+        "items": {
+          "door-password-reset": "Reset door lock password (+ room number)",
+          "entrance-rack": "Check attachments on entrance door",
+          "entrance-cleanliness": "Check entrance cleanliness",
+          "shoe-cabinet-cleanliness": "Check shoe cabinet cleanliness"
+        }
+      },
+      "furniture-aircon": {
+        "title": "Furniture & Air Conditioner",
+        "items": {
+          "wardrobe-cleanliness": "Check wardrobe cleanliness",
+          "aircon-dust": "Check air conditioner dust",
+          "bookshelf-cleanliness": "Check bookshelf cleanliness",
+          "desk-cleanliness": "Check desk cleanliness",
+          "drawer-cleanliness": "Check drawer cleanliness"
+        }
+      },
+      "bed": {
+        "title": "Bed",
+        "items": {
+          "bed-gap-space": "Check space between beds",
+          "mattress": "Check mattress",
+          "bed-frame": "Check bed frame",
+          "bed-drawer": "Check bed drawer",
+          "bed-matt": "Check bed mat"
+        }
+      },
+      "window-balcony": {
+        "title": "Window & Balcony",
+        "items": {
+          "window-cleanliness": "Check window cleanliness",
+          "window-frame-cleanliness": "Check window frame cleanliness",
+          "balcony": "Check balcony"
+        }
+      },
+      "bathroom": {
+        "title": "Bathroom",
+        "items": {
+          "mirror": "Check mirror",
+          "tile": "Check tiles",
+          "sink": "Check sink",
+          "soap-stain": "Check soap holder",
+          "toilet": "Check toilet",
+          "water-tap": "Check tap cabinet",
+          "drain": "Check drain",
+          "shower-booth": "Check shower booth"
+        }
+      },
+      "misc": {
+        "title": "Miscellaneous",
+        "items": {
+          "floor": "Check floor",
+          "room-structure": "Check room structure",
+          "power": "Check power supply"
+        }
+      },
+      "issues": {
+        "title": "Issues",
+        "items": {
+          "extinguisher": "Fire extinguisher",
+          "shoe-cabinet-light": "Shoe cabinet light",
+          "chair": "Chair",
+          "curtain": "Curtain",
+          "blind": "Blind",
+          "insect-screen": "Insect screen",
+          "ventilation-fan": "Ventilation fan",
+          "bathroom-light": "Bathroom light bulb",
+          "bidet": "Bidet",
+          "wall": "Wall",
+          "hallway-light": "Hallway light",
+          "lan-cable": "LAN cable"
+        }
+      }
+    }
+  }
+}

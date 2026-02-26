@@ -1,13 +1,13 @@
 import { OverlayHost, overlay, OverlayProvider } from '@/common/lib';
 
 import { Button } from './button';
-import { Dialog } from './dialog';
-import { Drawer } from './drawer';
+import { Dialog } from '../dialog';
+import { Drawer } from '../drawer';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta = {
-  title: 'Overlay',
+  title: 'Common/UI/Overlay',
   parameters: {
     layout: 'fullscreen',
   },

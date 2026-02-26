@@ -5,7 +5,7 @@ import { LayoutCard } from '.';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof LayoutCard.Root> = {
-  title: 'Components/LayoutCard',
+  title: 'Common/LayoutCard',
   parameters: {
     layout: 'centered',
   },

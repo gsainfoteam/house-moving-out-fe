@@ -44,14 +44,33 @@ This project follows MVVM (Model-View-ViewModel) pattern and feature-based file 
 
 ### Components Structure
 
-Components in `src/common/components/` are organized by type:
+Components in `src/common/components/` are split into **`ui/`** (primitives) and **root** (composites). Use the following criteria.
 
-- **`ui/`**: Primitive components (e.g., `Button`, `Input`)
-  - Basic, reusable UI elements with minimal dependencies
-  - Can be used as building blocks for other components
-- **Root level**: Composite components (e.g., `LanguageToggle`)
-  - Components that use primitive components or have business logic
-  - Should not be placed in `ui/` folder
+#### `ui/` – Primitive components
+
+- **No feature/domain imports**: Do not import from `@/features/*`, and do not use i18n/auth/viewmodels in the component implementation.
+- **Single-purpose building blocks**: Map to one HTML element or a small, generic pattern (e.g. `Button`, `Input`, `Checkbox`, `Loading`).
+- **Or composition utilities**: Components that only control rendering/composition with no domain logic (e.g. `Slot`, `SwitchCase`).
+
+Use `ui/` when the component is a generic building block that any feature can use without bringing in app-specific dependencies.
+
+#### Root level – Composite components
+
+- **Layout / pattern components**: Compose multiple subcomponents or primitives into one pattern (e.g. `LayoutCard`, `Accordion`, `Dialog`, `Drawer`, `Fab` with multiple subcomponents).
+- **Feature/app-aware components**: Depend on app or feature context (i18n, auth, viewmodels), e.g. `LanguageToggle` (i18n), `Layout` (useAuth).
+
+Do **not** put components that use `@/features/*`, `useTranslation`, `useAuth`, or feature viewmodels under `ui/`.
+
+#### Component Folder & Storybook
+
+- Each component lives in a folder named after the component (kebab-case).
+- **Implementation**: `index.tsx` inside that folder.
+- **Storybook**: `index.stories.tsx` in the same folder.
+- **Story title**: Use domain prefix so the sidebar is grouped by domain.
+  - `Common/` – `src/common/components/` (e.g. `Common/Button`, `Common/Dialog`)
+  - `User/` – `src/features/user/views/components/` (e.g. `User/Steps`, `User/DateSelect`)
+  - `Admin/` – `src/features/admin/views/components/` (e.g. `Admin/ScheduleCard`)
+- **Exception**: Omit Storybook for components that depend on auth (e.g. `useAuth`), since they require the full app auth context.
 
 ### Component Type Conventions
 

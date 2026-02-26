@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import HomeIcon from '@/assets/icons/home.svg?react';
 import LogOutIcon from '@/assets/icons/log-out.svg?react';
 import TranslateIcon from '@/assets/icons/translate.svg?react';
-import { Drawer, Fab, Loading } from '@/common/components';
+import { Drawer, Fab, Layout, Loading } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { useLanguage } from '@/common/viewmodels';
 import { useAuth } from '@/features/auth';
@@ -30,7 +30,9 @@ function AuthRequiredLayout() {
 
   return (
     <>
-      <Outlet />
+      <Layout>
+        <Outlet />
+      </Layout>
       <Fab>
         <Fab.Item
           icon={<HomeIcon className="size-6" />}

@@ -14,5 +14,5 @@
     "source.organizeImports": "never" // eslint-plugin-import와 충돌 방지
   },
   "eslint.experimental.useFlatConfig": true,
-  "cSpell.words": ["Cooldown", "focusables", "viewmodels"]
+  "cSpell.words": ["aircon", "Cooldown", "focusables", "nums", "viewmodels"]
 }

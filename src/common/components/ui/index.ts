@@ -5,10 +5,6 @@ export * from './switch-case';
 // primitive components
 export * from './button';
 export * from './checkbox';
-export * from './fab';
 export * from './input';
-
-// compound components
-export * from './dialog';
-export * from './drawer';
+export * from './loading';
 // TODO: popover, toast
