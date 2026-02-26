@@ -6,5 +6,6 @@ export {
   PathsMoveOutInspectionTargetsGetParametersQueryCurrentSeason as Season,
   InspectorResDtoGender as Gender,
   MoveOutScheduleResDtoStatus as ScheduleStatus,
+  InspectionTargetsGroupedByRoomResDtoInspectionType as InspectionType,
 } from '@/@types/api-schema';
 export { ApiPaths } from '@/@types/api-schema';

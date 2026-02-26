@@ -1,11 +1,13 @@
+import React from 'react';
+
 import { useParams } from '@tanstack/react-router';
 
-import { groupBy } from 'es-toolkit/array';
 import { useTranslation } from 'react-i18next';
 
 import { Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
+import { InspectionType } from '../../models';
 import { useTargets } from '../../viewmodels';
 
 // NOTE: https://ziggle.gistory.me/ko/notice/197993
@@ -66,39 +68,39 @@ export function TargetListFrame() {
           </tr>
         </thead>
         <tbody>
-          {Object.entries(groupBy(targets, (target) => target.roomNumber)).map(
-            ([roomNumber, ts]) => (
-              <tr key={roomNumber}>
-                <td
-                  className={cn(
-                    '[&&]:border-r-2',
-                    threeRooms.includes(roomNumber) && 'bg-yellow-200',
-                  )}
-                >
-                  {roomNumber}
-                </td>
-                <td className={cn(ts[0]?.admissionYear.search(/^[0-9]+$/) === -1 && 'bg-red-200')}>
-                  {ts[0]?.admissionYear}
-                </td>
-                <td>{ts[0]?.studentName}</td>
-                <td className={cn(ts[1]?.admissionYear.search(/^[0-9]+$/) === -1 && 'bg-red-200')}>
-                  {ts[1]?.admissionYear}
-                </td>
-                <td>{ts[1]?.studentName}</td>
-                <td className={cn(ts[2]?.admissionYear.search(/^[0-9]+$/) === -1 && 'bg-red-200')}>
-                  {ts[2]?.admissionYear}
-                </td>
-                <td>{ts[2]?.studentName}</td>
-                <td>
-                  {(threeRooms.includes(roomNumber) ? ts.length === 3 : ts.length === 2)
+          {targets.map((target) => (
+            <tr key={target.roomNumber}>
+              <td
+                className={cn(
+                  '[&&]:border-r-2',
+                  threeRooms.includes(target.roomNumber) && 'bg-yellow-200',
+                )}
+              >
+                {target.roomNumber}
+              </td>
+              {[...target.residents, null, null].slice(0, 3).map((s, index) =>
+                s ? (
+                  <React.Fragment key={index}>
+                    <td className={cn(s.admissionYear.search(/^[0-9]+$/) === -1 && 'bg-red-200')}>
+                      {s.admissionYear}
+                    </td>
+                    <td>{s.name}</td>
+                  </React.Fragment>
+                ) : (
+                  <td colSpan={2} key={index} />
+                ),
+              )}
+              <td>
+                {target.inspectionType === InspectionType.EMPTY
+                  ? ''
+                  : target.inspectionType === InspectionType.FULL
                     ? t('type.all')
                     : t('type.individual')}
-                </td>
-                <td>-</td>
-                <td>0</td>
-              </tr>
-            ),
-          )}
+              </td>
+              <td>-</td>
+              <td>0</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </main>
