@@ -14,7 +14,6 @@ export function ApplicationListFrame() {
 
   if (error) return <div>{t('application.error.load')}</div>;
   if (!data) return <Loading containerClassName="h-full" />;
-  console.log(data);
 
   return (
     <main className="p-4">
