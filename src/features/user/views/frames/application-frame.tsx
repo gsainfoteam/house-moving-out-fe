@@ -37,11 +37,11 @@ function NoticeConsentDialog({ onConfirm }: { onConfirm: () => Promise<void> }) 
             <li
               key={index}
               className={cn(
-                'rounded-lg px-3 py-2.5 transition-colors',
+                'rounded-lg transition-colors',
                 valuesByIndex[index] ? 'bg-primary-main/10' : 'bg-bg-surface/30',
               )}
             >
-              <label className="text-box2 text-text-black flex cursor-pointer items-start gap-2 leading-normal">
+              <label className="text-box2 text-text-black flex cursor-pointer items-start gap-2 px-3 py-2.5 leading-normal">
                 <Checkbox {...register(String(index))} className="mt-0.5 shrink-0" />
                 {item}
               </label>
