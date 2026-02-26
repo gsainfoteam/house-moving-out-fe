@@ -47,11 +47,11 @@ const getInspectionTimes = (
   const isSmall = semester === 'winter' || semester === 'summer';
 
   const createSlot = (dayOffset: number, startHour: number, endHour: number) =>
-    [...Array((endHour - startHour) * 2)].map((_, v) =>
+    [...Array((endHour - startHour) * 4)].map((_, v) =>
       startOfWeek
         .set('day', dayOffset)
         .add(startHour, 'h')
-        .add(v * 30, 'minute'),
+        .add(v * 15, 'minute'),
     );
 
   const schedules = [
@@ -66,7 +66,7 @@ const getInspectionTimes = (
 
   return schedules.map((d) => ({
     start: d.format(),
-    end: d.add(30, 'minute').format(),
+    end: d.add(15, 'minute').format(),
   }));
 };
 

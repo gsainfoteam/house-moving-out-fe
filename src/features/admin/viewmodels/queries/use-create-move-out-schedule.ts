@@ -14,7 +14,7 @@ export const useCreateMoveOutSchedule = () => {
 
   return $api.useMutation('post', ApiPaths.MoveOutController_createMoveOutScheduleWithTargets, {
     onMutate(variables) {
-      variables.bodySerializer = multipartSerializer;
+      variables.bodySerializer = multipartSerializer(false);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
