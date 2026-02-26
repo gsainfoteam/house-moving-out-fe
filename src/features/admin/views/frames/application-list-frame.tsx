@@ -14,6 +14,7 @@ export function ApplicationListFrame() {
 
   if (error) return <div>{t('application.error.load')}</div>;
   if (!data) return <Loading containerClassName="h-full" />;
+  console.log(data);
 
   return (
     <main className="p-4">
@@ -34,19 +35,17 @@ export function ApplicationListFrame() {
             </tr>
           </thead>
           <tbody>
-            {data.detailedApplications.map((a) => (
+            {data.applications.map((a) => (
               <tr key={a.uuid}>
                 <td>{a.uuid.slice(-4)}</td>
-                <td>{a.roomNumber}</td>
-                <td>{a.phoneNumber}</td>
-                <td>{a.phoneNumber}</td>
-                <td>{a.phoneNumber}</td>
-                <td>{dayjs(a.applicationTime).format('MM-DD HH:mm')}</td>
-                <td>{dayjs(a.inspectionTime).format('ddd HH:mm')}</td>
-                {/* t('inspectionType.first') */}
-                {/* t('inspectionType.second') */}
-                <td>{t(`inspectionType.${'first'}`)}</td>
-                <td>{a.inspectorName}</td>
+                <td>{a.targetInfo.roomNumber}</td>
+                <td>{a.user.studentNumber}</td>
+                <td>{a.user.name}</td>
+                <td>{a.user.phoneNumber}</td>
+                <td>{dayjs(a.createdAt).format('MM-DD HH:mm')}</td>
+                <td>{dayjs(a.inspectionSlot.startTime).format('ddd HH:mm')}</td>
+                <td>{t(`inspectionType.${a.inspectionCount === 1 ? 'first' : 'second'}`)}</td>
+                <td>{a.inspector.name}</td>
                 <td>
                   {a.isPassed === null ? '-' : a.isPassed ? t(`result.passed`) : t(`result.failed`)}
                 </td>
