@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useParams } from '@tanstack/react-router';
 
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Loading } from '@/common/components';
@@ -52,57 +53,63 @@ export function TargetListFrame() {
   if (!targets) return <Loading containerClassName="h-auto flex-1" />;
   return (
     <main className="p-4">
-      <table className="text-center [&_td,&_th]:border [&_td,&_th]:px-2">
-        <thead>
-          <tr>
-            <th className="[&&]:border-r-2">{t('target.detail.roomNumber')}</th>
-            <th>{t('target.detail.admissionYear')}</th>
-            <th>{t('target.detail.name')}</th>
-            <th>{t('target.detail.admissionYear')}</th>
-            <th>{t('target.detail.name')}</th>
-            <th>{t('target.detail.admissionYear')}</th>
-            <th>{t('target.detail.name')}</th>
-            <th>{t('target.detail.type')}</th>
-            <th>{t('target.detail.lastInspection')}</th>
-            <th>{t('target.detail.inspectionCount')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {targets.map((target) => (
-            <tr key={target.roomNumber}>
-              <td
-                className={cn(
-                  '[&&]:border-r-2',
-                  threeRooms.includes(target.roomNumber) && 'bg-yellow-200',
-                )}
-              >
-                {target.roomNumber}
-              </td>
-              {[...target.residents, null, null].slice(0, 3).map((s, index) =>
-                s ? (
-                  <React.Fragment key={index}>
-                    <td className={cn(s.admissionYear.search(/^[0-9]+$/) === -1 && 'bg-red-200')}>
-                      {s.admissionYear}
-                    </td>
-                    <td>{s.name}</td>
-                  </React.Fragment>
-                ) : (
-                  <td colSpan={2} key={index} />
-                ),
-              )}
-              <td>
-                {target.inspectionType === InspectionType.EMPTY
-                  ? ''
-                  : target.inspectionType === InspectionType.FULL
-                    ? t('type.all')
-                    : t('type.individual')}
-              </td>
-              <td>-</td>
-              <td>0</td>
+      <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
+          <thead>
+            <tr className="bg-bg-surface/80 [&_th]:text-text-black [&_th]:font-medium">
+              <th className="[&&]:border-r-2">{t('target.detail.roomNumber')}</th>
+              <th>{t('target.detail.admissionYear')}</th>
+              <th>{t('target.detail.name')}</th>
+              <th>{t('target.detail.admissionYear')}</th>
+              <th>{t('target.detail.name')}</th>
+              <th>{t('target.detail.admissionYear')}</th>
+              <th>{t('target.detail.name')}</th>
+              <th>{t('target.detail.type')}</th>
+              <th>{t('target.detail.lastInspection')}</th>
+              <th>{t('target.detail.inspectionCount')}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {targets.map((target) => (
+              <tr key={target.roomNumber}>
+                <td
+                  className={cn(
+                    '[&&]:border-r-2',
+                    threeRooms.includes(target.roomNumber) && 'bg-yellow-200',
+                  )}
+                >
+                  {target.roomNumber}
+                </td>
+                {[...target.residents, null, null].slice(0, 3).map((s, index) =>
+                  s ? (
+                    <React.Fragment key={index}>
+                      <td className={cn(s.admissionYear.search(/^[0-9]+$/) === -1 && 'bg-red-200')}>
+                        {s.admissionYear}
+                      </td>
+                      <td>{s.name}</td>
+                    </React.Fragment>
+                  ) : (
+                    <td colSpan={2} key={index} />
+                  ),
+                )}
+                <td>
+                  {target.inspectionType === InspectionType.EMPTY
+                    ? ''
+                    : target.inspectionType === InspectionType.FULL
+                      ? t('type.all')
+                      : t('type.individual')}
+                </td>
+                <td>
+                  {target.lastInspectionTime
+                    ? dayjs(target.lastInspectionTime).format('YYYY-MM-DD HH:mm')
+                    : '-'}
+                </td>
+                <td>{target.inspectionCount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }
