@@ -2,14 +2,14 @@
   "application": {
     "detail": {
       "appliedAt": "Applied At",
-      "id": "id",
+      "id": "ID",
       "inspectedAt": "Inspected At",
       "inspector": "Inspector",
       "name": "Name",
-      "phoneNumber": "Phone#",
+      "phoneNumber": "Phone #",
       "result": "Result",
-      "roomNumber": "Room#",
-      "studentNumber": "Student#",
+      "roomNumber": "Room #",
+      "studentNumber": "Student #",
       "type": "Inspection Type"
     },
     "error": {
