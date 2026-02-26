@@ -80,7 +80,7 @@ export function TargetListFrame() {
                 >
                   {target.roomNumber}
                 </td>
-                {[...target.residents, null, null].slice(0, 3).map((s, index) =>
+                {[...target.residents, null, null, null].slice(0, 3).map((s, index) =>
                   s ? (
                     <React.Fragment key={index}>
                       <td className={cn(s.admissionYear.search(/^[0-9]+$/) === -1 && 'bg-red-200')}>
