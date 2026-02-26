@@ -169,6 +169,7 @@
       "inspectionCount": "검사 횟수",
       "lastInspection": "마지막 검사일시",
       "name": "이름",
+      "result": "결과",
       "roomNumber": "호실 번호",
       "type": "검사 종류"
     },

@@ -170,6 +170,7 @@
       "inspectionCount": "# of Inspections",
       "lastInspection": "Last Inspection",
       "name": "Name",
+      "result": "Result",
       "roomNumber": "Room #",
       "type": "Inspection Type"
     },

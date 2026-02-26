@@ -65,6 +65,7 @@ export function TargetListFrame() {
               <th>{t('target.detail.admissionYear')}</th>
               <th>{t('target.detail.name')}</th>
               <th>{t('target.detail.type')}</th>
+              <th>{t('target.detail.result')}</th>
               <th>{t('target.detail.lastInspection')}</th>
               <th>{t('target.detail.inspectionCount')}</th>
             </tr>
@@ -98,6 +99,13 @@ export function TargetListFrame() {
                     : target.inspectionType === InspectionType.FULL
                       ? t('type.all')
                       : t('type.individual')}
+                </td>
+                <td>
+                  {target.isPassed === null
+                    ? '-'
+                    : target.isPassed
+                      ? t('result.passed')
+                      : t('result.failed')}
                 </td>
                 <td>
                   {target.lastInspectionTime
