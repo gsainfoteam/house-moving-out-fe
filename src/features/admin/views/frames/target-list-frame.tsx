@@ -50,7 +50,7 @@ export function TargetListFrame() {
   const { t } = useTranslation('admin');
 
   if (error) return <div>{t('target.error.load')}</div>;
-  if (!targets) return <Loading containerClassName="h-auto flex-1" />;
+  if (!targets) return <Loading containerClassName="h-full" />;
   return (
     <main className="p-4">
       <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
