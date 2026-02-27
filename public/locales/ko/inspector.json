@@ -1,106 +1,105 @@
 {
-  "schedule": {
-    "status": {
-      "active": "검사",
-      "canceled": "취소",
-      "completed": "완료",
-      "draft": "예정"
-    }
-  },
-  "list": {
-    "title": "퇴사검사 일정",
-    "description": "우측의 검사 버튼을 눌러 퇴사 검사를 시작해 주세요."
-  },
-  "note": {
-    "title": "특이사항 재확인",
-    "inspectorSignature": "검사자 서명",
-    "residentSignature": "퇴사자 서명",
-    "resetSignature": "서명 초기화",
-    "submitWithReinspection": "검사 완료 (재검사 요청)",
-    "issues": ["책상 서랍 정리 미흡", "욕실 청소 상태 다시 확인"],
-    "commentPlaceholder": "추가 코멘트를 입력하세요."
-  },
   "checklist": {
     "cta": {
       "allClear": "특이사항 없음 (통과)",
       "hasIssues": "특이사항 있음 (불통과)"
     },
     "sections": {
+      "bathroom": {
+        "items": {
+          "drain": "하수구 확인",
+          "mirror": "거울 확인",
+          "shower-booth": "샤워부스 확인",
+          "sink": "세면대 확인",
+          "soap-stain": "비누걸이 확인",
+          "tile": "타일 확인",
+          "toilet": "변기 확인",
+          "water-tap": "수탑장 확인"
+        },
+        "title": "화장실"
+      },
+      "bed": {
+        "items": {
+          "bed-drawer": "침대 서랍 확인",
+          "bed-frame": "침대 프레임 확인",
+          "bed-gap-space": "침대 사이 공간 확인",
+          "bed-matt": "침대 매트 확인",
+          "mattress": "매트리스 확인"
+        },
+        "title": "침대"
+      },
       "entrance-shoe-cabinet": {
-        "title": "현관 및 신발장",
         "items": {
           "door-password-reset": "도어락 비밀번호 초기화 (+방호수)",
-          "entrance-rack": "현관문 부착물 확인",
           "entrance-cleanliness": "현관 청결 확인",
+          "entrance-rack": "현관문 부착물 확인",
           "shoe-cabinet-cleanliness": "신발장 청결 확인"
-        }
+        },
+        "title": "현관 및 신발장"
       },
       "furniture-aircon": {
-        "title": "가구 및 에어컨",
         "items": {
-          "wardrobe-cleanliness": "옷장 청결 확인",
           "aircon-dust": "에어컨 먼지 확인",
           "bookshelf-cleanliness": "책꽂이 청결 확인",
           "desk-cleanliness": "책상 청결 확인",
-          "drawer-cleanliness": "서랍 청결 확인"
-        }
-      },
-      "bed": {
-        "title": "침대",
-        "items": {
-          "bed-gap-space": "침대 사이 공간 확인",
-          "mattress": "매트리스 확인",
-          "bed-frame": "침대 프레임 확인",
-          "bed-drawer": "침대 서랍 확인",
-          "bed-matt": "침대 매트 확인"
-        }
-      },
-      "window-balcony": {
-        "title": "창문 및 베란다",
-        "items": {
-          "window-cleanliness": "창문 청결 확인",
-          "window-frame-cleanliness": "창틀 청결 확인",
-          "balcony": "베란다 확인"
-        }
-      },
-      "bathroom": {
-        "title": "화장실",
-        "items": {
-          "mirror": "거울 확인",
-          "tile": "타일 확인",
-          "sink": "세면대 확인",
-          "soap-stain": "비누걸이 확인",
-          "toilet": "변기 확인",
-          "water-tap": "수탑장 확인",
-          "drain": "하수구 확인",
-          "shower-booth": "샤워부스 확인"
-        }
-      },
-      "misc": {
-        "title": "기타",
-        "items": {
-          "floor": "방바닥 확인",
-          "room-structure": "방구조 확인",
-          "power": "전원 확인"
-        }
+          "drawer-cleanliness": "서랍 청결 확인",
+          "wardrobe-cleanliness": "옷장 청결 확인"
+        },
+        "title": "가구 및 에어컨"
       },
       "issues": {
-        "title": "이상 여부",
         "items": {
-          "extinguisher": "소화기",
-          "shoe-cabinet-light": "신발장 형광등",
-          "chair": "의자",
-          "curtain": "커튼",
-          "blind": "블라인드",
-          "insect-screen": "방충망",
-          "ventilation-fan": "환풍기",
           "bathroom-light": "화장실 전구",
           "bidet": "비데",
-          "wall": "벽",
+          "blind": "블라인드",
+          "chair": "의자",
+          "curtain": "커튼",
+          "extinguisher": "소화기",
           "hallway-light": "호실 형광등",
-          "lan-cable": "랜선"
-        }
+          "insect-screen": "방충망",
+          "lan-cable": "랜선",
+          "shoe-cabinet-light": "신발장 형광등",
+          "ventilation-fan": "환풍기",
+          "wall": "벽"
+        },
+        "title": "이상 여부"
+      },
+      "misc": {
+        "items": {
+          "floor": "방바닥 확인",
+          "power": "전원 확인",
+          "room-structure": "방구조 확인"
+        },
+        "title": "기타"
+      },
+      "window-balcony": {
+        "items": {
+          "balcony": "베란다 확인",
+          "window-cleanliness": "창문 청결 확인",
+          "window-frame-cleanliness": "창틀 청결 확인"
+        },
+        "title": "창문 및 베란다"
       }
+    }
+  },
+  "list": {
+    "description": "우측의 검사 버튼을 눌러 퇴사 검사를 시작해 주세요.",
+    "title": "퇴사검사 일정"
+  },
+  "note": {
+    "commentPlaceholder": "추가 코멘트를 입력하세요.",
+    "inspectorSignature": "검사자 서명",
+    "resetSignature": "서명 초기화",
+    "residentSignature": "퇴사자 서명",
+    "submitWithReinspection": "검사 완료 (재검사 요청)",
+    "title": "특이사항 재확인"
+  },
+  "schedule": {
+    "status": {
+      "active": "검사",
+      "canceled": "취소",
+      "completed": "완료",
+      "draft": "예정"
     }
   }
 }
