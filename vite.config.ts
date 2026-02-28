@@ -41,6 +41,17 @@ export default defineConfig(({ mode }) => {
               proxyReq.removeHeader('origin');
               proxyReq.removeHeader('referer');
             });
+            proxy.on('proxyRes', (proxyRes) => {
+              const cookies = proxyRes.headers['set-cookie'];
+              if (cookies) {
+                proxyRes.headers['set-cookie'] = cookies.map((cookie) => {
+                  return cookie
+                    .replace(/Secure(; )?/, '')
+                    .replace(/HttpOnly(; )?/, '')
+                    .replace('Path=', 'Path=/api');
+                });
+              }
+            });
           },
         },
       },
