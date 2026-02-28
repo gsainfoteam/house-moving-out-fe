@@ -1,9 +1,10 @@
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Loading } from '@/common/components';
+import { Button, Loading } from '@/common/components';
 
 import { useApplications } from '../../viewmodels';
 
@@ -31,6 +32,7 @@ export function ApplicationListFrame() {
               <th>{t('application.detail.type')}</th>
               <th>{t('application.detail.inspector')}</th>
               <th>{t('application.detail.result')}</th>
+              <th>{t('application.detail.document')}</th>
             </tr>
           </thead>
           <tbody>
@@ -47,6 +49,22 @@ export function ApplicationListFrame() {
                 <td>{a.inspector.name}</td>
                 <td>
                   {a.isPassed === null ? '-' : a.isPassed ? t(`result.passed`) : t(`result.failed`)}
+                </td>
+                <td>
+                  {a.document ? (
+                    <Button asChild variant="outline" size="icon" className="mx-auto">
+                      <a
+                        href={a.document}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={t('application.detail.downloadPdf')}
+                      >
+                        <Download size={16} aria-hidden="true" />
+                      </a>
+                    </Button>
+                  ) : (
+                    '-'
+                  )}
                 </td>
               </tr>
             ))}
