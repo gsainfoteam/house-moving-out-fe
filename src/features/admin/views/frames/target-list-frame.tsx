@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
-import { groupBy } from 'es-toolkit';
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { InspectionType, ScheduleStatus } from '../../models';
-import {
-  useBulkUpdateCleaningService,
-  useGetMoveOutScheduleQuery,
-  useTargets,
-} from '../../viewmodels';
+import { InspectionType } from '../../models';
+import { useManageCleaningService, useTargets } from '../../viewmodels';
 
 // NOTE: https://ziggle.gistory.me/ko/notice/197993
 
@@ -28,62 +23,16 @@ const threeRooms = [
 export function TargetListFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/targets' });
   const { data: targets, error } = useTargets(uuid);
-  const { data: schedule } = useGetMoveOutScheduleQuery(uuid);
-  const bulkUpdateCleaningService = useBulkUpdateCleaningService();
-  const [draftCleaningMap, setDraftCleaningMap] = useState<Record<string, boolean>>({});
   const { t } = useTranslation('admin');
-  const isCleaningEditable = schedule != null && schedule.status === ScheduleStatus.DRAFT;
-  const isSaving = bulkUpdateCleaningService.isPending;
-  const hasDraftChanges = Object.keys(draftCleaningMap).length > 0;
-
-  const handleCleaningServiceChange = (
-    targetUuid: string,
-    applyCleaningService: boolean,
-    originalValue: boolean,
-  ) => {
-    if (!isCleaningEditable) return;
-    setDraftCleaningMap((current) => {
-      // 서버 원본 값과 동일해지면 draft에서 제거해 실제 변경분만 저장한다.
-      if (applyCleaningService === originalValue) {
-        const { [targetUuid]: _, ...rest } = current;
-        return rest;
-      }
-      return {
-        ...current,
-        [targetUuid]: applyCleaningService,
-      };
-    });
-  };
-
-  const handleSaveCleaningChanges = async () => {
-    if (!targets || !isCleaningEditable || !hasDraftChanges || isSaving) return;
-
-    const targetUuids = groupBy(Object.entries(draftCleaningMap), (e) =>
-      e[1] ? 'apply' : 'unapply',
-    );
-
-    const requests = Object.entries(targetUuids).map(([key, value]) =>
-      bulkUpdateCleaningService.mutateAsync({
-        params: { path: { uuid } },
-        body: {
-          targetUuids: value.map((m) => m[0]),
-          applyCleaningService: key === 'apply',
-        },
-      }),
-    );
-
-    try {
-      await Promise.all(requests);
-      setDraftCleaningMap({});
-    } catch {
-      // 에러 토스트는 query layer(onError)에서 처리한다.
-    }
-  };
-
-  const handleResetCleaningChanges = () => {
-    if (isSaving) return;
-    setDraftCleaningMap({});
-  };
+  const {
+    isCleaningEditable,
+    numberOfDraftChanges,
+    isSaving,
+    handleResetCleaningChanges,
+    handleCleaningServiceChange,
+    handleSaveCleaningChanges,
+    isDraftCleaning,
+  } = useManageCleaningService(uuid);
 
   if (error) return <div>{t('target.error.load')}</div>;
   if (!targets) return <Loading containerClassName="h-full" />;
@@ -93,9 +42,9 @@ export function TargetListFrame() {
         {isCleaningEditable ? (
           <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
             <span className="text-box2 text-text-gray">
-              {hasDraftChanges
+              {numberOfDraftChanges
                 ? t('target.detail.cleaningUnsavedCount', {
-                    count: Object.keys(draftCleaningMap).length,
+                    count: numberOfDraftChanges,
                   })
                 : t('target.detail.cleaningNoChanges')}
             </span>
@@ -103,7 +52,7 @@ export function TargetListFrame() {
               <Button
                 variant="outline"
                 size="default"
-                disabled={!hasDraftChanges || isSaving}
+                disabled={!numberOfDraftChanges || isSaving}
                 onClick={handleResetCleaningChanges}
               >
                 {t('target.action.resetCleaningChanges')}
@@ -111,7 +60,7 @@ export function TargetListFrame() {
               <Button
                 variant="default"
                 size="default"
-                disabled={!hasDraftChanges || !isCleaningEditable || isSaving}
+                disabled={!numberOfDraftChanges || !isCleaningEditable || isSaving}
                 onClick={() => {
                   void handleSaveCleaningChanges();
                 }}
@@ -175,7 +124,7 @@ export function TargetListFrame() {
                     {isCleaningEditable ? (
                       <Checkbox
                         className="scale-150"
-                        checked={draftCleaningMap[target.uuid] ?? target.applyCleaningService}
+                        checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
                         onChange={(event) => {
                           handleCleaningServiceChange(
                             target.uuid,
