@@ -12,8 +12,8 @@ export const useBulkUpdateCleaningService = () => {
   const { t } = useTranslation('admin');
 
   return $api.useMutation('patch', ApiPaths.MoveOutController_bulkUpdateCleaningService, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findAllInspectionTargetInfos],
       });
     },
