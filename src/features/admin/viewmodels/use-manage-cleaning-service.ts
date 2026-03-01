@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { groupBy } from 'es-toolkit';
 
@@ -13,6 +13,10 @@ export const useManageCleaningService = (uuid: string) => {
   const isCleaningEditable = schedule != null && schedule.status === ScheduleStatus.DRAFT;
   const isSaving = bulkUpdateCleaningService.isPending;
   const hasDraftChanges = Object.keys(draftCleaningMap).length > 0;
+
+  useEffect(() => {
+    setDraftCleaningMap({});
+  }, [uuid]);
 
   const handleCleaningServiceChange = (
     targetUuid: string,
