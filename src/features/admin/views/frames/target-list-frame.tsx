@@ -55,7 +55,7 @@ export function TargetListFrame() {
   const bulkUpdateCleaningService = useBulkUpdateCleaningService();
   const [draftCleaningMap, setDraftCleaningMap] = React.useState<Record<string, boolean>>({});
   const { t } = useTranslation('admin');
-  const isCleaningEditable = schedule != null && schedule.status !== ScheduleStatus.ACTIVE;
+  const isCleaningEditable = schedule != null && schedule.status === ScheduleStatus.DRAFT;
   const isSaving = bulkUpdateCleaningService.isPending;
   const hasDraftChanges = Object.keys(draftCleaningMap).length > 0;
 
