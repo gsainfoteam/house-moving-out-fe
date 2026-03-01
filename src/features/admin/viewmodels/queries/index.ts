@@ -5,3 +5,4 @@ export * from './use-targets';
 export * from './use-inspectors-of-schedule';
 export * from './use-delete-inspector';
 export * from './use-applications';
+export * from './use-bulk-update-cleaning-service';

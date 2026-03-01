@@ -5,11 +5,11 @@ import { useParams } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
-import { Loading } from '@/common/components';
+import { Checkbox, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { InspectionType } from '../../models';
-import { useTargets } from '../../viewmodels';
+import { InspectionType, ScheduleStatus } from '../../models';
+import { useBulkUpdateCleaningService, useGetMoveOutScheduleQuery, useTargets } from '../../viewmodels';
 
 // NOTE: https://ziggle.gistory.me/ko/notice/197993
 
@@ -47,7 +47,33 @@ const threeRooms = [
 export function TargetListFrame() {
   const { uuid } = useParams({ from: '/admin/schedules/$uuid/targets' });
   const { data: targets, error } = useTargets(uuid);
+  const { data: schedule } = useGetMoveOutScheduleQuery(uuid);
+  const bulkUpdateCleaningService = useBulkUpdateCleaningService();
+  const [processingTargetUuid, setProcessingTargetUuid] = React.useState<string | null>(null);
   const { t } = useTranslation('admin');
+  const isCleaningEditable = schedule != null && schedule.status !== ScheduleStatus.ACTIVE;
+
+  const handleCleaningServiceChange = (targetUuid: string, applyCleaningService: boolean) => {
+    if (!isCleaningEditable) return;
+
+    setProcessingTargetUuid(targetUuid);
+    bulkUpdateCleaningService.mutate(
+      {
+        params: {
+          path: { uuid },
+        },
+        body: {
+          targetUuids: [targetUuid],
+          applyCleaningService,
+        },
+      },
+      {
+        onSettled: () => {
+          setProcessingTargetUuid((current) => (current === targetUuid ? null : current));
+        },
+      },
+    );
+  };
 
   if (error) return <div>{t('target.error.load')}</div>;
   if (!targets) return <Loading containerClassName="h-full" />;
@@ -65,6 +91,7 @@ export function TargetListFrame() {
               <th>{t('target.detail.admissionYear')}</th>
               <th>{t('target.detail.name')}</th>
               <th>{t('target.detail.type')}</th>
+              <th>{t('target.detail.cleaningService')}</th>
               <th>{t('target.detail.result')}</th>
               <th>{t('target.detail.lastInspection')}</th>
               <th>{t('target.detail.inspectionCount')}</th>
@@ -99,6 +126,24 @@ export function TargetListFrame() {
                     : target.inspectionType === InspectionType.FULL
                       ? t('type.all')
                       : t('type.individual')}
+                </td>
+                <td>
+                  <div className="flex items-center justify-center gap-2">
+                    <Checkbox
+                      checked={target.applyCleaningService}
+                      onChange={(event) => {
+                        handleCleaningServiceChange(target.uuid, event.target.checked);
+                      }}
+                      disabled={
+                        !isCleaningEditable ||
+                        (bulkUpdateCleaningService.isPending && processingTargetUuid === target.uuid)
+                      }
+                      aria-label={t('target.detail.cleaningService')}
+                    />
+                    {bulkUpdateCleaningService.isPending && processingTargetUuid === target.uuid ? (
+                      <span className="text-primary-main text-xs">{t('target.detail.cleaningUpdating')}</span>
+                    ) : null}
+                  </div>
                 </td>
                 <td>
                   {target.isPassed === null

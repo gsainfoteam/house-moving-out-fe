@@ -167,6 +167,8 @@
   "target": {
     "detail": {
       "admissionYear": "Admission Year",
+      "cleaningService": "Vendor Cleaning",
+      "cleaningUpdating": "Saving...",
       "inspectionCount": "# of Inspections",
       "lastInspection": "Last Inspection",
       "name": "Name",
@@ -175,6 +177,7 @@
       "type": "Inspection Type"
     },
     "error": {
+      "cleaningLockedByStatus": "Vendor cleaning cannot be edited for active schedules",
       "load": "Cannot load target room list"
     },
     "list": "Target Room List"
