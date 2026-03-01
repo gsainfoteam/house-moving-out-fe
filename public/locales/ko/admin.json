@@ -164,10 +164,16 @@
     "will_be_cleaned": "업체 청소"
   },
   "target": {
+    "action": {
+      "resetCleaningChanges": "변경 취소",
+      "saveCleaningChanges": "저장",
+      "savingCleaningChanges": "저장 중..."
+    },
     "detail": {
       "admissionYear": "학번",
+      "cleaningNoChanges": "업체 청소 변경사항이 없습니다",
       "cleaningService": "업체 청소",
-      "cleaningUpdating": "저장 중...",
+      "cleaningUnsavedCount": "업체 청소 변경 {{count}}건",
       "inspectionCount": "검사 횟수",
       "lastInspection": "마지막 검사일시",
       "name": "이름",

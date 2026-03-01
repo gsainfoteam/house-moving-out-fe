@@ -5,7 +5,7 @@ import { useParams } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
-import { Checkbox, Loading } from '@/common/components';
+import { Button, Checkbox, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
 import { InspectionType, ScheduleStatus } from '../../models';
@@ -49,30 +49,76 @@ export function TargetListFrame() {
   const { data: targets, error } = useTargets(uuid);
   const { data: schedule } = useGetMoveOutScheduleQuery(uuid);
   const bulkUpdateCleaningService = useBulkUpdateCleaningService();
-  const [processingTargetUuid, setProcessingTargetUuid] = React.useState<string | null>(null);
+  const [draftCleaningMap, setDraftCleaningMap] = React.useState<Record<string, boolean>>({});
   const { t } = useTranslation('admin');
   const isCleaningEditable = schedule != null && schedule.status !== ScheduleStatus.ACTIVE;
+  const isSaving = bulkUpdateCleaningService.isPending;
+  const hasDraftChanges = Object.keys(draftCleaningMap).length > 0;
 
-  const handleCleaningServiceChange = (targetUuid: string, applyCleaningService: boolean) => {
+  const handleCleaningServiceChange = (
+    targetUuid: string,
+    applyCleaningService: boolean,
+    originalValue: boolean,
+  ) => {
     if (!isCleaningEditable) return;
+    setDraftCleaningMap((current) => {
+      // 서버 원본 값과 동일해지면 draft에서 제거해 실제 변경분만 저장한다.
+      if (applyCleaningService === originalValue) {
+        const { [targetUuid]: _, ...rest } = current;
+        return rest;
+      }
+      return {
+        ...current,
+        [targetUuid]: applyCleaningService,
+      };
+    });
+  };
 
-    setProcessingTargetUuid(targetUuid);
-    bulkUpdateCleaningService.mutate(
-      {
-        params: {
-          path: { uuid },
-        },
-        body: {
-          targetUuids: [targetUuid],
-          applyCleaningService,
-        },
-      },
-      {
-        onSettled: () => {
-          setProcessingTargetUuid((current) => (current === targetUuid ? null : current));
-        },
-      },
-    );
+  const handleSaveCleaningChanges = async () => {
+    if (!targets || !isCleaningEditable || !hasDraftChanges || isSaving) return;
+
+    const dirtyTargets = targets.filter((target) => draftCleaningMap[target.uuid] !== undefined);
+    const applyTargetUuids = dirtyTargets
+      .filter((target) => draftCleaningMap[target.uuid] === true)
+      .map((target) => target.uuid);
+    const unapplyTargetUuids = dirtyTargets
+      .filter((target) => draftCleaningMap[target.uuid] === false)
+      .map((target) => target.uuid);
+
+    try {
+      const requests = [];
+      if (applyTargetUuids.length > 0) {
+        requests.push(
+          bulkUpdateCleaningService.mutateAsync({
+            params: { path: { uuid } },
+            body: {
+              targetUuids: applyTargetUuids,
+              applyCleaningService: true,
+            },
+          }),
+        );
+      }
+      if (unapplyTargetUuids.length > 0) {
+        requests.push(
+          bulkUpdateCleaningService.mutateAsync({
+            params: { path: { uuid } },
+            body: {
+              targetUuids: unapplyTargetUuids,
+              applyCleaningService: false,
+            },
+          }),
+        );
+      }
+      await Promise.all(requests);
+      setDraftCleaningMap({});
+    } catch {
+      // 에러 토스트는 query layer(onError)에서 처리한다.
+    }
+  };
+
+  const handleResetCleaningChanges = () => {
+    if (isSaving) return;
+    setDraftCleaningMap({});
   };
 
   if (error) return <div>{t('target.error.load')}</div>;
@@ -80,6 +126,33 @@ export function TargetListFrame() {
   return (
     <main className="p-4">
       <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <span className="text-box2 text-text-gray">
+            {hasDraftChanges
+              ? t('target.detail.cleaningUnsavedCount', { count: Object.keys(draftCleaningMap).length })
+              : t('target.detail.cleaningNoChanges')}
+          </span>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="default"
+              disabled={!hasDraftChanges || isSaving}
+              onClick={handleResetCleaningChanges}
+            >
+              {t('target.action.resetCleaningChanges')}
+            </Button>
+            <Button
+              variant="default"
+              size="default"
+              disabled={!hasDraftChanges || !isCleaningEditable || isSaving}
+              onClick={() => {
+                void handleSaveCleaningChanges();
+              }}
+            >
+              {isSaving ? t('target.action.savingCleaningChanges') : t('target.action.saveCleaningChanges')}
+            </Button>
+          </div>
+        </div>
         <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
             <tr className="bg-bg-surface/80 [&_th]:text-text-black [&_th]:font-medium">
@@ -130,19 +203,17 @@ export function TargetListFrame() {
                 <td>
                   <div className="flex items-center justify-center gap-2">
                     <Checkbox
-                      checked={target.applyCleaningService}
+                      checked={draftCleaningMap[target.uuid] ?? target.applyCleaningService}
                       onChange={(event) => {
-                        handleCleaningServiceChange(target.uuid, event.target.checked);
+                        handleCleaningServiceChange(
+                          target.uuid,
+                          event.target.checked,
+                          target.applyCleaningService,
+                        );
                       }}
-                      disabled={
-                        !isCleaningEditable ||
-                        (bulkUpdateCleaningService.isPending && processingTargetUuid === target.uuid)
-                      }
+                      disabled={!isCleaningEditable || isSaving}
                       aria-label={t('target.detail.cleaningService')}
                     />
-                    {bulkUpdateCleaningService.isPending && processingTargetUuid === target.uuid ? (
-                      <span className="text-primary-main text-xs">{t('target.detail.cleaningUpdating')}</span>
-                    ) : null}
                   </div>
                 </td>
                 <td>

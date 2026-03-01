@@ -165,10 +165,17 @@
     "will_be_cleaned": "Will be cleaned"
   },
   "target": {
+    "action": {
+      "resetCleaningChanges": "Reset",
+      "saveCleaningChanges": "Save",
+      "savingCleaningChanges": "Saving..."
+    },
     "detail": {
       "admissionYear": "Admission Year",
+      "cleaningNoChanges": "No vendor cleaning changes",
       "cleaningService": "Vendor Cleaning",
-      "cleaningUpdating": "Saving...",
+      "cleaningUnsavedCount_one": "{{count}} unsaved vendor cleaning change",
+      "cleaningUnsavedCount_other": "{{count}} unsaved vendor cleaning changes",
       "inspectionCount": "# of Inspections",
       "lastInspection": "Last Inspection",
       "name": "Name",
