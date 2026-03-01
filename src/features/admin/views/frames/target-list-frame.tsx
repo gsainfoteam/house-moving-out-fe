@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { groupBy } from 'es-toolkit';
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -54,7 +55,7 @@ export function TargetListFrame() {
   const { data: targets, error } = useTargets(uuid);
   const { data: schedule } = useGetMoveOutScheduleQuery(uuid);
   const bulkUpdateCleaningService = useBulkUpdateCleaningService();
-  const [draftCleaningMap, setDraftCleaningMap] = React.useState<Record<string, boolean>>({});
+  const [draftCleaningMap, setDraftCleaningMap] = useState<Record<string, boolean>>({});
   const { t } = useTranslation('admin');
   const isCleaningEditable = schedule != null && schedule.status === ScheduleStatus.DRAFT;
   const isSaving = bulkUpdateCleaningService.isPending;
@@ -82,38 +83,21 @@ export function TargetListFrame() {
   const handleSaveCleaningChanges = async () => {
     if (!targets || !isCleaningEditable || !hasDraftChanges || isSaving) return;
 
-    const dirtyTargets = targets.filter((target) => draftCleaningMap[target.uuid] !== undefined);
-    const applyTargetUuids = dirtyTargets
-      .filter((target) => draftCleaningMap[target.uuid] === true)
-      .map((target) => target.uuid);
-    const unapplyTargetUuids = dirtyTargets
-      .filter((target) => draftCleaningMap[target.uuid] === false)
-      .map((target) => target.uuid);
+    const targetUuids = groupBy(Object.entries(draftCleaningMap), (e) =>
+      e[1] ? 'apply' : 'unapply',
+    );
+
+    const requests = Object.entries(targetUuids).map(([key, value]) =>
+      bulkUpdateCleaningService.mutateAsync({
+        params: { path: { uuid } },
+        body: {
+          targetUuids: value.map((m) => m[0]),
+          applyCleaningService: key === 'apply',
+        },
+      }),
+    );
 
     try {
-      const requests = [];
-      if (applyTargetUuids.length > 0) {
-        requests.push(
-          bulkUpdateCleaningService.mutateAsync({
-            params: { path: { uuid } },
-            body: {
-              targetUuids: applyTargetUuids,
-              applyCleaningService: true,
-            },
-          }),
-        );
-      }
-      if (unapplyTargetUuids.length > 0) {
-        requests.push(
-          bulkUpdateCleaningService.mutateAsync({
-            params: { path: { uuid } },
-            body: {
-              targetUuids: unapplyTargetUuids,
-              applyCleaningService: false,
-            },
-          }),
-        );
-      }
       await Promise.all(requests);
       setDraftCleaningMap({});
     } catch {
@@ -228,7 +212,10 @@ export function TargetListFrame() {
                         aria-label={t('target.detail.cleaningService')}
                       />
                     ) : target.applyCleaningService ? (
-                      <Check className="text-primary-main size-5" aria-label={t('target.detail.cleaningService')} />
+                      <Check
+                        className="text-primary-main size-5"
+                        aria-label={t('target.detail.cleaningService')}
+                      />
                     ) : null}
                   </div>
                 </td>
