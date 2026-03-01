@@ -2,6 +2,8 @@
   "application": {
     "detail": {
       "appliedAt": "신청 일시",
+      "document": "검사서",
+      "downloadPdf": "PDF",
       "id": "#",
       "inspectedAt": "검사 일시",
       "inspector": "검사위원",

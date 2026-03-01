@@ -2,6 +2,8 @@
   "application": {
     "detail": {
       "appliedAt": "Applied At",
+      "document": "Document",
+      "downloadPdf": "PDF",
       "id": "ID",
       "inspectedAt": "Inspected At",
       "inspector": "Inspector",
