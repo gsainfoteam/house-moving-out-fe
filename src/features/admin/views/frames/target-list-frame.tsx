@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, Loading } from '@/common/components';
@@ -130,37 +131,39 @@ export function TargetListFrame() {
   return (
     <main className="p-4">
       <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
-          <span className="text-box2 text-text-gray">
-            {hasDraftChanges
-              ? t('target.detail.cleaningUnsavedCount', {
-                  count: Object.keys(draftCleaningMap).length,
-                })
-              : t('target.detail.cleaningNoChanges')}
-          </span>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="default"
-              disabled={!hasDraftChanges || isSaving}
-              onClick={handleResetCleaningChanges}
-            >
-              {t('target.action.resetCleaningChanges')}
-            </Button>
-            <Button
-              variant="default"
-              size="default"
-              disabled={!hasDraftChanges || !isCleaningEditable || isSaving}
-              onClick={() => {
-                void handleSaveCleaningChanges();
-              }}
-            >
-              {isSaving
-                ? t('target.action.savingCleaningChanges')
-                : t('target.action.saveCleaningChanges')}
-            </Button>
+        {isCleaningEditable ? (
+          <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+            <span className="text-box2 text-text-gray">
+              {hasDraftChanges
+                ? t('target.detail.cleaningUnsavedCount', {
+                    count: Object.keys(draftCleaningMap).length,
+                  })
+                : t('target.detail.cleaningNoChanges')}
+            </span>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="default"
+                disabled={!hasDraftChanges || isSaving}
+                onClick={handleResetCleaningChanges}
+              >
+                {t('target.action.resetCleaningChanges')}
+              </Button>
+              <Button
+                variant="default"
+                size="default"
+                disabled={!hasDraftChanges || !isCleaningEditable || isSaving}
+                onClick={() => {
+                  void handleSaveCleaningChanges();
+                }}
+              >
+                {isSaving
+                  ? t('target.action.savingCleaningChanges')
+                  : t('target.action.saveCleaningChanges')}
+              </Button>
+            </div>
           </div>
-        </div>
+        ) : null}
         <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
             <tr className="bg-bg-surface/80 [&_th]:text-text-black [&_th]:font-medium">
@@ -210,19 +213,23 @@ export function TargetListFrame() {
                 </td>
                 <td>
                   <div className="flex items-center justify-center gap-2">
-                    <Checkbox
-                      className="scale-150"
-                      checked={draftCleaningMap[target.uuid] ?? target.applyCleaningService}
-                      onChange={(event) => {
-                        handleCleaningServiceChange(
-                          target.uuid,
-                          event.target.checked,
-                          target.applyCleaningService,
-                        );
-                      }}
-                      disabled={!isCleaningEditable || isSaving}
-                      aria-label={t('target.detail.cleaningService')}
-                    />
+                    {isCleaningEditable ? (
+                      <Checkbox
+                        className="scale-150"
+                        checked={draftCleaningMap[target.uuid] ?? target.applyCleaningService}
+                        onChange={(event) => {
+                          handleCleaningServiceChange(
+                            target.uuid,
+                            event.target.checked,
+                            target.applyCleaningService,
+                          );
+                        }}
+                        disabled={!isCleaningEditable || isSaving}
+                        aria-label={t('target.detail.cleaningService')}
+                      />
+                    ) : target.applyCleaningService ? (
+                      <Check className="text-primary-main size-5" aria-label={t('target.detail.cleaningService')} />
+                    ) : null}
                   </div>
                 </td>
                 <td>
