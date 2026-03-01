@@ -9,7 +9,11 @@ import { Button, Checkbox, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
 import { InspectionType, ScheduleStatus } from '../../models';
-import { useBulkUpdateCleaningService, useGetMoveOutScheduleQuery, useTargets } from '../../viewmodels';
+import {
+  useBulkUpdateCleaningService,
+  useGetMoveOutScheduleQuery,
+  useTargets,
+} from '../../viewmodels';
 
 // NOTE: https://ziggle.gistory.me/ko/notice/197993
 
@@ -129,7 +133,9 @@ export function TargetListFrame() {
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <span className="text-box2 text-text-gray">
             {hasDraftChanges
-              ? t('target.detail.cleaningUnsavedCount', { count: Object.keys(draftCleaningMap).length })
+              ? t('target.detail.cleaningUnsavedCount', {
+                  count: Object.keys(draftCleaningMap).length,
+                })
               : t('target.detail.cleaningNoChanges')}
           </span>
           <div className="flex items-center gap-2">
@@ -149,7 +155,9 @@ export function TargetListFrame() {
                 void handleSaveCleaningChanges();
               }}
             >
-              {isSaving ? t('target.action.savingCleaningChanges') : t('target.action.saveCleaningChanges')}
+              {isSaving
+                ? t('target.action.savingCleaningChanges')
+                : t('target.action.saveCleaningChanges')}
             </Button>
           </div>
         </div>
@@ -203,6 +211,7 @@ export function TargetListFrame() {
                 <td>
                   <div className="flex items-center justify-center gap-2">
                     <Checkbox
+                      className="scale-150"
                       checked={draftCleaningMap[target.uuid] ?? target.applyCleaningService}
                       onChange={(event) => {
                         handleCleaningServiceChange(
