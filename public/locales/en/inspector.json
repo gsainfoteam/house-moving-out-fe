@@ -96,15 +96,15 @@
   },
   "schedule": {
     "status": {
-      "active": "ACTIVE",
-      "canceled": "CANCELED",
-      "completed": "COMPLETED",
+      "passed": "PASSED",
+      "failed": "FAILED",
       "draft": "DRAFT"
     }
   },
   "error": {
     "forbidden": "You are not an inspector or not assigned to this application.",
     "notFound": "Inspection information could not be found.",
-    "alreadyPassed": "Inspection result has already been marked as passed."
+    "alreadyPassed": "Inspection result has already been marked as passed.",
+    "notInspector": "You must be logged in as an inspector to access this page."
   }
 }

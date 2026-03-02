@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { useInspectionChecklistContext } from '../../viewmodels';
+import { useInspectionChecklistContext, useGetInspectionTargets } from '../../viewmodels';
 
 export function InspectionFrame() {
   const { t } = useTranslation('inspector');
@@ -17,13 +17,17 @@ export function InspectionFrame() {
     isAllChecked,
   } = useInspectionChecklistContext();
   const navigate = useNavigate();
+  const { targets, isLoading } = useGetInspectionTargets();
+
+  const target = targets?.find((target) => target.uuid === uuid);
 
   return (
-    <LayoutCard.Root>
+    <LayoutCard.Root isLoading={isLoading}>
       <LayoutCard.Header>
         <LayoutCard.Text>
-          {/* TODO: 실제 방/입주자 정보 연동 */}
-          <LayoutCard.Title>T동 012호 - 홍길동 (20250000)</LayoutCard.Title>
+          <LayoutCard.Title>
+            {`${target?.roomNumber} - ${target?.residents.map((resident) => resident.name).join(', ')}`}
+          </LayoutCard.Title>
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">

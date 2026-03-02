@@ -1,18 +1,26 @@
+import { useMemo } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import { cn } from '@/common/utils';
 
-import type { ScheduleStatus } from '../../../models';
 import type { Dayjs } from 'dayjs';
 
 export function InspectionScheduleCard({
   time,
   roomLabel,
   residentName,
-  status,
+  isPassed,
   className,
+  ...props
 }: InspectionScheduleCard.Props) {
   const { t } = useTranslation('inspector');
+
+  const status = useMemo(() => {
+    if (isPassed === null) return 'draft';
+    if (isPassed) return 'passed';
+    return 'failed';
+  }, [isPassed]);
 
   return (
     <div
@@ -22,6 +30,7 @@ export function InspectionScheduleCard({
         'px-4 py-3',
         className,
       )}
+      {...props}
     >
       <div className="flex items-center gap-4">
         <h1 className="text-text-black tabular-nums">{time.format('HH:mm')}</h1>
@@ -39,28 +48,26 @@ export function InspectionScheduleCard({
         )}
       >
         {/* t('schedule.status.draft') */}
-        {/* t('schedule.status.active') */}
-        {/* t('schedule.status.completed') */}
-        {/* t('schedule.status.canceled') */}
-        {t(`schedule.status.${status.toLowerCase()}`)}
+        {/* t('schedule.status.passed') */}
+        {/* t('schedule.status.failed') */}
+        {t(`schedule.status.${status}`)}
       </span>
     </div>
   );
 }
 
 export namespace InspectionScheduleCard {
-  export type Props = {
+  export interface Props extends React.HTMLAttributes<HTMLDivElement> {
     time: Dayjs;
     roomLabel: string;
     residentName: string;
-    status: ScheduleStatus;
+    isPassed: boolean | null;
     className?: string;
-  };
+  }
 
-  export const statusStyle: Record<ScheduleStatus, string> = {
-    DRAFT: cn('bg-icon-gray text-text-white'),
-    ACTIVE: cn('bg-primary-main text-text-white'),
-    COMPLETED: cn('bg-text-black text-text-white'),
-    CANCELED: cn('bg-icon-red/80 text-status-fail'),
+  export const statusStyle = {
+    draft: cn('bg-icon-gray text-text-white'),
+    passed: cn('bg-primary-main text-text-white'),
+    failed: cn('bg-icon-red/80 text-status-fail'),
   };
 }
