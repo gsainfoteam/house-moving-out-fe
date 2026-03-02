@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
-import z from 'zod';
+import { z } from 'zod';
 
 const noticeConsentSchema = z
   .record(z.string(), z.boolean())
