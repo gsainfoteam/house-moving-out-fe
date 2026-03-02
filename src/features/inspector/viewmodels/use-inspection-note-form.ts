@@ -23,6 +23,8 @@ const inspectionNoteSchema = z.object({
 
 export type InspectionNoteFormValues = z.infer<typeof inspectionNoteSchema>;
 
+// TODO: 사인을 pdf에 넣고 그걸 페이로드에 넣어야 함, presigned url에 넣는 거까지 구현하기
+
 export const useInspectionNoteForm = (
   uuid: string,
   inspectorPadRef: React.RefObject<SignaturePadHandle | null>,
@@ -67,8 +69,7 @@ export const useInspectionNoteForm = (
       body: {
         passed: passed.length > 0 ? passed : undefined,
         failed: failed.length > 0 ? failed : undefined,
-        inspectorSignature: inspectorSignatureBlob,
-        targetSignature: targetSignatureBlob,
+        contentLength: inspectorSignatureBlob.size + targetSignatureBlob.size,
       },
     });
   }, [form, getItems, inspectorPadRef, residentPadRef, submitInspectionResult, uuid]);
