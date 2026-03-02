@@ -101,5 +101,10 @@
       "completed": "COMPLETED",
       "draft": "DRAFT"
     }
+  },
+  "error": {
+    "forbidden": "You are not an inspector or not assigned to this application.",
+    "notFound": "Inspection information could not be found.",
+    "alreadyPassed": "Inspection result has already been marked as passed."
   }
 }

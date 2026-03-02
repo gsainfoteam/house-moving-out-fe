@@ -59,7 +59,7 @@ const getStatus = (target: Target | undefined): Status | undefined => {
 };
 
 export function RoomVisualize() {
-  const { uuid } = useParams({ from: '/admin/schedules/$uuid' });
+  const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid' });
   const { data: targets, error } = useTargets(uuid);
   const { t } = useTranslation('admin');
 

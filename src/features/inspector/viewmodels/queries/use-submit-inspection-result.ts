@@ -14,7 +14,7 @@ export const useSubmitInspectionResult = () => {
 
   return $api.useMutation('patch', ApiPaths.MoveOutController_submitInspectionResult, {
     onMutate(variables) {
-      variables.bodySerializer = multipartSerializer;
+      variables.bodySerializer = multipartSerializer(false);
     },
     onSuccess: () => {
       queryClient.removeQueries({

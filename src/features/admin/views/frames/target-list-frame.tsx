@@ -21,7 +21,7 @@ const threeRooms = [
 ];
 
 export function TargetListFrame() {
-  const { uuid } = useParams({ from: '/admin/schedules/$uuid/targets' });
+  const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/targets' });
   const { data: targets, error } = useTargets(uuid);
   const { t } = useTranslation('admin');
   const {

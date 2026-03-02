@@ -9,7 +9,7 @@ import { Button, Loading } from '@/common/components';
 import { useApplications } from '../../viewmodels';
 
 export function ApplicationListFrame() {
-  const { uuid } = useParams({ from: '/admin/schedules/$uuid/applications' });
+  const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/applications' });
   const { data, error } = useApplications(uuid);
   const { t } = useTranslation('admin');
 
