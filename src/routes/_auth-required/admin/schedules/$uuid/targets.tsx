@@ -1,9 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_auth-required/admin/schedules/$uuid/targets')({
-  component: RouteComponent,
-})
+import { TargetListFrame } from '@/features/admin';
 
-function RouteComponent() {
-  return <div>Hello "/admin/schedules/$uuid/targets"!</div>
-}
+export const Route = createFileRoute('/admin/schedules/$uuid/targets')({
+  component: TargetListFrame,
+});

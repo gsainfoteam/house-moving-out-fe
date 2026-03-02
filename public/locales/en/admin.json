@@ -1,5 +1,22 @@
 {
   "application": {
+    "detail": {
+      "appliedAt": "Applied At",
+      "document": "Document",
+      "downloadPdf": "PDF",
+      "id": "ID",
+      "inspectedAt": "Inspected At",
+      "inspector": "Inspector",
+      "name": "Name",
+      "phoneNumber": "Phone #",
+      "result": "Result",
+      "roomNumber": "Room #",
+      "studentNumber": "Student #",
+      "type": "Inspection Type"
+    },
+    "error": {
+      "load": "Cannot load inspection application list"
+    },
     "list": "Inspection Application List"
   },
   "floor_one": "{{count}}F",
@@ -9,6 +26,10 @@
     "male": "Male"
   },
   "home": "Home",
+  "inspectionType": {
+    "first": "First",
+    "second": "Second"
+  },
   "inspectors": {
     "create": {
       "action": "Add Inspector",
@@ -51,6 +72,10 @@
       },
       "title": "Inspector List"
     }
+  },
+  "result": {
+    "failed": "Failed",
+    "passed": "Passed"
   },
   "schedule": {
     "create": {
@@ -142,6 +167,32 @@
     "will_be_cleaned": "Will be cleaned"
   },
   "target": {
+    "action": {
+      "resetCleaningChanges": "Reset",
+      "saveCleaningChanges": "Save",
+      "savingCleaningChanges": "Saving..."
+    },
+    "detail": {
+      "admissionYear": "Admission Year",
+      "cleaningNoChanges": "No vendor cleaning changes",
+      "cleaningService": "Vendor Cleaning",
+      "cleaningUnsavedCount_one": "{{count}} unsaved vendor cleaning change",
+      "cleaningUnsavedCount_other": "{{count}} unsaved vendor cleaning changes",
+      "inspectionCount": "# of Inspections",
+      "lastInspection": "Last Inspection",
+      "name": "Name",
+      "result": "Result",
+      "roomNumber": "Room #",
+      "type": "Inspection Type"
+    },
+    "error": {
+      "cleaningLockedByStatus": "Vendor cleaning cannot be edited for active schedules",
+      "load": "Cannot load target room list"
+    },
     "list": "Target Room List"
+  },
+  "type": {
+    "all": "All Inspection",
+    "individual": "Individual Inspection"
   }
 }

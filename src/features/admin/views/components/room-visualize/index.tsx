@@ -1,9 +1,15 @@
 import React from 'react';
 
+import { useParams } from '@tanstack/react-router';
+
 import { range } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
+import { Loading } from '@/common/components';
 import { cn } from '@/common/utils';
+
+import { InspectionType, type Target } from '../../../models';
+import { useTargets } from '../../../viewmodels';
 
 const config = {
   G: [19, 19, 19, 19, 19, 19],
@@ -11,8 +17,6 @@ const config = {
   S: [0, 18, 18, 18, 17, 17],
   T: [22, 22, 22, 21, 21, 21],
 };
-
-const disabledRooms = ['G101', 'G201', 'I119', 'I201', 'T102', 'T103'];
 
 const cellBase = cn(
   'border border-icon-light-gray transition-colors duration-150 min-w-18 px-2 py-1.5 bg-bg-surface/60',
@@ -22,16 +26,16 @@ const roomHeaderCell = cn(
 );
 const statusCell = cn('text-box2 text-center font-medium');
 
-const statusStyles: Record<
+type Status =
   | 'disabled'
   | 'passed'
   | 'failed'
   | 'not_inspected'
   | 'will_be_cleaned'
   | 'single'
-  | 'single_passed',
-  string
-> = {
+  | 'single_passed';
+
+const statusStyles: Record<Status, string> = {
   disabled: cn('bg-status-inactive text-text-gray'),
   passed: cn('bg-icon-green text-text-black'),
   failed: cn('bg-icon-red text-text-black'),
@@ -41,8 +45,27 @@ const statusStyles: Record<
   single_passed: cn('bg-status-pending text-text-black'),
 };
 
+const getStatus = (target: Target | undefined): Status | undefined => {
+  if (!target) return undefined;
+  if (target.applyCleaningService) return 'will_be_cleaned';
+  if (target.inspectionType === InspectionType.EMPTY) return 'disabled';
+  if (target.isPassed) {
+    if (target.inspectionType === InspectionType.FULL) return 'passed';
+    return 'single_passed';
+  }
+  if (target.isPassed === false) return 'failed';
+  if (target.inspectionType === InspectionType.FULL) return 'not_inspected';
+  return 'single';
+};
+
 export function RoomVisualize() {
+  const { uuid } = useParams({ from: '/admin/schedules/$uuid' });
+  const { data: targets, error } = useTargets(uuid);
   const { t } = useTranslation('admin');
+
+  if (error) return <div>{t('target.error.load')}</div>;
+  if (!targets) return <Loading containerClassName="h-full" />;
+
   return (
     <table className="text-box2 bg-bg-white w-full border-collapse">
       {Object.entries(config).map(([house, counts], configIndex) => (
@@ -68,18 +91,8 @@ export function RoomVisualize() {
                     </React.Fragment>
                   );
                 const roomNumber = `${house}${floor}${roomIndex.toString().padStart(2, '0')}`;
-                const status = disabledRooms.includes(roomNumber)
-                  ? 'disabled'
-                  : (
-                      [
-                        'passed',
-                        'failed',
-                        'not_inspected',
-                        'will_be_cleaned',
-                        'single',
-                        'single_passed',
-                      ] as const
-                    )[Math.floor(Math.random() * 10)];
+                const target = targets.find((t) => t.roomNumber === roomNumber);
+                const status = getStatus(target);
                 // t('status.disabled')
                 // t('status.passed')
                 // t('status.failed')
@@ -92,12 +105,16 @@ export function RoomVisualize() {
                     <th className={cn(cellBase, roomHeaderCell)} scope="row" title={roomNumber}>
                       {roomNumber}
                     </th>
-                    <td
-                      className={cn(cellBase, statusCell, statusStyles[status])}
-                      title={t(`status.${status}`)}
-                    >
-                      {status && t(`status.${status}`)}
-                    </td>
+                    {status ? (
+                      <td
+                        className={cn(cellBase, statusCell, statusStyles[status])}
+                        title={t(`status.${status}`)}
+                      >
+                        {t(`status.${status}`)}
+                      </td>
+                    ) : (
+                      <td className={cn(cellBase, statusCell)} />
+                    )}
                   </React.Fragment>
                 );
               })}

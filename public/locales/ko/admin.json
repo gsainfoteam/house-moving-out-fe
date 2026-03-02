@@ -1,5 +1,22 @@
 {
   "application": {
+    "detail": {
+      "appliedAt": "신청 일시",
+      "document": "검사서",
+      "downloadPdf": "PDF",
+      "id": "#",
+      "inspectedAt": "검사 일시",
+      "inspector": "검사위원",
+      "name": "이름",
+      "phoneNumber": "전화번호",
+      "result": "결과",
+      "roomNumber": "호실",
+      "studentNumber": "학번",
+      "type": "검사 종류"
+    },
+    "error": {
+      "load": "신청 목록을 불러올 수 없습니다"
+    },
     "list": "신청 목록"
   },
   "floor": "{{count}}층",
@@ -8,6 +25,10 @@
     "male": "남자"
   },
   "home": "홈",
+  "inspectionType": {
+    "first": "초검",
+    "second": "재검"
+  },
   "inspectors": {
     "create": {
       "action": "검사위원 추가",
@@ -50,6 +71,10 @@
       },
       "title": "검사위원 목록"
     }
+  },
+  "result": {
+    "failed": "불통",
+    "passed": "통과"
   },
   "schedule": {
     "create": {
@@ -141,6 +166,31 @@
     "will_be_cleaned": "업체 청소"
   },
   "target": {
+    "action": {
+      "resetCleaningChanges": "변경 취소",
+      "saveCleaningChanges": "저장",
+      "savingCleaningChanges": "저장 중..."
+    },
+    "detail": {
+      "admissionYear": "학번",
+      "cleaningNoChanges": "업체 청소 변경사항이 없습니다",
+      "cleaningService": "업체 청소",
+      "cleaningUnsavedCount": "업체 청소 변경 {{count}}건",
+      "inspectionCount": "검사 횟수",
+      "lastInspection": "마지막 검사일시",
+      "name": "이름",
+      "result": "결과",
+      "roomNumber": "호실 번호",
+      "type": "검사 종류"
+    },
+    "error": {
+      "cleaningLockedByStatus": "진행중인 스케줄은 업체 청소 여부를 수정할 수 없습니다",
+      "load": "퇴사검사 대상자 목록을 불러올 수 없습니다"
+    },
     "list": "검사 대상자 목록"
+  },
+  "type": {
+    "all": "전체퇴검",
+    "individual": "1인 퇴검"
   }
 }

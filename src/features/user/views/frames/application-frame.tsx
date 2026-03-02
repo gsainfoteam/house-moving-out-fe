@@ -7,12 +7,61 @@ import { useTranslation } from 'react-i18next';
 import ModalBang from '@/assets/modal-bang.svg?react';
 import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
-import { Button, Dialog, LayoutCard } from '@/common/components';
+import { Button, Checkbox, Dialog, LayoutCard } from '@/common/components';
 import { overlay } from '@/common/lib';
+import { cn } from '@/common/utils';
+import { useLoading } from '@/common/viewmodels';
 import { useAuth } from '@/features/auth';
 
-import { useApplicationForm } from '../../viewmodels';
+import { useApplicationForm, useNoticeConsentForm } from '../../viewmodels';
 import { DateSelect, TimeSelect } from '../components';
+
+function NoticeConsentDialog({ onConfirm }: { onConfirm: () => Promise<void> }) {
+  const { t } = useTranslation('user');
+  const [isSubmitting, startLoading] = useLoading();
+
+  const items = Object.values(
+    t('application.dialog.notice.items', { returnObjects: true }) as Record<string, string>,
+  );
+  const { register, isValid, valuesByIndex } = useNoticeConsentForm(items);
+
+  return (
+    <Dialog.Root closeOnBackdrop>
+      <Dialog.Header>
+        <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
+        <Dialog.Description>{t('application.dialog.notice.description')}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Body>
+        <ul className="flex flex-col gap-2">
+          {items.map((item, index) => (
+            <li
+              key={index}
+              className={cn(
+                'rounded-lg transition-colors',
+                valuesByIndex[index] ? 'bg-primary-main/10' : 'bg-bg-surface/30',
+              )}
+            >
+              <label className="text-box2 text-text-black flex cursor-pointer items-start gap-2 px-3 py-2.5 leading-normal">
+                <Checkbox {...register(String(index))} className="mt-0.5 shrink-0" />
+                {item}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </Dialog.Body>
+      <Dialog.Footer>
+        <Button
+          variant="default"
+          className="w-full"
+          disabled={!isValid || isSubmitting}
+          onClick={() => startLoading(onConfirm)}
+        >
+          {t('application.dialog.notice.button')}
+        </Button>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
 
 export function ApplicationFrame() {
   const { t } = useTranslation('user');
@@ -163,32 +212,7 @@ export function ApplicationFrame() {
           disabled={!formState.isValid}
           onClick={() =>
             overlay.open(({ close }) => (
-              <Dialog.Root>
-                <Dialog.Header>
-                  <Dialog.Title>{t('application.dialog.notice.title')}</Dialog.Title>
-                  <Dialog.Description>
-                    {t('application.dialog.notice.description')}
-                  </Dialog.Description>
-                </Dialog.Header>
-                <Dialog.Body>
-                  <ol className="list-decimal space-y-2 pl-5">
-                    {Object.values(
-                      t('application.dialog.notice.items', { returnObjects: true }),
-                    ).map((item: string, index: number) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ol>
-                </Dialog.Body>
-                <Dialog.Footer>
-                  <Button
-                    variant="default"
-                    onClick={() => onSubmit().then(() => close())}
-                    disabled={formState.isSubmitting}
-                  >
-                    {t('application.dialog.notice.button')}
-                  </Button>
-                </Dialog.Footer>
-              </Dialog.Root>
+              <NoticeConsentDialog onConfirm={() => onSubmit().then(() => close())} />
             ))
           }
         >
