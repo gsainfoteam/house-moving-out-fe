@@ -82,6 +82,12 @@
       }
     }
   },
+  "error": {
+    "alreadyPassed": "이미 통과 처리된 검사 결과입니다.",
+    "forbidden": "검사자 권한이 없거나 이 신청 건에 배정되지 않았습니다.",
+    "notFound": "퇴사 검사 정보를 찾을 수 없습니다.",
+    "notInspector": "검사자 계정으로만 접근할 수 있는 페이지입니다."
+  },
   "list": {
     "description": "우측의 검사 버튼을 눌러 퇴사 검사를 시작해 주세요.",
     "title": "퇴사검사 일정"
@@ -96,15 +102,9 @@
   },
   "schedule": {
     "status": {
-      "passed": "통과",
+      "draft": "예정",
       "failed": "불통",
-      "draft": "예정"
+      "passed": "통과"
     }
-  },
-  "error": {
-    "forbidden": "검사자 권한이 없거나 이 신청 건에 배정되지 않았습니다.",
-    "notFound": "퇴사 검사 정보를 찾을 수 없습니다.",
-    "alreadyPassed": "이미 통과 처리된 검사 결과입니다.",
-    "notInspector": "검사자 계정으로만 접근할 수 있는 페이지입니다."
   }
 }
