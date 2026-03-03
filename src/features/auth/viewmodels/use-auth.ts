@@ -49,7 +49,14 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
 
   const matchedInspector = useMemo(() => {
     if (!user || !inspectors) return null;
-    return inspectors.find((insp) => insp.studentNumber === user.studentNumber) ?? undefined;
+    return (
+      inspectors.find(
+        (insp) =>
+          insp.studentNumber === user.studentNumber &&
+          insp.email === user.email &&
+          insp.name === user.name,
+      ) ?? undefined
+    );
   }, [user, inspectors]);
 
   const {
