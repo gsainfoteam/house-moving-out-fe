@@ -6,7 +6,7 @@ import { last } from 'es-toolkit/array';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import z from 'zod';
+import { z } from 'zod';
 
 import { useCreateMoveOutSchedule } from './queries';
 import { Season } from '../models';

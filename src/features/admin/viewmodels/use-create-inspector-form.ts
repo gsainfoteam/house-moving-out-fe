@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import z from 'zod';
+import { z } from 'zod';
 
 import { Gender } from '../models';
 import { useCreateInspector } from './queries/use-create-inspector';
