@@ -36,6 +36,12 @@ export const InspectionChecklistProvider = ({ children }: { children: ReactNode 
   const form = useForm({
     resolver: zodResolver(schema),
     mode: 'onChange',
+    defaultValues: Object.fromEntries(
+      Object.entries(sections).map(([sectionKey, section]) => [
+        sectionKey,
+        Object.fromEntries(Object.keys(section.items ?? {}).map((itemKey) => [itemKey, false])),
+      ]),
+    ),
   });
 
   return <FormProvider {...form}>{children}</FormProvider>;
