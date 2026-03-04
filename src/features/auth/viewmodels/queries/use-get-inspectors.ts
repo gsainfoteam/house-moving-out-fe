@@ -7,7 +7,7 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
-export const useGetInspectors = () => {
+export const useGetInspectors = (enabled = true) => {
   const { t } = useTranslation('auth');
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
@@ -18,6 +18,7 @@ export const useGetInspectors = () => {
         if (error?.statusCode === 401) return false;
         return count < 3;
       },
+      enabled,
     },
   );
 

@@ -10,42 +10,10 @@ import { UserDtoRole } from '../models';
 import { useGetInspector, useGetInspectors, useLogin, useLogout, useUser } from './queries';
 import { useToken } from './stores';
 
-export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => {
-  const { token: idpToken, logIn: idpLogIn, logOut: idpLogOut } = useAuthContext();
-  const { mutate: logInMutate, ...logInMutation } = useLogin({ showToast });
-  const { mutate: logOut, ...logOutMutation } = useLogout({ showToast });
+const useIsInspector = () => {
   const { token } = useToken();
-  const { data: userData, isLoading, error: userError, refetch: refetchUser } = useUser();
-  const { data: inspectors, isLoading: isLoadingInspectors } = useGetInspectors();
-  const { t } = useTranslation('auth');
-  const navigate = useNavigate();
-
-  const logIn = useCallback(
-    (...args: Parameters<typeof logInMutate>) => {
-      if (!idpToken) {
-        navigate({ to: '/auth/login' });
-        if (showToast) {
-          toast.error(t('error.noIdpToken'));
-        }
-        return;
-      }
-
-      return logInMutate(...args);
-    },
-    [idpToken, navigate, showToast, t, logInMutate],
-  );
-
-  const user = useMemo(() => {
-    if (!token) return null;
-    if (isLoading) return undefined;
-    if (userError) return null;
-    return userData;
-  }, [userData, userError, isLoading, token]);
-
-  const isAdmin = useMemo(
-    () => (user === undefined ? undefined : user?.role === UserDtoRole.ADMIN),
-    [user],
-  );
+  const { data: user } = useUser();
+  const { data: inspectors, isLoading: isLoadingInspectors } = useGetInspectors(!!token);
 
   const matchedInspector = useMemo(() => {
     if (!user || !inspectors) return null;
@@ -83,18 +51,63 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
   useEffect(() => {
     if (!token) return;
 
-    refetchUser();
     if (matchedInspector) {
       refetchInspector();
     }
-  }, [matchedInspector, refetchInspector, refetchUser, token]);
+  }, [matchedInspector, refetchInspector, token]);
+
+  return { inspector };
+};
+
+export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => {
+  const { token: idpToken, logIn: idpLogIn, logOut: idpLogOut } = useAuthContext();
+  const { mutate: logInMutate, ...logInMutation } = useLogin({ showToast });
+  const { mutate: logOut, ...logOutMutation } = useLogout({ showToast });
+  const { token } = useToken();
+  const { data: userData, isLoading, error: userError, refetch: refetchUser } = useUser();
+  const { t } = useTranslation('auth');
+  const navigate = useNavigate();
+
+  const logIn = useCallback(
+    (...args: Parameters<typeof logInMutate>) => {
+      if (!idpToken) {
+        navigate({ to: '/auth/login' });
+        if (showToast) {
+          toast.error(t('error.noIdpToken'));
+        }
+        return;
+      }
+
+      return logInMutate(...args);
+    },
+    [idpToken, navigate, showToast, t, logInMutate],
+  );
+
+  const user = useMemo(() => {
+    if (!token) return null;
+    if (isLoading) return undefined;
+    if (userError) return null;
+    return userData;
+  }, [userData, userError, isLoading, token]);
+
+  const isAdmin = useMemo(
+    () => (user === undefined ? undefined : user?.role === UserDtoRole.ADMIN),
+    [user],
+  );
+
+  useEffect(() => {
+    if (!token) return;
+
+    refetchUser();
+  }, [refetchUser, token]);
+
+  const { inspector } = useIsInspector();
 
   return {
     user,
     inspector,
     isAdmin,
     refetchUser,
-    refetchInspector,
     idpLogIn,
     idpLogOut,
     logIn,
