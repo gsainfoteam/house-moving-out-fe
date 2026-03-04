@@ -48,11 +48,11 @@ export function InspectionFrame() {
                   ({completedCount}/{totalCount})
                 </span>
               </Accordion.Header>
-              <Accordion.Content>
-                <ul className="text-box2 text-text-black flex flex-col gap-3">
+              <Accordion.Content className="p-2 py-1.5">
+                <ul className="text-box2 text-text-black flex flex-col">
                   {itemEntries.map(([itemKey, label]) => (
                     <li key={itemKey} className="flex items-center gap-2">
-                      <label className="flex w-full cursor-pointer items-center justify-between gap-2">
+                      <label className="flex w-full cursor-pointer items-center justify-between gap-2 px-2 py-1.5">
                         <span>{label}</span>
                         <Checkbox {...register(`${sectionKey}.${itemKey}`)} />
                       </label>
