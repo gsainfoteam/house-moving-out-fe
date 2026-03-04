@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 
 import { Loading } from '@/common/components';
@@ -15,8 +17,10 @@ function InspectorLayout() {
   if (inspector === null) return <Navigate to="/" replace />;
 
   return (
-    <InspectionChecklistProvider>
-      <Outlet />
-    </InspectionChecklistProvider>
+    <Suspense fallback={<Loading />}>
+      <InspectionChecklistProvider>
+        <Outlet />
+      </InspectionChecklistProvider>
+    </Suspense>
   );
 }
