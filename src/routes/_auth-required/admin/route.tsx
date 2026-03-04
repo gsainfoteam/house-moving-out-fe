@@ -1,10 +1,14 @@
 import { createFileRoute, Navigate } from '@tanstack/react-router';
 
 import { Loading } from '@/common/components';
+import { i18n } from '@/common/lib';
 import { AdminLayoutFrame } from '@/features/admin';
 import { useAuth } from '@/features/auth';
 
 export const Route = createFileRoute('/_auth-required/admin')({
+  beforeLoad: () => {
+    i18n.loadNamespaces('admin');
+  },
   component: AdminLayout,
 });
 

@@ -3,10 +3,14 @@ import { Suspense } from 'react';
 import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 
 import { Loading } from '@/common/components';
+import { i18n } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 import { InspectionChecklistProvider } from '@/features/inspector/viewmodels';
 
 export const Route = createFileRoute('/_auth-required/_user/inspector')({
+  beforeLoad: () => {
+    i18n.loadNamespaces('inspector');
+  },
   component: InspectorLayout,
 });
 
