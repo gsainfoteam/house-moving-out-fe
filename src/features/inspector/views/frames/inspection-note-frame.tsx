@@ -23,13 +23,13 @@ export function InspectionNoteFrame() {
   }, [getItems]);
 
   return (
-    <LayoutCard.Root>
-      <LayoutCard.Header>
-        <LayoutCard.Text className="items-start text-left">
-          <LayoutCard.Title>{t('note.title')}</LayoutCard.Title>
-        </LayoutCard.Text>
-      </LayoutCard.Header>
+    <LayoutCard.Root asChild>
       <form onSubmit={onSubmit}>
+        <LayoutCard.Header>
+          <LayoutCard.Text className="items-start text-left">
+            <LayoutCard.Title>{t('note.title')}</LayoutCard.Title>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
         <LayoutCard.Body className="w-full items-start">
           <div className="flex w-full flex-col gap-4">
             {uncheckedItems.length > 0 && (
