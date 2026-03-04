@@ -90,7 +90,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     const byDay = groupBy(inspectionSlots, (s) => s.day.valueOf());
     const days = Object.keys(byDay).map((timestamp) => dayjs(Number(timestamp)).startOf('day'));
 
-    return [byDay, days];
+    return [byDay, days] as const;
   }, [data, user]);
 
   return {
