@@ -18,11 +18,16 @@
     "i18n:extract": "i18next-cli extract",
     "i18n:types": "i18next-cli types",
     "gen:i18n": "bun run i18n:extract --watch & bun run i18n:types --watch & wait",
-    "gen:api": "bun run scripts/gen-api.ts"
+    "gen:api": "bun run scripts/gen-api.ts",
+    "postinstall": "bun run ./scripts/missing-typst-css.ts"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
     "@hookform/resolvers": "^5.2.2",
+    "@myriaddreamin/typst-ts-renderer": "^0.7.0-rc2",
+    "@myriaddreamin/typst-ts-web-compiler": "^0.7.0-rc2",
+    "@myriaddreamin/typst.react": "^0.7.0-rc2",
+    "@myriaddreamin/typst.ts": "^0.7.0-rc2",
     "@storybook/react-vite": "^9.1.9",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.7.0",
