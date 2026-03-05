@@ -1,3 +1,5 @@
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
 
 import { devtools } from '@tanstack/devtools-vite';
@@ -5,8 +7,17 @@ import { tanstackRouter } from '@tanstack/router-plugin/vite';
 
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, normalizePath } from 'vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 import svgr from 'vite-plugin-svgr';
+
+const require = createRequire(import.meta.url);
+
+const pdfjsDistPath = path.dirname(
+  require.resolve('@myriaddreamin/typst-ts-web-compiler/package.json'),
+);
+
+const wasmPath = normalizePath(path.join(pdfjsDistPath, 'pkg/typst_ts_web_compiler_bg.wasm'));
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -23,6 +34,14 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
       svgr(),
+      viteStaticCopy({
+        targets: [
+          {
+            src: wasmPath,
+            dest: '',
+          },
+        ],
+      }),
     ],
     resolve: {
       alias: {
