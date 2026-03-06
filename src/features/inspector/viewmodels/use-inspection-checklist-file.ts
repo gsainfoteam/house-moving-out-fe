@@ -61,18 +61,13 @@ export const useInspectionChecklistFile = (
       const buffer = await fetch('/house-full-logo.png').then((res) => res.arrayBuffer());
       await $typst.mapShadow('/assets/house-full-logo.png', new Uint8Array(buffer));
 
-      if (disableSignature) {
-        await $typst.unmapShadow('/assets/inspector-signature.png');
-        await $typst.unmapShadow('/assets/target-signature.png');
-      } else {
-        if (inspectorSignature) {
-          const buffer = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
-          await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(buffer));
-        }
-        if (targetSignature) {
-          const buffer = await fetch(targetSignature).then((res) => res.arrayBuffer());
-          await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(buffer));
-        }
+      if (inspectorSignature) {
+        const buffer = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
+        await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(buffer));
+      }
+      if (targetSignature) {
+        const buffer = await fetch(targetSignature).then((res) => res.arrayBuffer());
+        await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(buffer));
       }
 
       setAssetLoaded(true);
