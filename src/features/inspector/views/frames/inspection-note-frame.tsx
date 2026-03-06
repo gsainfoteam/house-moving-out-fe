@@ -11,6 +11,8 @@ import { Button, Input, LayoutCard } from '@/common/components';
 import { useInspectionNoteForm, useInspectionChecklistFile } from '../../viewmodels';
 import { SignaturePad } from '../components';
 
+import type { checklist } from '../../models';
+
 export function InspectionNoteFrame() {
   const { t } = useTranslation('inspector');
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/note' });
@@ -18,11 +20,13 @@ export function InspectionNoteFrame() {
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
   const residentPadRef = useRef<SignaturePad.Handle | null>(null);
 
-  const { form, getItems, onSubmit } = useInspectionNoteForm(uuid, inspectorPadRef, residentPadRef);
+  const { form, items, onSubmit } = useInspectionNoteForm(uuid, inspectorPadRef, residentPadRef);
 
   const uncheckedItems = useMemo(() => {
-    return getItems().filter((item) => !item.isChecked);
-  }, [getItems]);
+    return Object.entries(items)
+      .filter(([, v]) => !v)
+      .map(([slug, value]) => ({ slug: slug as checklist.Item, value }));
+  }, [items]);
 
   const { artifact } = useInspectionChecklistFile(
     useMemo(
@@ -56,7 +60,7 @@ export function InspectionNoteFrame() {
             {uncheckedItems.length > 0 && (
               <ul className="text-box2 list-inside list-disc">
                 {uncheckedItems.map((item) => (
-                  <li key={item.slug}>{item.label}</li>
+                  <li key={item.slug}>{t(`checklist.items.${item.slug}`)}</li>
                 ))}
               </ul>
             )}

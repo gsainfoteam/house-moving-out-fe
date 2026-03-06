@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
 import { cn } from '@/common/utils';
 
+import { checklist } from '../../models';
 import { useInspectionChecklistContext, useGetInspectionTargets } from '../../viewmodels';
 
 export function InspectionFrame() {
@@ -12,7 +13,6 @@ export function InspectionFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/' });
   const {
     form: { register },
-    sections,
     getSectionProgress,
     isAllChecked,
   } = useInspectionChecklistContext();
@@ -31,14 +31,14 @@ export function InspectionFrame() {
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">
-        {Object.entries(sections).map(([sectionKey, section]) => {
-          const itemEntries = Object.entries(section.items ?? {});
+        {[...checklist.sections, 'issues' as const].map((sectionKey) => {
+          const itemEntries = checklist.a2[sectionKey];
           const { totalCount, completedCount, isCompleted } = getSectionProgress(sectionKey);
 
           return (
             <Accordion.Root key={sectionKey}>
               <Accordion.Header>
-                <Accordion.Title>{section.title}</Accordion.Title>
+                <Accordion.Title>{t(`checklist.sections.${sectionKey}`)}</Accordion.Title>
                 <span
                   className={cn(
                     'text-sub ml-auto font-medium',
@@ -50,11 +50,11 @@ export function InspectionFrame() {
               </Accordion.Header>
               <Accordion.Content className="p-2 py-1.5">
                 <ul className="text-box2 text-text-black flex flex-col">
-                  {itemEntries.map(([itemKey, label]) => (
+                  {itemEntries.map((itemKey) => (
                     <li key={itemKey} className="flex items-center gap-2">
                       <label className="flex w-full cursor-pointer items-center justify-between gap-2 px-2 py-1.5">
-                        <span>{label}</span>
-                        <Checkbox {...register(`${sectionKey}.${itemKey}`)} />
+                        <span>{t(`checklist.items.${itemKey}`)}</span>
+                        <Checkbox {...register(itemKey)} />
                       </label>
                     </li>
                   ))}

@@ -1,8 +1,8 @@
 import type { ParseKeys } from 'i18next';
 
-type Category = ParseKeys<'inspector', {}, 'checklist.sections'>;
-type Item = ParseKeys<'inspector', {}, 'checklist.items'>;
-type Checklist = Record<Category, Item[]>;
+export type Section = ParseKeys<'inspector', {}, 'checklist.sections'>;
+export type Item = ParseKeys<'inspector', {}, 'checklist.items'>;
+type Checklist = Record<Section, Item[]>;
 type IssueItem =
   | 'bathroom-light'
   | 'bidet'
@@ -108,7 +108,7 @@ export const sections = [
   'bathroom',
   'floor',
   'power',
-] satisfies Category[];
+] satisfies Section[];
 
 export const a2 = {
   'entrance-shoe-cabinet': [

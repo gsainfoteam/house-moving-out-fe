@@ -31,7 +31,7 @@ export const useInspectionNoteForm = (
   residentPadRef: React.RefObject<SignaturePadHandle | null>,
 ) => {
   const { mutateAsync: submitInspectionResult } = useSubmitInspectionResult();
-  const { getItems } = useInspectionChecklistContext();
+  const { items } = useInspectionChecklistContext();
 
   const form = useForm<InspectionNoteFormValues>({
     resolver: zodResolver(inspectionNoteSchema),
@@ -59,10 +59,9 @@ export const useInspectionNoteForm = (
       return;
     }
 
-    const items = getItems();
-    const [checkedItems, uncheckedItems] = partition(items, (item) => item.isChecked);
-    const passed = checkedItems.map((item) => item.slug);
-    const failed = uncheckedItems.map((item) => item.slug);
+    const [checkedItems, uncheckedItems] = partition(Object.entries(items), ([, v]) => v);
+    const passed = checkedItems.map(([slug]) => slug);
+    const failed = uncheckedItems.map(([slug]) => slug);
 
     await submitInspectionResult({
       params: { path: { uuid } },
@@ -72,13 +71,13 @@ export const useInspectionNoteForm = (
         contentLength: inspectorSignatureBlob.size + targetSignatureBlob.size,
       },
     });
-  }, [form, getItems, inspectorPadRef, residentPadRef, submitInspectionResult, uuid]);
+  }, [form, inspectorPadRef, residentPadRef, submitInspectionResult, uuid, items]);
 
   const onSubmit = useCallback(() => form.handleSubmit(onValid)(), [form, onValid]);
 
   return {
     form,
     onSubmit,
-    getItems,
+    items,
   };
 };
