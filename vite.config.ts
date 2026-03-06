@@ -13,11 +13,18 @@ import svgr from 'vite-plugin-svgr';
 
 const require = createRequire(import.meta.url);
 
-const pdfjsDistPath = path.dirname(
-  require.resolve('@myriaddreamin/typst-ts-web-compiler/package.json'),
+const wasm1Path = normalizePath(
+  path.join(
+    path.dirname(require.resolve('@myriaddreamin/typst-ts-web-compiler/package.json')),
+    'pkg/typst_ts_web_compiler_bg.wasm',
+  ),
 );
-
-const wasmPath = normalizePath(path.join(pdfjsDistPath, 'pkg/typst_ts_web_compiler_bg.wasm'));
+const wasm2Path = normalizePath(
+  path.join(
+    path.dirname(require.resolve('@myriaddreamin/typst-ts-renderer/package.json')),
+    'pkg/typst_ts_renderer_bg.wasm',
+  ),
+);
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -36,10 +43,8 @@ export default defineConfig(({ mode }) => {
       svgr(),
       viteStaticCopy({
         targets: [
-          {
-            src: wasmPath,
-            dest: '',
-          },
+          { src: wasm1Path, dest: '' },
+          { src: wasm2Path, dest: '' },
         ],
       }),
     ],

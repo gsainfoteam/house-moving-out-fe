@@ -2,11 +2,13 @@ import { useMemo, useRef } from 'react';
 
 import { useParams } from '@tanstack/react-router';
 
+import { TypstDocument } from '@myriaddreamin/typst.react';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Input, LayoutCard } from '@/common/components';
 
-import { useInspectionNoteForm } from '../../viewmodels';
+import { useInspectionNoteForm, useInspectionChecklistFile } from '../../viewmodels';
 import { SignaturePad } from '../components';
 
 export function InspectionNoteFrame() {
@@ -22,6 +24,12 @@ export function InspectionNoteFrame() {
     return getItems().filter((item) => !item.isChecked);
   }, [getItems]);
 
+  const { artifact } = useInspectionChecklistFile({
+    type: 'vector',
+    roomNumber: 'asdf',
+    inspectedAt: dayjs(),
+  });
+
   return (
     <LayoutCard.Root asChild>
       <form onSubmit={onSubmit}>
@@ -31,6 +39,12 @@ export function InspectionNoteFrame() {
           </LayoutCard.Text>
         </LayoutCard.Header>
         <LayoutCard.Body className="w-full items-start">
+          <div className="aspect-148/210 w-full overflow-hidden border">
+            <div className="-mt-12 scale-120">
+              <TypstDocument artifact={artifact} />
+            </div>
+          </div>
+
           <div className="flex w-full flex-col gap-4">
             {uncheckedItems.length > 0 && (
               <ul className="text-box2 list-inside list-disc">
