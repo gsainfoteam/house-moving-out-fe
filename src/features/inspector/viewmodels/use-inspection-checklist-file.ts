@@ -40,6 +40,8 @@ export const useInspectionChecklistFile = ({
   generation = 14,
   inspectionCount,
   checkedItems,
+  inspectorSignature,
+  targetSignature,
 }: {
   type: 'vector' | 'pdf';
   inspectedAt: dayjs.Dayjs;
@@ -48,6 +50,8 @@ export const useInspectionChecklistFile = ({
   generation?: number;
   inspectionCount: number;
   checkedItems: checklist.Item[];
+  inspectorSignature?: string;
+  targetSignature?: string;
 }) => {
   const [artifact, setArtifact] = useState<Uint8Array | null>(null);
   const [isLoading, startTransition] = useTransition();
@@ -55,11 +59,22 @@ export const useInspectionChecklistFile = ({
 
   useEffect(() => {
     (async () => {
+      setAssetLoaded(false);
       const buffer = await fetch('/house-full-logo.png').then((res) => res.arrayBuffer());
       await $typst.mapShadow('/assets/house-full-logo.png', new Uint8Array(buffer));
+
+      if (inspectorSignature) {
+        const buffer = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
+        await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(buffer));
+      }
+      if (targetSignature) {
+        const buffer = await fetch(targetSignature).then((res) => res.arrayBuffer());
+        await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(buffer));
+      }
+
       setAssetLoaded(true);
     })();
-  }, []);
+  }, [inspectorSignature, targetSignature]);
 
   useEffect(() => {
     if (!assetLoaded) return;
@@ -72,6 +87,7 @@ export const useInspectionChecklistFile = ({
           roomType,
           inspectionCount,
           checkedItems,
+          hasSignature: !!inspectorSignature && !!targetSignature,
         });
         const result =
           type === 'vector'
@@ -88,8 +104,10 @@ export const useInspectionChecklistFile = ({
     generation,
     inspectedAt,
     inspectionCount,
+    inspectorSignature,
     roomNumber,
     roomType,
+    targetSignature,
     type,
   ]);
 

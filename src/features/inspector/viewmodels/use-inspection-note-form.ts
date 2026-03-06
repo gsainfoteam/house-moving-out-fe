@@ -7,7 +7,6 @@ export const useInspectionNoteForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = form.handleSubmit(() => {
-    console.log(form.getValues());
     navigate({ to: '/inspector/$uuid/submit', from: '/inspector/$uuid/note' });
   });
 

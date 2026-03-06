@@ -8,7 +8,6 @@ import { resolveCssVarColor } from '../../../utils';
 export namespace SignaturePad {
   export type Props = {
     className?: string;
-    backgroundColor?: string;
     penColor?: string;
     lineWidth?: number;
     onChange?: (dataUrl: string) => void;
@@ -23,21 +22,8 @@ export namespace SignaturePad {
 }
 
 export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
-  (
-    {
-      className,
-      backgroundColor = 'var(--color-bg-white)',
-      penColor = 'var(--color-text-black)',
-      lineWidth = 2,
-      onChange,
-    },
-    ref,
-  ) => {
+  ({ className, penColor = 'var(--color-text-black)', lineWidth = 2, onChange }, ref) => {
     const internalRef = useRef<SignatureCanvas | null>(null);
-    const resolvedBackground = useMemo(
-      () => resolveCssVarColor(backgroundColor),
-      [backgroundColor],
-    );
     const resolvedPenColor = useMemo(() => resolveCssVarColor(penColor), [penColor]);
 
     useImperativeHandle(
@@ -66,7 +52,7 @@ export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
       >
         <SignatureCanvas
           ref={internalRef}
-          backgroundColor={resolvedBackground}
+          backgroundColor="transparent"
           penColor={resolvedPenColor}
           minWidth={lineWidth}
           maxWidth={lineWidth}

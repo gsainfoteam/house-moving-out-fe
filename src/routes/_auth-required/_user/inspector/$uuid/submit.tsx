@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_auth-required/_user/inspector/$uuid/submit')({
-  component: RouteComponent,
-});
+import { InspectionSubmitFrame } from '@/features/inspector';
 
-function RouteComponent() {
-  return <div>Hello "/_auth-required/_user/inspector/$uuid/submit"!</div>;
-}
+export const Route = createFileRoute('/_auth-required/_user/inspector/$uuid/submit')({
+  component: InspectionSubmitFrame,
+});

@@ -13,6 +13,7 @@ const template = String.raw`
 #let issues = json(bytes({{ISSUES}}))
 #let checkedItems = json(bytes({{CHECKED_ITEMS}}))
 #let inspectionCount = {{INSPECTION_COUNT}}
+#let hasSignature = {{HAS_SIGNATURE}}
 
 #table(
   inset: 0pt,
@@ -36,7 +37,7 @@ const template = String.raw`
         [총괄], [검사자],
         table.hline(stroke: 0.7mm + gray),
         table.cell(fill: white)[\ ],
-        table.cell(fill: white)[\ ],
+        table.cell(fill: white, if (hasSignature) { place(center + horizon, image("/assets/inspector-signature.png", height: 20pt)) } else { none }),
       ),
     ),
   ),
@@ -48,7 +49,10 @@ const template = String.raw`
     } else { 0.12mm + gray },
     table.hline(stroke: 0.7mm + gray),
     [검사일], [검사 시간], [검사 호실], [피검사자 서명],
-    [{{DATE}}], [{{TIME}}], [{{ROOM_NUMBER}}], [],
+    [{{DATE}}],
+    [{{TIME}}],
+    [{{ROOM_NUMBER}}],
+    if (hasSignature) { place(center + horizon, image("/assets/target-signature.png", height: 20pt)) } else { none },
     table.hline(stroke: 0.7mm + gray),
   ),
 )
@@ -144,6 +148,7 @@ export const generateChecklistFile = ({
   roomType,
   inspectionCount,
   checkedItems,
+  hasSignature,
 }: {
   generation: number;
   inspectedAt: dayjs.Dayjs;
@@ -151,6 +156,7 @@ export const generateChecklistFile = ({
   roomType: 'a2' | 'a3' | 'b';
   inspectionCount: number;
   checkedItems: checklist.Item[];
+  hasSignature: boolean;
 }) => {
   return template
     .replace('{{GENERATION}}', generation.toString())
@@ -184,5 +190,6 @@ export const generateChecklistFile = ({
         ),
       ),
     )
-    .replace('{{CHECKED_ITEMS}}', JSON.stringify(JSON.stringify(checkedItems)));
+    .replace('{{CHECKED_ITEMS}}', JSON.stringify(JSON.stringify(checkedItems)))
+    .replace('{{HAS_SIGNATURE}}', hasSignature.toString());
 };
