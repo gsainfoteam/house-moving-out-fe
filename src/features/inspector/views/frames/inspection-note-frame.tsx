@@ -31,6 +31,7 @@ export function InspectionNoteFrame() {
         roomNumber: 'asdf',
         inspectedAt: dayjs(),
         roomType: 'a2',
+        inspectionCount: 1,
       }),
       [],
     ),

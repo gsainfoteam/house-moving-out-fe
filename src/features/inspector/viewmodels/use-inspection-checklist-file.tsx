@@ -36,12 +36,14 @@ export const useInspectionChecklistFile = ({
   roomType,
   roomNumber,
   generation = 14,
+  inspectionCount,
 }: {
   type: 'vector' | 'pdf';
   inspectedAt: dayjs.Dayjs;
   roomType: 'a2' | 'a3' | 'b';
   roomNumber: string;
   generation?: number;
+  inspectionCount: number;
 }) => {
   const [artifact, setArtifact] = useState<Uint8Array | null>(null);
   const [isLoading, startTransition] = useTransition();
@@ -168,9 +170,9 @@ export const useInspectionChecklistFile = ({
     bottom: 0.12mm + gray,
   ),
   [*검사 횟수(체크)*],
-  square(stroke: 0pt, height: 10pt),
-  square(stroke: 0pt, height: 10pt),
-  square(stroke: 0pt, height: 10pt),
+  square(stroke: 0pt, height: 10pt)[${inspectionCount > 0 ? '#sym.checkmark' : ''}],
+  square(stroke: 0pt, height: 10pt)[${inspectionCount > 1 ? '#sym.checkmark' : ''}],
+  square(stroke: 0pt, height: 10pt)[${inspectionCount > 2 ? '#sym.checkmark' : ''}],
 ))
 
           `;
@@ -183,7 +185,7 @@ export const useInspectionChecklistFile = ({
         console.error('render error', error);
       }
     });
-  }, [assetLoaded, generation, inspectedAt, roomNumber, type]);
+  }, [assetLoaded, generation, inspectedAt, inspectionCount, roomNumber, roomType, type]);
 
   return {
     artifact: artifact ?? new Uint8Array(),
