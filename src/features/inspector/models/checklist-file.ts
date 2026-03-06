@@ -9,6 +9,10 @@ const template = String.raw`
 #let gray = rgb("#5D5D5D")
 #let lightGray = rgb("#DCDCDC")
 #let lightLightGray = rgb("#F7F7F7")
+#let items = json(bytes({{ITEMS}}))
+#let issues = json(bytes({{ISSUES}}))
+#let checkedItems = json(bytes({{CHECKED_ITEMS}}))
+#let inspectionCount = {{INSPECTION_COUNT}}
 
 #table(
   inset: 0pt,
@@ -55,31 +59,61 @@ const template = String.raw`
 
 #v(8pt)
 
-#box(
-  stroke: 0.4mm + black,
-  text(size: 10pt, table(
+
+#box(stroke: 0.4mm + black, text(size: 10pt, table(
+  stroke: 0.12mm + gray,
+  columns: (14mm, 20mm, 1fr, 13mm),
+  align: center + horizon,
+  inset: 4pt,
+  table.hline(stroke: 0.4mm + black),
+  table.cell(fill: lightGray, stroke: (left: 0.4mm + black))[연번],
+  table.cell(fill: lightGray)[항목],
+  table.cell(fill: lightGray)[상태],
+  table.cell(fill: lightGray, stroke: (right: 0.4mm + black))[확인],
+  table.hline(stroke: 0.4mm + black),
+  ..(
+    items
+      .enumerate(start: 1)
+      .map(section => (
+        section
+          .at(1)
+          .enumerate(start: 1)
+          .map(item => {
+            let key = item.at(1).at(0);
+            let title = item.at(1).at(1);
+            let description = item.at(1).at(2);
+            return (
+              [#section.at(0)-#item.at(0)],
+              text(size: if (title.len() > 5) { 8pt } else { 10pt }, title),
+              text(size: if (description.len() > 30) { 8pt } else { 10pt }, description),
+              if (checkedItems.contains(key)) { sym.checkmark } else { none },
+            );
+          }),
+        table.hline(stroke: 0.4mm + black),
+      ))
+      .flatten()
+  ),
+  table.hline(stroke: 0.4mm + black),
+  table.cell(colspan: 4, inset: 0pt, text(size: 7pt, table(
     stroke: 0.12mm + gray,
-    columns: (14mm, 20mm, 1fr, 13mm),
-    align: center + horizon,
-    inset: 4pt,
-    table.hline(stroke: 0.4mm + black),
-    table.cell(fill: lightGray, stroke: (left: 0.4mm + black))[연번],
-    table.cell(fill: lightGray)[항목],
-    table.cell(fill: lightGray)[상태],
-    table.cell(fill: lightGray, stroke: (right: 0.4mm + black))[확인],
-    table.hline(stroke: 0.4mm + black),
-    {{CHECKLIST_ITEMS}}
-    table.hline(stroke: 0.4mm + black),
-    table.cell(colspan: 4, inset: 0pt, text(size: 7pt, table(
-      stroke: 0.12mm + gray,
-      columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
-      inset: 3pt,
-      table.cell(rowspan: 2, text(size: 7pt)[이상여부/\ 존재유무 확인]),
-      [소화기], [신발장\ 형광등], [의자], [커튼], [블라인드], [방충망],
-      [환풍기], [화장실 전구], [비데], [벽], [호실 형광등], [랜선],
-    ))),
-  )),
-)
+    columns: (..(1fr,) * (int((issues.len() + 3) / 2)),),
+    inset: 3pt,
+    table.cell(rowspan: 2)[이상여부/\ 존재유무 확인],
+    ..(
+      issues.map(issue => [
+        #place(
+          center + horizon,
+          ellipse(
+            width: 100%,
+            height: 10pt,
+            stroke: if (checkedItems.contains(issue.at(0))) { gray } else { none },
+          ),
+        )
+        #issue.at(1)
+      ])
+    ),
+  ))),
+)))
 
 #v(8pt)
 
@@ -95,9 +129,11 @@ const template = String.raw`
     bottom: 0.12mm + gray,
   ),
   [*검사 횟수(체크)*],
-  square(stroke: 0pt, height: 10pt)[{{CHECK_COUNT_1}}],
-  square(stroke: 0pt, height: 10pt)[{{CHECK_COUNT_2}}],
-  square(stroke: 0pt, height: 10pt)[{{CHECK_COUNT_3}}],
+  ..range(3).map(index => square(
+    stroke: 0pt,
+    height: 10pt,
+    if (index < inspectionCount) { sym.checkmark } else {},
+  )),
 ))
 `;
 
@@ -107,28 +143,15 @@ export const generateChecklistFile = ({
   roomNumber,
   roomType,
   inspectionCount,
+  checkedItems,
 }: {
   generation: number;
   inspectedAt: dayjs.Dayjs;
   roomNumber: string;
   roomType: 'a2' | 'a3' | 'b';
   inspectionCount: number;
+  checkedItems: checklist.Item[];
 }) => {
-  const checklistItems = `${checklist.sections
-    .flatMap((section, sectionIndex) => [
-      ...checklist[roomType][section].map((item, itemIndex) => {
-        const title = checklist.itemTitles[item];
-        const description = checklist.itemDescriptions[item];
-        return [
-          `[${sectionIndex + 1}-${itemIndex + 1}], `,
-          `text(size: ${title.length > 5 ? 8 : 10}pt)[${title}], `,
-          `text(size: ${description.length > 30 ? 8 : 10}pt)[${description}], `,
-          `[#sym.checkmark], `,
-        ].join('');
-      }),
-      'table.hline(stroke: 0.4mm + black),',
-    ])
-    .join('\n')}`;
   return template
     .replace('{{GENERATION}}', generation.toString())
     .replace('{{DATE}}', inspectedAt.format('MM월 DD일'))
@@ -138,8 +161,28 @@ export const generateChecklistFile = ({
       '{{ROOM_TYPE}}',
       roomType === 'a2' ? 'A동(2인실)' : roomType === 'a3' ? 'A동(3인실)' : 'B동',
     )
-    .replace('{{CHECK_COUNT_1}}', inspectionCount > 0 ? '#sym.checkmark' : '')
-    .replace('{{CHECK_COUNT_2}}', inspectionCount > 1 ? '#sym.checkmark' : '')
-    .replace('{{CHECK_COUNT_3}}', inspectionCount > 2 ? '#sym.checkmark' : '')
-    .replace('{{CHECKLIST_ITEMS}}', checklistItems);
+    .replace('{{INSPECTION_COUNT}}', inspectionCount.toString())
+    .replace(
+      '{{ITEMS}}',
+      JSON.stringify(
+        JSON.stringify(
+          checklist.sections.map((section) =>
+            checklist[roomType][section].map((item) => [
+              item,
+              checklist.itemTitles[item],
+              checklist.itemDescriptions[item],
+            ]),
+          ),
+        ),
+      ),
+    )
+    .replace(
+      '{{ISSUES}}',
+      JSON.stringify(
+        JSON.stringify(
+          checklist[roomType].issues.map((issue) => [issue, checklist.itemDescriptions[issue]]),
+        ),
+      ),
+    )
+    .replace('{{CHECKED_ITEMS}}', JSON.stringify(JSON.stringify(checkedItems)));
 };

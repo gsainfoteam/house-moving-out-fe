@@ -3,7 +3,7 @@ import { useEffect, useState, useTransition } from 'react';
 import { TypstDocument } from '@myriaddreamin/typst.react';
 import { $typst, loadFonts } from '@myriaddreamin/typst.ts';
 
-import { generateChecklistFile } from '../models';
+import { type checklist, generateChecklistFile } from '../models';
 
 import type dayjs from 'dayjs';
 
@@ -39,6 +39,7 @@ export const useInspectionChecklistFile = ({
   roomNumber,
   generation = 14,
   inspectionCount,
+  checkedItems,
 }: {
   type: 'vector' | 'pdf';
   inspectedAt: dayjs.Dayjs;
@@ -46,6 +47,7 @@ export const useInspectionChecklistFile = ({
   roomNumber: string;
   generation?: number;
   inspectionCount: number;
+  checkedItems: checklist.Item[];
 }) => {
   const [artifact, setArtifact] = useState<Uint8Array | null>(null);
   const [isLoading, startTransition] = useTransition();
@@ -69,6 +71,7 @@ export const useInspectionChecklistFile = ({
           roomNumber,
           roomType,
           inspectionCount,
+          checkedItems,
         });
         const result =
           type === 'vector'
@@ -79,7 +82,16 @@ export const useInspectionChecklistFile = ({
         console.error('render error', error);
       }
     });
-  }, [assetLoaded, generation, inspectedAt, inspectionCount, roomNumber, roomType, type]);
+  }, [
+    assetLoaded,
+    checkedItems,
+    generation,
+    inspectedAt,
+    inspectionCount,
+    roomNumber,
+    roomType,
+    type,
+  ]);
 
   return {
     artifact: artifact ?? new Uint8Array(),

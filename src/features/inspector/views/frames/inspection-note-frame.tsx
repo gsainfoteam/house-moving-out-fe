@@ -22,12 +22,6 @@ export function InspectionNoteFrame() {
 
   const { form, items, onSubmit } = useInspectionNoteForm(uuid, inspectorPadRef, residentPadRef);
 
-  const uncheckedItems = useMemo(() => {
-    return Object.entries(items)
-      .filter(([, v]) => !v)
-      .map(([slug, value]) => ({ slug: slug as checklist.Item, value }));
-  }, [items]);
-
   const { artifact } = useInspectionChecklistFile(
     useMemo(
       () => ({
@@ -36,8 +30,11 @@ export function InspectionNoteFrame() {
         inspectedAt: dayjs(),
         roomType: 'a2',
         inspectionCount: 1,
+        checkedItems: Object.entries(items)
+          .filter(([, v]) => v)
+          .map(([slug]) => slug as checklist.Item),
       }),
-      [],
+      [items],
     ),
   );
 
@@ -57,13 +54,6 @@ export function InspectionNoteFrame() {
           </div>
 
           <div className="flex w-full flex-col gap-4">
-            {uncheckedItems.length > 0 && (
-              <ul className="text-box2 list-inside list-disc">
-                {uncheckedItems.map((item) => (
-                  <li key={item.slug}>{t(`checklist.items.${item.slug}`)}</li>
-                ))}
-              </ul>
-            )}
             <Input
               {...form.register('comment')}
               placeholder={t('note.commentPlaceholder')}
