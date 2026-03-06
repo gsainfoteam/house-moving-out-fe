@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
-    "build": "bun run gen:api && tsr generate && tsc && vite build",
+    "build": "bun run gen:api && bun run i18n:extract && bun run i18n:types && tsr generate && tsc && vite build",
     "preview": "bun run build && vite preview",
     "test": "vitest run",
     "lint": "eslint",
