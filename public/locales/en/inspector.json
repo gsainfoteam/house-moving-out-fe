@@ -4,82 +4,60 @@
       "allClear": "No issues (Pass)",
       "hasIssues": "Has issues (Fail)"
     },
+    "items": {
+      "aircon-dust": "Check air conditioner dust",
+      "balcony": "Check balcony",
+      "bathroom-light": "Check bathroom light bulb",
+      "bed-below": "Check bed below",
+      "bed-drawer": "Check bed drawer",
+      "bed-frame": "Check bed frame",
+      "bed-gap-space": "Check space between beds",
+      "bidet": "Bidet",
+      "blind": "Blind",
+      "board-cleanliness": "Check board cleanliness",
+      "bookshelf-cleanliness": "Check bookshelf cleanliness",
+      "chair": "Check chair",
+      "curtain": "Check curtain",
+      "desk-cleanliness": "Check desk cleanliness",
+      "door-password-reset": "Reset door lock password (+ room number)",
+      "drain": "Check drain",
+      "drawer": "Check drawer",
+      "drawer-cleanliness": "Check drawer cleanliness",
+      "entrance-cleanliness": "Check entrance cleanliness",
+      "entrance-rack": "Check attachments on entrance door",
+      "extinguisher": "Check fire extinguisher",
+      "floor": "Check floor",
+      "hallway-light": "Check hallway light",
+      "insect-screen": "Check insect screen",
+      "internal-terrace-cleanliness": "Check internal terrace cleanliness",
+      "lan-cable": "Check LAN cable",
+      "mattress": "Check mattress",
+      "mirror": "Check mirror",
+      "power": "Check power supply",
+      "power-strips": "Check power strips",
+      "room-structure": "Check room structure",
+      "shoe-cabinet-cleanliness": "Check shoe cabinet cleanliness",
+      "shoe-cabinet-light": "Check shoe cabinet light",
+      "shower-booth": "Check shower booth",
+      "sink": "Check sink",
+      "soap-stain": "Check soap holder",
+      "tile": "Check tiles",
+      "toilet": "Check toilet",
+      "ventilation-fan": "Check ventilation fan",
+      "wall": "Check wall",
+      "wardrobe-cleanliness": "Check wardrobe cleanliness",
+      "window-cleanliness": "Check window cleanliness",
+      "window-frame-cleanliness": "Check window frame cleanliness"
+    },
     "sections": {
-      "bathroom": {
-        "items": {
-          "drain": "Check drain",
-          "mirror": "Check mirror",
-          "shower-booth": "Check shower booth",
-          "sink": "Check sink",
-          "soap-stain": "Check soap holder",
-          "tile": "Check tiles",
-          "toilet": "Check toilet",
-          "water-tap": "Check tap cabinet"
-        },
-        "title": "Bathroom"
-      },
-      "bed": {
-        "items": {
-          "bed-drawer": "Check bed drawer",
-          "bed-frame": "Check bed frame",
-          "bed-gap-space": "Check space between beds",
-          "bed-matt": "Check bed mat",
-          "mattress": "Check mattress"
-        },
-        "title": "Bed"
-      },
-      "entrance-shoe-cabinet": {
-        "items": {
-          "door-password-reset": "Reset door lock password (+ room number)",
-          "entrance-cleanliness": "Check entrance cleanliness",
-          "entrance-rack": "Check attachments on entrance door",
-          "shoe-cabinet-cleanliness": "Check shoe cabinet cleanliness"
-        },
-        "title": "Entrance & Shoe Cabinet"
-      },
-      "furniture-aircon": {
-        "items": {
-          "aircon-dust": "Check air conditioner dust",
-          "bookshelf-cleanliness": "Check bookshelf cleanliness",
-          "desk-cleanliness": "Check desk cleanliness",
-          "drawer-cleanliness": "Check drawer cleanliness",
-          "wardrobe-cleanliness": "Check wardrobe cleanliness"
-        },
-        "title": "Furniture & Air Conditioner"
-      },
-      "issues": {
-        "items": {
-          "bathroom-light": "Bathroom light bulb",
-          "bidet": "Bidet",
-          "blind": "Blind",
-          "chair": "Chair",
-          "curtain": "Curtain",
-          "extinguisher": "Fire extinguisher",
-          "hallway-light": "Hallway light",
-          "insect-screen": "Insect screen",
-          "lan-cable": "LAN cable",
-          "shoe-cabinet-light": "Shoe cabinet light",
-          "ventilation-fan": "Ventilation fan",
-          "wall": "Wall"
-        },
-        "title": "Issues"
-      },
-      "misc": {
-        "items": {
-          "floor": "Check floor",
-          "power": "Check power supply",
-          "room-structure": "Check room structure"
-        },
-        "title": "Miscellaneous"
-      },
-      "window-balcony": {
-        "items": {
-          "balcony": "Check balcony",
-          "window-cleanliness": "Check window cleanliness",
-          "window-frame-cleanliness": "Check window frame cleanliness"
-        },
-        "title": "Window & Balcony"
-      }
+      "bathroom": "Bathroom",
+      "bed": "Bed",
+      "entrance-shoe-cabinet": "Entrance & Shoe Cabinet",
+      "floor": "Floor",
+      "furniture-aircon": "Furniture & Air Conditioner",
+      "issues": "Issues",
+      "power": "Power",
+      "window-balcony": "Window & Balcony"
     }
   },
   "error": {
