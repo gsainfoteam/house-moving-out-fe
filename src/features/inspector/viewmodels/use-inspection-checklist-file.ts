@@ -33,7 +33,11 @@ if (!window.typstInitialized) {
   });
 }
 
-export const useInspectionChecklistFile = (type: 'vector' | 'pdf', generation = 14) => {
+export const useInspectionChecklistFile = (
+  type: 'vector' | 'pdf',
+  disableSignature: boolean = false,
+  generation = 14,
+) => {
   const { form, target, items, roomType } = useInspectionChecklistContext();
   const [artifact, setArtifact] = useState<Uint8Array | null>(null);
   const [isLoading, startTransition] = useTransition();
@@ -49,6 +53,7 @@ export const useInspectionChecklistFile = (type: 'vector' | 'pdf', generation = 
 
   const inspectorSignature = useWatch({ control: form.control, name: 'inspectorSignature' });
   const targetSignature = useWatch({ control: form.control, name: 'targetSignature' });
+  const hasSignature = !disableSignature && !!inspectorSignature && !!targetSignature;
 
   useEffect(() => {
     (async () => {
@@ -56,18 +61,23 @@ export const useInspectionChecklistFile = (type: 'vector' | 'pdf', generation = 
       const buffer = await fetch('/house-full-logo.png').then((res) => res.arrayBuffer());
       await $typst.mapShadow('/assets/house-full-logo.png', new Uint8Array(buffer));
 
-      if (inspectorSignature) {
-        const buffer = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
-        await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(buffer));
-      }
-      if (targetSignature) {
-        const buffer = await fetch(targetSignature).then((res) => res.arrayBuffer());
-        await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(buffer));
+      if (disableSignature) {
+        await $typst.unmapShadow('/assets/inspector-signature.png');
+        await $typst.unmapShadow('/assets/target-signature.png');
+      } else {
+        if (inspectorSignature) {
+          const buffer = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
+          await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(buffer));
+        }
+        if (targetSignature) {
+          const buffer = await fetch(targetSignature).then((res) => res.arrayBuffer());
+          await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(buffer));
+        }
       }
 
       setAssetLoaded(true);
     })();
-  }, [inspectorSignature, targetSignature]);
+  }, [disableSignature, inspectorSignature, targetSignature]);
 
   useEffect(() => {
     if (!assetLoaded || !roomType) return;
@@ -80,7 +90,7 @@ export const useInspectionChecklistFile = (type: 'vector' | 'pdf', generation = 
           roomType,
           inspectionCount: target?.inspectionCount ?? 0,
           checkedItems,
-          hasSignature: !!inspectorSignature && !!targetSignature,
+          hasSignature,
         });
         const result =
           type === 'vector'
@@ -91,16 +101,7 @@ export const useInspectionChecklistFile = (type: 'vector' | 'pdf', generation = 
         console.error('render error', error);
       }
     });
-  }, [
-    target,
-    assetLoaded,
-    checkedItems,
-    generation,
-    inspectorSignature,
-    roomType,
-    targetSignature,
-    type,
-  ]);
+  }, [target, assetLoaded, checkedItems, generation, roomType, hasSignature, type]);
 
   return {
     artifact: artifact ?? new Uint8Array(),

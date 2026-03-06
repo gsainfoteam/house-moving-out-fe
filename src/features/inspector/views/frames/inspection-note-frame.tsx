@@ -16,7 +16,7 @@ export function InspectionNoteFrame() {
 
   const { form, onSubmit } = useInspectionNoteForm();
 
-  const { artifact } = useInspectionChecklistFile('vector');
+  const { artifact } = useInspectionChecklistFile('vector', true);
 
   return (
     <LayoutCard.Root asChild>
