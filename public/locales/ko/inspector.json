@@ -85,5 +85,10 @@
       "failed": "불통",
       "passed": "통과"
     }
+  },
+  "submit": {
+    "success": {
+      "inspectionSubmitted": "검사 결과가 제출되었습니다."
+    }
   }
 }

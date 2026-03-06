@@ -1,10 +1,15 @@
 import { useMemo } from 'react';
 
+import { useNavigate } from '@tanstack/react-router';
+
 import dayjs from 'dayjs';
 import { partition } from 'es-toolkit';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { useSubmitInspectionResult } from './queries';
+import { useVerifyInspectionDocument } from './queries/use-verify-inspection-document';
 import { useInspectionChecklistFile } from './use-inspection-checklist-file';
 
 import type { checklist } from '../models';
@@ -21,6 +26,10 @@ export const useInspectionSubmitForm = (uuid: string) => {
   const inspectorSignature = useWatch({ control: form.control, name: 'inspectorSignature' });
   const targetSignature = useWatch({ control: form.control, name: 'targetSignature' });
   const { mutateAsync: submitInspectionResult } = useSubmitInspectionResult();
+  const { mutateAsync: verifyInspectionDocument } = useVerifyInspectionDocument();
+  const { t } = useTranslation('inspector');
+  const navigate = useNavigate();
+
   const option = useMemo(
     () =>
       ({
@@ -61,6 +70,9 @@ export const useInspectionSubmitForm = (uuid: string) => {
       method: 'PUT',
       body: new Blob([new Uint8Array(pdfArtifact)], { type: 'application/pdf' }),
     });
+    await verifyInspectionDocument({ params: { path: { uuid } } });
+    toast.success(t('submit.success.inspectionSubmitted'));
+    navigate({ to: '/inspector' });
   });
 
   return {

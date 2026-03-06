@@ -85,5 +85,10 @@
       "failed": "FAILED",
       "passed": "PASSED"
     }
+  },
+  "submit": {
+    "success": {
+      "inspectionSubmitted": "Inspection result has been submitted."
+    }
   }
 }
