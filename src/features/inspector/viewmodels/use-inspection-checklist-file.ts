@@ -45,7 +45,7 @@ export const useInspectionChecklistFile = ({
 }: {
   type: 'vector' | 'pdf';
   inspectedAt: dayjs.Dayjs;
-  roomType: 'a2' | 'a3' | 'b';
+  roomType: 'a2' | 'a3' | 'b' | 'solo';
   roomNumber: string;
   generation?: number;
   inspectionCount: number;

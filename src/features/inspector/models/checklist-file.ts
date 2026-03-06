@@ -14,6 +14,12 @@ const template = String.raw`
 #let checkedItems = json(bytes({{CHECKED_ITEMS}}))
 #let inspectionCount = {{INSPECTION_COUNT}}
 #let hasSignature = {{HAS_SIGNATURE}}
+#let title = (
+  a2: "하우스 퇴사검사 체크리스트 A동(2인실)",
+  a3: "하우스 퇴사검사 체크리스트 A동(3인실)",
+  b: "하우스 퇴사검사 체크리스트 B동",
+  solo: "하우스 1인 잔류 시 퇴사검사 체크리스트",
+).{{ROOM_TYPE}}
 
 #table(
   inset: 0pt,
@@ -59,7 +65,7 @@ const template = String.raw`
 
 #v(8pt)
 
-#text(size: 15pt, align(center)[*하우스 퇴사검사 체크리스트 {{ROOM_TYPE}}*])
+#text(size: 15pt, weight: "bold", align(center, title))
 
 #v(8pt)
 
@@ -83,15 +89,19 @@ const template = String.raw`
           .at(1)
           .enumerate(start: 1)
           .map(item => {
-            let key = item.at(1).at(0);
-            let title = item.at(1).at(1);
-            let description = item.at(1).at(2);
-            return (
-              [#section.at(0)-#item.at(0)],
-              text(size: if (title.len() > 5) { 8pt } else { 10pt }, title),
-              text(size: if (description.len() > 30) { 8pt } else { 10pt }, description),
-              if (checkedItems.contains(key)) { sym.checkmark } else { none },
-            );
+            if (item.at(1) == none) {
+              return ();
+            } else {
+              let key = item.at(1).at(0);
+              let title = item.at(1).at(1);
+              let description = item.at(1).at(2);
+              return (
+                [#section.at(0)-#item.at(0)],
+                text(size: if (title.len() > 5) { 8pt } else { 10pt }, title),
+                text(size: if (description.len() > 30) { 8pt } else { 10pt }, description),
+                if (checkedItems.contains(key)) { sym.checkmark } else { none },
+              );
+            }
           }),
         table.hline(stroke: 0.4mm + black),
       ))
@@ -153,7 +163,7 @@ export const generateChecklistFile = ({
   generation: number;
   inspectedAt: dayjs.Dayjs;
   roomNumber: string;
-  roomType: 'a2' | 'a3' | 'b';
+  roomType: 'a2' | 'a3' | 'b' | 'solo';
   inspectionCount: number;
   checkedItems: checklist.Item[];
   hasSignature: boolean;
@@ -163,21 +173,16 @@ export const generateChecklistFile = ({
     .replace('{{DATE}}', inspectedAt.format('MM월 DD일'))
     .replace('{{TIME}}', inspectedAt.format('HH시 mm분'))
     .replace('{{ROOM_NUMBER}}', roomNumber)
-    .replace(
-      '{{ROOM_TYPE}}',
-      roomType === 'a2' ? 'A동(2인실)' : roomType === 'a3' ? 'A동(3인실)' : 'B동',
-    )
+    .replace('{{ROOM_TYPE}}', roomType)
     .replace('{{INSPECTION_COUNT}}', inspectionCount.toString())
     .replace(
       '{{ITEMS}}',
       JSON.stringify(
         JSON.stringify(
           checklist.sections.map((section) =>
-            checklist[roomType][section].map((item) => [
-              item,
-              checklist.itemTitles[item],
-              checklist.itemDescriptions[item],
-            ]),
+            checklist[roomType][section].map((item) =>
+              item ? [item, checklist.itemTitles[item], checklist.itemDescriptions[item]] : null,
+            ),
           ),
         ),
       ),
