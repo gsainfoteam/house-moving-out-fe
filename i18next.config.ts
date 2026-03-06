@@ -27,6 +27,12 @@ export default defineConfig({
     defaultValue: '',
 
     extractFromComments: true,
+
+    preservePatterns: [
+      'inspector:checklist.sections.*',
+      'inspector:checklist.sections0.*',
+      'inspector:checklist.items.*',
+    ],
   },
 
   lint: {

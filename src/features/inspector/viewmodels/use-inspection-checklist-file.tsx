@@ -3,6 +3,8 @@ import { useEffect, useState, useTransition } from 'react';
 import { TypstDocument } from '@myriaddreamin/typst.react';
 import { $typst, loadFonts } from '@myriaddreamin/typst.ts';
 
+import { checklist } from '../models';
+
 import type dayjs from 'dayjs';
 
 declare global {
@@ -31,11 +33,15 @@ if (!window.typstInitialized) {
 export const useInspectionChecklistFile = ({
   type,
   inspectedAt,
+  roomType,
   roomNumber,
+  generation = 14,
 }: {
   type: 'vector' | 'pdf';
   inspectedAt: dayjs.Dayjs;
+  roomType: 'a2' | 'a3' | 'b';
   roomNumber: string;
+  generation?: number;
 }) => {
   const [artifact, setArtifact] = useState<Uint8Array | null>(null);
   const [isLoading, startTransition] = useTransition();
@@ -59,6 +65,7 @@ export const useInspectionChecklistFile = ({
 
 #let gray = rgb("#5D5D5D")
 #let lightGray = rgb("#DCDCDC")
+#let lightLightGray = rgb("#F7F7F7")
 
 #table(
   inset: 0pt,
@@ -71,7 +78,7 @@ export const useInspectionChecklistFile = ({
     fill: lightGray,
     table.hline(stroke: 0.7mm + gray),
     table.cell(inset: (x: 24pt), stroke: (right: 0.12mm + gray), image("/assets/house-full-logo.png")),
-    table.cell(inset: 2pt)[*GIST대학 총학생회\ 제 14대 하우스연합회*],
+    table.cell(inset: 2pt)[*GIST대학 총학생회\ 제 ${generation}대 하우스연합회*],
     table.hline(stroke: 0.7mm + gray),
     table.cell(
       inset: 0pt,
@@ -80,6 +87,7 @@ export const useInspectionChecklistFile = ({
         columns: (1fr, 1fr),
         rows: (auto, auto),
         [총괄], [검사자],
+        table.hline(stroke: 0.7mm + gray),
         table.cell(fill: white)[\ ],
         table.cell(fill: white)[\ ],
       ),
@@ -98,7 +106,13 @@ export const useInspectionChecklistFile = ({
   ),
 )
 
-#text(size: 15pt, align(center)[*하우스 퇴사검사 체크리스트 A동(2인실)*])
+#v(8pt)
+
+#text(size: 15pt, align(center)[*하우스 퇴사검사 체크리스트 ${
+          roomType === 'a2' ? 'A동(2인실)' : roomType === 'a3' ? 'A동(3인실)' : 'B동'
+        }*])
+
+#v(8pt)
 
 #box(
   stroke: 0.4mm + black,
@@ -106,25 +120,33 @@ export const useInspectionChecklistFile = ({
     stroke: 0.12mm + gray,
     columns: (14mm, 20mm, 1fr, 13mm),
     align: center + horizon,
+    inset: 4pt,
     table.hline(stroke: 0.4mm + black),
     table.cell(fill: lightGray, stroke: (left: 0.4mm + black))[연번],
     table.cell(fill: lightGray)[항목],
     table.cell(fill: lightGray)[상태],
     table.cell(fill: lightGray, stroke: (right: 0.4mm + black))[확인],
     table.hline(stroke: 0.4mm + black),
-    [1-1], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
-    [1-2], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
-    [1-3], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
-    [1-4], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
-    table.hline(stroke: 0.4mm + black),
-    [2-1], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
-    [2-2], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
-    [2-3], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
-    [2-4], [도어락], [초기화되어 있어야 함(기본 비밀번호: 0+방호수)], [],
+    ${checklist.sections
+      .flatMap((section, sectionIndex) => [
+        ...checklist[roomType][section].map((item, itemIndex) => {
+          const title = checklist.itemTitles[item];
+          const description = checklist.itemDescriptions[item];
+          return [
+            `[${sectionIndex + 1}-${itemIndex + 1}], `,
+            `text(size: ${title.length > 5 ? 8 : 10}pt)[${title}], `,
+            `text(size: ${description.length > 30 ? 6 : 8}pt)[${description}], `,
+            `[#sym.checkmark], `,
+          ].join('');
+        }),
+        'table.hline(stroke: 0.4mm + black),',
+      ])
+      .join('\n')}
     table.hline(stroke: 0.4mm + black),
     table.cell(colspan: 4, inset: 0pt, text(size: 7pt, table(
       stroke: 0.12mm + gray,
       columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
+      inset: 3pt,
       table.cell(rowspan: 2, text(size: 7pt)[이상여부/\ 존재유무 확인]),
       [소화기], [신발장\ 형광등], [의자], [커튼], [블라인드], [방충망],
       [환풍기], [화장실 전구], [비데], [벽], [호실 형광등], [랜선],
@@ -132,10 +154,13 @@ export const useInspectionChecklistFile = ({
   )),
 )
 
+#v(8pt)
+
 #align(right, table(
   columns: 4,
   align: center + horizon,
   inset: 6pt,
+  fill: lightLightGray,
   stroke: (x, y) => (
     left: if (x == 0) { 0.4mm + gray } else { 0.12mm + gray },
     right: if (x == 3) { 0.4mm + gray } else { 0.12mm + gray },
@@ -158,7 +183,7 @@ export const useInspectionChecklistFile = ({
         console.error('render error', error);
       }
     });
-  }, [assetLoaded, inspectedAt, roomNumber, type]);
+  }, [assetLoaded, generation, inspectedAt, roomNumber, type]);
 
   return {
     artifact: artifact ?? new Uint8Array(),

@@ -24,11 +24,17 @@ export function InspectionNoteFrame() {
     return getItems().filter((item) => !item.isChecked);
   }, [getItems]);
 
-  const { artifact } = useInspectionChecklistFile({
-    type: 'vector',
-    roomNumber: 'asdf',
-    inspectedAt: dayjs(),
-  });
+  const { artifact } = useInspectionChecklistFile(
+    useMemo(
+      () => ({
+        type: 'vector',
+        roomNumber: 'asdf',
+        inspectedAt: dayjs(),
+        roomType: 'a2',
+      }),
+      [],
+    ),
+  );
 
   return (
     <LayoutCard.Root asChild>
@@ -40,7 +46,7 @@ export function InspectionNoteFrame() {
         </LayoutCard.Header>
         <LayoutCard.Body className="w-full items-start">
           <div className="aspect-148/210 w-full overflow-hidden border">
-            <div className="-mt-12 scale-120">
+            <div className="-mt-16 scale-120">
               <TypstDocument artifact={artifact} />
             </div>
           </div>
