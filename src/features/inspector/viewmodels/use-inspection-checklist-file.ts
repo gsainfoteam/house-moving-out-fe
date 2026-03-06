@@ -1,11 +1,12 @@
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 
 import { TypstDocument } from '@myriaddreamin/typst.react';
 import { $typst, loadFonts } from '@myriaddreamin/typst.ts';
+import dayjs from 'dayjs';
+import { useWatch } from 'react-hook-form';
 
 import { type checklist, generateChecklistFile } from '../models';
-
-import type dayjs from 'dayjs';
+import { useInspectionChecklistContext } from './use-inspection-checklist-context';
 
 declare global {
   interface Window {
@@ -32,30 +33,22 @@ if (!window.typstInitialized) {
   });
 }
 
-export const useInspectionChecklistFile = ({
-  type,
-  inspectedAt,
-  roomType,
-  roomNumber,
-  generation = 14,
-  inspectionCount,
-  checkedItems,
-  inspectorSignature,
-  targetSignature,
-}: {
-  type: 'vector' | 'pdf';
-  inspectedAt: dayjs.Dayjs;
-  roomType: 'a2' | 'a3' | 'b' | 'solo';
-  roomNumber: string;
-  generation?: number;
-  inspectionCount: number;
-  checkedItems: checklist.Item[];
-  inspectorSignature?: string;
-  targetSignature?: string;
-}) => {
+export const useInspectionChecklistFile = (type: 'vector' | 'pdf', generation = 14) => {
+  const { form, target, items, roomType } = useInspectionChecklistContext();
   const [artifact, setArtifact] = useState<Uint8Array | null>(null);
   const [isLoading, startTransition] = useTransition();
   const [assetLoaded, setAssetLoaded] = useState(false);
+
+  const checkedItems = useMemo(
+    () =>
+      Object.entries(items ?? {})
+        .filter(([, v]) => v)
+        .map(([slug]) => slug as checklist.Item),
+    [items],
+  );
+
+  const inspectorSignature = useWatch({ control: form.control, name: 'inspectorSignature' });
+  const targetSignature = useWatch({ control: form.control, name: 'targetSignature' });
 
   useEffect(() => {
     (async () => {
@@ -77,15 +70,15 @@ export const useInspectionChecklistFile = ({
   }, [inspectorSignature, targetSignature]);
 
   useEffect(() => {
-    if (!assetLoaded) return;
+    if (!assetLoaded || !roomType) return;
     startTransition(async () => {
       try {
         const mainContent = generateChecklistFile({
           generation,
-          inspectedAt,
-          roomNumber,
+          inspectedAt: dayjs(),
+          roomNumber: target?.roomNumber ?? '',
           roomType,
-          inspectionCount,
+          inspectionCount: target?.inspectionCount ?? 0,
           checkedItems,
           hasSignature: !!inspectorSignature && !!targetSignature,
         });
@@ -99,13 +92,11 @@ export const useInspectionChecklistFile = ({
       }
     });
   }, [
+    target,
     assetLoaded,
     checkedItems,
     generation,
-    inspectedAt,
-    inspectionCount,
     inspectorSignature,
-    roomNumber,
     roomType,
     targetSignature,
     type,

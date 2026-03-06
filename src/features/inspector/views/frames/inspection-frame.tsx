@@ -6,7 +6,7 @@ import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
 import { cn } from '@/common/utils';
 
 import { checklist } from '../../models';
-import { useInspectionChecklistContext, useGetInspectionTargets } from '../../viewmodels';
+import { useInspectionChecklistContext } from '../../viewmodels';
 
 export function InspectionFrame() {
   const { t } = useTranslation('inspector');
@@ -15,11 +15,10 @@ export function InspectionFrame() {
     form: { register },
     getSectionProgress,
     isAllChecked,
+    target,
+    isLoading,
   } = useInspectionChecklistContext();
   const navigate = useNavigate();
-  const { targets, isLoading } = useGetInspectionTargets();
-
-  const target = targets?.find((target) => target.uuid === uuid);
 
   return (
     <LayoutCard.Root isLoading={isLoading}>

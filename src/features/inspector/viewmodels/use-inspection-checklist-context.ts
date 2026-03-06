@@ -1,8 +1,13 @@
 import { useCallback, useMemo } from 'react';
 
+import { useParams } from '@tanstack/react-router';
+
 import { useFormContext, useWatch } from 'react-hook-form';
 
+import { InspectionType } from '@/features/admin/models';
+
 import { checklist } from '../models';
+import { useGetInspectionTargets } from './queries';
 
 export const useInspectionChecklistContext = () => {
   const form = useFormContext<{
@@ -11,6 +16,18 @@ export const useInspectionChecklistContext = () => {
     inspectorSignature: string;
     targetSignature: string;
   }>();
+  const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid' });
+  const { targets, isLoading } = useGetInspectionTargets();
+  const target = targets?.find((target) => target.uuid === uuid);
+  const roomType = target
+    ? target.inspectionType === InspectionType.SOLO || target.inspectionType === InspectionType.DUO
+      ? 'solo'
+      : target.roomNumber.startsWith('S') || target.roomNumber.startsWith('T')
+        ? 'b'
+        : target.residents.length === 3
+          ? 'a3'
+          : 'a2'
+    : undefined;
 
   const list = checklist.a2;
 
@@ -41,5 +58,8 @@ export const useInspectionChecklistContext = () => {
     getSectionProgress,
     isAllChecked,
     items: values,
-  };
+    isLoading,
+    target,
+    roomType,
+  } as const;
 };

@@ -1,7 +1,6 @@
-import { useMemo, useRef } from 'react';
+import { useRef } from 'react';
 
 import { TypstDocument } from '@myriaddreamin/typst.react';
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Input, LayoutCard } from '@/common/components';
@@ -9,31 +8,15 @@ import { Button, Input, LayoutCard } from '@/common/components';
 import { useInspectionNoteForm, useInspectionChecklistFile } from '../../viewmodels';
 import { SignaturePad } from '../components';
 
-import type { checklist } from '../../models';
-
 export function InspectionNoteFrame() {
   const { t } = useTranslation('inspector');
 
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
   const residentPadRef = useRef<SignaturePad.Handle | null>(null);
 
-  const { form, items, onSubmit } = useInspectionNoteForm();
+  const { form, onSubmit } = useInspectionNoteForm();
 
-  const { artifact } = useInspectionChecklistFile(
-    useMemo(
-      () => ({
-        type: 'vector',
-        roomNumber: 'asdf',
-        inspectedAt: dayjs(),
-        roomType: 'a2',
-        inspectionCount: 1,
-        checkedItems: Object.entries(items ?? {})
-          .filter(([, v]) => v)
-          .map(([slug]) => slug as checklist.Item),
-      }),
-      [items],
-    ),
-  );
+  const { artifact } = useInspectionChecklistFile('vector');
 
   return (
     <LayoutCard.Root asChild>

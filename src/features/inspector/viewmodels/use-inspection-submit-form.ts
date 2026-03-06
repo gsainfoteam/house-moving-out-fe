@@ -1,57 +1,26 @@
-import { useMemo } from 'react';
-
 import { useNavigate } from '@tanstack/react-router';
 
-import dayjs from 'dayjs';
 import { partition } from 'es-toolkit';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { useSubmitInspectionResult } from './queries';
 import { useVerifyInspectionDocument } from './queries/use-verify-inspection-document';
+import { useInspectionChecklistContext } from './use-inspection-checklist-context';
 import { useInspectionChecklistFile } from './use-inspection-checklist-file';
 
-import type { checklist } from '../models';
-
 export const useInspectionSubmitForm = (uuid: string) => {
-  const form = useFormContext<{
-    items: Record<checklist.Item, boolean>;
-    note: string;
-    inspectorSignature: string;
-    targetSignature: string;
-  }>();
+  const { form } = useInspectionChecklistContext();
 
   const items = useWatch({ control: form.control, name: 'items' });
-  const inspectorSignature = useWatch({ control: form.control, name: 'inspectorSignature' });
-  const targetSignature = useWatch({ control: form.control, name: 'targetSignature' });
   const { mutateAsync: submitInspectionResult } = useSubmitInspectionResult();
   const { mutateAsync: verifyInspectionDocument } = useVerifyInspectionDocument();
   const { t } = useTranslation('inspector');
   const navigate = useNavigate();
 
-  const option = useMemo(
-    () =>
-      ({
-        type: 'vector',
-        roomNumber: 'asdf',
-        inspectedAt: dayjs(),
-        roomType: 'a2',
-        inspectionCount: 1,
-        checkedItems: Object.entries(items ?? {})
-          .filter(([, v]) => v)
-          .map(([slug]) => slug as checklist.Item),
-        inspectorSignature,
-        targetSignature,
-      }) as Parameters<typeof useInspectionChecklistFile>[0],
-    [inspectorSignature, items, targetSignature],
-  );
-  const pdfOption = useMemo(
-    () => ({ ...option, type: 'pdf' }) as Parameters<typeof useInspectionChecklistFile>[0],
-    [option],
-  );
-  const { artifact } = useInspectionChecklistFile(option);
-  const { artifact: pdfArtifact } = useInspectionChecklistFile(pdfOption);
+  const { artifact } = useInspectionChecklistFile('vector');
+  const { artifact: pdfArtifact } = useInspectionChecklistFile('pdf');
 
   const onSubmit = form.handleSubmit(async (data) => {
     const [checkedItems, uncheckedItems] = partition(Object.entries(data.items), ([, v]) => v);
@@ -79,8 +48,6 @@ export const useInspectionSubmitForm = (uuid: string) => {
     form,
     onSubmit,
     items,
-    inspectorSignature,
-    targetSignature,
     artifact,
   };
 };
