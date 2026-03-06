@@ -22,11 +22,13 @@ if (!window.typstInitialized) {
         'https://cdn.jsdelivr.net/npm/font-kopubworld@1.0/fonts/KoPubWorld-Batang-Bold.otf',
       ]),
     ],
-    getModule: () => '/typst_ts_web_compiler_bg.wasm',
+    getModule: () =>
+      'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm',
   });
   TypstDocument.setWasmModuleInitOptions({
     beforeBuild: [],
-    getModule: () => '/typst_ts_renderer_bg.wasm',
+    getModule: () =>
+      'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-renderer/pkg/typst_ts_renderer_bg.wasm',
   });
 }
 
