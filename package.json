@@ -24,8 +24,6 @@
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
     "@hookform/resolvers": "^5.2.2",
-    "@myriaddreamin/typst-ts-renderer": "^0.7.0-rc2",
-    "@myriaddreamin/typst-ts-web-compiler": "^0.7.0-rc2",
     "@myriaddreamin/typst.react": "^0.7.0-rc2",
     "@myriaddreamin/typst.ts": "^0.7.0-rc2",
     "@storybook/react-vite": "^9.1.9",
