@@ -51,7 +51,7 @@ export function InspectionNoteFrame() {
         </LayoutCard.Header>
         <LayoutCard.Body className="w-full items-start">
           <div className="aspect-148/210 w-full overflow-hidden border">
-            <div className="-mt-16 scale-120">
+            <div className="-mt-14 scale-125">
               <TypstDocument artifact={artifact} />
             </div>
           </div>
