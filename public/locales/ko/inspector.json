@@ -92,7 +92,6 @@
     "resetSignature": "서명 초기화",
     "residentSignature": "퇴사자 서명",
     "signSubmit": "서명하기",
-    "submitWithReinspection": "검사 완료 (재검사 요청)",
     "title": "특이사항 재확인"
   },
   "schedule": {
@@ -103,6 +102,8 @@
     }
   },
   "submit": {
+    "submitPass": "검사 완료 (통과)",
+    "submitWithReinspection": "검사 완료 (재검사 요청)",
     "success": {
       "inspectionSubmitted": "검사 결과가 제출되었습니다."
     }

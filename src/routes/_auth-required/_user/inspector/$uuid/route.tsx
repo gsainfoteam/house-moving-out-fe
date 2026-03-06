@@ -5,7 +5,10 @@ import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 import { Loading } from '@/common/components';
 import { i18n } from '@/common/lib';
 import { useAuth } from '@/features/auth';
-import { InspectionChecklistProvider } from '@/features/inspector/viewmodels';
+import {
+  InspectionChecklistProvider,
+  useInspectionTargetInfo,
+} from '@/features/inspector/viewmodels';
 
 export const Route = createFileRoute('/_auth-required/_user/inspector/$uuid')({
   beforeLoad: () => {
@@ -15,14 +18,15 @@ export const Route = createFileRoute('/_auth-required/_user/inspector/$uuid')({
 });
 
 function InspectorLayout() {
+  const { roomType } = useInspectionTargetInfo();
   const { inspector } = useAuth({ showToast: true });
 
-  if (inspector === undefined) return <Loading />;
+  if (inspector === undefined || roomType === undefined) return <Loading />;
   if (inspector === null) return <Navigate to="/" replace />;
 
   return (
     <Suspense fallback={<Loading />}>
-      <InspectionChecklistProvider>
+      <InspectionChecklistProvider roomType={roomType}>
         <Outlet />
       </InspectionChecklistProvider>
     </Suspense>

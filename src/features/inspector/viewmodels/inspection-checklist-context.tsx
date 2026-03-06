@@ -14,8 +14,20 @@ const createInspectionChecklistSchema = (items: checklist.Item[]) =>
     targetSignature: z.url({ message: '퇴사자 서명이 필요합니다.' }),
   });
 
-export const InspectionChecklistProvider = ({ children }: { children: ReactNode }) => {
-  const keys = useMemo(() => Object.values(checklist.a2).flatMap((item) => item), []);
+export const InspectionChecklistProvider = ({
+  children,
+  roomType,
+}: {
+  children: ReactNode;
+  roomType: 'a2' | 'a3' | 'b' | 'solo';
+}) => {
+  const keys = useMemo(
+    () =>
+      Object.values(checklist[roomType])
+        .flatMap((item) => item)
+        .filter((i) => i !== null),
+    [roomType],
+  );
   const schema = useMemo(() => createInspectionChecklistSchema(keys), [keys]);
 
   const form = useForm({

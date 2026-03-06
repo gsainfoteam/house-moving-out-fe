@@ -17,6 +17,7 @@ export function InspectionFrame() {
     isAllChecked,
     target,
     isLoading,
+    roomType,
   } = useInspectionChecklistContext();
   const navigate = useNavigate();
 
@@ -31,7 +32,9 @@ export function InspectionFrame() {
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">
         {[...checklist.sections, 'issues' as const].map((sectionKey) => {
-          const itemEntries = checklist.a2[sectionKey];
+          if (!roomType) return null;
+          const itemEntries = checklist[roomType][sectionKey];
+          if (itemEntries.length === 0) return null;
           const { totalCount, completedCount, isCompleted } = getSectionProgress(sectionKey);
 
           return (
@@ -49,14 +52,17 @@ export function InspectionFrame() {
               </Accordion.Header>
               <Accordion.Content className="p-2 py-1.5">
                 <ul className="text-box2 text-text-black flex flex-col">
-                  {itemEntries.map((itemKey) => (
-                    <li key={itemKey} className="flex items-center gap-2">
-                      <label className="flex w-full cursor-pointer items-center justify-between gap-2 px-2 py-1.5">
-                        <span>{t(`checklist.items.${itemKey}`)}</span>
-                        <Checkbox {...register(`items.${itemKey}`)} />
-                      </label>
-                    </li>
-                  ))}
+                  {itemEntries.map((itemKey) => {
+                    if (itemKey === null) return null;
+                    return (
+                      <li key={itemKey} className="flex items-center gap-2">
+                        <label className="flex w-full cursor-pointer items-center justify-between gap-2 px-2 py-1.5">
+                          <span>{t(`checklist.items.${itemKey}`)}</span>
+                          <Checkbox {...register(`items.${itemKey}`)} />
+                        </label>
+                      </li>
+                    );
+                  })}
                 </ul>
               </Accordion.Content>
             </Accordion.Root>

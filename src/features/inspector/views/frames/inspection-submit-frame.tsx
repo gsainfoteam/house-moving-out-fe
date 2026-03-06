@@ -10,7 +10,7 @@ import { useInspectionSubmitForm } from '../../viewmodels';
 export function InspectionSubmitFrame() {
   const { t } = useTranslation('inspector');
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/submit' });
-  const { form, onSubmit, artifact } = useInspectionSubmitForm(uuid);
+  const { form, onSubmit, artifact, isAllChecked } = useInspectionSubmitForm(uuid);
 
   return (
     <LayoutCard.Root asChild>
@@ -25,11 +25,11 @@ export function InspectionSubmitFrame() {
         <LayoutCard.Footer>
           <Button
             type="submit"
-            variant="failed"
+            variant={isAllChecked ? 'default' : 'failed'}
             className="w-full"
             disabled={form.formState.isSubmitting}
           >
-            {t('note.submitWithReinspection')}
+            {isAllChecked ? t('submit.submitPass') : t('submit.submitWithReinspection')}
           </Button>
         </LayoutCard.Footer>
       </form>

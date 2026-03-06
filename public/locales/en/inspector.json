@@ -92,7 +92,6 @@
     "resetSignature": "Clear signature",
     "residentSignature": "Resident signature",
     "signSubmit": "Sign",
-    "submitWithReinspection": "Complete inspection (request re-check)",
     "title": "Review special notes"
   },
   "schedule": {
@@ -103,6 +102,8 @@
     }
   },
   "submit": {
+    "submitPass": "Complete inspection (pass)",
+    "submitWithReinspection": "Complete inspection (request re-check)",
     "success": {
       "inspectionSubmitted": "Inspection result has been submitted."
     }

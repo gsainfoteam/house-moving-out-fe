@@ -11,7 +11,7 @@ import { useInspectionChecklistContext } from './use-inspection-checklist-contex
 import { useInspectionChecklistFile } from './use-inspection-checklist-file';
 
 export const useInspectionSubmitForm = (uuid: string) => {
-  const { form } = useInspectionChecklistContext();
+  const { form, isAllChecked } = useInspectionChecklistContext();
 
   const items = useWatch({ control: form.control, name: 'items' });
   const { mutateAsync: submitInspectionResult } = useSubmitInspectionResult();
@@ -49,5 +49,6 @@ export const useInspectionSubmitForm = (uuid: string) => {
     onSubmit,
     items,
     artifact,
+    isAllChecked,
   };
 };
