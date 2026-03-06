@@ -75,6 +75,7 @@
     "inspectorSignature": "검사자 서명",
     "resetSignature": "서명 초기화",
     "residentSignature": "퇴사자 서명",
+    "signSubmit": "서명하기",
     "submitWithReinspection": "검사 완료 (재검사 요청)",
     "title": "특이사항 재확인"
   },

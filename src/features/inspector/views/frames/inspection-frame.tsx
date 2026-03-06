@@ -54,7 +54,7 @@ export function InspectionFrame() {
                     <li key={itemKey} className="flex items-center gap-2">
                       <label className="flex w-full cursor-pointer items-center justify-between gap-2 px-2 py-1.5">
                         <span>{t(`checklist.items.${itemKey}`)}</span>
-                        <Checkbox {...register(itemKey)} />
+                        <Checkbox {...register(`items.${itemKey}`)} />
                       </label>
                     </li>
                   ))}

@@ -75,6 +75,7 @@
     "inspectorSignature": "Inspector signature",
     "resetSignature": "Clear signature",
     "residentSignature": "Resident signature",
+    "signSubmit": "Sign",
     "submitWithReinspection": "Complete inspection (request re-check)",
     "title": "Review special notes"
   },

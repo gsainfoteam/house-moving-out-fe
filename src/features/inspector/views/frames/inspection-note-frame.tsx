@@ -1,7 +1,5 @@
 import { useMemo, useRef } from 'react';
 
-import { useParams } from '@tanstack/react-router';
-
 import { TypstDocument } from '@myriaddreamin/typst.react';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
@@ -15,12 +13,11 @@ import type { checklist } from '../../models';
 
 export function InspectionNoteFrame() {
   const { t } = useTranslation('inspector');
-  const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/note' });
 
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
   const residentPadRef = useRef<SignaturePad.Handle | null>(null);
 
-  const { form, items, onSubmit } = useInspectionNoteForm(uuid, inspectorPadRef, residentPadRef);
+  const { form, items, onSubmit } = useInspectionNoteForm();
 
   const { artifact } = useInspectionChecklistFile(
     useMemo(
@@ -30,7 +27,7 @@ export function InspectionNoteFrame() {
         inspectedAt: dayjs(),
         roomType: 'a2',
         inspectionCount: 1,
-        checkedItems: Object.entries(items)
+        checkedItems: Object.entries(items ?? {})
           .filter(([, v]) => v)
           .map(([slug]) => slug as checklist.Item),
       }),
@@ -55,20 +52,27 @@ export function InspectionNoteFrame() {
 
           <div className="flex w-full flex-col gap-4">
             <Input
-              {...form.register('comment')}
+              {...form.register('note')}
               placeholder={t('note.commentPlaceholder')}
-              error={form.formState.errors.comment?.message}
+              error={form.formState.errors.note?.message}
             />
           </div>
           <div className="flex w-full flex-col gap-2">
             <h2 className="text-box text-text-black">{t('note.inspectorSignature')}</h2>
-            <SignaturePad ref={inspectorPadRef} />
+            <SignaturePad
+              ref={inspectorPadRef}
+              onChange={(url) => form.setValue('inspectorSignature', url)}
+            />
             <div className="flex justify-end">
               <Button
                 type="button"
                 variant="outline"
                 className="text-box2 px-4 py-2"
-                onClick={() => inspectorPadRef.current?.clear()}
+                onClick={() => {
+                  inspectorPadRef.current?.clear();
+                  form.resetField('inspectorSignature');
+                  form.clearErrors('inspectorSignature');
+                }}
               >
                 {t('note.resetSignature')}
               </Button>
@@ -81,13 +85,20 @@ export function InspectionNoteFrame() {
           </div>
           <div className="flex w-full flex-col gap-2">
             <h2 className="text-box text-text-black">{t('note.residentSignature')}</h2>
-            <SignaturePad ref={residentPadRef} />
+            <SignaturePad
+              ref={residentPadRef}
+              onChange={(url) => form.setValue('targetSignature', url)}
+            />
             <div className="flex justify-end">
               <Button
                 type="button"
                 variant="outline"
                 className="text-box2 px-4 py-2"
-                onClick={() => residentPadRef.current?.clear()}
+                onClick={() => {
+                  residentPadRef.current?.clear();
+                  form.resetField('targetSignature');
+                  form.clearErrors('targetSignature');
+                }}
               >
                 {t('note.resetSignature')}
               </Button>
@@ -106,7 +117,7 @@ export function InspectionNoteFrame() {
             className="w-full"
             disabled={form.formState.isSubmitting}
           >
-            {t('note.submitWithReinspection')}
+            {t('note.signSubmit')}
           </Button>
         </LayoutCard.Footer>
       </form>

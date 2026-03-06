@@ -5,11 +5,16 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { checklist } from '../models';
 
 export const useInspectionChecklistContext = () => {
-  const form = useFormContext<Record<checklist.Item, boolean>>();
+  const form = useFormContext<{
+    items: Record<checklist.Item, boolean>;
+    note: string;
+    inspectorSignature: string;
+    targetSignature: string;
+  }>();
 
   const list = checklist.a2;
 
-  const values = useWatch({ control: form.control });
+  const values = useWatch({ control: form.control, name: 'items' });
 
   const getSectionProgress = useCallback(
     (sectionKey: checklist.Section) => {
