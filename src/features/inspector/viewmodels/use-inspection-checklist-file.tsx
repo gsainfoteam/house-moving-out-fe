@@ -137,7 +137,7 @@ export const useInspectionChecklistFile = ({
           return [
             `[${sectionIndex + 1}-${itemIndex + 1}], `,
             `text(size: ${title.length > 5 ? 8 : 10}pt)[${title}], `,
-            `text(size: ${description.length > 30 ? 6 : 8}pt)[${description}], `,
+            `text(size: ${description.length > 30 ? 8 : 10}pt)[${description}], `,
             `[#sym.checkmark], `,
           ].join('');
         }),
