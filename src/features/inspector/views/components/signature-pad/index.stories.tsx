@@ -12,10 +12,6 @@ const meta: Meta<typeof SignaturePad> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    backgroundColor: {
-      control: 'color',
-      description: '캔버스 배경 색상',
-    },
     penColor: {
       control: 'color',
       description: '펜 색상',
@@ -32,7 +28,6 @@ type Story = StoryObj<typeof SignaturePad>;
 
 export const Playground: Story = {
   args: {
-    backgroundColor: 'var(--color-bg-white)',
     penColor: 'var(--color-text-black)',
     lineWidth: 2,
   },
@@ -85,7 +80,6 @@ export const WithControls: Story = {
     );
   },
   args: {
-    backgroundColor: '#ffffff',
     penColor: '#000000',
     lineWidth: 2,
   },
