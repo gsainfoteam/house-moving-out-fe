@@ -94,7 +94,6 @@
     "typescript-eslint": "^8.53.0",
     "unused-imports": "^0.0.1-security",
     "vite": "^7.3.1",
-    "vite-plugin-static-copy": "^3.2.0",
     "vite-plugin-svgr": "^4.5.0",
     "vitest": "^3.0.5",
     "web-vitals": "^5.1.0"
