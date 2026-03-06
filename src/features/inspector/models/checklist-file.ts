@@ -34,7 +34,7 @@ const template = String.raw`
         stroke: (top: 0.12mm + gray, left: 0.12mm + gray, bottom: 0.12mm + gray, right: 0pt),
         columns: (1fr, 1fr),
         rows: (auto, auto),
-        [총괄], [검사자],
+        [*총괄*], [*검사자*],
         table.hline(stroke: 0.7mm + gray),
         table.cell(fill: white)[\ ],
         table.cell(fill: white, if (hasSignature) { place(center + horizon, image("/assets/inspector-signature.png", height: 20pt)) } else { none }),
