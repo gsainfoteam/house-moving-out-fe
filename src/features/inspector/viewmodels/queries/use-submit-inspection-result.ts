@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { $api } from '@/common/lib';
-import { multipartSerializer } from '@/common/utils';
 
 import { ApiPaths } from '../../models';
 
@@ -13,9 +12,6 @@ export const useSubmitInspectionResult = () => {
   const queryClient = useQueryClient();
 
   return $api.useMutation('patch', ApiPaths.MoveOutController_submitInspectionResult, {
-    onMutate(variables) {
-      variables.bodySerializer = multipartSerializer(false);
-    },
     onSuccess: () => {
       queryClient.removeQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findMyInspection],
