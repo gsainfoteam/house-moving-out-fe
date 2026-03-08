@@ -2,7 +2,7 @@ import { useNavigate, useParams } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
-import { Accordion, Button, Checkbox, LayoutCard } from '@/common/components';
+import { Accordion, Button, Checkbox, LayoutCard, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
 import { checklist } from '../../models';
@@ -21,12 +21,15 @@ export function InspectionFrame() {
   } = useInspectionChecklistContext();
   const navigate = useNavigate();
 
+  if (isLoading) return <Loading />;
+  if (!target) return <div>{t('error.notFound')}</div>;
+
   return (
     <LayoutCard.Root isLoading={isLoading}>
       <LayoutCard.Header>
         <LayoutCard.Text>
           <LayoutCard.Title>
-            {`${target?.roomNumber} - ${target?.residents.map((resident) => resident.name).join(', ')}`}
+            {`${target.roomNumber} - ${target.residents.map((resident) => resident.name).join(', ')}`}
           </LayoutCard.Title>
         </LayoutCard.Text>
       </LayoutCard.Header>
