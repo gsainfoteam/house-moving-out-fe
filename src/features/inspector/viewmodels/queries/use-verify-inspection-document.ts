@@ -21,8 +21,8 @@ export const useVerifyInspectionDocument = () => {
       if (error.statusCode === 400) {
         toast.error(t('error.badRequest', { ns: 'common' }));
       } else if (error.statusCode === 404) {
-        toast.error(t('error.unauthorized', { ns: 'common' }));
-      } else if (error.statusCode === 500) {
+        toast.error(t('error.notFound'));
+      } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }
     },
