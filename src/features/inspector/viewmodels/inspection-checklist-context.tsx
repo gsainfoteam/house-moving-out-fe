@@ -10,8 +10,8 @@ const createInspectionChecklistSchema = (items: checklist.Item[]) =>
   z.object({
     items: z.object(Object.fromEntries(items.map((item) => [item, z.boolean()]))),
     note: z.string().optional(),
-    inspectorSignature: z.url({ message: '검사자 서명이 필요합니다.' }),
-    targetSignature: z.url({ message: '퇴사자 서명이 필요합니다.' }),
+    inspectorSignature: z.url({ error: '검사자 서명이 필요합니다.' }),
+    targetSignature: z.url({ error: '퇴사자 서명이 필요합니다.' }),
   });
 
 export const InspectionChecklistProvider = ({
