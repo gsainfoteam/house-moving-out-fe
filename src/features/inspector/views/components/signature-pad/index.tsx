@@ -35,6 +35,7 @@ export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
         toBlob: () => {
           const canvas = internalRef.current?.getCanvas();
           if (!canvas) return Promise.resolve(null);
+          if (internalRef.current?.isEmpty()) return Promise.resolve(null);
           return new Promise<Blob | null>((resolve) => {
             canvas.toBlob((blob) => resolve(blob), 'image/png');
           });
