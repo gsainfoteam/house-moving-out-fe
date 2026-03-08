@@ -13,7 +13,7 @@ export const useInspectionChecklistContext = () => {
     targetSignature: string;
   }>();
   const { roomType, isLoading, target } = useInspectionTargetInfo();
-  const list = roomType ? checklist[roomType] : undefined;
+  const list = useMemo(() => (roomType ? checklist[roomType] : undefined), [roomType]);
 
   const values = useWatch({ control: form.control, name: 'items' });
 
@@ -35,8 +35,13 @@ export const useInspectionChecklistContext = () => {
   );
 
   const isAllChecked = useMemo(() => {
-    return Object.values(values).every((i) => i);
-  }, [values]);
+    if (list === undefined) return false;
+    const listValues = checklist.sections
+      .flatMap((section) => list[section])
+      .filter((i) => i !== null);
+    if (listValues.length === 0) return false;
+    return listValues.every((i) => values[i]);
+  }, [values, list]);
 
   return {
     form,
