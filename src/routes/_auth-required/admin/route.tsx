@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { createFileRoute, Navigate } from '@tanstack/react-router';
 
 import { Loading } from '@/common/components';
@@ -18,5 +20,9 @@ function AdminLayout() {
   if (isAdmin === undefined) return <Loading />;
   if (!isAdmin) return <Navigate to="/" replace />;
 
-  return <AdminLayoutFrame />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <AdminLayoutFrame />
+    </Suspense>
+  );
 }
