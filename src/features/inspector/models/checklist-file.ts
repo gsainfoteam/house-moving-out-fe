@@ -1,4 +1,4 @@
-import { checklist } from '.';
+import * as checklist from './checklist';
 
 import type dayjs from 'dayjs';
 
