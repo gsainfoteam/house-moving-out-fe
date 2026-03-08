@@ -27,6 +27,7 @@ export function InspectionListFrame() {
             to="/inspector/$uuid"
             params={{ uuid: target.uuid }}
             className="w-full"
+            disabled={target.isPassed !== null}
           >
             <InspectionScheduleCard
               time={dayjs(target.inspectionTime)}
