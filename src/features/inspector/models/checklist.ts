@@ -212,7 +212,7 @@ export const b = {
 export const solo = {
   'entrance-shoe-cabinet': [null, null, 'entrance-solo', 'shoe-cabinet-solo'],
   'furniture-aircon': ['wardrobe-solo', null, 'bookshelf-solo', 'desk-solo', 'drawer-solo'],
-  bed: ['bed-gap-space-solo', 'mattress-solo', 'bed-frame-solo', 'bed-drawer'],
+  bed: ['bed-gap-space-solo', 'mattress-solo', 'bed-frame-solo', 'bed-drawer-solo'],
   'window-balcony': [],
   bathroom: [
     'mirror-solo',
