@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from '@tanstack/react-router';
+import { Link, useParams } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +19,6 @@ export function InspectionFrame() {
     isLoading,
     roomType,
   } = useInspectionChecklistContext();
-  const navigate = useNavigate();
 
   if (isLoading) return <Loading />;
   if (!target) return <div>{t('error.notFound')}</div>;
@@ -73,14 +72,10 @@ export function InspectionFrame() {
         })}
       </LayoutCard.Body>
       <LayoutCard.Footer>
-        <Button
-          variant={isAllChecked ? 'default' : 'failed'}
-          className="w-full"
-          onClick={() => {
-            navigate({ to: '/inspector/$uuid/note', params: { uuid } });
-          }}
-        >
-          {isAllChecked ? t('checklist.cta.allClear') : t('checklist.cta.hasIssues')}
+        <Button variant={isAllChecked ? 'default' : 'failed'} className="w-full" asChild>
+          <Link to="/inspector/$uuid/note" params={{ uuid }}>
+            {isAllChecked ? t('checklist.cta.allClear') : t('checklist.cta.hasIssues')}
+          </Link>
         </Button>
       </LayoutCard.Footer>
     </LayoutCard.Root>

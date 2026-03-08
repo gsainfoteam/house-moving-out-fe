@@ -1,4 +1,4 @@
-import { useNavigate } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,6 @@ import { InspectionScheduleCard } from '../components';
 export function InspectionListFrame() {
   const { t } = useTranslation('inspector');
   const { targets, isLoading } = useGetInspectionTargets();
-  const navigate = useNavigate();
 
   return (
     <LayoutCard.Root isLoading={isLoading}>
@@ -23,14 +22,19 @@ export function InspectionListFrame() {
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">
         {targets?.map((target) => (
-          <InspectionScheduleCard
+          <Link
             key={target.uuid}
-            time={dayjs(target.inspectionTime)}
-            roomLabel={target.roomNumber}
-            residentName={target.residents.map((resident) => resident.name).join(', ')}
-            isPassed={target.isPassed}
-            onClick={() => navigate({ to: '/inspector/$uuid', params: { uuid: target.uuid } })}
-          />
+            to="/inspector/$uuid"
+            params={{ uuid: target.uuid }}
+            className="w-full"
+          >
+            <InspectionScheduleCard
+              time={dayjs(target.inspectionTime)}
+              roomLabel={target.roomNumber}
+              residentName={target.residents.map((resident) => resident.name).join(', ')}
+              isPassed={target.isPassed}
+            />
+          </Link>
         ))}
       </LayoutCard.Body>
     </LayoutCard.Root>
