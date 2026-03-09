@@ -52,6 +52,7 @@ export const useInspectionChecklistFile = (
 
   useEffect(() => {
     if (!assetLoaded || !roomType) return;
+    let canceled = false;
     startTransition(async () => {
       try {
         const options = {
@@ -80,11 +81,15 @@ export const useInspectionChecklistFile = (
           type === 'vector'
             ? await $typst.vector({ mainContent, inputs })
             : await $typst.pdf({ mainContent, inputs });
+        if (canceled) return;
         setArtifact(result ?? null);
       } catch (error) {
         console.error('render error', error);
       }
     });
+    return () => {
+      canceled = true;
+    };
   }, [target, assetLoaded, checkedItems, generation, roomType, hasSignature, type]);
 
   return {
