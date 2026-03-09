@@ -97,8 +97,8 @@ const template = String.raw`
               let description = item.at(1).at(2);
               return (
                 [#section.at(0)-#item.at(0)],
-                text(size: if (title.len() > 5) { 8pt } else { 10pt }, title),
-                text(size: if (description.len() > 30) { 8pt } else { 10pt }, description),
+                text(size: if (title.len() > 15) { 8pt } else { 10pt }, title),
+                text(size: if (description.len() > 90) { 8pt } else { 10pt }, description),
                 if (checkedItems.contains(key)) { sym.checkmark } else { none },
               );
             }
