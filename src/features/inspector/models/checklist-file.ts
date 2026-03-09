@@ -13,6 +13,7 @@ const template = String.raw`
 #let lightLightGray = rgb("#F7F7F7")
 #let outerStroke = 0.4mm + black
 #let innerStroke = 0.12mm + gray
+#let hline = table.hline(stroke: outerStroke)
 #let items = json(bytes({{ITEMS}}))
 #let issues = json(bytes({{ISSUES}}))
 #let checkedItems = json(bytes({{CHECKED_ITEMS}}))
