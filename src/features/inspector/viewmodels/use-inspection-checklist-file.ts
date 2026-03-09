@@ -4,8 +4,10 @@ import { $typst } from '@myriaddreamin/typst.ts';
 import dayjs from 'dayjs';
 import { useWatch } from 'react-hook-form';
 
-import { type checklist, generateChecklistFile } from '../models';
+import { checklist, mainContent } from '../models';
 import { useInspectionChecklistContext } from './use-inspection-checklist-context';
+
+import '@/common/lib/typst-init';
 
 export const useInspectionChecklistFile = (
   type: 'vector' | 'pdf',
@@ -33,7 +35,7 @@ export const useInspectionChecklistFile = (
     (async () => {
       setAssetLoaded(false);
       const buffer = await fetch('/house-full-logo.png').then((res) => res.arrayBuffer());
-      await $typst.mapShadow('/assets/house-full-logo.png', new Uint8Array(buffer));
+      await $typst.mapShadow('/public/house-full-logo.png', new Uint8Array(buffer));
 
       if (inspectorSignature) {
         const buffer = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
@@ -52,19 +54,32 @@ export const useInspectionChecklistFile = (
     if (!assetLoaded || !roomType) return;
     startTransition(async () => {
       try {
-        const mainContent = generateChecklistFile({
-          generation,
-          inspectedAt: dayjs(),
+        const options = {
+          items: checklist.sections.map((section) =>
+            checklist[roomType][section].map((item) =>
+              item ? [item, checklist.itemTitles[item], checklist.itemDescriptions[item]] : null,
+            ),
+          ),
+          issues: checklist[roomType].issues.map((issue) => [
+            issue,
+            checklist.itemDescriptions[issue],
+          ]),
+          generation: generation,
+          date: dayjs().format('MM월 DD일'),
+          time: dayjs().format('HH시 mm분'),
           roomNumber: target?.roomNumber ?? '',
-          roomType,
+          roomType: roomType,
           inspectionCount: target?.inspectionCount ?? 0,
-          checkedItems,
-          hasSignature,
-        });
+          checkedItems: checkedItems,
+          hasSignature: hasSignature,
+        };
+        const inputs = Object.fromEntries(
+          Object.entries(options).map(([key, value]) => [key, JSON.stringify(value)]),
+        );
         const result =
           type === 'vector'
-            ? await $typst.vector({ mainContent })
-            : await $typst.pdf({ mainContent });
+            ? await $typst.vector({ mainContent, inputs })
+            : await $typst.pdf({ mainContent, inputs });
         setArtifact(result ?? null);
       } catch (error) {
         console.error('render error', error);

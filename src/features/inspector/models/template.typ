@@ -1,10 +1,3 @@
-import * as checklist from './checklist';
-
-import type dayjs from 'dayjs';
-
-import '@/common/lib/typst-init';
-
-const template = String.raw`
 #set page(margin: (left: 30mm, right: 30mm, top: 20mm + 15mm, bottom: 15mm + 15mm))
 #set text(size: 11pt, font: "HCR Batang")
 
@@ -14,17 +7,22 @@ const template = String.raw`
 #let outerStroke = 0.4mm + black
 #let innerStroke = 0.12mm + gray
 #let hline = table.hline(stroke: outerStroke)
-#let items = json(bytes({{ITEMS}}))
-#let issues = json(bytes({{ISSUES}}))
-#let checkedItems = json(bytes({{CHECKED_ITEMS}}))
-#let inspectionCount = {{INSPECTION_COUNT}}
-#let hasSignature = {{HAS_SIGNATURE}}
+#let items = json(bytes(sys.inputs.items))
+#let issues = json(bytes(sys.inputs.issues))
+#let checkedItems = json(bytes(sys.inputs.checkedItems))
+#let inspectionCount = json(bytes(sys.inputs.inspectionCount))
+#let hasSignature = json(bytes(sys.inputs.hasSignature))
+#let roomType = json(bytes(sys.inputs.roomType))
+#let generation = json(bytes(sys.inputs.generation))
 #let title = (
   a2: "하우스 퇴사검사 체크리스트 A동(2인실)",
   a3: "하우스 퇴사검사 체크리스트 A동(3인실)",
   b: "하우스 퇴사검사 체크리스트 B동",
   solo: "하우스 1인 잔류 시 퇴사검사 체크리스트",
-).{{ROOM_TYPE}}
+).at(roomType)
+#let date = json(bytes(sys.inputs.date))
+#let time = json(bytes(sys.inputs.time))
+#let roomNumber = json(bytes(sys.inputs.roomNumber))
 
 #table(
   inset: 0pt,
@@ -36,8 +34,8 @@ const template = String.raw`
     inset: 8pt,
     fill: lightGray,
     table.hline(stroke: 0.7mm + gray),
-    table.cell(inset: (x: 24pt), stroke: (right: innerStroke), image("/assets/house-full-logo.png")),
-    table.cell(inset: 2pt)[*GIST대학 총학생회\ 제 {{GENERATION}}대 하우스연합회*],
+    table.cell(inset: (x: 24pt), stroke: (right: innerStroke), image("/public/house-full-logo.png")),
+    table.cell(inset: 2pt)[*GIST대학 총학생회\ 제 #generation\대 하우스연합회*],
     table.hline(stroke: 0.7mm + gray),
     table.cell(
       inset: 0pt,
@@ -48,7 +46,9 @@ const template = String.raw`
         [*총괄*], [*검사자*],
         table.hline(stroke: 0.7mm + gray),
         table.cell(fill: white)[\ ],
-        table.cell(fill: white, if (hasSignature) { place(center + horizon, image("/assets/inspector-signature.png", height: 20pt)) } else { none }),
+        table.cell(fill: white, if (hasSignature) {
+          place(center + horizon, image("/assets/inspector-signature.png", height: 20pt))
+        } else { none }),
       ),
     ),
   ),
@@ -60,9 +60,9 @@ const template = String.raw`
     } else { innerStroke },
     table.hline(stroke: 0.7mm + gray),
     [검사일], [검사 시간], [검사 호실], [피검사자 서명],
-    [{{DATE}}],
-    [{{TIME}}],
-    [{{ROOM_NUMBER}}],
+    date,
+    time,
+    roomNumber,
     if (hasSignature) { place(center + horizon, image("/assets/target-signature.png", height: 20pt)) } else { none },
     table.hline(stroke: 0.7mm + gray),
   ),
@@ -127,13 +127,19 @@ const template = String.raw`
     inset: 4pt,
     table.cell(rowspan: 2)[이상여부/\ 존재유무 확인],
     ..(
-      issues.map(issue => ellipse(
-        width: 100%,
-        height: 10pt,
-        inset: 0pt,
-        stroke: if (checkedItems.contains(issue.at(0))) { black.transparentize(70%) } else { none },
-        issue.at(1),
-      ))
+      issues.map(issue => [
+        #if (not checkedItems.contains(issue.at(0))) {
+          place(
+            center + horizon,
+            text(
+              size: 20pt,
+              fill: black.transparentize(60%),
+              sym.crossmark,
+            ),
+          )
+        }
+        #issue.at(1)
+      ])
     ),
   ))),
 ))
@@ -158,52 +164,3 @@ const template = String.raw`
     if (index < inspectionCount) { sym.checkmark } else {},
   )),
 ))
-`;
-
-export const generateChecklistFile = ({
-  generation,
-  inspectedAt,
-  roomNumber,
-  roomType,
-  inspectionCount,
-  checkedItems,
-  hasSignature,
-}: {
-  generation: number;
-  inspectedAt: dayjs.Dayjs;
-  roomNumber: string;
-  roomType: 'a2' | 'a3' | 'b' | 'solo';
-  inspectionCount: number;
-  checkedItems: checklist.Item[];
-  hasSignature: boolean;
-}) => {
-  return template
-    .replace('{{GENERATION}}', generation.toString())
-    .replace('{{DATE}}', inspectedAt.format('MM월 DD일'))
-    .replace('{{TIME}}', inspectedAt.format('HH시 mm분'))
-    .replace('{{ROOM_NUMBER}}', roomNumber)
-    .replace('{{ROOM_TYPE}}', roomType)
-    .replace('{{INSPECTION_COUNT}}', inspectionCount.toString())
-    .replace(
-      '{{ITEMS}}',
-      JSON.stringify(
-        JSON.stringify(
-          checklist.sections.map((section) =>
-            checklist[roomType][section].map((item) =>
-              item ? [item, checklist.itemTitles[item], checklist.itemDescriptions[item]] : null,
-            ),
-          ),
-        ),
-      ),
-    )
-    .replace(
-      '{{ISSUES}}',
-      JSON.stringify(
-        JSON.stringify(
-          checklist[roomType].issues.map((issue) => [issue, checklist.itemDescriptions[issue]]),
-        ),
-      ),
-    )
-    .replace('{{CHECKED_ITEMS}}', JSON.stringify(JSON.stringify(checkedItems)))
-    .replace('{{HAS_SIGNATURE}}', hasSignature.toString());
-};
