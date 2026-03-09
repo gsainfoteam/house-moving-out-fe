@@ -14,8 +14,8 @@ if (!window.typstInitialized) {
     beforeBuild: [
       disableDefaultFontAssets(),
       loadFonts([
-        'https://cdn.jsdelivr.net/gh/gsainfoteam/house-moving-out-fonts@1.1/HCRBatang-subset.ttf',
-        'https://cdn.jsdelivr.net/gh/gsainfoteam/house-moving-out-fonts@1.1/HCRBatang-Bold-subset.ttf',
+        'https://cdn.jsdelivr.net/gh/gsainfoteam/house-moving-out-fonts@1.2/HCRBatang-subset.ttf',
+        'https://cdn.jsdelivr.net/gh/gsainfoteam/house-moving-out-fonts@1.2/HCRBatang-Bold-subset.ttf',
       ]),
     ],
     getModule: () =>
