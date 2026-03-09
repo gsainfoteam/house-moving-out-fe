@@ -19,8 +19,8 @@ if (!window.typstInitialized) {
   $typst.setCompilerInitOptions({
     beforeBuild: [
       loadFonts([
-        'https://cdn.jsdelivr.net/npm/font-kopubworld@1.0/fonts/KoPubWorld-Batang-Light.otf',
-        'https://cdn.jsdelivr.net/npm/font-kopubworld@1.0/fonts/KoPubWorld-Batang-Bold.otf',
+        'https://cdn.jsdelivr.net/gh/gsainfoteam/house-moving-out-fonts/HCRBatang-subset.ttf',
+        'https://cdn.jsdelivr.net/gh/gsainfoteam/house-moving-out-fonts/HCRBatang-Bold-subset.ttf',
       ]),
     ],
     getModule: () =>
