@@ -17,7 +17,7 @@ export function InspectionSubmitFrame() {
       <form onSubmit={onSubmit}>
         <LayoutCard.Body className="w-full items-start">
           <div className="aspect-148/210 w-full overflow-hidden border">
-            <div className="-mt-14 scale-125">
+            <div className="-mt-16 scale-125">
               <TypstDocument artifact={artifact} />
             </div>
           </div>

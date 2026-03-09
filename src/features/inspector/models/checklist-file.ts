@@ -124,20 +124,16 @@ const template = String.raw`
       bottom: outerStroke,
     ),
     columns: (..(1fr,) * (int((issues.len() + 3) / 2)),),
-    inset: 3pt,
+    inset: 4pt,
     table.cell(rowspan: 2)[이상여부/\ 존재유무 확인],
     ..(
-      issues.map(issue => [
-        #place(
-          center + horizon,
-          ellipse(
-            width: 100%,
-            height: 10pt,
-            stroke: if (checkedItems.contains(issue.at(0))) { black.transparentize(70%) } else { none },
-          ),
-        )
-        #issue.at(1)
-      ])
+      issues.map(issue => ellipse(
+        width: 100%,
+        height: 10pt,
+        inset: 0pt,
+        stroke: if (checkedItems.contains(issue.at(0))) { black.transparentize(70%) } else { none },
+        issue.at(1),
+      ))
     ),
   ))),
 ))
