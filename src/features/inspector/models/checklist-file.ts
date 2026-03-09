@@ -2,6 +2,8 @@ import * as checklist from './checklist';
 
 import type dayjs from 'dayjs';
 
+import '@/common/lib/typst-init';
+
 const template = String.raw`
 #set page(margin: (left: 30mm, right: 30mm, top: 20mm + 15mm, bottom: 15mm + 15mm))
 #set text(size: 11pt)
