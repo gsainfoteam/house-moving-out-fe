@@ -11,6 +11,8 @@ const template = String.raw`
 #let gray = rgb("#5D5D5D")
 #let lightGray = rgb("#DCDCDC")
 #let lightLightGray = rgb("#F7F7F7")
+#let outerStroke = 0.4mm + black
+#let innerStroke = 0.12mm + gray
 #let items = json(bytes({{ITEMS}}))
 #let issues = json(bytes({{ISSUES}}))
 #let checkedItems = json(bytes({{CHECKED_ITEMS}}))
@@ -33,13 +35,13 @@ const template = String.raw`
     inset: 8pt,
     fill: lightGray,
     table.hline(stroke: 0.7mm + gray),
-    table.cell(inset: (x: 24pt), stroke: (right: 0.12mm + gray), image("/assets/house-full-logo.png")),
+    table.cell(inset: (x: 24pt), stroke: (right: innerStroke), image("/assets/house-full-logo.png")),
     table.cell(inset: 2pt)[*GIST대학 총학생회\ 제 {{GENERATION}}대 하우스연합회*],
     table.hline(stroke: 0.7mm + gray),
     table.cell(
       inset: 0pt,
       table(
-        stroke: (top: 0.12mm + gray, left: 0.12mm + gray, bottom: 0.12mm + gray, right: 0pt),
+        stroke: (top: innerStroke, left: innerStroke, bottom: innerStroke, right: 0pt),
         columns: (1fr, 1fr),
         rows: (auto, auto),
         [*총괄*], [*검사자*],
@@ -52,9 +54,9 @@ const template = String.raw`
   table(
     columns: (1fr, 1fr, 1fr, 1fr),
     align: center,
-    stroke: (x, y) => if (x == 0) { (left: 0pt, bottom: 0.12mm + gray) } else if (x == 3) {
-      (right: 0pt, bottom: 0.12mm + gray)
-    } else { 0.12mm + gray },
+    stroke: (x, y) => if (x == 0) { (left: 0pt, bottom: innerStroke) } else if (x == 3) {
+      (right: 0pt, bottom: innerStroke)
+    } else { innerStroke },
     table.hline(stroke: 0.7mm + gray),
     [검사일], [검사 시간], [검사 호실], [피검사자 서명],
     [{{DATE}}],
@@ -71,18 +73,21 @@ const template = String.raw`
 
 #v(8pt)
 
-
-#box(stroke: 0.4mm + black, text(size: 10pt, table(
-  stroke: 0.12mm + gray,
+#text(size: 10pt, table(
+  stroke: (x, y) => (
+    left: if (x == 0) { outerStroke } else { innerStroke },
+    right: outerStroke,
+    top: if (y == 0) { outerStroke } else { innerStroke },
+    bottom: outerStroke,
+  ),
   columns: (14mm, 20mm, 1fr, 13mm),
   align: center + horizon,
   inset: 4pt,
-  table.hline(stroke: 0.4mm + black),
-  table.cell(fill: lightGray, stroke: (left: 0.4mm + black))[연번],
+  table.cell(fill: lightGray)[연번],
   table.cell(fill: lightGray)[항목],
   table.cell(fill: lightGray)[상태],
-  table.cell(fill: lightGray, stroke: (right: 0.4mm + black))[확인],
-  table.hline(stroke: 0.4mm + black),
+  table.cell(fill: lightGray)[확인],
+  hline,
   ..(
     items
       .enumerate(start: 1)
@@ -92,26 +97,31 @@ const template = String.raw`
           .enumerate(start: 1)
           .map(item => {
             if (item.at(1) == none) {
-              return ();
+              return ()
             } else {
-              let key = item.at(1).at(0);
-              let title = item.at(1).at(1);
-              let description = item.at(1).at(2);
+              let key = item.at(1).at(0)
+              let title = item.at(1).at(1)
+              let description = item.at(1).at(2)
               return (
                 [#section.at(0)-#item.at(0)],
                 text(size: if (title.len() > 15) { 8pt } else { 10pt }, title),
                 text(size: if (description.len() > 90) { 8pt } else { 10pt }, description),
                 if (checkedItems.contains(key)) { sym.checkmark } else { none },
-              );
+              )
             }
           }),
-        table.hline(stroke: 0.4mm + black),
+        hline,
       ))
       .flatten()
   ),
-  table.hline(stroke: 0.4mm + black),
+  hline,
   table.cell(colspan: 4, inset: 0pt, text(size: 7pt, table(
-    stroke: 0.12mm + gray,
+    stroke: (x, y) => (
+      left: if (x == 0) { outerStroke } else { innerStroke },
+      right: outerStroke,
+      top: if (y == 0) { outerStroke } else { innerStroke },
+      bottom: outerStroke,
+    ),
     columns: (..(1fr,) * (int((issues.len() + 3) / 2)),),
     inset: 3pt,
     table.cell(rowspan: 2)[이상여부/\ 존재유무 확인],
@@ -122,14 +132,14 @@ const template = String.raw`
           ellipse(
             width: 100%,
             height: 10pt,
-            stroke: if (checkedItems.contains(issue.at(0))) { gray } else { none },
+            stroke: if (checkedItems.contains(issue.at(0))) { black.transparentize(70%) } else { none },
           ),
         )
         #issue.at(1)
       ])
     ),
   ))),
-)))
+))
 
 #v(8pt)
 
@@ -139,10 +149,10 @@ const template = String.raw`
   inset: 6pt,
   fill: lightLightGray,
   stroke: (x, y) => (
-    left: if (x == 0) { 0.4mm + gray } else { 0.12mm + gray },
-    right: if (x == 3) { 0.4mm + gray } else { 0.12mm + gray },
-    top: if (y == 0) { 0.4mm + gray } else { 0.12mm + gray },
-    bottom: 0.12mm + gray,
+    left: if (x == 0) { 0.4mm + gray } else { innerStroke },
+    right: if (x == 3) { 0.4mm + gray } else { innerStroke },
+    top: if (y == 0) { 0.4mm + gray } else { innerStroke },
+    bottom: innerStroke,
   ),
   [*검사 횟수(체크)*],
   ..range(3).map(index => square(
