@@ -37,18 +37,16 @@ export const useInspectionChecklistFile = (
       const buffer = await fetch('/house-full-logo.png').then((res) => res.arrayBuffer());
       await $typst.mapShadow('/public/house-full-logo.png', new Uint8Array(buffer));
 
-      if (inspectorSignature) {
-        const buffer = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
-        await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(buffer));
-      }
-      if (targetSignature) {
-        const buffer = await fetch(targetSignature).then((res) => res.arrayBuffer());
-        await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(buffer));
+      if (hasSignature) {
+        const inspector = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
+        await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(inspector));
+        const target = await fetch(targetSignature).then((res) => res.arrayBuffer());
+        await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(target));
       }
 
       setAssetLoaded(true);
     })();
-  }, [disableSignature, inspectorSignature, targetSignature]);
+  }, [hasSignature, inspectorSignature, targetSignature]);
 
   useEffect(() => {
     if (!assetLoaded || !roomType) return;
