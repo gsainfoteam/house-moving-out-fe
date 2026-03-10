@@ -19,7 +19,7 @@ export const useUpdateInspection = ({
   const { t } = useTranslation('user');
   const queryClient = useQueryClient();
 
-  return $api.useMutation('patch', ApiPaths.MoveOutController_updateApplication, {
+  return $api.useMutation('patch', ApiPaths.ApplicationController_updateApplication, {
     onSuccess: (data) => {
       queryClient.removeQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findMyInspection],

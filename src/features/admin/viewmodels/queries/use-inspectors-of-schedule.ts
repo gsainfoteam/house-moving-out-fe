@@ -10,7 +10,7 @@ import { ApiPaths } from '../../models';
 export const useInspectorsOfSchedule = (scheduleUuid: string) => {
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
-    ApiPaths.MoveOutController_findInspectorsByScheduleUuid,
+    ApiPaths.ScheduleController_findInspectorsByScheduleUuid,
     { params: { path: { uuid: scheduleUuid } } },
     {
       retry(count, error) {

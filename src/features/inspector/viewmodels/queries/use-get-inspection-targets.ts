@@ -10,7 +10,7 @@ import { ApiPaths } from '../../models';
 export const useGetInspectionTargets = () => {
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
-    ApiPaths.InspectorController_getMyInspectionTargets,
+    ApiPaths.InspectorController_getMyAssignedTargets,
     {},
     {
       retry(count, error) {

@@ -11,7 +11,7 @@ export const useVerifyInspectionDocument = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('inspector');
 
-  return $api.useMutation('patch', ApiPaths.MoveOutController_verifyInspectionDocument, {
+  return $api.useMutation('patch', ApiPaths.ApplicationController_verifyInspectionDocument, {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['get', ApiPaths.InspectorController_getMyInspectionTargets],

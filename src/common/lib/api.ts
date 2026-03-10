@@ -6,8 +6,8 @@ import { useToken } from '@/features/auth';
 
 let refreshPromise: ReturnType<
   typeof api.POST<
-    ApiPaths.AuthController_userRefresh,
-    MaybeOptionalInit<paths[ApiPaths.AuthController_userRefresh], 'post'>
+    ApiPaths.AuthController_refresh,
+    MaybeOptionalInit<paths[ApiPaths.AuthController_refresh], 'post'>
   >
 > | null = null;
 
@@ -22,16 +22,13 @@ const middleware: Middleware = {
   },
   async onResponse({ request, response, options }) {
     if (response.status == 401) {
-      if (
-        request.headers.has('x-retry') ||
-        request.url.includes(ApiPaths.AuthController_userRefresh)
-      ) {
+      if (request.headers.has('x-retry') || request.url.includes(ApiPaths.AuthController_refresh)) {
         return response;
       }
 
       if (!refreshPromise) {
         refreshPromise = api
-          .POST(ApiPaths.AuthController_userRefresh)
+          .POST(ApiPaths.AuthController_refresh)
           .finally(() => (refreshPromise = null));
       }
 

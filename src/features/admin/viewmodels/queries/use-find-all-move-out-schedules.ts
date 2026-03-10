@@ -10,7 +10,7 @@ import { ApiPaths } from '../../models';
 export const useFindAllMoveOutSchedules = () => {
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
-    ApiPaths.MoveOutController_findAllMoveOutSchedules,
+    ApiPaths.ScheduleController_findAllMoveOutSchedules,
   );
   const { t } = useTranslation('admin');
 

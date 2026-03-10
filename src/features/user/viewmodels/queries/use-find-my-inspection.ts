@@ -27,7 +27,7 @@ export const useFindMyInspection = (
   const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
-    ApiPaths.MoveOutController_findMyInspection,
+    ApiPaths.ApplicationController_findMyInspection,
     {},
     {
       enabled,

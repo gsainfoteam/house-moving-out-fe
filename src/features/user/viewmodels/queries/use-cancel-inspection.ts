@@ -11,7 +11,7 @@ export const useCancelInspection = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('user');
 
-  return $api.useMutation('delete', ApiPaths.MoveOutController_cancelInspection, {
+  return $api.useMutation('delete', ApiPaths.ApplicationController_cancelInspection, {
     onSuccess: () => {
       queryClient.removeQueries({
         queryKey: ['get', ApiPaths.MoveOutController_findMyInspection],

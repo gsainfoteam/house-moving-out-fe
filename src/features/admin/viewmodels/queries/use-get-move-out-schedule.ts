@@ -10,7 +10,7 @@ import { ApiPaths } from '../../models';
 export const useGetMoveOutScheduleQuery = (uuid: string) => {
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
-    ApiPaths.MoveOutController_findMoveOutScheduleWithSlots,
+    ApiPaths.ScheduleController_findMoveOutScheduleWithSlots,
     { params: { path: { uuid } } },
     {
       retry(count, error) {

@@ -12,7 +12,7 @@ export const useCreateMoveOutSchedule = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('admin');
 
-  return $api.useMutation('post', ApiPaths.MoveOutController_createMoveOutScheduleWithTargets, {
+  return $api.useMutation('post', ApiPaths.ScheduleController_createMoveOutScheduleWithTargets, {
     onMutate(variables) {
       variables.bodySerializer = multipartSerializer(false);
     },

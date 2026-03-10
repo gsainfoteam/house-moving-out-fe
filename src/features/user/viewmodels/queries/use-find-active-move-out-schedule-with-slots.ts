@@ -23,7 +23,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
-    ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots,
+    ApiPaths.ScheduleController_findActiveMoveOutScheduleWithSlots,
     {},
     {
       retry(count, error) {
