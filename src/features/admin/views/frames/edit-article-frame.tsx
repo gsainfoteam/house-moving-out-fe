@@ -11,7 +11,7 @@ import { ArticleForm } from '../components';
 
 export function EditArticleFrame() {
   const { t } = useTranslation('admin');
-  const { uuid } = useParams({ from: '/admin/articles/$uuid/edit' });
+  const { uuid } = useParams({ from: '/_auth-required/admin/articles/$uuid/edit' });
   const navigate = useNavigate();
   const { data, isLoading, isNotFound } = useFindArticle(uuid);
   const { mutateAsync: updateArticle, isPending } = useUpdateArticle();
