@@ -7,6 +7,7 @@ import { cn } from '@/common/utils';
 
 import { checklist } from '../../models';
 import { useInspectionChecklistContext } from '../../viewmodels';
+import { SampleImageButton } from '../components';
 
 export function InspectionFrame() {
   const { t } = useTranslation('inspector');
@@ -56,11 +57,16 @@ export function InspectionFrame() {
                 <ul className="text-box2 text-text-black flex flex-col">
                   {itemEntries.map((item) => {
                     if (item === null) return null;
-                    const [itemKey] = item;
+                    const [itemKey, ...images] = item;
                     return (
-                      <li key={itemKey} className="flex items-center gap-2">
-                        <label className="flex w-full cursor-pointer items-center justify-between gap-2 px-2 py-1.5">
+                      <li key={itemKey} className="flex items-center justify-between gap-2 pl-2">
+                        <span className="flex items-center gap-2">
                           <span>{t(`checklist.items.${itemKey}`)}</span>
+                          {images.map((image, index) => (
+                            <SampleImageButton key={index} image={image} />
+                          ))}
+                        </span>
+                        <label className="cursor-pointer px-2 py-1.5">
                           <Checkbox {...register(`items.${itemKey}`)} />
                         </label>
                       </li>
