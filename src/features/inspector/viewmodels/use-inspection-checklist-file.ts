@@ -32,19 +32,23 @@ export const useInspectionChecklistFile = (
   const hasSignature = !disableSignature && !!inspectorSignature && !!targetSignature;
 
   useEffect(() => {
+    const tryRegister = async (from: string, to: string) => {
+      const buffer = await fetch(from).then((res) => res.arrayBuffer());
+      await $typst.mapShadow(to, new Uint8Array(buffer));
+    };
     (async () => {
       setAssetLoaded(false);
-      const buffer = await fetch('/house-full-logo.png').then((res) => res.arrayBuffer());
-      await $typst.mapShadow('/public/house-full-logo.png', new Uint8Array(buffer));
-
-      if (hasSignature) {
-        const inspector = await fetch(inspectorSignature).then((res) => res.arrayBuffer());
-        await $typst.mapShadow('/assets/inspector-signature.png', new Uint8Array(inspector));
-        const target = await fetch(targetSignature).then((res) => res.arrayBuffer());
-        await $typst.mapShadow('/assets/target-signature.png', new Uint8Array(target));
+      try {
+        await tryRegister('/house-full-logo.png', '/public/house-full-logo.png');
+        if (hasSignature) {
+          await tryRegister(inspectorSignature, '/assets/inspector-signature.png');
+          await tryRegister(targetSignature, '/assets/target-signature.png');
+        }
+      } catch (error) {
+        console.error('register error', error);
+      } finally {
+        setAssetLoaded(true);
       }
-
-      setAssetLoaded(true);
     })();
   }, [hasSignature, inspectorSignature, targetSignature]);
 
