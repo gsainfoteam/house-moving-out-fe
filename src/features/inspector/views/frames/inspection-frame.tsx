@@ -61,12 +61,17 @@ export function InspectionFrame() {
                     return (
                       <li key={itemKey} className="flex items-center justify-between gap-2 pl-2">
                         <span className="flex items-center gap-2">
-                          <span>{t(`checklist.items.${itemKey}`)}</span>
+                          <span id={`checklist-item-label-${itemKey}`}>
+                            {t(`checklist.items.${itemKey}`)}
+                          </span>
                           {images.map((image, index) => (
                             <SampleImageButton key={index} image={image} />
                           ))}
                         </span>
-                        <label className="cursor-pointer px-2 py-1.5">
+                        <label
+                          className="cursor-pointer px-2 py-1.5"
+                          aria-labelledby={`checklist-item-label-${itemKey}`}
+                        >
                           <Checkbox {...register(`items.${itemKey}`)} />
                         </label>
                       </li>
