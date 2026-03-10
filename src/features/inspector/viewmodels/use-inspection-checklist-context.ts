@@ -20,7 +20,7 @@ export const useInspectionChecklistContext = () => {
   const getSectionProgress = useCallback(
     (sectionKey: checklist.Section) => {
       if (!list) return { totalCount: 0, completedCount: 0, isCompleted: false };
-      const sectionValues = list[sectionKey].filter((i) => i !== null).map((i) => values[i]);
+      const sectionValues = list[sectionKey].filter((i) => i !== null).map(([i]) => values[i]);
       const totalCount = sectionValues.length;
       const completedCount = sectionValues.filter(Boolean).length;
       const isCompleted = totalCount > 0 && completedCount === totalCount;
@@ -36,9 +36,9 @@ export const useInspectionChecklistContext = () => {
 
   const isAllChecked = useMemo(() => {
     if (list === undefined) return false;
-    const listValues = checklist.sections
-      .flatMap((section) => list[section])
-      .filter((i) => i !== null);
+    const listValues = checklist.sections.flatMap((section) =>
+      list[section].filter((i) => i !== null).map(([i]) => i),
+    );
     if (listValues.length === 0) return false;
     return listValues.every((i) => values[i]);
   }, [values, list]);

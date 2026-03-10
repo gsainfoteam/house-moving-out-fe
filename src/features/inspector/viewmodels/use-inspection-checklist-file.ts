@@ -57,11 +57,13 @@ export const useInspectionChecklistFile = (
       try {
         const options = {
           items: checklist.sections.map((section) =>
-            checklist[roomType][section].map((item) =>
-              item ? [item, checklist.itemTitles[item], checklist.itemDescriptions[item]] : null,
-            ),
+            checklist[roomType][section].map((item) => {
+              if (!item) return null;
+              const [key] = item;
+              return [key, checklist.itemTitles[key], checklist.itemDescriptions[key]];
+            }),
           ),
-          issues: checklist[roomType].issues.map((issue) => [
+          issues: checklist[roomType].issues.map(([issue]) => [
             issue,
             checklist.itemDescriptions[issue],
           ]),

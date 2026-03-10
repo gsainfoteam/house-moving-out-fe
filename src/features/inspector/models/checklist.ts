@@ -1,8 +1,10 @@
+import * as images from './checklist-images';
+
 import type { ParseKeys } from 'i18next';
 
 export type Section = ParseKeys<'inspector', {}, 'checklist.sections'>;
 export type Item = ParseKeys<'inspector', {}, 'checklist.items'>;
-type Checklist = Record<Section, (Item | null)[]>;
+type Checklist = Record<Section, ([Item, ...string[]] | null)[]>;
 type IssueItem =
   | 'bathroom-light'
   | 'bidet'
@@ -144,85 +146,130 @@ export const sections = [
 
 export const a2 = {
   'entrance-shoe-cabinet': [
-    'door-password-reset',
-    'entrance-rack',
-    'entrance-cleanliness',
-    'shoe-cabinet-cleanliness',
+    ['door-password-reset'],
+    ['entrance-rack', images.door],
+    ['entrance-cleanliness', images.entranceA],
+    ['shoe-cabinet-cleanliness', images.shoeCabinet],
   ],
   'furniture-aircon': [
-    'wardrobe-cleanliness',
-    'aircon-dust',
-    'bookshelf-cleanliness',
-    'desk-cleanliness',
-    'drawer-cleanliness',
+    ['wardrobe-cleanliness', images.wardrobeA],
+    ['aircon-dust', images.airconDust, images.airconDustClean],
+    ['bookshelf-cleanliness', images.bookshelfA],
+    ['desk-cleanliness', images.bookshelfA],
+    ['drawer-cleanliness', images.drawerA],
   ],
-  bed: ['bed-gap-space', 'mattress', 'bed-frame', 'bed-drawer', 'bed-below'],
-  'window-balcony': ['window-cleanliness', 'window-frame-cleanliness', 'balcony'],
+  bed: [
+    ['bed-gap-space', images.bedGap],
+    ['mattress', images.mattress],
+    ['bed-frame', images.bedFrame],
+    ['bed-drawer', images.bedDrawer],
+    ['bed-below', images.bedBelow1, images.bedBelow2, images.bedBelow3, images.bedBelow4],
+  ],
+  'window-balcony': [
+    ['window-cleanliness', images.window],
+    ['window-frame-cleanliness', images.windowFrameA],
+    ['balcony', images.balcony, images.balconyEmpty],
+  ],
   bathroom: [
-    'mirror',
-    'tile',
-    'sink',
-    'soap-stain',
-    'toilet',
-    'bathroom-drawer',
-    'drain',
-    'shower-booth',
+    ['mirror', images.mirror],
+    ['tile'],
+    ['sink'],
+    ['soap-stain'],
+    ['toilet', images.toilet],
+    ['bathroom-drawer'],
+    ['drain', images.drainA, images.drainLiftA],
+    ['shower-booth', images.showerBooth1, images.showerBooth2],
   ],
-  floor: ['floor', 'room-structure'],
-  power: ['power'],
+  floor: [['floor'], ['room-structure']],
+  power: [['power']],
   issues: [
-    'extinguisher',
-    'shoe-cabinet-light',
-    'chair',
-    'curtain',
-    'blind',
-    'insect-screen',
-    'ventilation-fan',
-    'bathroom-light',
-    'bidet',
-    'wall',
-    'hallway-light',
-    'lan-cable',
+    ['extinguisher'],
+    ['shoe-cabinet-light'],
+    ['chair'],
+    ['curtain'],
+    ['blind'],
+    ['insect-screen'],
+    ['ventilation-fan'],
+    ['bathroom-light'],
+    ['bidet'],
+    ['wall'],
+    ['hallway-light'],
+    ['lan-cable'],
   ],
 } satisfies Checklist;
 
 export const a3 = {
   ...a2,
   'window-balcony': [
-    'window-cleanliness',
-    'window-frame-cleanliness',
-    'internal-terrace-cleanliness',
+    ['window-cleanliness', images.window],
+    ['window-frame-cleanliness', images.windowFrameA],
+    ['internal-terrace-cleanliness'],
   ],
 } satisfies Checklist;
 
 export const b = {
   ...a2,
-  'furniture-aircon': [
-    'wardrobe-cleanliness',
-    'aircon-dust',
-    'bookshelf-cleanliness',
-    'desk-cleanliness',
-    'board-cleanliness',
-    'drawer-cleanliness',
+  'entrance-shoe-cabinet': [
+    ['door-password-reset'],
+    ['entrance-rack', images.door],
+    ['entrance-cleanliness', images.entranceB],
+    ['shoe-cabinet-cleanliness', images.shoeCabinet],
   ],
-  'window-balcony': ['window-cleanliness', 'window-frame-cleanliness'],
-  issues: [...a2.issues, 'power-strips'],
+  'furniture-aircon': [
+    ['wardrobe-cleanliness', images.wardrobeB],
+    ['aircon-dust', images.airconDust, images.airconDustClean],
+    ['bookshelf-cleanliness', images.bookshelfB],
+    ['desk-cleanliness', images.bookshelfB],
+    ['board-cleanliness', images.bookshelfB],
+    ['drawer-cleanliness', images.drawerB],
+  ],
+  bathroom: [
+    ['mirror', images.mirror],
+    ['tile'],
+    ['sink'],
+    ['soap-stain'],
+    ['toilet', images.toilet],
+    ['bathroom-drawer'],
+    ['drain', images.drainB, images.drainLiftB],
+    ['shower-booth', images.showerBooth1, images.showerBooth2],
+  ],
+  'window-balcony': [
+    ['window-cleanliness', images.window],
+    ['window-frame-cleanliness', images.windowFrameB],
+  ],
+  issues: [...a2.issues, ['power-strips']],
 } satisfies Checklist;
 
 export const solo = {
-  'entrance-shoe-cabinet': [null, null, 'entrance-solo', 'shoe-cabinet-solo'],
-  'furniture-aircon': ['wardrobe-solo', null, 'bookshelf-solo', 'desk-solo', 'drawer-solo'],
-  bed: ['bed-gap-space-solo', 'mattress-solo', 'bed-frame-solo', 'bed-drawer-solo'],
+  'entrance-shoe-cabinet': [
+    null,
+    null,
+    ['entrance-solo', images.entranceA],
+    ['shoe-cabinet-solo', images.shoeCabinet],
+  ],
+  'furniture-aircon': [
+    ['wardrobe-solo', images.wardrobeA],
+    null,
+    ['bookshelf-solo', images.bookshelfA],
+    ['desk-solo', images.bookshelfA],
+    ['drawer-solo', images.drawerA],
+  ],
+  bed: [
+    ['bed-gap-space-solo', images.bedGap],
+    ['mattress-solo', images.mattress],
+    ['bed-frame-solo', images.bedFrame],
+    ['bed-drawer-solo', images.bedDrawer],
+  ],
   'window-balcony': [],
   bathroom: [
-    'mirror-solo',
-    'tile-solo',
-    'sink-solo',
+    ['mirror-solo', images.mirror],
+    ['tile-solo'],
+    ['sink-solo'],
     null,
-    'toilet-solo',
-    'bathroom-drawer-solo',
+    ['toilet-solo', images.toilet],
+    ['bathroom-drawer-solo'],
     null,
-    'shower-booth-solo',
+    ['shower-booth-solo', images.showerBooth1, images.showerBooth2],
   ],
   floor: [],
   power: [],
