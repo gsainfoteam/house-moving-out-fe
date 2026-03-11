@@ -51,8 +51,22 @@ export function UserLayoutFrame() {
                   <Drawer.Title>{t('inquiryDrawer.title')}</Drawer.Title>
                 </Drawer.Header>
                 <Drawer.Body>
-                  <p>{t('inquiryDrawer.instagram')}</p>
-                  <p>{t('inquiryDrawer.email')}</p>
+                  <a
+                    href="https://pf.kakao.com/_BIthX"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-underline cursor-pointer"
+                  >
+                    <p>{t('inquiryDrawer.kakaotalk')}</p>
+                  </a>
+                  <a
+                    href="mailto:gist_house@gist.ac.kr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-underline cursor-pointer"
+                  >
+                    <p>{t('inquiryDrawer.email')}</p>
+                  </a>
                   <br />
                   <a
                     href="https://sites.google.com/view/gisthouse/home/%EC%9E%90%EC%A3%BC%ED%95%98%EB%8A%94-%EC%A7%88%EB%AC%B8faq?authuser=0"
