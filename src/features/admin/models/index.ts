@@ -12,7 +12,7 @@ export {
   CreateMoveOutScheduleWithTargetsDtoCurrentSeason as Season,
   InspectorResDtoGender as Gender,
   MoveOutScheduleResDtoStatus as ScheduleStatus,
-  InspectionTargetsGroupedByRoomResDtoInspectionType as InspectionType,
+  TargetInfoResDtoInspectionType as InspectionType,
   PathsArticleGetParametersQueryType as ArticleType,
   ArticleDtoLanguage as ArticleLanguage,
 } from '@/@types/api-schema';

@@ -14,7 +14,7 @@ export const useBulkUpdateCleaningService = () => {
   return $api.useMutation('patch', ApiPaths.ScheduleController_bulkUpdateCleaningService, {
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.MoveOutController_findAllInspectionTargetInfos],
+        queryKey: ['get', ApiPaths.ScheduleController_findAllInspectionTargetInfos],
       });
     },
     onError: (error) => {

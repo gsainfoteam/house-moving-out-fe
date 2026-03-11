@@ -18,7 +18,7 @@ export const useCreateMoveOutSchedule = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.MoveOutController_findAllMoveOutSchedules],
+        queryKey: ['get', ApiPaths.ScheduleController_findAllMoveOutSchedules],
       });
     },
     onError: (error) => {
