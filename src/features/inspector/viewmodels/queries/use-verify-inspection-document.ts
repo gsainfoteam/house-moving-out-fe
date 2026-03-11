@@ -14,7 +14,7 @@ export const useVerifyInspectionDocument = () => {
   return $api.useMutation('patch', ApiPaths.ApplicationController_verifyInspectionDocument, {
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.InspectorController_getMyInspectionTargets],
+        queryKey: ['get', ApiPaths.InspectorController_getMyAssignedTargets],
       });
     },
     onError: (error) => {

@@ -22,10 +22,10 @@ export const useUpdateInspection = ({
   return $api.useMutation('patch', ApiPaths.ApplicationController_updateApplication, {
     onSuccess: (data) => {
       queryClient.removeQueries({
-        queryKey: ['get', ApiPaths.MoveOutController_findMyInspection],
+        queryKey: ['get', ApiPaths.ApplicationController_findMyInspection],
       });
       queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.MoveOutController_findActiveMoveOutScheduleWithSlots],
+        queryKey: ['get', ApiPaths.ScheduleController_findActiveMoveOutScheduleWithSlots],
       });
       onSuccess?.(data);
     },

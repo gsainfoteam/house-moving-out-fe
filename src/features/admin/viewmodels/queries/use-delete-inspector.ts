@@ -13,7 +13,7 @@ export const useDeleteInspector = () => {
   return $api.useMutation('delete', ApiPaths.InspectorController_deleteInspector, {
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.MoveOutController_findInspectorsByScheduleUuid],
+        queryKey: ['get', ApiPaths.ScheduleController_findInspectorsByScheduleUuid],
       }),
     onError: (error) => {
       if (error.statusCode === 401) {
