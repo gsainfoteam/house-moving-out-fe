@@ -42,7 +42,9 @@ export function ConverterFrame() {
                   <React.Fragment key={building.building}>
                     {buildingIndex !== 0 && (
                       <tr>
-                        <td colSpan={100} />
+                        {range(43).map((i) => (
+                          <td key={i} />
+                        ))}
                       </tr>
                     )}
                     <tr>
