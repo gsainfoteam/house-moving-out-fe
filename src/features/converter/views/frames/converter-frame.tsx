@@ -1,9 +1,14 @@
+import React, { useRef } from 'react';
+
+import { maxBy, range } from 'es-toolkit';
+
 import { cn } from '@/common/utils';
 
 import { useConverterForm } from '../../viewmodels';
 
 export function ConverterFrame() {
   const { onChange, data, download } = useConverterForm();
+  const tableRef = useRef<HTMLTableElement>(null);
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="flex gap-2">
@@ -14,81 +19,87 @@ export function ConverterFrame() {
           onChange={onChange}
         />
         {data && (
-          <button className="rounded-lg border px-4 py-2" onClick={download}>
+          <button className="rounded-lg border px-4 py-2" onClick={() => download(tableRef)}>
             download
           </button>
         )}
       </div>
       {data ? (
         <div className="overflow-x-scroll">
-          <div className="flex flex-col gap-4">
-            {data.flatMap((building) => {
-              const isGorI = ['G', 'I'].includes(building.building);
-              return (
-                <div className="flex gap-4">
-                  {building.floors.flatMap((floor, index) => {
-                    const higher = index >= 2;
-                    return (
-                      <div key={floor.tag}>
-                        <table
-                          className={cn(
-                            'border-icon-light-gray border-collapse border',
-                            '[&_th,&_td]:border [&_th,&_td]:border-gray-200 [&_th,&_td]:px-3 [&_th,&_td]:py-2',
-                            'text-center',
-                            higher ? 'w-160' : 'w-132',
-                          )}
-                        >
-                          <thead>
-                            <tr>
-                              <th colSpan={100} className="bg-gray-200">
-                                {floor.tag}
-                              </th>
-                            </tr>
-                            <tr className="[&_th]:w-18">
-                              <th>호실</th>
-                              <th>이름</th>
-                              <th>학번</th>
-                              <th>이름</th>
-                              <th>학번</th>
-                              {higher &&
-                                (isGorI ? (
-                                  <>
-                                    <th>이름</th>
-                                    <th>학번</th>
-                                  </>
-                                ) : (
-                                  <>
-                                    <th />
-                                    <th />
-                                  </>
-                                ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {floor.rooms.map((room) => (
-                              <tr key={room.room}>
-                                <td>{room.room}</td>
-                                <td>{room.residents[0]?.name}</td>
-                                <td>{room.residents[0]?.studentId}</td>
-                                <td>{room.residents[1]?.name}</td>
-                                <td>{room.residents[1]?.studentId}</td>
-                                {higher && (
-                                  <>
-                                    <td>{room.residents[2]?.name}</td>
-                                    <td>{room.residents[2]?.studentId}</td>
-                                  </>
-                                )}
-                              </tr>
+          <table
+            ref={tableRef}
+            className={cn(
+              'border-collapse text-center whitespace-nowrap',
+              '[&_th,&_td]:border [&_th,&_td]:border-gray-200 [&_th,&_td]:px-3 [&_th,&_td]:py-2',
+            )}
+          >
+            <tbody>
+              {data.map((building, buildingIndex) => {
+                const isGorI = ['G', 'I'].includes(building.building);
+                const maxFloor = maxBy(building.floors, (floor) => floor.rooms.length);
+                const maxRoomCount = maxFloor?.rooms.length ?? 0;
+                return (
+                  <React.Fragment key={building.building}>
+                    {buildingIndex !== 0 && (
+                      <tr>
+                        <td colSpan={100} />
+                      </tr>
+                    )}
+                    <tr>
+                      {building.floors.map((floor, index) => {
+                        const higher = index >= 2;
+                        return (
+                          <React.Fragment key={floor.tag}>
+                            <td colSpan={higher ? 7 : 5} className="bg-gray-200">
+                              {floor.tag}
+                            </td>
+                            {index < 5 && <td />}
+                          </React.Fragment>
+                        );
+                      })}
+                    </tr>
+                    <tr>
+                      {building.floors.map((floor, index) => {
+                        const higher = index >= 2;
+                        return (
+                          <React.Fragment key={floor.tag}>
+                            <td>호실</td>
+                            {range(higher ? 3 : 2).map((i) => (
+                              <React.Fragment key={i}>
+                                {isGorI || i < 2 ? <td>이름</td> : <td />}
+                                {isGorI || i < 2 ? <td>학번</td> : <td />}
+                              </React.Fragment>
                             ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
+                            {index < 5 && <td />}
+                          </React.Fragment>
+                        );
+                      })}
+                    </tr>
+                    {range(maxRoomCount).map((roomIndex) => (
+                      <tr key={roomIndex}>
+                        {building.floors.map(({ tag, rooms }, index) => {
+                          const higher = index >= 2;
+                          const room = rooms[roomIndex];
+                          return (
+                            <React.Fragment key={tag}>
+                              <td key={tag}>{room?.room}</td>
+                              {range(higher ? 3 : 2).map((i) => (
+                                <React.Fragment key={i}>
+                                  <td>{room?.residents[i]?.name}</td>
+                                  <td>{room?.residents[i]?.admissionYear}</td>
+                                </React.Fragment>
+                              ))}
+                              {index < 5 && <td />}
+                            </React.Fragment>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </React.Fragment>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       ) : (
         <>no data</>

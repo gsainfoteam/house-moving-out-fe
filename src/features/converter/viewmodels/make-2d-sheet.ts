@@ -49,8 +49,8 @@ export const parseData = (buffer: ArrayBuffer) => {
   return buildings;
 };
 
-const makeSheet = () => {
-  const workbook = xlsx.utils.book_new();
-  // const sheet = xlsx.utils.
-  return workbook;
+export const downloadSheet = (ref: HTMLTableElement) => {
+  const sheet = xlsx.utils.table_to_sheet(ref);
+  const workbook = xlsx.utils.book_new(sheet);
+  xlsx.writeFile(workbook, 'room-list.xlsx');
 };
