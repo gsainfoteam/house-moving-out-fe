@@ -10,10 +10,11 @@ const header = [
 type RawData = Record<(typeof header)[number], string>;
 
 const parsePerson = (person: string) => {
-  const name = person.split('(')[0].trim();
-  const studentId = person.split('(')[1].trim().split(')')[0].trim();
+  const parsed = person.match(/^(.+)\(([0-9]{8})\)$/);
+  if (!parsed) return null;
+  const [, name, studentId] = parsed;
   const admissionYear = Number.parseInt(studentId.slice(2, 4));
-  return { name, studentId, admissionYear };
+  return { name: name.trim(), studentId, admissionYear };
 };
 
 const parseFloorTag = (row: RawData) => {
@@ -32,7 +33,10 @@ export const parseData = (buffer: ArrayBuffer) => {
     room: row.room.replace('호', ''),
     capacity: row.capacity,
     floorTag: parseFloorTag(row),
-    residents: [row.p1, row.p2, row.p3, row.p4].filter(Boolean).map(parsePerson),
+    residents: [row.p1, row.p2, row.p3, row.p4]
+      .filter(Boolean)
+      .map(parsePerson)
+      .filter((i) => i !== null),
     prohibited: row.prohibited,
   }));
   const taggedFloors = Object.entries(groupBy(clean, (r) => r.floorTag))
