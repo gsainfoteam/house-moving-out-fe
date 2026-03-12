@@ -68,6 +68,6 @@ export const downloadSheet = (ref: HTMLTableElement) => {
     { wpx: 3 },
     ...range(7).map(() => ({ wpx: 30 })),
   ];
-  const workbook = xlsx.utils.book_new(sheet);
+  const workbook = xlsx.utils.book_new(sheet, 'Sheet1');
   xlsx.writeFile(workbook, 'room-list.xlsx');
 };
