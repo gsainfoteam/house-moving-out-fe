@@ -1,3 +1,14 @@
+import { useConverterForm } from '../../viewmodels';
+
 export function ConverterFrame() {
-  return <div>Hello "/converter"!</div>;
+  const { onChange } = useConverterForm();
+  return (
+    <div>
+      <input
+        type="file"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        onChange={onChange}
+      />
+    </div>
+  );
 }
