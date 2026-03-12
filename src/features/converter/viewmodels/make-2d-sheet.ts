@@ -26,7 +26,7 @@ const parseFloorTag = (row: RawData) => {
 };
 
 export const parseData = (buffer: ArrayBuffer) => {
-  const workbook = xlsx.read(buffer, { type: 'buffer' });
+  const workbook = xlsx.read(buffer);
   const sheet = workbook.Sheets[workbook.SheetNames[0]];
   const data = xlsx.utils.sheet_to_json<RawData>(sheet, { header: [...header] }).slice(1);
   const clean = data.map((row) => ({
