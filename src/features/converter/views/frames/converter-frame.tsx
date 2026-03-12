@@ -10,7 +10,7 @@ export function ConverterFrame() {
   const { onChange, data, download } = useConverterForm();
   const tableRef = useRef<HTMLTableElement>(null);
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex max-h-screen flex-col gap-4 p-4">
       <div className="flex gap-2">
         <input
           className="rounded-lg border px-4 py-2"
@@ -25,7 +25,7 @@ export function ConverterFrame() {
         )}
       </div>
       {data ? (
-        <div className="overflow-x-scroll">
+        <div className="overflow-scroll rounded-lg border p-2">
           <table
             ref={tableRef}
             className={cn(
