@@ -26,5 +26,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy dist --project-name moving-out-fe-prod --branch main
+          command: pages deploy dist --project-name moving-out-fe --branch main
           gitHubToken: ${{ github.token }}
