@@ -1,14 +1,22 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
-import { make2DSheet } from './make-2d-sheet';
+import { parseData } from './make-2d-sheet';
 
 export const useConverterForm = () => {
-  const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const [file, setFile] = useState<ArrayBuffer>();
+  const onChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      make2DSheet(file);
+      const buffer = await file.arrayBuffer();
+      setFile(buffer);
     }
   }, []);
 
-  return { onChange };
+  const data = useMemo(() => (file ? parseData(file) : undefined), [file]);
+
+  const download = useCallback(async () => {
+    if (!data) return;
+  }, [data]);
+
+  return { onChange, data, download };
 };
