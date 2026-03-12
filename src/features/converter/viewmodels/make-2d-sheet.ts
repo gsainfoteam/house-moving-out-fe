@@ -1,4 +1,4 @@
-import { groupBy } from 'es-toolkit';
+import { groupBy, range } from 'es-toolkit';
 import xlsx from 'xlsx';
 
 // prettier-ignore
@@ -51,6 +51,19 @@ export const parseData = (buffer: ArrayBuffer) => {
 
 export const downloadSheet = (ref: HTMLTableElement) => {
   const sheet = xlsx.utils.table_to_sheet(ref);
+  sheet['!cols'] = [
+    ...range(5).map(() => ({ wpx: 30 })),
+    { wpx: 3 },
+    ...range(5).map(() => ({ wpx: 30 })),
+    { wpx: 3 },
+    ...range(7).map(() => ({ wpx: 30 })),
+    { wpx: 3 },
+    ...range(7).map(() => ({ wpx: 30 })),
+    { wpx: 3 },
+    ...range(7).map(() => ({ wpx: 30 })),
+    { wpx: 3 },
+    ...range(7).map(() => ({ wpx: 30 })),
+  ];
   const workbook = xlsx.utils.book_new(sheet);
   xlsx.writeFile(workbook, 'room-list.xlsx');
 };
