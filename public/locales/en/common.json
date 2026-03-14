@@ -1,7 +1,9 @@
 {
   "error": {
     "badRequest": "Failed to process the request.",
+    "forbidden": "You do not have permission.",
     "internalServerError": "A temporary error occurred.",
+    "notFound": "The requested item could not be found.",
     "unauthorized": "Login required."
   },
   "fab": {
