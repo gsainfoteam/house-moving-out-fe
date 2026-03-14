@@ -85,7 +85,7 @@ export function ConverterFrame() {
                           const room = rooms[roomIndex];
                           return (
                             <React.Fragment key={tag}>
-                              <td key={tag}>{room?.room}</td>
+                              <td>{room?.room}</td>
                               {range(higher ? 3 : 2).map((i) => (
                                 <React.Fragment key={i}>
                                   <td>{room?.residents[i]?.name}</td>
