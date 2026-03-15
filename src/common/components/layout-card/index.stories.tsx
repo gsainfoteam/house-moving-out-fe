@@ -20,13 +20,13 @@ export const Default: Story = {
     <div className="h-[480px] w-[360px]">
       <LayoutCard.Root>
         <LayoutCard.Center>
-          <LayoutCard.Header>
+          <LayoutCard.Header className="items-center">
             <LayoutCard.Media>
               <div className="bg-primary-main/10 text-primary-main flex h-40 w-full items-center justify-center rounded-xl">
                 검사 통과 일러스트
               </div>
             </LayoutCard.Media>
-            <LayoutCard.Text>
+            <LayoutCard.Text className="items-center">
               <LayoutCard.Title className="text-primary-main">검사 통과</LayoutCard.Title>
               <LayoutCard.Description>
                 점검이 모두 완료되었어요. 다음 단계로 이동해 주세요.
