@@ -8,16 +8,32 @@ import { LayoutCard } from '@/common/components';
 
 import { ArticleType } from '../../models';
 import { useFindArticles } from '../../viewmodels';
-import { ArticleCard, ArticleTypeSegment } from '../components';
+import { ArticleCard, ArticleTypeSegment, Pagination } from '../components';
+
+const PAGE_SIZE = 5;
 
 export function ArticleListFrame() {
   const { t } = useTranslation('user');
   const [type, setType] = useState<ArticleType>(ArticleType.NOTICE);
-  const { articles, isLoading } = useFindArticles({ type });
+  const [page, setPage] = useState(1);
+
+  const offset = (page - 1) * PAGE_SIZE;
+
+  const { articles, totalCount, isLoading } = useFindArticles({
+    type,
+    offset,
+    limit: PAGE_SIZE,
+  });
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <ArticleTypeSegment value={type} onChange={setType} />
+      <ArticleTypeSegment
+        value={type}
+        onChange={(nextType) => {
+          setType(nextType);
+          setPage(1);
+        }}
+      />
       <LayoutCard.Root isLoading={isLoading}>
         <LayoutCard.Header className="gap-4">
           <LayoutCard.Text>
@@ -36,6 +52,16 @@ export function ArticleListFrame() {
             </Link>
           ))}
         </LayoutCard.Body>
+        {totalCount > PAGE_SIZE && (
+          <LayoutCard.Footer>
+            <Pagination
+              page={page}
+              pageSize={PAGE_SIZE}
+              totalCount={totalCount}
+              onChange={setPage}
+            />
+          </LayoutCard.Footer>
+        )}
       </LayoutCard.Root>
     </div>
   );
