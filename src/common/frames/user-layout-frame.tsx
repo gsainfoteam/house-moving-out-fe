@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
 
 import { isNotNil } from 'es-toolkit';
-import { ArrowRightLeft } from 'lucide-react';
+import { ArrowRightLeft, FileTextIcon, HomeIcon as HomeLucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import HomeIcon from '@/assets/icons/home.svg?react';
@@ -11,6 +11,8 @@ import { Drawer, Fab, Layout } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { useLanguage } from '@/common/viewmodels';
 import { useAuth } from '@/features/auth';
+import { Route as ArticleDetailRoute } from '@/routes/_auth-required/_user/articles/$uuid';
+import { Route as ArticlesRoute } from '@/routes/_auth-required/_user/articles/index';
 import { Route as InspectorRoute } from '@/routes/_auth-required/_user/inspector/index';
 
 export function UserLayoutFrame() {
@@ -22,6 +24,9 @@ export function UserLayoutFrame() {
   const { matches } = useRouterState();
 
   const isInspectorRoute = matches.some((match) => match.routeId === InspectorRoute.id);
+  const isArticlesRoute = matches.some(
+    (match) => match.routeId === ArticlesRoute.id || match.routeId === ArticleDetailRoute.id,
+  );
 
   return (
     <>
@@ -79,6 +84,22 @@ export function UserLayoutFrame() {
                 </Drawer.Body>
               </Drawer.Root>
             ))
+          }
+        />
+        <Fab.Item
+          icon={
+            isArticlesRoute ? (
+              <HomeLucideIcon className="size-6" />
+            ) : (
+              <FileTextIcon className="size-6" />
+            )
+          }
+          label={isArticlesRoute ? t('fab.home') : t('fab.articles')}
+          onClick={() =>
+            navigate({
+              to: isArticlesRoute ? '/' : '/articles',
+              replace: false,
+            })
           }
         />
         <Fab.Item
