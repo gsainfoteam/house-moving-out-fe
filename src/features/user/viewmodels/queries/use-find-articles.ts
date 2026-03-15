@@ -41,7 +41,7 @@ export function useFindArticles({
   }, [error, isError, t]);
 
   return {
-    data: data?.articles ?? [],
+    articles: data?.articles ?? [],
     totalCount: data?.totalCount ?? 0,
     isLoading,
   };

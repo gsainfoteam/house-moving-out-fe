@@ -38,7 +38,7 @@ export function useFindArticleByUuid(uuid?: string) {
   const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
 
   return {
-    data,
+    article: data,
     isLoading,
     isNotFound,
   };

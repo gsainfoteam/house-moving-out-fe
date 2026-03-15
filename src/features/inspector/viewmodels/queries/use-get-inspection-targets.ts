@@ -39,7 +39,7 @@ export const useGetInspectionTargets = () => {
   const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
 
   return {
-    targets: data?.targets,
+    targets: data ?? [],
     isLoading,
     isNotFound,
   };
