@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { LayoutCard } from '@/common/components';
 
-import { ArticleType } from '../../models';
-import { useFindArticles } from '../../viewmodels';
+import { ArticleType, useFindArticles } from '../../viewmodels';
 import { ArticleCard, ArticleTypeSegment, Pagination } from '../components';
 
 const PAGE_SIZE = 5;
