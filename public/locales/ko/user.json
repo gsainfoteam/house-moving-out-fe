@@ -51,6 +51,16 @@
     },
     "title": "검사 날짜를 선택해주세요"
   },
+  "detail": {
+    "back": "목록으로"
+  },
+  "list": {
+    "title": "공지 및 FAQ 목록",
+    "segment": {
+      "notice": "공지",
+      "faq": "FAQ"
+    }
+  },
   "steps": {
     "application": {
       "button": "퇴사 검사 신청하기",
@@ -115,11 +125,5 @@
       "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
       "title": "검사 대기"
     }
-  },
-  "list": {
-    "title": "공지 및 FAQ 목록"
-  },
-  "detail": {
-    "back": "목록으로"
   }
 }

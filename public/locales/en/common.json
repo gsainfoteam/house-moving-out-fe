@@ -7,9 +7,9 @@
     "unauthorized": "Login required."
   },
   "fab": {
-    "inquiry": "Inquiry",
     "articles": "Notices & FAQ",
     "home": "Home",
+    "inquiry": "Inquiry",
     "languageChange": "Language",
     "logout": "Logout",
     "toInspectorMode": "To inspector mode",
