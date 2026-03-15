@@ -51,6 +51,16 @@
     },
     "title": "검사 날짜를 선택해주세요"
   },
+  "detail": {
+    "back": "목록으로"
+  },
+  "list": {
+    "segment": {
+      "faq": "FAQ",
+      "notice": "공지"
+    },
+    "title": "공지 및 FAQ 목록"
+  },
   "steps": {
     "application": {
       "button": "퇴사 검사 신청하기",

@@ -8,7 +8,7 @@ import { cn } from '@/common/utils';
  * @see LayoutCard.Description
  */
 export const Text = ({ children, className }: Text.Props) => (
-  <div className={cn('flex flex-col gap-2 text-center', className)}>{children}</div>
+  <div className={cn('flex flex-col gap-2 text-start', className)}>{children}</div>
 );
 
 export namespace Text {

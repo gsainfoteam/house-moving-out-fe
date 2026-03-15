@@ -51,6 +51,16 @@
     },
     "title": "Please select the inspection date"
   },
+  "detail": {
+    "back": "Back to list"
+  },
+  "list": {
+    "segment": {
+      "faq": "FAQ",
+      "notice": "Notice"
+    },
+    "title": "Notice & FAQ List"
+  },
   "steps": {
     "application": {
       "button": "Apply Inspection",

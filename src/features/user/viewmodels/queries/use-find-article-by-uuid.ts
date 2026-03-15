@@ -7,31 +7,29 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
-export const useGetInspectionTargets = () => {
+export function useFindArticleByUuid(uuid: string) {
+  const { t } = useTranslation('user');
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
-    ApiPaths.InspectorController_getMyAssignedTargets,
-    {},
+    ApiPaths.ArticleController_findArticleByUuid,
+    { params: { path: { uuid } } },
     {
-      retry(count, error) {
-        if (error.statusCode === 404 || error.statusCode === 400 || error.statusCode === 403)
-          return false;
+      retry(count, queryError) {
+        if (queryError?.statusCode === 404 || queryError?.statusCode === 400) return false;
         return count < 3;
       },
     },
   );
 
-  const { t } = useTranslation('inspector');
-
   useEffect(() => {
     if (!isError) return;
-    if (error.statusCode === 401) {
+    if (error?.statusCode === 401) {
       toast.error(t('error.unauthorized', { ns: 'common' }));
-    } else if (error.statusCode === 403) {
-      toast.error(t('error.notInspector'));
-    } else if (error.statusCode === 404) {
-      // view에서 처리
-    } else {
+    } else if (error?.statusCode === 403) {
+      toast.error(t('error.forbidden', { ns: 'common' }));
+    } else if (error?.statusCode === 404) {
+      toast.error(t('error.notFound', { ns: 'common' }));
+    } else if (error?.statusCode === 500) {
       toast.error(t('error.internalServerError', { ns: 'common' }));
     }
   }, [error, isError, t]);
@@ -39,8 +37,8 @@ export const useGetInspectionTargets = () => {
   const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
 
   return {
-    targets: data ?? [],
+    article: data,
     isLoading,
     isNotFound,
   };
-};
+}

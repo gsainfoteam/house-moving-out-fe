@@ -54,11 +54,11 @@ function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs 
   return (
     <>
       <LayoutCard.Center>
-        <LayoutCard.Header>
+        <LayoutCard.Header className="items-center">
           <LayoutCard.Media>
             <img src="./3d/not-period.png" alt="not-period" className="h-60" />
           </LayoutCard.Media>
-          <LayoutCard.Text>
+          <LayoutCard.Text className="items-center">
             <LayoutCard.Title className="text-text-black">
               {t('steps.not_period.title')}
             </LayoutCard.Title>
@@ -88,11 +88,11 @@ function NotTargetCard() {
   return (
     <>
       <LayoutCard.Center>
-        <LayoutCard.Header>
+        <LayoutCard.Header className="items-center">
           <LayoutCard.Media>
             <img src="./3d/not-period.png" alt="not-period" className="h-60" />
           </LayoutCard.Media>
-          <LayoutCard.Text>
+          <LayoutCard.Text className="items-center">
             <LayoutCard.Title className="text-text-black">
               {t('steps.not_target.title')}
             </LayoutCard.Title>
@@ -184,11 +184,11 @@ function FailedCard() {
   return (
     <>
       <LayoutCard.Center>
-        <LayoutCard.Header>
+        <LayoutCard.Header className="items-center">
           <LayoutCard.Media>
             <img src="./3d/failed.png" alt="failed" className="h-60" />
           </LayoutCard.Media>
-          <LayoutCard.Text>
+          <LayoutCard.Text className="items-center">
             <LayoutCard.Title className="text-status-fail">
               {t('steps.failed.title')}
             </LayoutCard.Title>
@@ -255,11 +255,11 @@ function PassedCard() {
   return (
     <>
       <LayoutCard.Center>
-        <LayoutCard.Header>
+        <LayoutCard.Header className="items-center">
           <LayoutCard.Media>
             <img src="./3d/passed.png" alt="passed" className="h-60" />
           </LayoutCard.Media>
-          <LayoutCard.Text>
+          <LayoutCard.Text className="items-center">
             <LayoutCard.Title className="text-primary-main">
               {t('steps.passed.title')}
             </LayoutCard.Title>
