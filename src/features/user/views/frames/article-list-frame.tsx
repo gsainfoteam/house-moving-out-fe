@@ -1,13 +1,17 @@
 import { Link } from '@tanstack/react-router';
 
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { LayoutCard } from '@/common/components';
 
+import { ArticleType } from '../../models';
+import { useFindArticles } from '../../viewmodels';
+import { ArticleCard } from '../components';
+
 export function ArticleListFrame() {
   const { t } = useTranslation('inspector');
-  const { targets, isLoading } = useGetInspectionTargets();
+  // TODO: 타입 선택 기능 추가 - layout card 위에 segment control 추가
+  const { articles, isLoading } = useFindArticles({ type: ArticleType.NOTICE });
 
   return (
     <LayoutCard.Root isLoading={isLoading}>
@@ -18,20 +22,14 @@ export function ArticleListFrame() {
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">
-        {targets?.map((target) => (
+        {articles.map((article) => (
           <Link
-            key={target.uuid}
-            to="/inspector/$uuid"
-            params={{ uuid: target.uuid }}
+            key={article.uuid}
+            to="/articles/$uuid"
+            params={{ uuid: article.uuid }}
             className="w-full"
-            disabled={target.isPassed !== null}
           >
-            <InspectionScheduleCard
-              time={dayjs(target.inspectionTime)}
-              roomLabel={target.roomNumber}
-              residentName={target.residents.map((resident) => resident.name).join(', ')}
-              isPassed={target.isPassed}
-            />
+            <ArticleCard article={article} />
           </Link>
         ))}
       </LayoutCard.Body>
