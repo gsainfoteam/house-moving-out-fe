@@ -1,7 +1,8 @@
 import { cn } from '@/common/utils';
 
 export function Pagination({ page, pageSize, totalCount, onChange, className }: Pagination.Props) {
-  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+  const safePageSize = pageSize > 0 ? pageSize : 1;
+  const totalPages = Math.max(1, Math.ceil(totalCount / safePageSize));
   const isFirst = page <= 1;
   const isLast = page >= totalPages;
 
@@ -41,4 +42,3 @@ export namespace Pagination {
     className?: string;
   };
 }
-
