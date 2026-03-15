@@ -55,11 +55,11 @@
     "back": "Back to list"
   },
   "list": {
-    "title": "Notice & FAQ List",
     "segment": {
-      "notice": "Notice",
-      "faq": "FAQ"
-    }
+      "faq": "FAQ",
+      "notice": "Notice"
+    },
+    "title": "Notice & FAQ List"
   },
   "steps": {
     "application": {

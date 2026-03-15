@@ -55,11 +55,11 @@
     "back": "목록으로"
   },
   "list": {
-    "title": "공지 및 FAQ 목록",
     "segment": {
-      "notice": "공지",
-      "faq": "FAQ"
-    }
+      "faq": "FAQ",
+      "notice": "공지"
+    },
+    "title": "공지 및 FAQ 목록"
   },
   "steps": {
     "application": {
