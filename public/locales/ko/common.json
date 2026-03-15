@@ -8,6 +8,8 @@
   },
   "fab": {
     "inquiry": "문의하기",
+    "articles": "공지/FAQ",
+    "home": "홈",
     "languageChange": "언어변경",
     "logout": "로그아웃",
     "toInspectorMode": "검사자 모드로",

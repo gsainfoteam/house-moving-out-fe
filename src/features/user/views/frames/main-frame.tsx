@@ -365,6 +365,7 @@ export function MainFrame() {
 
   if (!user) return null;
 
+  // TODO: 지금 center card를 써도 가운데 정렬이 안됨
   return (
     <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
       <SwitchCase

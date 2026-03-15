@@ -8,6 +8,8 @@
   },
   "fab": {
     "inquiry": "Inquiry",
+    "articles": "Notices & FAQ",
+    "home": "Home",
     "languageChange": "Language",
     "logout": "Logout",
     "toInspectorMode": "To inspector mode",

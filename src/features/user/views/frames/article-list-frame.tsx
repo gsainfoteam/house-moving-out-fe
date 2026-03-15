@@ -9,7 +9,7 @@ import { useFindArticles } from '../../viewmodels';
 import { ArticleCard } from '../components';
 
 export function ArticleListFrame() {
-  const { t } = useTranslation('inspector');
+  const { t } = useTranslation('user');
   // TODO: 타입 선택 기능 추가 - layout card 위에 segment control 추가
   const { articles, isLoading } = useFindArticles({ type: ArticleType.NOTICE });
 
@@ -18,7 +18,6 @@ export function ArticleListFrame() {
       <LayoutCard.Header>
         <LayoutCard.Text>
           <LayoutCard.Title>{t('list.title')}</LayoutCard.Title>
-          <LayoutCard.Description>{t('list.description')}</LayoutCard.Description>
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body className="gap-3">

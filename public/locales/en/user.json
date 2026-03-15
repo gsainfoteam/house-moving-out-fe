@@ -115,5 +115,11 @@
       "description": "Scheduled for {{inspectionDate}}.",
       "title": "Waiting"
     }
+  },
+  "list": {
+    "title": "Notice & FAQ List"
+  },
+  "detail": {
+    "back": "Back to list"
   }
 }
