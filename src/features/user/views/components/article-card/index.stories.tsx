@@ -1,7 +1,7 @@
 import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
-import { ArticleType, type Article } from '@/features/user/models';
+import { ArticleType, type Article } from '@/features/user';
 
 import { ArticleCard } from '.';
 

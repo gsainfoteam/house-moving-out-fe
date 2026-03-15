@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
-import { ArticleType, type Article } from '@/features/user/models';
+import { ArticleType, type Article } from '@/features/user';
 
 export function ArticleCard({ article, className, ...props }: ArticleCard.Props) {
   const locale = useLocale();

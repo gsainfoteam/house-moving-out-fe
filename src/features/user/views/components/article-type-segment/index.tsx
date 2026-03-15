@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { cn, cv } from '@/common/utils';
 
-import { ArticleType } from '../../../models';
+import { ArticleType } from '../../../viewmodels';
 
 export function ArticleTypeSegment({ value, onChange, className }: ArticleTypeSegment.Props) {
   const { t } = useTranslation('user');
@@ -61,10 +61,7 @@ export namespace ArticleTypeSegment {
   });
 
   export const tabStyles = cv({
-    base: [
-      'flex-1 rounded-full px-3 py-1 text-center transition-colors',
-      'text-text-gray',
-    ],
+    base: ['flex-1 rounded-full px-3 py-1 text-center transition-colors', 'text-text-gray'],
     variants: {
       active: {
         true: ['bg-bg-white text-text-black shadow-sm'],
@@ -73,4 +70,3 @@ export namespace ArticleTypeSegment {
     },
   });
 }
-

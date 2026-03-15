@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ArticleType } from '../../../models';
+import { ArticleType } from '../../../viewmodels';
 
 import { ArticleTypeSegment } from '.';
 
