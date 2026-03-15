@@ -7,14 +7,13 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
-export function useFindArticleByUuid(uuid?: string) {
+export function useFindArticleByUuid(uuid: string) {
   const { t } = useTranslation('user');
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
     ApiPaths.ArticleController_findArticleByUuid,
-    { params: { path: { uuid: uuid ?? '' } } },
+    { params: { path: { uuid } } },
     {
-      enabled: !!uuid,
       retry(count, queryError) {
         if (queryError?.statusCode === 404 || queryError?.statusCode === 400) return false;
         return count < 3;
