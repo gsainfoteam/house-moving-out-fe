@@ -78,8 +78,7 @@ export function SlotVisualize({
                   const item = groupedSlot[d]?.find((s) =>
                     dayjs(s.startTime).isSame(startHour.day(d), 'minute'),
                   );
-                  if (!item) {
-                    console.log(startHour.day(d).toISOString());
+                  if (!item)
                     return (
                       <td
                         key={d}
@@ -92,7 +91,6 @@ export function SlotVisualize({
                         aria-hidden
                       />
                     );
-                  }
                   const isFull =
                     capacity === null ? item.reservedCount > 0 : item.reservedCount >= capacity;
                   const isSelected = selectedSlots.includes(item.uuid);

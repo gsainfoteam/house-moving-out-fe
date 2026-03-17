@@ -144,11 +144,11 @@ export const useCreateScheduleForm = () => {
 
   const toggleTimeRange = (uuid: string, enable: boolean) => {
     if (enable) {
-      setValue('inspectionTimeRange', [...inspectionTimeRange, uuid]);
+      setValue('inspectionTimeRange', [...(inspectionTimeRange ?? []), uuid]);
     } else {
       setValue(
         'inspectionTimeRange',
-        inspectionTimeRange.filter((v) => v !== uuid),
+        (inspectionTimeRange ?? []).filter((v) => v !== uuid),
       );
     }
   };
