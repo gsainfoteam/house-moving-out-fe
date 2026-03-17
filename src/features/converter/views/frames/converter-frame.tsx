@@ -11,6 +11,7 @@ export function ConverterFrame() {
   const tableRef = useRef<HTMLTableElement>(null);
   return (
     <div className="flex max-h-screen flex-col gap-4 p-4">
+      <div>Data will never be sent to server.</div>
       <div className="flex gap-2">
         <input
           className="rounded-lg border px-4 py-2"
@@ -84,7 +85,7 @@ export function ConverterFrame() {
                           const room = rooms[roomIndex];
                           return (
                             <React.Fragment key={tag}>
-                              <td key={tag}>{room?.room}</td>
+                              <td>{room?.room}</td>
                               {range(higher ? 3 : 2).map((i) => (
                                 <React.Fragment key={i}>
                                   <td>{room?.residents[i]?.name}</td>
