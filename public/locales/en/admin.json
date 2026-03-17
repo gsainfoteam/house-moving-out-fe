@@ -147,19 +147,21 @@
       "applicationStartTime": {
         "label": "Application Start Time"
       },
+      "currentSemesterFile": {
+        "label": "Room Assignments Excel File for Current Semester"
+      },
       "error": {
         "formError": "Please check input forms"
-      },
-      "excel": {
-        "label": "Room Assignments Excel File"
       },
       "inspectionStartWeek": {
         "label": "Inspection Starting Week"
       },
       "loading": "Creating Schedule...",
+      "nextSemesterFile": {
+        "label": "Room Assignments Excel File for Next Semester"
+      },
       "succeed": "Moving out schedule created: {{uuid}}",
       "summary": {
-        "label": "Creation Summary",
         "semester": {
           "fall": "Fall",
           "label": "Semester",

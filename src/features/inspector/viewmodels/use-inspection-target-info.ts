@@ -9,7 +9,7 @@ export const useInspectionTargetInfo = () => {
   const { targets, isLoading } = useGetInspectionTargets();
   const target = targets?.find((target) => target.uuid === uuid);
   const roomType = target
-    ? target.inspectionType === InspectionType.SOLO || target.inspectionType === InspectionType.DUO
+    ? target.inspectionType === InspectionType.SOLO
       ? 'solo'
       : target.roomNumber.startsWith('S') || target.roomNumber.startsWith('T')
         ? 'b'
