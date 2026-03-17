@@ -44,12 +44,23 @@ export function CreateScheduleFrame() {
       </div>
       <div>
         <label>
-          {t('schedule.create.excel.label')}
+          {t('schedule.create.currentSemesterFile.label')}
           <Input
-            error={errors.file?.message}
+            error={errors.currentSemesterFile?.message}
             type="file"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            {...register('file')}
+            {...register('currentSemesterFile')}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          {t('schedule.create.nextSemesterFile.label')}
+          <Input
+            error={errors.nextSemesterFile?.message}
+            type="file"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            {...register('nextSemesterFile')}
           />
         </label>
       </div>

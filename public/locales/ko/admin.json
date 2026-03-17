@@ -146,16 +146,19 @@
       "applicationStartTime": {
         "label": "신청 시작시각"
       },
+      "currentSemesterFile": {
+        "label": "현재학기 방배정표 파일"
+      },
       "error": {
         "formError": "입력란을 확인해주세요"
-      },
-      "excel": {
-        "label": "방배정표 파일"
       },
       "inspectionStartWeek": {
         "label": "검사 시작 주"
       },
       "loading": "퇴사검사 생성 중...",
+      "nextSemesterFile": {
+        "label": "다음학기 방배정표 파일"
+      },
       "succeed": "퇴사검사 일정이 생성되었습니다: {{uuid}}",
       "summary": {
         "label": "생성 요약",

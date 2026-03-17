@@ -2,6 +2,7 @@ import { useNavigate } from '@tanstack/react-router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
+import { range } from 'es-toolkit';
 import { last } from 'es-toolkit/array';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -9,13 +10,14 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { useCreateMoveOutSchedule } from './queries';
-import { Season } from '../models';
+import { Gender, Season } from '../models';
 
 const schema = z.object({
   title: z.string().min(1),
   applicationStartTime: z.coerce.date<string>(),
   inspectionStartWeek: z.coerce.date<string>(),
-  file: z.instanceof(FileList).refine((files) => files.length > 0),
+  currentSemesterFile: z.instanceof(FileList).refine((files) => files.length === 1),
+  nextSemesterFile: z.instanceof(FileList).refine((files) => files.length === 1),
 });
 
 type Semester = 'spring' | 'summer' | 'fall' | 'winter';
@@ -96,7 +98,16 @@ export const useCreateScheduleForm = () => {
               currentSeason: Season[yearSemester.semester.toUpperCase()],
               nextYear: nextSemester.year,
               nextSeason: Season[nextSemester.semester.toUpperCase()],
-              file: form.file[0],
+              currentSemesterFile: form.currentSemesterFile[0],
+              nextSemesterFile: form.nextSemesterFile[0],
+              residentGenderByHouseFloorKey: Object.fromEntries(
+                'GIST'
+                  .split('')
+                  .flatMap((i) => [
+                    ...range(1, 5).map((j) => [`${i}${j}`, Gender.MALE]),
+                    ...range(5, 7).map((j) => [`${i}${j}`, Gender.FEMALE]),
+                  ]),
+              ),
               applicationStartTime,
               applicationEndTime: last(inspectionTimeRange)!.start,
               title: form.title,
