@@ -22,7 +22,7 @@ export function SlotVisualize({
   onClick,
   selectedSlots = [],
 }: {
-  slots: { uuid: string; startTime: string; reservedCount: number }[];
+  slots: { uuid: string; startTime: string | dayjs.Dayjs; reservedCount: number }[];
   title: string;
   /** null to visualize for inspectors */
   capacity: number | null;
@@ -39,8 +39,11 @@ export function SlotVisualize({
 
   if (slots.length === 0) return null;
 
+  const minDay = Math.min(...slots.map((s) => ((dayjs(s.startTime).day() + 6) % 7) + 1));
+  const maxDay = Math.max(...slots.map((s) => ((dayjs(s.startTime).day() + 6) % 7) + 1));
   const groupedSlot = groupBy(slots, (s) => ((dayjs(s.startTime).day() + 6) % 7) + 1);
   const sunday = dayjs(slots[0].startTime).day(0).startOf('d');
+  const days = range(minDay, maxDay + 1);
 
   return (
     <table className="text-box2 bg-bg-white w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border border-gray-200 shadow-sm select-none">
@@ -49,28 +52,21 @@ export function SlotVisualize({
           <th className={cn(cellBase, headerCell, 'text-text-black font-semibold')} scope="col">
             {title}
           </th>
-          <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(4).format('D ddd')}
-          </th>
-          <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(5).format('D ddd')}
-          </th>
-          <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(6).format('D ddd')}
-          </th>
-          <th className={cn(cellBase, headerCell)} scope="col">
-            {sunday.day(7).format('D ddd')}
-          </th>
+          {days.map((d) => (
+            <th key={d} className={cn(cellBase, headerCell)} scope="col">
+              {sunday.day(d).format('D ddd')}
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
         {range(START_HOUR, END_HOUR)
-          .flatMap((i) => [i, i + 0.5])
-          .map((h, i) => {
-            const startHour = sunday.add(h, 'hour');
-            const endHour = startHour.add(30, 'm');
+          .map((h) => sunday.hour(h))
+          .flatMap((i) => [i, i.add(15, 'm'), i.add(30, 'm'), i.add(45, 'm')])
+          .map((startHour) => {
+            const endHour = startHour.add(15, 'm');
             return (
-              <tr key={i}>
+              <tr key={startHour.toISOString()}>
                 <th
                   className={cn(cellBase, timeCell)}
                   scope="row"
@@ -78,12 +74,12 @@ export function SlotVisualize({
                 >
                   {startHour.format('HH:mm')}-{endHour.format('HH:mm')}
                 </th>
-                {[4, 5, 6, 7].map((d) => {
-                  const startOfDay = sunday.day(d);
-                  const item = groupedSlot[d]?.find(
-                    (s) => dayjs(s.startTime).diff(startOfDay, 'h', true) === START_HOUR + i / 2,
+                {days.map((d) => {
+                  const item = groupedSlot[d]?.find((s) =>
+                    dayjs(s.startTime).isSame(startHour.day(d), 'minute'),
                   );
-                  if (!item)
+                  if (!item) {
+                    console.log(startHour.day(d).toISOString());
                     return (
                       <td
                         key={d}
@@ -96,6 +92,7 @@ export function SlotVisualize({
                         aria-hidden
                       />
                     );
+                  }
                   const isFull =
                     capacity === null ? item.reservedCount > 0 : item.reservedCount >= capacity;
                   const isSelected = selectedSlots.includes(item.uuid);

@@ -162,7 +162,6 @@
       },
       "succeed": "Moving out schedule created: {{uuid}}",
       "summary": {
-        "label": "Creation Summary",
         "semester": {
           "fall": "Fall",
           "label": "Semester",
