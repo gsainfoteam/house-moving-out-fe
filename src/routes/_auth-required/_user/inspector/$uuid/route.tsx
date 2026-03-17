@@ -19,10 +19,10 @@ export const Route = createFileRoute('/_auth-required/_user/inspector/$uuid')({
 
 function InspectorLayout() {
   const { roomType } = useInspectionTargetInfo();
-  const { inspector } = useAuth({ showToast: true });
+  const { isInspector } = useAuth({ showToast: true });
 
-  if (inspector === undefined || roomType === undefined) return <Loading />;
-  if (inspector === null) return <Navigate to="/" replace />;
+  if (isInspector === undefined || roomType === undefined) return <Loading />;
+  if (!isInspector) return <Navigate to="/" replace />;
 
   return (
     <Suspense fallback={<Loading />}>

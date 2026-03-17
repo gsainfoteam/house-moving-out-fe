@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
 
-import { isNotNil } from 'es-toolkit';
+
 import { ArrowRightLeft, FileTextIcon, HomeIcon as HomeLucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,7 +18,7 @@ import { Route as InspectorRoute } from '@/routes/_auth-required/_user/inspector
 export function UserLayoutFrame() {
   const { t } = useTranslation('common');
   const { toggleLanguage } = useLanguage();
-  const { logOut, inspector } = useAuth({ showToast: true });
+  const { logOut, isInspector } = useAuth({ showToast: true });
 
   const navigate = useNavigate();
   const { matches } = useRouterState();
@@ -34,7 +34,7 @@ export function UserLayoutFrame() {
         <Outlet />
       </Layout>
       <Fab>
-        {isNotNil(inspector) && (
+        {isInspector && (
           <Fab.Item
             icon={<ArrowRightLeft className="size-6" />}
             label={isInspectorRoute ? t('fab.toUserMode') : t('fab.toInspectorMode')}
