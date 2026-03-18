@@ -43,16 +43,22 @@ export default defineConfig(
       'react-refresh': reactRefresh,
       import: importPlugin,
       'unused-imports': unusedImports,
-      boundaries: boundaries,
+      boundaries,
       'check-file': checkFile,
     },
     settings: {
+      ...boundaries.configs.recommended.settings,
       'boundaries/elements': [
-        { type: 'model', pattern: 'src/features/*/models/*' },
-        { type: 'viewmodel', pattern: 'src/features/*/viewmodels/*' },
-        { type: 'view', pattern: 'src/features/*/views/*' },
-        { type: 'common', pattern: 'src/common/*' },
+        { type: 'model', pattern: ['models/*', 'models'] },
+        { type: 'viewmodel', pattern: ['viewmodels/*', 'viewmodels'] },
+        { type: 'view', pattern: ['views/*', 'views'] },
+        { type: 'common', pattern: 'common/*' },
       ],
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+        },
+      },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -92,25 +98,26 @@ export default defineConfig(
         },
       ],
       'import/no-duplicates': ['error', { considerQueryString: true }],
-      'boundaries/element-types': [
-        'error',
+      'boundaries/dependencies': [
+        2,
         {
-          default: 'allow',
+          default: 'disallow',
           rules: [
             {
-              from: 'view',
-              disallow: ['model'],
-              message: 'View는 Model에 직접 접근할 수 없습니다. ViewModel을 거치세요.',
+              from: { type: 'view' },
+              allow: { to: { type: ['viewmodel', 'view', 'common'] } },
             },
             {
-              from: 'viewmodel',
-              disallow: ['view'],
-              message: 'ViewModel은 View(UI)를 참조할 수 없습니다.',
+              from: { type: 'viewmodel' },
+              allow: { to: { type: ['viewmodel', 'model', 'common'] } },
             },
             {
-              from: 'model',
-              disallow: ['viewmodel', 'view'],
-              message: 'Model은 최하위 계층이어야 합니다.',
+              from: { type: 'model' },
+              allow: { to: { type: ['common'] } },
+            },
+            {
+              from: { type: 'common' },
+              allow: { to: { type: ['common'] } },
             },
           ],
         },
