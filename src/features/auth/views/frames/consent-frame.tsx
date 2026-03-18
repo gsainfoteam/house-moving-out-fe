@@ -5,9 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, LanguageToggle } from '@/common/components';
 
-import { useAuthPrompt, useConsentForm } from '../../viewmodels';
-
-import type { RequiredConsents } from '../../models';
+import { useAuthPrompt, useConsentForm, type RequiredConsents } from '../../viewmodels';
 
 export function ConsentFrame() {
   const requiredConsents = useAuthPrompt((state) => state.requiredConsents);

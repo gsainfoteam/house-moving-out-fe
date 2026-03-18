@@ -9,8 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { InspectionType } from '../../models';
-import { useManageCleaningService, useTargets } from '../../viewmodels';
+import { InspectionType, useManageCleaningService, useTargets } from '../../viewmodels';
 
 // NOTE: https://ziggle.gistory.me/ko/notice/197993
 

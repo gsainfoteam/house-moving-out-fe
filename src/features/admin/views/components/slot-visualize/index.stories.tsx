@@ -1,5 +1,6 @@
-import dayjs from 'dayjs';
 import { useState } from 'react';
+
+import dayjs from 'dayjs';
 
 import { SlotVisualize } from '.';
 
@@ -59,9 +60,7 @@ export const WithSelection: Story = {
   render: function WithSelectionStory() {
     const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
     const toggle = (uuid: string, enable: boolean) => {
-      setSelectedSlots((prev) =>
-        enable ? [...prev, uuid] : prev.filter((id) => id !== uuid),
-      );
+      setSelectedSlots((prev) => (enable ? [...prev, uuid] : prev.filter((id) => id !== uuid)));
     };
     return (
       <div className="overflow-auto">

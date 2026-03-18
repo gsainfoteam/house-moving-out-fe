@@ -4,7 +4,7 @@ import { i18n } from '@/common/lib';
 
 import { ScheduleStatusBadge } from '.';
 
-import type { ScheduleStatus } from '../../../models';
+import type { ScheduleStatus } from '../../../viewmodels';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof ScheduleStatusBadge> = {

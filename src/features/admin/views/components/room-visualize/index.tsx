@@ -8,8 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { InspectionType, type Target } from '../../../models';
-import { useTargets } from '../../../viewmodels';
+import { useTargets, InspectionType, type Target } from '../../../viewmodels';
 
 const config = {
   G: [19, 19, 19, 19, 19, 19],

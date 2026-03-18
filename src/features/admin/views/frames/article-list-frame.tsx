@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Loading } from '@/common/components';
 
-import { ArticleType } from '../../models';
-import { useChangeArticleVisibility, useFindArticles } from '../../viewmodels';
+import { ArticleType, useChangeArticleVisibility, useFindArticles } from '../../viewmodels';
 
 export function ArticleListFrame() {
   const { t } = useTranslation('admin');

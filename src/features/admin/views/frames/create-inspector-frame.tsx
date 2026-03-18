@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Input, Loading } from '@/common/components';
 
-import { Gender } from '../../models';
 import {
+  Gender,
   useCreateInspectorForm,
   useGetMoveOutScheduleQuery,
   useInspectorsOfSchedule,

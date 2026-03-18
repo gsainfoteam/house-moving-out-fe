@@ -6,7 +6,13 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const meta: Meta<typeof SwitchCase<Status>> = {
   title: 'Common/UI/SwitchCase',
-  component: SwitchCase as React.ComponentType<React.PropsWithChildren<{ value: Status; caseBy: Partial<Record<Status, React.ReactNode>>; defaultComponent?: React.ReactNode }>>,
+  component: SwitchCase as React.ComponentType<
+    React.PropsWithChildren<{
+      value: Status;
+      caseBy: Partial<Record<Status, React.ReactNode>>;
+      defaultComponent?: React.ReactNode;
+    }>
+  >,
   parameters: {
     layout: 'centered',
   },
