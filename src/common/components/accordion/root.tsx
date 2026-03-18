@@ -25,7 +25,7 @@ export function Root({
     <AccordionContext.Provider value={{ isOpen, toggle }}>
       <div
         className={cn(
-          'w-full overflow-hidden rounded-lg border border-icon-light-gray bg-bg-white',
+          'border-icon-light-gray bg-bg-white w-full overflow-hidden rounded-lg border',
           className,
         )}
       >

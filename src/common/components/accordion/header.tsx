@@ -13,7 +13,7 @@ export function Header({ children, className }: Header.Props) {
       onClick={toggle}
       className={cn(
         'bg-bg-surface/80 flex w-full items-center justify-between gap-3 px-4 py-3 text-left',
-        isOpen && 'border-b border-icon-light-gray',
+        isOpen && 'border-icon-light-gray border-b',
         className,
       )}
       aria-expanded={isOpen}

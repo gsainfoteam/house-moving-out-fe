@@ -9,7 +9,14 @@ import {
   type UseLinkPropsOptions,
 } from '@tanstack/react-router';
 
-import { ChevronLeft, ChevronRight, Clipboard, LayoutDashboard, Pencil, Target } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Clipboard,
+  LayoutDashboard,
+  Pencil,
+  Target,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { cn } from '@/common/utils';
@@ -56,7 +63,7 @@ export function ScheduleLayoutFrame() {
     <div className="flex min-h-0 flex-1">
       <aside
         className={cn(
-          'flex shrink-0 flex-col gap-0.5 border-r border-gray-200 bg-bg-white p-3 transition-[width] duration-200 ease-in-out',
+          'bg-bg-white flex shrink-0 flex-col gap-0.5 border-r border-gray-200 p-3 transition-[width] duration-200 ease-in-out',
           isCollapsed ? 'w-14' : 'w-52',
         )}
       >
@@ -90,7 +97,7 @@ export function ScheduleLayoutFrame() {
           type="button"
           onClick={() => setIsCollapsed((c) => !c)}
           title={isCollapsed ? t('schedule.sidebar.expand') : t('schedule.sidebar.collapse')}
-          className="mt-2 flex items-center justify-center rounded-lg py-2 text-text-gray transition-colors hover:bg-bg-surface hover:text-text-black [&>svg]:size-5"
+          className="text-text-gray hover:bg-bg-surface hover:text-text-black mt-2 flex items-center justify-center rounded-lg py-2 transition-colors [&>svg]:size-5"
           aria-label={isCollapsed ? t('schedule.sidebar.expand') : t('schedule.sidebar.collapse')}
         >
           {isCollapsed ? <ChevronRight /> : <ChevronLeft />}

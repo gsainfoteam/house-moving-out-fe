@@ -47,7 +47,7 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
   );
 
   const isInspector = useMemo(
-    () => (user === undefined ? undefined : user?.isInspector ?? false),
+    () => (user === undefined ? undefined : (user?.isInspector ?? false)),
     [user],
   );
 

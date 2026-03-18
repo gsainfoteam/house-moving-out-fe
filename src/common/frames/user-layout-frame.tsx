@@ -1,6 +1,5 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
 
-
 import { ArrowRightLeft, FileTextIcon, HomeIcon as HomeLucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
