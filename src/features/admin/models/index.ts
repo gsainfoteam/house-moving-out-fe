@@ -9,8 +9,8 @@ export type FindArticlesResponse = components['schemas']['FindArticlesResDto'];
 export type CreateArticleRequest = components['schemas']['CreateArticleReqDto'];
 export type UpdateArticleVisibilityRequest = components['schemas']['UpdateArticleVisibilityReqDto'];
 export {
-  CreateMoveOutScheduleWithTargetsDtoCurrentSeason as Season,
-  InspectorResDtoGender as Gender,
+  CreateMoveOutScheduleWithTargetsFormDtoCurrentSeason as Season,
+  CreateMoveOutScheduleWithTargetsFormDtoResidentGenderByHouseFloorKey as Gender,
   MoveOutScheduleResDtoStatus as ScheduleStatus,
   TargetInfoResDtoInspectionType as InspectionType,
   PathsArticleGetParametersQueryType as ArticleType,

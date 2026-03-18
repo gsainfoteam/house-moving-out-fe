@@ -1,21 +1,25 @@
+import { useEffect } from 'react';
+
 import { useNavigate } from '@tanstack/react-router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
-import { last } from 'es-toolkit/array';
+import { range } from 'es-toolkit';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { Gender, Season } from '../models';
 import { useCreateMoveOutSchedule } from './queries';
-import { Season } from '../models';
 
 const schema = z.object({
   title: z.string().min(1),
   applicationStartTime: z.coerce.date<string>(),
   inspectionStartWeek: z.coerce.date<string>(),
-  file: z.instanceof(FileList).refine((files) => files.length > 0),
+  currentSemesterFile: z.instanceof(FileList).refine((files) => files.length === 1),
+  nextSemesterFile: z.instanceof(FileList).refine((files) => files.length === 1),
+  inspectionTimeRange: z.array(z.string()).min(1),
 });
 
 type Semester = 'spring' | 'summer' | 'fall' | 'winter';
@@ -23,7 +27,7 @@ type YearSemester = { year: number; semester: Semester };
 
 const getYearSemester = (date: string | Date | dayjs.Dayjs): YearSemester => {
   const d = dayjs(date);
-  const year = d.subtract(2, 'month').year();
+  const year = d.subtract(3, 'month').year();
   const semester = (['winter', 'spring', 'summer', 'fall'] as const)[Math.floor(d.month() / 3)];
   return { year, semester };
 };
@@ -38,21 +42,17 @@ const getNextSemester = ({ year, semester }: ReturnType<typeof getYearSemester>)
   };
 };
 
-const getInspectionTimes = (
-  date: string | Date | dayjs.Dayjs,
-): { start: string; end: string }[] => {
+const getInspectionTimes = (date: string | Date | dayjs.Dayjs): dayjs.Dayjs[] => {
   // sunday
   const startOfWeek = dayjs(date).startOf('d').set('day', 0);
   const { semester } = getYearSemester(date);
   const isSmall = semester === 'winter' || semester === 'summer';
 
   const createSlot = (dayOffset: number, startHour: number, endHour: number) =>
-    [...Array((endHour - startHour) * 2)].map((_, v) =>
-      startOfWeek
-        .set('day', dayOffset)
-        .add(startHour, 'h')
-        .add(v * 30, 'minute'),
-    );
+    range(startHour, Math.ceil(endHour))
+      .flatMap((v) => [v, v + 0.25, v + 0.5, v + 0.75])
+      .filter((v) => v < endHour)
+      .map((v) => startOfWeek.day(dayOffset).add(v * 60, 'minute'));
 
   const schedules = [
     ...(isSmall ? [] : createSlot(4, 15, 18)),
@@ -64,24 +64,38 @@ const getInspectionTimes = (
     ...(isSmall ? createSlot(7, 16.5, 18) : []),
   ];
 
-  return schedules.map((d) => ({
-    start: d.format(),
-    end: d.add(30, 'minute').format(),
-  }));
+  return schedules;
 };
 
 export const useCreateScheduleForm = () => {
-  const { register, formState, handleSubmit, control } = useForm({
+  const { register, formState, handleSubmit, control, setValue } = useForm({
     resolver: zodResolver(schema),
   });
   const { mutateAsync: create } = useCreateMoveOutSchedule();
   const { t } = useTranslation('admin');
-  const applicationStartTime = useWatch({ control, name: 'applicationStartTime' });
   const inspectionStartWeek = useWatch({ control, name: 'inspectionStartWeek' });
+  const inspectionTimeRange = useWatch({ control, name: 'inspectionTimeRange' });
   const navigate = useNavigate();
 
-  const yearSemester = applicationStartTime ? getYearSemester(applicationStartTime) : undefined;
-  const inspectionTimeRange = inspectionStartWeek ? getInspectionTimes(inspectionStartWeek) : [];
+  const yearSemester = inspectionStartWeek ? getYearSemester(inspectionStartWeek) : undefined;
+  const inspectionTemplates = inspectionStartWeek
+    ? range(1, 8)
+        .map((d) => dayjs(inspectionStartWeek).startOf('day').day(d))
+        .flatMap((d) =>
+          range(10, 18)
+            .map((i) => d.hour(i))
+            .flatMap((i) => [i, i.add(15, 'm'), i.add(30, 'm'), i.add(45, 'm')]),
+        )
+    : undefined;
+
+  useEffect(() => {
+    if (inspectionStartWeek) {
+      setValue(
+        'inspectionTimeRange',
+        getInspectionTimes(inspectionStartWeek).map((d) => d.toISOString()),
+      );
+    }
+  }, [inspectionStartWeek, setValue]);
 
   const onSubmit = handleSubmit(
     async (form) => {
@@ -96,11 +110,23 @@ export const useCreateScheduleForm = () => {
               currentSeason: Season[yearSemester.semester.toUpperCase()],
               nextYear: nextSemester.year,
               nextSeason: Season[nextSemester.semester.toUpperCase()],
-              file: form.file[0],
-              applicationStartTime,
-              applicationEndTime: last(inspectionTimeRange)!.start,
+              currentSemesterFile: form.currentSemesterFile[0],
+              nextSemesterFile: form.nextSemesterFile[0],
+              residentGenderByHouseFloorKey: Object.fromEntries(
+                'GIST'
+                  .split('')
+                  .flatMap((i) => [
+                    ...range(1, 5).map((j) => [`${i}${j}`, Gender.MALE]),
+                    ...range(5, 7).map((j) => [`${i}${j}`, Gender.FEMALE]),
+                  ]),
+              ),
+              applicationStartTime: form.applicationStartTime.toISOString(),
+              applicationEndTime: form.inspectionTimeRange.sort().at(-1)!,
               title: form.title,
-              inspectionTimeRange,
+              inspectionTimeRange: form.inspectionTimeRange.map((d) => ({
+                start: d,
+                end: dayjs(d).add(15, 'minute').toISOString(),
+              })),
             },
           }),
           {
@@ -116,13 +142,26 @@ export const useCreateScheduleForm = () => {
     },
   );
 
+  const toggleTimeRange = (uuid: string, enable: boolean) => {
+    if (enable) {
+      setValue('inspectionTimeRange', [...(inspectionTimeRange ?? []), uuid]);
+    } else {
+      setValue(
+        'inspectionTimeRange',
+        (inspectionTimeRange ?? []).filter((v) => v !== uuid),
+      );
+    }
+  };
+
   return {
     register,
     isValid: formState.isValid,
     onSubmit,
     yearSemester,
     isSubmitting: formState.isSubmitting,
-    inspectionTimeRange,
     errors: formState.errors,
+    inspectionTemplates,
+    inspectionTimeRange,
+    toggleTimeRange,
   };
 };
