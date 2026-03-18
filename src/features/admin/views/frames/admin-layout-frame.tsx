@@ -47,8 +47,6 @@ function DatabaseSizeBar() {
 
 export function AdminLayoutFrame() {
   const { t } = useTranslation('admin');
-  const { data } = useDatabaseSize();
-  console.log(data);
 
   return (
     <>
