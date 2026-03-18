@@ -83,13 +83,14 @@
       "visible": "Visible"
     }
   },
+  "databaseSize": "Database Size",
   "floor_one": "{{count}}F",
   "floor_other": "{{count}}F",
   "gender": {
     "female": "Female",
     "male": "Male"
   },
-  "home": "Home",
+  "home": "",
   "inspectionType": {
     "first": "First",
     "second": "Second"
@@ -219,9 +220,9 @@
     }
   },
   "smallScreen": {
-    "descriptionLine1": "The admin page is optimized for desktop.",
-    "descriptionLine2": "Please open this page on a wider screen (e.g. laptop or desktop browser).",
-    "title": "Please use a larger screen"
+    "descriptionLine1": "",
+    "descriptionLine2": "",
+    "title": ""
   },
   "status": {
     "disabled": "Disabled",

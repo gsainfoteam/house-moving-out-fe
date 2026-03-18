@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from '@/common/components';
 import { cn } from '@/common/utils';
 
+import { useDatabaseSize } from '../../viewmodels';
+
 function SmallScreenBlocker() {
   const { t } = useTranslation('admin');
   return (
@@ -22,6 +24,8 @@ function SmallScreenBlocker() {
 
 export function AdminLayoutFrame() {
   const { t } = useTranslation('admin');
+  const { data } = useDatabaseSize();
+  console.log(data);
 
   return (
     <>
@@ -54,6 +58,17 @@ export function AdminLayoutFrame() {
               {t('article.list.nav')}
             </Link>
           </nav>
+          {data && (
+            <div className="flex items-center gap-2">
+              {`${t('databaseSize')} (${data.pretty}/500MB)`}
+              <div className="relative h-3 w-36 overflow-hidden rounded-2xl bg-gray-200">
+                <div
+                  className="bg-primary-main absolute left-0 h-3"
+                  style={{ width: `${(data.bytes / (1024 * 1024 * 500)) * 100}%` }}
+                />
+              </div>
+            </div>
+          )}
           <div className="px-2">
             <LanguageToggle />
           </div>

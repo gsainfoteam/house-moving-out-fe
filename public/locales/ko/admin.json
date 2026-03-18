@@ -83,12 +83,13 @@
       "visible": "노출"
     }
   },
+  "databaseSize": "DB 용량",
   "floor": "{{count}}층",
   "gender": {
     "female": "여자",
     "male": "남자"
   },
-  "home": "홈",
+  "home": "",
   "inspectionType": {
     "first": "초검",
     "second": "재검"
@@ -218,9 +219,9 @@
     }
   },
   "smallScreen": {
-    "descriptionLine1": "관리자 페이지는 데스크톱 환경에 최적화되어 있습니다.",
-    "descriptionLine2": "가로 폭이 넓은 화면(예: 노트북, 데스크톱 브라우저)에서 접속해 주세요.",
-    "title": "큰 화면에서 이용해 주세요"
+    "descriptionLine1": "",
+    "descriptionLine2": "",
+    "title": ""
   },
   "status": {
     "disabled": "미사용",
