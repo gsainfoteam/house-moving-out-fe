@@ -89,7 +89,7 @@
     "female": "여자",
     "male": "남자"
   },
-  "home": "",
+  "home": "Home",
   "inspectionType": {
     "first": "초검",
     "second": "재검"
@@ -219,9 +219,9 @@
     }
   },
   "smallScreen": {
-    "descriptionLine1": "",
-    "descriptionLine2": "",
-    "title": ""
+    "descriptionLine1": "The admin page is optimized for desktop.",
+    "descriptionLine2": "Please open this page on a wider screen (e.g. laptop or desktop browser).",
+    "title": "Please use a larger screen"
   },
   "status": {
     "disabled": "미사용",
