@@ -30,7 +30,7 @@ function DatabaseSizeBar() {
   const percentage = (data.bytes / (1024 * 1024 * 500)) * 11;
   return (
     <div className="flex items-center gap-2">
-      {`${t('databaseSize')} (${data.pretty}/500MB)`}
+      {`${t('databaseSize')} (${data.pretty}/500 MB)`}
       <div className="relative h-3 w-36 overflow-hidden rounded-2xl bg-gray-200">
         <div
           className={cn(
