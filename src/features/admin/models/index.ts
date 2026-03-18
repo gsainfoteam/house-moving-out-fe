@@ -8,6 +8,7 @@ export type ArticleDetail = components['schemas']['ArticleDetailResDto'];
 export type FindArticlesResponse = components['schemas']['FindArticlesResDto'];
 export type CreateArticleRequest = components['schemas']['CreateArticleReqDto'];
 export type UpdateArticleVisibilityRequest = components['schemas']['UpdateArticleVisibilityReqDto'];
+export type MoveOutScheduleWithSlots = components['schemas']['MoveOutScheduleWithSlotsResDto'];
 export {
   CreateMoveOutScheduleWithTargetsFormDtoCurrentSeason as Season,
   CreateMoveOutScheduleWithTargetsFormDtoResidentGenderByHouseFloorKey as Gender,

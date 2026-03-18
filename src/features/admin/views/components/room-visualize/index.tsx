@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { useParams } from '@tanstack/react-router';
-
 import { range } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
-import { Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { useTargets, InspectionType, type Target } from '../../../viewmodels';
+import { InspectionType, type Target } from '../../../viewmodels';
 
 const config = {
   G: [19, 19, 19, 19, 19, 19],
@@ -57,13 +54,8 @@ const getStatus = (target: Target | undefined): Status | undefined => {
   return 'single';
 };
 
-export function RoomVisualize() {
-  const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid' });
-  const { data: targets, error } = useTargets(uuid);
+export function RoomVisualize({ targets }: { targets: Target[] }) {
   const { t } = useTranslation('admin');
-
-  if (error) return <div>{t('target.error.load')}</div>;
-  if (!targets) return <Loading containerClassName="h-full" />;
 
   return (
     <table className="text-box2 bg-bg-white w-full border-collapse">
