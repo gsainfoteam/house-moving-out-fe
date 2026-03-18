@@ -113,7 +113,7 @@ export default defineConfig(
             },
             {
               from: { type: 'model' },
-              allow: { to: { type: ['common'] } },
+              allow: { to: { type: ['common', 'model'] } },
             },
             {
               from: { type: 'common' },
