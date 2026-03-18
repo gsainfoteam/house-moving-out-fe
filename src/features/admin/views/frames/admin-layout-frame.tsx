@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from '@/common/components';
 import { cn } from '@/common/utils';
 
+import { useDatabaseSize } from '../../viewmodels';
+
 function SmallScreenBlocker() {
   const { t } = useTranslation('admin');
   return (
@@ -16,6 +18,29 @@ function SmallScreenBlocker() {
         <br />
         {t('smallScreen.descriptionLine2')}
       </p>
+    </div>
+  );
+}
+
+function DatabaseSizeBar() {
+  const { t } = useTranslation('admin');
+  const { data } = useDatabaseSize();
+  if (!data) return null;
+
+  const percentage = (data.bytes / (1024 * 1024 * 500)) * 100;
+  return (
+    <div className="flex items-center gap-2">
+      {`${t('databaseSize')} (${data.pretty}/500 MB)`}
+      <div className="relative h-3 w-36 overflow-hidden rounded-2xl bg-gray-200">
+        <div
+          className={cn(
+            'bg-primary-main absolute left-0 h-3',
+            percentage >= 80 && 'bg-yellow-500',
+            percentage >= 90 && 'bg-red-500',
+          )}
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
     </div>
   );
 }
@@ -54,6 +79,7 @@ export function AdminLayoutFrame() {
               {t('article.list.nav')}
             </Link>
           </nav>
+          <DatabaseSizeBar />
           <div className="px-2">
             <LanguageToggle />
           </div>

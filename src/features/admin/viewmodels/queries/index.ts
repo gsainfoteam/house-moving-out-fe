@@ -11,3 +11,4 @@ export * from './use-find-article';
 export * from './use-create-article';
 export * from './use-update-article';
 export * from './use-change-article-visibility';
+export * from './use-database-size';
