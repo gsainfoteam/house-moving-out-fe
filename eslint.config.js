@@ -101,23 +101,22 @@ export default defineConfig(
       'boundaries/dependencies': [
         2,
         {
-          default: 'disallow',
+          default: 'allow',
           rules: [
             {
               from: { type: 'view' },
-              allow: { to: { type: ['viewmodel', 'view', 'common'] } },
+              disallow: { to: { type: ['model'] } },
+              message: 'View는 Model에 직접 접근할 수 없습니다. ViewModel을 거치세요.',
             },
             {
               from: { type: 'viewmodel' },
-              allow: { to: { type: ['viewmodel', 'model', 'common'] } },
+              disallow: { to: { type: ['view'] } },
+              message: 'ViewModel은 View(UI)를 참조할 수 없습니다.',
             },
             {
               from: { type: 'model' },
-              allow: { to: { type: ['common', 'model'] } },
-            },
-            {
-              from: { type: 'common' },
-              allow: { to: { type: ['common'] } },
+              disallow: { to: { type: ['viewmodel', 'view'] } },
+              message: 'Model은 최하위 계층이어야 합니다.',
             },
           ],
         },
