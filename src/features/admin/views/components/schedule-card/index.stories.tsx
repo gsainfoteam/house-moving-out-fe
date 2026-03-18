@@ -5,7 +5,7 @@ import { i18n } from '@/common/lib';
 
 import { ScheduleCard } from '.';
 
-import type { MoveOutSchedule, ScheduleStatus } from '../../../models';
+import type { MoveOutSchedule, ScheduleStatus } from '../../../viewmodels';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const baseTime = dayjs().startOf('day');

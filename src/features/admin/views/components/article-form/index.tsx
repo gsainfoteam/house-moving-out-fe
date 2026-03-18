@@ -9,7 +9,7 @@ import {
   type ArticleFormValues,
 } from '@/features/admin/viewmodels';
 
-import { ArticleType } from '../../../models';
+import { ArticleType } from '../../../viewmodels';
 
 export function ArticleForm({
   initialValues,

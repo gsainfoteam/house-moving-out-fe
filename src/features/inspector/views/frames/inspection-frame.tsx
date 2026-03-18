@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Accordion, Button, Checkbox, LayoutCard, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { checklist } from '../../models';
-import { useInspectionChecklistContext } from '../../viewmodels';
+import { checklist, useInspectionChecklistContext } from '../../viewmodels';
 import { SampleImageButton } from '../components';
 
 export function InspectionFrame() {

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ScheduleStatusBadge } from '../schedule-status-badge';
 
-import type { MoveOutSchedule } from '../../../models';
+import type { MoveOutSchedule } from '../../../viewmodels';
 
 export function ScheduleCard({ schedule }: { schedule: MoveOutSchedule }) {
   const { t } = useTranslation('admin');

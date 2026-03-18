@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 
 import { Button } from '@/common/components';
 
-import { ArticleLanguage, type CreateArticleRequest } from '../../models';
+import { ArticleLanguage, type CreateArticleRequest } from '../../viewmodels';
 import { useCreateArticle } from '../../viewmodels';
 import { ArticleForm } from '../components';
 
