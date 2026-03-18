@@ -19,7 +19,7 @@ export function ScheduleDetailFrame() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <ScheduleSummary schedule={schedule} />
+      <ScheduleSummary schedule={schedule} targets={targets} />
       <div className="flex gap-2">
         <SlotVisualize
           slots={schedule.inspectionSlots.map((s) => ({

@@ -207,8 +207,8 @@
       "all_passed": "All passed",
       "all_single_target": "All not inspected single",
       "all_waiting_target": "All waiting inspection",
+      "amount": "Male/Female amount",
       "female_amount": "Female amount",
-      "male_amount": "Male amount",
       "progress": "Inspection progress",
       "title": "Inspection Statistics"
     },
