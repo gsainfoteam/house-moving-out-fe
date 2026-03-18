@@ -21,8 +21,9 @@ function InspectorLayout() {
   const { roomType } = useInspectionTargetInfo();
   const { isInspector } = useAuth({ showToast: true });
 
-  if (isInspector === undefined || roomType === undefined) return <Loading />;
+  if (isInspector === undefined) return <Loading />;
   if (!isInspector) return <Navigate to="/" replace />;
+  if (roomType === undefined) return <Loading />;
 
   return (
     <Suspense fallback={<Loading />}>
