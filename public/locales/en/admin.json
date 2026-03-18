@@ -181,14 +181,6 @@
     },
     "detail": {
       "applicationTime": "Application Time",
-      "capacity": {
-        "female": "Female Capacity",
-        "male": "Male Capacity"
-      },
-      "inspectors": {
-        "female": "Required female inspectors",
-        "male": "Required male inspectors"
-      },
       "notFound": "Moving out inspection not found.",
       "summary": {
         "female": "Female Summary",
@@ -208,7 +200,6 @@
       "all_single_target": "All not inspected single",
       "all_waiting_target": "All waiting inspection",
       "amount": "Male/Female amount",
-      "female_amount": "Female amount",
       "progress": "Inspection progress",
       "title": "Inspection Statistics"
     },

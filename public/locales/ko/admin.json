@@ -180,14 +180,6 @@
     },
     "detail": {
       "applicationTime": "신청기간",
-      "capacity": {
-        "female": "여자 최대 검사 수",
-        "male": "남자 최대 검사 수"
-      },
-      "inspectors": {
-        "female": "여자 필요 검사위원 수",
-        "male": "남자 필요 검사위원 수"
-      },
       "notFound": "존재하지 않는 퇴사검사입니다",
       "summary": {
         "female": "여자 신청 현황",
@@ -207,7 +199,6 @@
       "all_single_target": "전체 1인퇴사 검사 수",
       "all_waiting_target": "검사 예정 방 수",
       "amount": "남자층/여자층 검사대상 수",
-      "female_amount": "여자층 검사대상 수",
       "progress": "검사 진행률",
       "title": "검사 통계"
     },

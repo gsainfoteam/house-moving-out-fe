@@ -52,29 +52,6 @@ export function ScheduleSummary({
         </div>
       </div>
 
-      <div className="bg-bg-surface/60 grid grid-cols-4 gap-3 rounded-lg p-4">
-        <div className="flex flex-col gap-0.5">
-          <span className="text-sub text-text-gray">{t('schedule.detail.capacity.male')}</span>
-          <span className="text-box text-text-black font-semibold">{maleCapacity}</span>
-        </div>
-        <div className="flex flex-col gap-0.5">
-          <span className="text-sub text-text-gray">{t('schedule.detail.capacity.female')}</span>
-          <span className="text-box text-text-black font-semibold">{femaleCapacity}</span>
-        </div>
-        <div className="flex flex-col gap-0.5">
-          <span className="text-sub text-text-gray">{t('schedule.detail.inspectors.male')}</span>
-          <span className="text-box text-text-black font-semibold">
-            {Math.ceil(maleCapacity / 2)}
-          </span>
-        </div>
-        <div className="flex flex-col gap-0.5">
-          <span className="text-sub text-text-gray">{t('schedule.detail.inspectors.female')}</span>
-          <span className="text-box text-text-black font-semibold">
-            {Math.ceil(femaleCapacity / 2)}
-          </span>
-        </div>
-      </div>
-
       <div className="flex flex-col gap-2">
         <h3 className="text-sub2 text-text-gray font-medium">{t('schedule.statistics.title')}</h3>
         <div className="grid grid-cols-3 gap-x-4 gap-y-2">
