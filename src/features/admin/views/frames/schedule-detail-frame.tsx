@@ -9,12 +9,13 @@ import { RoomVisualize, ScheduleSummary, SlotVisualize } from '../components';
 
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/' });
-  const { data: schedule, isNotFound } = useGetMoveOutScheduleQuery(uuid);
-  const { data: targets, isNotFound: targetNotFound } = useTargets(uuid);
+  const { data: schedule, isNotFound, error } = useGetMoveOutScheduleQuery(uuid);
+  const { data: targets, isNotFound: targetNotFound, error: targetError } = useTargets(uuid);
   const { t } = useTranslation('admin');
 
   if (isNotFound || targetNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
+  if (error || targetError) return <div className="p-4">{t('schedule.detail.error')}</div>;
   if (!schedule || !targets) return <Loading containerClassName="h-full" />;
 
   return (

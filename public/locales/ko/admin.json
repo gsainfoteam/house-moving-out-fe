@@ -180,6 +180,7 @@
     },
     "detail": {
       "applicationTime": "신청기간",
+      "error": "퇴사검사 정보를 불러올 수 없습니다",
       "notFound": "존재하지 않는 퇴사검사입니다",
       "summary": {
         "female": "여자 신청 현황",

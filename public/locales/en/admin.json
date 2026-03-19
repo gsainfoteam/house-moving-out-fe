@@ -181,6 +181,7 @@
     },
     "detail": {
       "applicationTime": "Application Time",
+      "error": "Cannot load moving out inspection information",
       "notFound": "Moving out inspection not found.",
       "summary": {
         "female": "Female Summary",
