@@ -12,4 +12,5 @@ export {
   ArticleLanguage,
   type CreateArticleRequest,
   Gender,
+  type MoveOutScheduleWithSlots,
 } from '../models';

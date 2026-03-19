@@ -38,5 +38,6 @@ export const useGetMoveOutScheduleQuery = (uuid: string) => {
     data,
     isLoading,
     isNotFound,
+    error,
   };
 };
