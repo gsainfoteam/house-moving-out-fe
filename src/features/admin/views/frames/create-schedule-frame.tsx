@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
 import { Button, Input } from '@/common/components';
+import { cn } from '@/common/utils';
 
-import { useCreateScheduleForm } from '../../viewmodels';
+import { Gender, useCreateScheduleForm } from '../../viewmodels';
 import { SlotVisualize } from '../components';
 
 const houseList = ['G', 'I', 'S', 'T'] as const;
@@ -105,18 +106,19 @@ export function CreateScheduleFrame() {
                   <th>{house}</th>
                   {floorList.map((floor) => {
                     const key = `${house}${floor}`;
-                    const value = residentGenderByHouseFloorKey?.[key] ?? 'MALE';
-                    const isMale = value === 'MALE';
+                    const value = residentGenderByHouseFloorKey?.[key] ?? Gender.MALE;
+                    const isMale = value === Gender.MALE;
                     if (house === 'S' && floor === 1) return <td key={key} />;
                     return (
                       <td key={key}>
                         <Button
                           type="button"
-                          className={`min-w-14 ${
+                          className={cn(
+                            'min-w-14',
                             isMale
                               ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                              : 'bg-pink-100 text-pink-700 hover:bg-pink-200'
-                          }`}
+                              : 'bg-pink-100 text-pink-700 hover:bg-pink-200',
+                          )}
                           onClick={() => toggleResidentGenderByHouseFloorKey(key)}
                         >
                           {isMale
