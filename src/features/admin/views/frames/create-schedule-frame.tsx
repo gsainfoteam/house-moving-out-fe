@@ -41,7 +41,7 @@ export function CreateScheduleFrame() {
             />
           </label>
         </div>
-        <div>
+        <div className="flex flex-col gap-2">
           <label>
             {t('schedule.create.inspectionStartWeek.label')}:
             <Input
@@ -50,18 +50,20 @@ export function CreateScheduleFrame() {
               {...register('inspectionStartWeek')}
             />
           </label>
-          {/* 
-          t('schedule.create.summary.semester.spring')
-          t('schedule.create.summary.semester.summer')
-          t('schedule.create.summary.semester.fall')
-          t('schedule.create.summary.semester.winter')
-          */}
-          {t('schedule.create.summary.semester.label')}:{' '}
-          {yearSemester
-            ? `${yearSemester.year} ${t(`schedule.create.summary.semester.${yearSemester.semester}`)}`
-            : undefined}
+          <div>
+            {/* 
+            t('schedule.create.summary.semester.spring')
+            t('schedule.create.summary.semester.summer')
+            t('schedule.create.summary.semester.fall')
+            t('schedule.create.summary.semester.winter')
+            */}
+            {t('schedule.create.summary.semester.label')}:{' '}
+            {yearSemester
+              ? `${yearSemester.year} ${t(`schedule.create.summary.semester.${yearSemester.semester}`)}`
+              : undefined}
+          </div>
         </div>
-        <div>
+        <div className="flex gap-2">
           <label>
             {t('schedule.create.currentSemesterFile.label')}
             <Input
@@ -71,8 +73,6 @@ export function CreateScheduleFrame() {
               {...register('currentSemesterFile')}
             />
           </label>
-        </div>
-        <div>
           <label>
             {t('schedule.create.nextSemesterFile.label')}
             <Input
