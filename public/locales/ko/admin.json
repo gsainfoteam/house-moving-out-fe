@@ -153,6 +153,12 @@
       "error": {
         "formError": "입력란을 확인해주세요"
       },
+      "genderByFloor": {
+        "female": "여",
+        "house": "동/층",
+        "label": "층별 성별 설정",
+        "male": "남"
+      },
       "inspectionStartWeek": {
         "label": "검사 시작 주"
       },

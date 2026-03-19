@@ -5,6 +5,9 @@ import { Button, Input } from '@/common/components';
 import { useCreateScheduleForm } from '../../viewmodels';
 import { SlotVisualize } from '../components';
 
+const houseList = ['G', 'I', 'S', 'T'] as const;
+const floorList = [1, 2, 3, 4, 5, 6] as const;
+
 export function CreateScheduleFrame() {
   const { t } = useTranslation('admin');
   const {
@@ -16,6 +19,8 @@ export function CreateScheduleFrame() {
     inspectionTimeRange,
     errors,
     toggleTimeRange,
+    residentGenderByHouseFloorKey,
+    toggleResidentGenderByHouseFloorKey,
   } = useCreateScheduleForm();
 
   return (
@@ -82,6 +87,49 @@ export function CreateScheduleFrame() {
               {...register('nextSemesterFile')}
             />
           </label>
+        </div>
+        <div className="flex flex-col gap-2">
+          <div>{t('schedule.create.genderByFloor.label', { defaultValue: '층별 성별 설정' })}</div>
+          <table className="w-fit text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-2 [&_td,&_th]:py-2">
+            <thead>
+              <tr>
+                <th>{t('schedule.create.genderByFloor.house', { defaultValue: '동/층' })}</th>
+                {floorList.map((floor) => (
+                  <th key={floor}>{floor}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {houseList.map((house) => (
+                <tr key={house}>
+                  <th>{house}</th>
+                  {floorList.map((floor) => {
+                    const key = `${house}${floor}`;
+                    const value = residentGenderByHouseFloorKey?.[key] ?? 'MALE';
+                    const isMale = value === 'MALE';
+                    if (house === 'S' && floor === 1) return <td key={key} />;
+                    return (
+                      <td key={key}>
+                        <Button
+                          type="button"
+                          className={`min-w-14 ${
+                            isMale
+                              ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                              : 'bg-pink-100 text-pink-700 hover:bg-pink-200'
+                          }`}
+                          onClick={() => toggleResidentGenderByHouseFloorKey(key)}
+                        >
+                          {isMale
+                            ? t('schedule.create.genderByFloor.male', { defaultValue: '남' })
+                            : t('schedule.create.genderByFloor.female', { defaultValue: '여' })}
+                        </Button>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         {inspectionTemplates && (
           <div>

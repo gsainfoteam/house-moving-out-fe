@@ -13,6 +13,15 @@ import { z } from 'zod';
 import { Gender, Season } from '../models';
 import { useCreateMoveOutSchedule } from './queries';
 
+const defaultGenderFloor = Object.fromEntries(
+  'GIST'
+    .split('')
+    .flatMap((i) => [
+      ...range(i === 'S' ? 2 : 1, 5).map((j) => [`${i}${j}`, Gender.MALE]),
+      ...range(5, 7).map((j) => [`${i}${j}`, Gender.FEMALE]),
+    ]),
+);
+
 const schema = z.object({
   title: z.string().min(1),
   applicationStartTime: z.coerce.date<string>(),
@@ -20,6 +29,7 @@ const schema = z.object({
   currentSemesterFile: z.instanceof(FileList).refine((files) => files.length === 1),
   nextSemesterFile: z.instanceof(FileList).refine((files) => files.length === 1),
   inspectionTimeRange: z.array(z.string()).min(1),
+  residentGenderByHouseFloorKey: z.record(z.string(), z.enum(Gender)),
 });
 
 type Semester = 'spring' | 'summer' | 'fall' | 'winter';
@@ -70,11 +80,16 @@ const getInspectionTimes = (date: string | Date | dayjs.Dayjs): dayjs.Dayjs[] =>
 export const useCreateScheduleForm = () => {
   const { register, formState, handleSubmit, control, setValue } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: { residentGenderByHouseFloorKey: defaultGenderFloor },
   });
   const { mutateAsync: create } = useCreateMoveOutSchedule();
   const { t } = useTranslation('admin');
   const inspectionStartWeek = useWatch({ control, name: 'inspectionStartWeek' });
   const inspectionTimeRange = useWatch({ control, name: 'inspectionTimeRange' });
+  const residentGenderByHouseFloorKey = useWatch({
+    control,
+    name: 'residentGenderByHouseFloorKey',
+  });
   const navigate = useNavigate();
 
   const yearSemester = inspectionStartWeek ? getYearSemester(inspectionStartWeek) : undefined;
@@ -112,14 +127,7 @@ export const useCreateScheduleForm = () => {
               nextSeason: Season[nextSemester.semester.toUpperCase()],
               currentSemesterFile: form.currentSemesterFile[0],
               nextSemesterFile: form.nextSemesterFile[0],
-              residentGenderByHouseFloorKey: Object.fromEntries(
-                'GIST'
-                  .split('')
-                  .flatMap((i) => [
-                    ...range(1, 5).map((j) => [`${i}${j}`, Gender.MALE]),
-                    ...range(5, 7).map((j) => [`${i}${j}`, Gender.FEMALE]),
-                  ]),
-              ),
+              residentGenderByHouseFloorKey: form.residentGenderByHouseFloorKey,
               applicationStartTime: form.applicationStartTime.toISOString(),
               applicationEndTime: form.inspectionTimeRange.sort().at(-1)!,
               title: form.title,
@@ -153,6 +161,16 @@ export const useCreateScheduleForm = () => {
     }
   };
 
+  const toggleResidentGenderByHouseFloorKey = (houseFloorKey: string) => {
+    const current = residentGenderByHouseFloorKey?.[houseFloorKey] ?? Gender.MALE;
+    const next = current === Gender.MALE ? Gender.FEMALE : Gender.MALE;
+    setValue(
+      'residentGenderByHouseFloorKey',
+      { ...(residentGenderByHouseFloorKey ?? {}), [houseFloorKey]: next },
+      { shouldDirty: true },
+    );
+  };
+
   return {
     register,
     isValid: formState.isValid,
@@ -163,5 +181,7 @@ export const useCreateScheduleForm = () => {
     inspectionTemplates,
     inspectionTimeRange,
     toggleTimeRange,
+    residentGenderByHouseFloorKey,
+    toggleResidentGenderByHouseFloorKey,
   };
 };

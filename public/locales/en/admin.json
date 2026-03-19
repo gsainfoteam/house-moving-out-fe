@@ -154,6 +154,12 @@
       "error": {
         "formError": "Please check input forms"
       },
+      "genderByFloor": {
+        "female": "F",
+        "house": "House/Floor",
+        "label": "Gender by Floor",
+        "male": "M"
+      },
       "inspectionStartWeek": {
         "label": "Inspection Starting Week"
       },
