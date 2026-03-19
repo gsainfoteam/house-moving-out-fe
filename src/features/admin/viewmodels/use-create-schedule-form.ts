@@ -4,7 +4,7 @@ import { useNavigate } from '@tanstack/react-router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
-import { range } from 'es-toolkit';
+import { range, uniq } from 'es-toolkit';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -144,7 +144,7 @@ export const useCreateScheduleForm = () => {
 
   const toggleTimeRange = (uuid: string, enable: boolean) => {
     if (enable) {
-      setValue('inspectionTimeRange', [...(inspectionTimeRange ?? []), uuid]);
+      setValue('inspectionTimeRange', uniq([...(inspectionTimeRange ?? []), uuid]));
     } else {
       setValue(
         'inspectionTimeRange',
