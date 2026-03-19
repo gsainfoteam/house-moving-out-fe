@@ -69,7 +69,7 @@ export function ScheduleSummary({
           <div className="text-box2 text-text-black flex justify-between">
             <span className="text-text-gray">{t('schedule.statistics.count')}</span>
             <span className="font-medium">
-              {genderCounts.MALE} / {genderCounts.FEMALE}
+              {genderCounts.MALE ?? 0} / {genderCounts.FEMALE ?? 0}
             </span>
           </div>
           <div className="text-box2 text-text-black flex justify-between">
@@ -85,7 +85,7 @@ export function ScheduleSummary({
           <div className="text-box2 text-text-black flex justify-between">
             <span className="text-text-gray">{t('schedule.statistics.progress')}</span>
             <span className="font-medium">
-              {Math.ceil(((counts.passed ?? 0) / targets.length) * 100)}%
+              {targets.length ? Math.ceil(((counts.passed ?? 0) / targets.length) * 100) : 0}%
             </span>
           </div>
         </div>
