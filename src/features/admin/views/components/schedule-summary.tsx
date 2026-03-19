@@ -13,8 +13,6 @@ export function ScheduleSummary({
   targets: Target[];
 }) {
   const { t } = useTranslation('admin');
-  const maleCapacity = schedule.inspectionSlots[0].maleCapacity;
-  const femaleCapacity = schedule.inspectionSlots[0].femaleCapacity;
   const counts = countBy(targets, (target) => {
     if (target.isPassed === true) return 'passed';
     if (target.lastInspectionTime) {
@@ -24,6 +22,7 @@ export function ScheduleSummary({
     if (target.inspectionType !== InspectionType.SOLO) return 'not_inspected';
     return 'solo_not_inspected';
   });
+  const genderCounts = countBy(targets, (target) => target.gender);
 
   return (
     <section className="flex flex-col gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
@@ -69,7 +68,9 @@ export function ScheduleSummary({
           </div>
           <div className="text-box2 text-text-black flex justify-between">
             <span className="text-text-gray">{t('schedule.statistics.amount')}</span>
-            <span className="font-medium">? / ?</span>
+            <span className="font-medium">
+              {genderCounts.MALE} / {genderCounts.FEMALE}
+            </span>
           </div>
           <div className="text-box2 text-text-black flex justify-between">
             <span className="text-text-gray">{t('schedule.statistics.all_waiting_target')}</span>
