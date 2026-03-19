@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { uniq } from 'es-toolkit';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -48,7 +49,7 @@ export const useCreateInspectorForm = () => {
     const value = getValues('availableSlotUuids');
     setValue(
       'availableSlotUuids',
-      enable ? [...new Set(value).add(uuid)] : value.filter((v) => v !== uuid),
+      enable ? uniq([...value, uuid]) : value.filter((v) => v !== uuid),
     );
   };
   const slots = useWatch({ control, name: 'availableSlotUuids' });
