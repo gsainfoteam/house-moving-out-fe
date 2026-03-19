@@ -89,11 +89,11 @@ export function CreateScheduleFrame() {
           </label>
         </div>
         <div className="flex flex-col gap-2">
-          <div>{t('schedule.create.genderByFloor.label', { defaultValue: '층별 성별 설정' })}</div>
+          <div>{t('schedule.create.genderByFloor.label')}</div>
           <table className="w-fit text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-2 [&_td,&_th]:py-2">
             <thead>
               <tr>
-                <th>{t('schedule.create.genderByFloor.house', { defaultValue: '동/층' })}</th>
+                <th>{t('schedule.create.genderByFloor.house')}</th>
                 {floorList.map((floor) => (
                   <th key={floor}>{floor}</th>
                 ))}
@@ -120,8 +120,8 @@ export function CreateScheduleFrame() {
                           onClick={() => toggleResidentGenderByHouseFloorKey(key)}
                         >
                           {isMale
-                            ? t('schedule.create.genderByFloor.male', { defaultValue: '남' })
-                            : t('schedule.create.genderByFloor.female', { defaultValue: '여' })}
+                            ? t('schedule.create.genderByFloor.male')
+                            : t('schedule.create.genderByFloor.female')}
                         </Button>
                       </td>
                     );
