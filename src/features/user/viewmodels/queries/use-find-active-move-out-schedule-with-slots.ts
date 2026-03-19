@@ -6,10 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { $api } from '@/common/lib';
-import { Gender } from '@/features/admin';
 import { useAuth } from '@/features/auth';
 
-import { ApiPaths } from '../../models';
+import { ApiPaths, Gender } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = ({
   onNotTarget,
