@@ -67,7 +67,7 @@ export function ScheduleSummary({
             </span>
           </div>
           <div className="text-box2 text-text-black flex justify-between">
-            <span className="text-text-gray">{t('schedule.statistics.amount')}</span>
+            <span className="text-text-gray">{t('schedule.statistics.count')}</span>
             <span className="font-medium">
               {genderCounts.MALE} / {genderCounts.FEMALE}
             </span>

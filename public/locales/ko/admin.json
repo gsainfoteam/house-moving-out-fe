@@ -198,7 +198,7 @@
       "all_passed": "검사 완료된 방 수",
       "all_single_target": "전체 1인퇴사 검사 수",
       "all_waiting_target": "검사 예정 방 수",
-      "amount": "남자층/여자층 검사대상 수",
+      "count": "남자층/여자층 검사대상 수",
       "progress": "검사 진행률",
       "title": "검사 통계"
     },
