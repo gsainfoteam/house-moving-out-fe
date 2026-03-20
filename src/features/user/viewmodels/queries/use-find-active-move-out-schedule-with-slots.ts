@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { $api } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
-import { ApiPaths } from '../../models';
+import { ApiPaths, Gender } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = ({
   onNotTarget,
@@ -81,7 +81,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
         startTime: dayjs(slot.startTime),
         endTime: dayjs(slot.endTime),
         isClosed:
-          user!.gender === 'MALE'
+          user!.gender === Gender.MALE
             ? slot.maleReservedCount >= slot.maleCapacity
             : slot.femaleReservedCount >= slot.femaleCapacity,
       }))

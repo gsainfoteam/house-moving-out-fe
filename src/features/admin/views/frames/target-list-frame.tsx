@@ -11,14 +11,6 @@ import { cn } from '@/common/utils';
 
 import { InspectionType, useManageCleaningService, useTargets } from '../../viewmodels';
 
-// NOTE: https://ziggle.gistory.me/ko/notice/197993
-
-// prettier-ignore
-const threeRooms = [
-  'G301', 'G302', 'G401', 'G402', 'G413', 'G414', 'G501', 'G502', 'G513', 'G514', 'G601', 'G602', 'G613', 'G614',
-  'I318', 'I319', 'I406', 'I407', 'I418', 'I419', 'I506', 'I507', 'I518', 'I519', 'I606', 'I607', 'I618', 'I619',
-];
-
 export function TargetListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/targets' });
   const { data: targets, error } = useTargets(uuid);
@@ -91,14 +83,7 @@ export function TargetListFrame() {
           <tbody>
             {targets.map((target) => (
               <tr key={target.roomNumber}>
-                <td
-                  className={cn(
-                    '[&&]:border-r-2',
-                    threeRooms.includes(target.roomNumber) && 'bg-yellow-200',
-                  )}
-                >
-                  {target.roomNumber}
-                </td>
+                <td className={cn('[&&]:border-r-2')}>{target.roomNumber}</td>
                 {[...target.residents, null, null, null].slice(0, 3).map((s, index) =>
                   s ? (
                     <React.Fragment key={index}>
