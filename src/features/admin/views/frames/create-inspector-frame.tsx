@@ -30,11 +30,6 @@ export function CreateInspectorFrame() {
     .filter((i) => i.gender === gender)
     .flatMap((i) => i.availableSlots.map((s) => dayjs(s.startTime)));
 
-  const capacity =
-    gender === Gender.MALE
-      ? schedule.inspectionSlots[0].maleCapacity
-      : schedule.inspectionSlots[0].femaleCapacity;
-
   return (
     <form className="flex flex-1 flex-col gap-4 p-4" onSubmit={onSubmit}>
       <div>
@@ -96,11 +91,14 @@ export function CreateInspectorFrame() {
             selectedSlots={slots}
             title={t(`gender.${gender.toLowerCase()}`)}
             capacity={null}
-            slots={schedule.inspectionSlots.map((s) => ({
-              ...s,
-              reservedCount:
-                Math.ceil(capacity / 2) - slotTimes.filter((st) => st.isSame(s.startTime)).length,
-            }))}
+            slots={schedule.inspectionSlots
+              .filter((s) => s.gender === gender)
+              .map((s) => ({
+                ...s,
+                reservedCount:
+                  Math.ceil(s.capacity / 2) -
+                  slotTimes.filter((st) => st.isSame(s.startTime)).length,
+              }))}
           />
         )}
       </div>
