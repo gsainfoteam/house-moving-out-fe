@@ -78,7 +78,7 @@ export function SlotVisualize({
                   const items = groupedSlot[d]?.filter((s) =>
                     dayjs(s.startTime).isSame(startHour.day(d), 'minute'),
                   );
-                  if (items.length === 0)
+                  if (!items || items.length === 0)
                     return (
                       <td
                         key={d}
