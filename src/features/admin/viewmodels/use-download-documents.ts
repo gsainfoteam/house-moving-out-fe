@@ -3,10 +3,11 @@ import { useCallback, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import { api, saveFile } from '@/common/lib';
+import { api } from '@/common/lib';
 
 import { ApiPaths } from '../models';
 import { useGetMoveOutScheduleQuery } from './queries';
+import { saveFile } from '../utils';
 
 export const useDownloadDocuments = (scheduleUuid: string) => {
   const [isDownloading, startTransition] = useTransition();
