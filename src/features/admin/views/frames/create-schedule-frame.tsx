@@ -70,7 +70,7 @@ export function CreateScheduleFrame() {
           </div>
         </div>
         <div className="flex gap-2">
-          <label>
+          <label className="flex-1">
             {t('schedule.create.currentSemesterFile.label')}
             <Input
               error={errors.currentSemesterFile?.message}
@@ -79,7 +79,7 @@ export function CreateScheduleFrame() {
               {...register('currentSemesterFile')}
             />
           </label>
-          <label>
+          <label className="flex-1">
             {t('schedule.create.nextSemesterFile.label')}
             <Input
               error={errors.nextSemesterFile?.message}

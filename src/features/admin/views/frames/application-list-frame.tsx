@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Loading, Pagination } from '@/common/components';
 
-import { useApplications } from '../../viewmodels';
+import { useApplications, useDownloadDocuments } from '../../viewmodels';
 
 const PAGE_SIZE = 20;
 
@@ -16,13 +16,19 @@ export function ApplicationListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/applications' });
   const [page, setPage] = useState(1);
   const { data, error } = useApplications(uuid, page, PAGE_SIZE);
+  const { download, isDownloading } = useDownloadDocuments(uuid);
   const { t } = useTranslation('admin');
 
   if (error) return <div>{t('application.error.load')}</div>;
   if (!data) return <Loading containerClassName="h-full" />;
 
   return (
-    <main className="p-4">
+    <main className="flex flex-col gap-4 p-4">
+      <div className="flex justify-end">
+        <Button onClick={download} disabled={isDownloading}>
+          {t('application.downloadDocuments')}
+        </Button>
+      </div>
       <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
         <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
