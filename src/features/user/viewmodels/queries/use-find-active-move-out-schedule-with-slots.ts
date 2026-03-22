@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { $api } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
-import { ApiPaths, Gender } from '../../models';
+import { ApiPaths } from '../../models';
 
 export const useFindActiveMoveOutScheduleWithSlots = ({
   onNotTarget,
@@ -72,18 +72,16 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   }, [applicationStartTime, applicationEndTime, onNotPeriod]);
 
   const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
-    if (!data?.inspectionSlots?.length) return [{}, []];
+    if (!user || !data?.inspectionSlots?.length) return [{}, []];
 
     const inspectionSlots = data.inspectionSlots
+      .filter((s) => s.gender === user.gender)
       .map((slot) => ({
         ...slot,
         day: dayjs(slot.startTime).startOf('day'),
         startTime: dayjs(slot.startTime),
         endTime: dayjs(slot.endTime),
-        isClosed:
-          user!.gender === Gender.MALE
-            ? slot.maleReservedCount >= slot.maleCapacity
-            : slot.femaleReservedCount >= slot.femaleCapacity,
+        isClosed: slot.reservedCount >= slot.capacity,
       }))
       .sort((a, b) => a.startTime.diff(b.startTime));
 

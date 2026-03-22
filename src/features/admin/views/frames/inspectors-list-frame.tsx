@@ -1,6 +1,7 @@
 import { Link, useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { countBy } from 'es-toolkit';
 import { Trash } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,9 +12,27 @@ import {
   useDeleteInspector,
   useGetMoveOutScheduleQuery,
   useInspectorsOfSchedule,
+  type Inspector,
+  type MoveOutScheduleWithSlots,
 } from '../../viewmodels';
 import { SlotVisualize } from '../components';
 import { getTimeRange } from '../utils';
+
+const getRequiredCountSlots = (
+  schedule: MoveOutScheduleWithSlots,
+  inspectors: Inspector[],
+  gender: Gender,
+) => {
+  const slots = inspectors.filter((i) => i.gender === gender).flatMap((i) => i.availableSlots);
+  const slotTimes = slots.map((s) => dayjs(s.startTime));
+  const counts = countBy(slotTimes, (t) => t.format());
+  return schedule.inspectionSlots
+    .filter((s) => s.gender === gender)
+    .map((s) => ({
+      ...s,
+      reservedCount: Math.ceil(s.capacity / 2) - (counts[dayjs(s.startTime).format()] ?? 0),
+    }));
+};
 
 export function InspectorsListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/inspectors/' });
@@ -26,12 +45,8 @@ export function InspectorsListFrame() {
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
   if (!schedule || !inspectors) return <Loading containerClassName="h-full" />;
 
-  const maleSlotTimes = inspectors
-    .filter((i) => i.gender === Gender.MALE)
-    .flatMap((i) => i.availableSlots.map((s) => dayjs(s.startTime)));
-  const femaleSlotTimes = inspectors
-    .filter((i) => i.gender === Gender.FEMALE)
-    .flatMap((i) => i.availableSlots.map((s) => dayjs(s.startTime)));
+  const maleSlots = getRequiredCountSlots(schedule, inspectors, Gender.MALE);
+  const femaleSlots = getRequiredCountSlots(schedule, inspectors, Gender.FEMALE);
 
   return (
     <div className="flex flex-col gap-4 p-4">
@@ -87,22 +102,12 @@ export function InspectorsListFrame() {
         <SlotVisualize
           title={t('inspectors.list.summary.male')}
           capacity={null}
-          slots={schedule.inspectionSlots.map((s) => ({
-            ...s,
-            reservedCount:
-              Math.ceil(s.maleCapacity / 2) -
-              maleSlotTimes.filter((st) => st.isSame(s.startTime)).length,
-          }))}
+          slots={maleSlots}
         />
         <SlotVisualize
           title={t('inspectors.list.summary.female')}
           capacity={null}
-          slots={schedule.inspectionSlots.map((s) => ({
-            ...s,
-            reservedCount:
-              Math.ceil(s.femaleCapacity / 2) -
-              femaleSlotTimes.filter((st) => st.isSame(s.startTime)).length,
-          }))}
+          slots={femaleSlots}
         />
       </div>
       <Button asChild>
