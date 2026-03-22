@@ -4,10 +4,10 @@ import { Link } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
-import { LayoutCard } from '@/common/components';
+import { LayoutCard, Pagination } from '@/common/components';
 
 import { ArticleType, useFindArticles } from '../../viewmodels';
-import { ArticleCard, ArticleTypeSegment, Pagination } from '../components';
+import { ArticleCard, ArticleTypeSegment } from '../components';
 
 const PAGE_SIZE = 5;
 
