@@ -1,16 +1,21 @@
+import { useState } from 'react';
+
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Loading } from '@/common/components';
+import { Button, Loading, Pagination } from '@/common/components';
 
 import { useApplications } from '../../viewmodels';
 
+const PAGE_SIZE = 20;
+
 export function ApplicationListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/applications' });
-  const { data, error } = useApplications(uuid);
+  const [page, setPage] = useState(1);
+  const { data, error } = useApplications(uuid, page, 20);
   const { t } = useTranslation('admin');
 
   if (error) return <div>{t('application.error.load')}</div>;
@@ -70,6 +75,16 @@ export function ApplicationListFrame() {
             ))}
           </tbody>
         </table>
+        {data.totalCount > PAGE_SIZE && (
+          <div className="p-2">
+            <Pagination
+              page={page}
+              pageSize={PAGE_SIZE}
+              totalCount={data.totalCount}
+              onChange={setPage}
+            />
+          </div>
+        )}
       </div>
     </main>
   );
