@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Loading } from '@/common/components';
 
-import { useGetMoveOutScheduleQuery, useTargets } from '../../viewmodels';
+import { Gender, useGetMoveOutScheduleQuery, useTargets } from '../../viewmodels';
 import { RoomVisualize, ScheduleSummary, SlotVisualize } from '../components';
 
 export function ScheduleDetailFrame() {
@@ -23,20 +23,14 @@ export function ScheduleDetailFrame() {
       <ScheduleSummary schedule={schedule} targets={targets} />
       <div className="flex gap-2">
         <SlotVisualize
-          slots={schedule.inspectionSlots.map((s) => ({
-            ...s,
-            reservedCount: s.maleReservedCount,
-          }))}
+          slots={schedule.inspectionSlots.filter((s) => s.gender === Gender.MALE)}
           title={t('schedule.detail.summary.male')}
-          capacity={schedule.inspectionSlots[0].maleCapacity}
+          capacity={schedule.inspectionSlots.find((s) => s.gender === Gender.MALE)?.capacity ?? 0}
         />
         <SlotVisualize
-          slots={schedule.inspectionSlots.map((s) => ({
-            ...s,
-            reservedCount: s.femaleReservedCount,
-          }))}
+          slots={schedule.inspectionSlots.filter((s) => s.gender === Gender.FEMALE)}
           title={t('schedule.detail.summary.female')}
-          capacity={schedule.inspectionSlots[0].femaleCapacity}
+          capacity={schedule.inspectionSlots.find((s) => s.gender === Gender.FEMALE)?.capacity ?? 0}
         />
       </div>
       <div>

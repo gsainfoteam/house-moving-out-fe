@@ -13,4 +13,5 @@ export {
   type CreateArticleRequest,
   Gender,
   type MoveOutScheduleWithSlots,
+  type Inspector,
 } from '../models';
