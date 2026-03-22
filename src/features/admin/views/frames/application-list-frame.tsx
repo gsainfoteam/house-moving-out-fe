@@ -78,14 +78,14 @@ export function ApplicationListFrame() {
                                 {t('application.detail.note')} - {a.targetInfo.roomNumber}
                               </Dialog.Title>
                               <Dialog.Description>{a.additionalComment}</Dialog.Description>
-                              <Dialog.Footer>
-                                <Dialog.Close asChild>
-                                  <Button className="w-full">
-                                    {t('application.detail.closeNote')}
-                                  </Button>
-                                </Dialog.Close>
-                              </Dialog.Footer>
                             </Dialog.Header>
+                            <Dialog.Footer>
+                              <Dialog.Close asChild>
+                                <Button className="w-full">
+                                  {t('application.detail.closeNote')}
+                                </Button>
+                              </Dialog.Close>
+                            </Dialog.Footer>
                           </Dialog.Root>
                         ))
                       }
