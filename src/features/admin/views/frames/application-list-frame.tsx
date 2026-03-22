@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
-import { Download } from 'lucide-react';
+import { Download, InfoIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Loading, Pagination } from '@/common/components';
+import { Button, Dialog, Loading, Pagination } from '@/common/components';
+import { overlay } from '@/common/lib';
 
 import { useApplications, useDownloadDocuments } from '../../viewmodels';
 
@@ -43,6 +44,7 @@ export function ApplicationListFrame() {
               <th>{t('application.detail.type')}</th>
               <th>{t('application.detail.inspector')}</th>
               <th>{t('application.detail.result')}</th>
+              <th>{t('application.detail.note')}</th>
               <th>{t('application.detail.document')}</th>
             </tr>
           </thead>
@@ -60,6 +62,37 @@ export function ApplicationListFrame() {
                 <td>{a.inspector.name}</td>
                 <td>
                   {a.isPassed === null ? '-' : a.isPassed ? t(`result.passed`) : t(`result.failed`)}
+                </td>
+                <td>
+                  {a.additionalComment && (
+                    <Button
+                      className="mx-auto"
+                      size="icon"
+                      variant="outline"
+                      aria-label={t('application.detail.openNote')}
+                      onClick={() =>
+                        overlay.open(() => (
+                          <Dialog.Root>
+                            <Dialog.Header>
+                              <Dialog.Title>
+                                {t('application.detail.note')} - {a.targetInfo.roomNumber}
+                              </Dialog.Title>
+                              <Dialog.Description>{a.additionalComment}</Dialog.Description>
+                            </Dialog.Header>
+                            <Dialog.Footer>
+                              <Dialog.Close asChild>
+                                <Button className="w-full">
+                                  {t('application.detail.closeNote')}
+                                </Button>
+                              </Dialog.Close>
+                            </Dialog.Footer>
+                          </Dialog.Root>
+                        ))
+                      }
+                    >
+                      <InfoIcon aria-hidden />
+                    </Button>
+                  )}
                 </td>
                 <td>
                   {a.document ? (

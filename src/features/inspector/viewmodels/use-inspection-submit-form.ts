@@ -33,6 +33,7 @@ export const useInspectionSubmitForm = (uuid: string) => {
         passed: passed.length > 0 ? passed : undefined,
         failed: failed.length > 0 ? failed : undefined,
         contentLength: pdfArtifact.length,
+        additionalComment: data.note,
       },
     });
     await fetch(result.presignedUrl, {

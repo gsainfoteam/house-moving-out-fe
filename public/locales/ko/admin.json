@@ -2,12 +2,15 @@
   "application": {
     "detail": {
       "appliedAt": "신청 일시",
+      "closeNote": "닫기",
       "document": "검사서",
       "downloadPdf": "PDF",
       "id": "#",
       "inspectedAt": "검사 일시",
       "inspector": "검사위원",
       "name": "이름",
+      "note": "추가 코멘트",
+      "openNote": "추가 코멘트 보기",
       "phoneNumber": "전화번호",
       "result": "결과",
       "roomNumber": "호실",

@@ -2,12 +2,15 @@
   "application": {
     "detail": {
       "appliedAt": "Applied At",
+      "closeNote": "Close",
       "document": "Document",
       "downloadPdf": "PDF",
       "id": "ID",
       "inspectedAt": "Inspected At",
       "inspector": "Inspector",
       "name": "Name",
+      "note": "Additional Comment",
+      "openNote": "View additional comment",
       "phoneNumber": "Phone #",
       "result": "Result",
       "roomNumber": "Room #",

@@ -1,6 +1,6 @@
 {
   "name": "house-moving-out-fe",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "private": true,
   "type": "module",
   "scripts": {
