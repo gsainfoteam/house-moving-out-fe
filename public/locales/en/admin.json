@@ -14,6 +14,7 @@
       "studentNumber": "Student #",
       "type": "Inspection Type"
     },
+    "downloadDocuments": "Download add documents",
     "error": {
       "load": "Cannot load inspection application list"
     },

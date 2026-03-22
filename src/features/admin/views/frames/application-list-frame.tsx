@@ -17,7 +17,10 @@ export function ApplicationListFrame() {
   if (!data) return <Loading containerClassName="h-full" />;
 
   return (
-    <main className="p-4">
+    <main className="flex flex-col gap-4 p-4">
+      <div className="flex justify-end">
+        <Button>{t('application.downloadDocuments')}</Button>
+      </div>
       <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
         <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
