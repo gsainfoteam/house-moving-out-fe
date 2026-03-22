@@ -69,6 +69,7 @@ export function ApplicationListFrame() {
                       className="mx-auto"
                       size="icon"
                       variant="outline"
+                      aria-label={t('application.detail.openNote')}
                       onClick={() =>
                         overlay.open(() => (
                           <Dialog.Root>
@@ -89,7 +90,7 @@ export function ApplicationListFrame() {
                         ))
                       }
                     >
-                      <InfoIcon />
+                      <InfoIcon aria-hidden />
                     </Button>
                   )}
                 </td>
