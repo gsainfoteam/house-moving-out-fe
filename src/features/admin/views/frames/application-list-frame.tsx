@@ -15,7 +15,7 @@ const PAGE_SIZE = 20;
 export function ApplicationListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/applications' });
   const [page, setPage] = useState(1);
-  const { data, error } = useApplications(uuid, page, 20);
+  const { data, error } = useApplications(uuid, page, PAGE_SIZE);
   const { t } = useTranslation('admin');
 
   if (error) return <div>{t('application.error.load')}</div>;
