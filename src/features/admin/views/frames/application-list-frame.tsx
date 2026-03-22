@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Loading } from '@/common/components';
 
-import { useApplications } from '../../viewmodels';
+import { useApplications, useDownloadDocuments } from '../../viewmodels';
 
 export function ApplicationListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/applications' });
   const { data, error } = useApplications(uuid);
+  const { download, isDownloading } = useDownloadDocuments(uuid);
   const { t } = useTranslation('admin');
 
   if (error) return <div>{t('application.error.load')}</div>;
@@ -19,7 +20,9 @@ export function ApplicationListFrame() {
   return (
     <main className="flex flex-col gap-4 p-4">
       <div className="flex justify-end">
-        <Button>{t('application.downloadDocuments')}</Button>
+        <Button onClick={download} disabled={isDownloading}>
+          {t('application.downloadDocuments')}
+        </Button>
       </div>
       <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
         <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">

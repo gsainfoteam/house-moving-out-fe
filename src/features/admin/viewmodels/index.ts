@@ -3,6 +3,7 @@ export * from './use-create-schedule-form';
 export * from './use-create-inspector-form';
 export * from './use-manage-cleaning-service';
 export * from './use-article-form';
+export * from './use-download-documents';
 export {
   ArticleType,
   InspectionType,
