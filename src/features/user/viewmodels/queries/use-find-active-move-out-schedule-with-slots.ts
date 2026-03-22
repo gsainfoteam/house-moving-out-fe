@@ -72,10 +72,10 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   }, [applicationStartTime, applicationEndTime, onNotPeriod]);
 
   const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
-    if (!data?.inspectionSlots?.length) return [{}, []];
+    if (!user || !data?.inspectionSlots?.length) return [{}, []];
 
     const inspectionSlots = data.inspectionSlots
-      .filter((s) => s.gender === user!.gender)
+      .filter((s) => s.gender === user.gender)
       .map((slot) => ({
         ...slot,
         day: dayjs(slot.startTime).startOf('day'),
