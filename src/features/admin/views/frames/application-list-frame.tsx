@@ -43,6 +43,7 @@ export function ApplicationListFrame() {
               <th>{t('application.detail.type')}</th>
               <th>{t('application.detail.inspector')}</th>
               <th>{t('application.detail.result')}</th>
+              <th>{t('application.detail.note')}</th>
               <th>{t('application.detail.document')}</th>
             </tr>
           </thead>
@@ -61,6 +62,7 @@ export function ApplicationListFrame() {
                 <td>
                   {a.isPassed === null ? '-' : a.isPassed ? t(`result.passed`) : t(`result.failed`)}
                 </td>
+                <td>{a.additionalComment}</td>
                 <td>
                   {a.document ? (
                     <Button asChild variant="outline" size="icon" className="mx-auto">

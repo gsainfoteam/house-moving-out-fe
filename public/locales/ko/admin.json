@@ -8,6 +8,7 @@
       "inspectedAt": "검사 일시",
       "inspector": "검사위원",
       "name": "이름",
+      "note": "추가 코멘트",
       "phoneNumber": "전화번호",
       "result": "결과",
       "roomNumber": "호실",
