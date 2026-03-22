@@ -3,7 +3,7 @@ import { useCallback, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import { api } from '@/common/lib';
+import { api, saveFile } from '@/common/lib';
 
 import { ApiPaths } from '../models';
 import { useGetMoveOutScheduleQuery } from './queries';
@@ -23,14 +23,7 @@ export const useDownloadDocuments = (scheduleUuid: string) => {
             parseAs: 'blob',
           });
           if (!response.data) return;
-          const url = URL.createObjectURL(response.data);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `${data.title}.pdf`;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
+          saveFile(response.data, `${data.title}.pdf`);
         } catch {
           toast.error(t('error.internalServerError', { ns: 'common' }));
         }
