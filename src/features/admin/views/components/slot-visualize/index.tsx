@@ -75,10 +75,10 @@ export function SlotVisualize({
                   {startHour.format('HH:mm')}-{endHour.format('HH:mm')}
                 </th>
                 {days.map((d) => {
-                  const item = groupedSlot[d]?.find((s) =>
+                  const items = groupedSlot[d]?.filter((s) =>
                     dayjs(s.startTime).isSame(startHour.day(d), 'minute'),
                   );
-                  if (!item)
+                  if (items.length === 0)
                     return (
                       <td
                         key={d}
@@ -91,6 +91,8 @@ export function SlotVisualize({
                         aria-hidden
                       />
                     );
+                  if (items.length > 1) throw new Error('Multiple slots found');
+                  const item = items[0];
                   const isFull =
                     capacity === null ? item.reservedCount > 0 : item.reservedCount >= capacity;
                   const isSelected = selectedSlots.includes(item.uuid);
