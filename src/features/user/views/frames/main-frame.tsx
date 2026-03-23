@@ -284,7 +284,7 @@ function FailedCard({
                     <Dialog.Close asChild>
                       <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
                     </Dialog.Close>
-                    <Button variant="failed" className="w-full" onClick={close}>
+                    <Button variant="failed" className="w-full" onClick={close} asChild>
                       <Link to="/application">{t('steps.failed.retry.submit')}</Link>
                     </Button>
                   </Dialog.Footer>
