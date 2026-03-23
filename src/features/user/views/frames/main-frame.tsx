@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
@@ -9,11 +9,7 @@ import { Accordion, Button, Dialog, LayoutCard, SwitchCase } from '@/common/comp
 import { overlay } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
-import {
-  useCancelInspection,
-  useFindActiveMoveOutScheduleWithSlots,
-  useFindMyInspection,
-} from '../../viewmodels';
+import { useCurrentSchedule } from '../../viewmodels';
 import { Steps } from '../components';
 
 import type { Dayjs } from 'dayjs';
@@ -277,43 +273,18 @@ function PassedCard() {
   );
 }
 
-type Status =
-  | 'not_period'
-  | 'not_target'
-  | 'application'
-  | 'waiting'
-  | 'in_progress'
-  | 'failed'
-  | 'passed';
-
 export function MainFrame() {
   const { t } = useTranslation('user');
   const { user } = useAuth();
-  const [status, setStatus] = useState<Status>('not_period');
-
   const {
-    isLoading: isLoadingSchedule,
+    status,
+    isLoadingSchedule,
     applicationStartTime,
-    isSuccess,
-  } = useFindActiveMoveOutScheduleWithSlots({
-    onNotTarget: useCallback(() => setStatus('not_target'), []),
-    onNotPeriod: useCallback(() => setStatus('not_period'), []),
-    onSuccess: useCallback(() => setStatus('application'), []),
-  });
-
-  const {
-    isLoading: isLoadingInspection,
+    isLoadingInspection,
     inspectionStartTime,
     applicationUuid,
-  } = useFindMyInspection(isSuccess, {
-    onNotFound: useCallback(() => setStatus('application'), []),
-    onFoundWaiting: useCallback(() => setStatus('waiting'), []),
-    onFoundInProgress: useCallback(() => setStatus('in_progress'), []),
-    onFailed: useCallback(() => setStatus('failed'), []),
-    onPassed: useCallback(() => setStatus('passed'), []),
-  });
-
-  const { mutateAsync: cancelInspection } = useCancelInspection();
+    cancelInspection,
+  } = useCurrentSchedule();
 
   const openCancelDialog = useCallback(() => {
     overlay.open(({ close }) => (
