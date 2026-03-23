@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useTransition } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
@@ -124,33 +124,34 @@ function ApplicationCard() {
   );
 }
 
-function WaitingCard({
-  inspectionStartTime,
+function CancelDialog({
+  close,
   cancelInspection,
 }: {
-  inspectionStartTime?: Dayjs;
+  close: () => void;
   cancelInspection: () => Promise<void>;
 }) {
   const { t } = useTranslation('user');
-
-  const openCancelDialog = useCallback(() => {
-    overlay.open(({ close }) => (
-      <Dialog.Root>
-        <Dialog.Header>
-          <ModalBang className="mb-3" />
-          <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
-          <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
-        </Dialog.Header>
-        <Dialog.Footer>
-          <Dialog.Close asChild>
-            <Button variant="failed-outline" className="w-full">
-              {t('steps.waiting.cancel.button.cancel')}
-            </Button>
-          </Dialog.Close>
-          <Button
-            variant="failed"
-            className="w-full"
-            onClick={async () => {
+  const [loading, startTransition] = useTransition();
+  return (
+    <Dialog.Root>
+      <Dialog.Header>
+        <ModalBang className="mb-3" />
+        <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
+        <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button variant="failed-outline" className="w-full">
+            {t('steps.waiting.cancel.button.cancel')}
+          </Button>
+        </Dialog.Close>
+        <Button
+          variant="failed"
+          className="w-full"
+          disabled={loading}
+          onClick={() =>
+            startTransition(async () => {
               await cancelInspection()
                 .then(() => {
                   close();
@@ -171,14 +172,28 @@ function WaitingCard({
                   ));
                 })
                 .catch(() => {});
-            }}
-          >
-            {t('steps.waiting.cancel.button.submit')}
-          </Button>
-        </Dialog.Footer>
-      </Dialog.Root>
-    ));
-  }, [cancelInspection, t]);
+            })
+          }
+        >
+          {t('steps.waiting.cancel.button.submit')}
+        </Button>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
+
+function WaitingCard({
+  inspectionStartTime,
+  cancelInspection,
+}: {
+  inspectionStartTime?: Dayjs;
+  cancelInspection: () => Promise<void>;
+}) {
+  const { t } = useTranslation('user');
+
+  const openCancelDialog = useCallback(() => {
+    overlay.open(({ close }) => <CancelDialog close={close} cancelInspection={cancelInspection} />);
+  }, [cancelInspection]);
 
   return (
     <>
