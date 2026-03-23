@@ -61,7 +61,7 @@ export function InspectionFrame() {
                       <li key={itemKey} className="flex items-center justify-between gap-2 pl-2">
                         <span className="flex items-center gap-2">
                           <span id={`checklist-item-label-${itemKey}`}>
-                            {t(`checklist.items.${itemKey}`)}
+                            {t(itemKey, { ns: 'checklist' })}
                           </span>
                           {images.map((image, index) => (
                             <SampleImageButton key={index} image={image} />

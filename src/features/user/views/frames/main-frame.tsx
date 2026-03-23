@@ -252,7 +252,7 @@ function FailedCard({
                 {failedItems.map((reason) => (
                   <li key={reason} className="text-box2 text-text-black flex items-center gap-2">
                     <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
-                    <span>{t(`steps.failed.reasons.${reason}`)}</span>
+                    <span>{t(reason, { ns: 'checklist' })}</span>
                   </li>
                 ))}
               </ul>

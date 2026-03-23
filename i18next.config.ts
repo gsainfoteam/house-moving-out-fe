@@ -28,11 +28,7 @@ export default defineConfig({
 
     extractFromComments: true,
 
-    preservePatterns: [
-      'inspector:checklist.sections.*',
-      'inspector:checklist.items.*',
-      'user:steps.failed.reasons.*',
-    ],
+    preservePatterns: ['inspector:checklist.sections.*', 'checklist:*'],
   },
 
   lint: {
