@@ -4,8 +4,7 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import { $api } from '@/common/lib';
-import type { checklist } from '@/features/inspector';
+import { $api, type checklist } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 

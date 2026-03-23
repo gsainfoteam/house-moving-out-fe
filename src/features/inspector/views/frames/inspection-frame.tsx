@@ -3,9 +3,10 @@ import { Link, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { Accordion, Button, Checkbox, LayoutCard, Loading } from '@/common/components';
+import { checklist } from '@/common/lib';
 import { cn } from '@/common/utils';
 
-import { checklist, useInspectionChecklistContext } from '../../viewmodels';
+import { useInspectionChecklistContext } from '../../viewmodels';
 import { SampleImageButton } from '../components';
 
 export function InspectionFrame() {

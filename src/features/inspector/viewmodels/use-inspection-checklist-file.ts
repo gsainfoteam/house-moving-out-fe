@@ -4,7 +4,9 @@ import { $typst } from '@myriaddreamin/typst.ts';
 import dayjs from 'dayjs';
 import { useWatch } from 'react-hook-form';
 
-import { checklist, mainContent } from '../models';
+import { checklist } from '@/common/lib';
+
+import { mainContent } from '../models';
 import { useInspectionChecklistContext } from './use-inspection-checklist-context';
 
 import '@/common/lib/typst-init';

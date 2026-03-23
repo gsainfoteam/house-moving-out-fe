@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 import ModalBang from '@/assets/modal-bang.svg?react';
 import { Accordion, Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { overlay } from '@/common/lib';
+import type { checklist } from '@/common/lib';
 import { useAuth } from '@/features/auth';
-import type { checklist } from '@/features/inspector';
 
 import { useCurrentSchedule } from '../../viewmodels';
 import { Steps } from '../components';

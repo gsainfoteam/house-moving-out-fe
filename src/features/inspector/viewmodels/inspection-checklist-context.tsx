@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import z from 'zod';
 
-import { checklist } from '../models';
+import { checklist } from '@/common/lib';
 
 const createInspectionChecklistSchema = (items: checklist.Item[]) =>
   z.object({
