@@ -27,7 +27,7 @@ function Redirect() {
   const [redirect] = useState(redirectSearch ?? redirectCache ?? '/');
 
   useEffect(() => {
-    useAuthRedirect.getState().clearRedirect();
+    return () => useAuthRedirect.getState().clearRedirect();
   }, []);
 
   return <Navigate to={redirect} />;
