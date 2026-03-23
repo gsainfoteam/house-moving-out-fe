@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { $api } from '@/common/lib';
+import type { checklist } from '@/features/inspector';
 
 import { ApiPaths } from '../../models';
 
@@ -91,11 +92,22 @@ export const useFindMyInspection = (
 
   const applicationUuid = useMemo(() => (isSuccess ? data.uuid : undefined), [data, isSuccess]);
 
+  const inspectionCount = useMemo(
+    () => (isSuccess ? data.inspectionCount : undefined),
+    [data, isSuccess],
+  );
+  const failedItems = useMemo(
+    () => (isSuccess ? ((data.itemResults?.failed ?? []) as checklist.Item[]) : undefined),
+    [data, isSuccess],
+  );
+
   return {
     applicationUuid,
     isLoading,
     isSuccess,
     inspectionStartTime,
     inspectionSlotUuid,
+    inspectionCount,
+    failedItems,
   };
 };

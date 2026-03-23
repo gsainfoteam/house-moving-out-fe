@@ -32,6 +32,8 @@ export const useCurrentSchedule = () => {
     isLoading: isLoadingInspection,
     inspectionStartTime,
     applicationUuid,
+    inspectionCount,
+    failedItems,
   } = useFindMyInspection(isSuccess, {
     onNotFound: useCallback(() => setStatus('application'), []),
     onFoundWaiting: useCallback(() => setStatus('waiting'), []),
@@ -50,5 +52,7 @@ export const useCurrentSchedule = () => {
     inspectionStartTime,
     applicationUuid,
     cancelInspection,
+    inspectionCount,
+    failedItems,
   };
 };

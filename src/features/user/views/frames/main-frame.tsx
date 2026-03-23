@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
@@ -8,6 +8,7 @@ import ModalBang from '@/assets/modal-bang.svg?react';
 import { Accordion, Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { useAuth } from '@/features/auth';
+import type { checklist } from '@/features/inspector';
 
 import { useCurrentSchedule } from '../../viewmodels';
 import { Steps } from '../components';
@@ -218,14 +219,14 @@ function InProgressCard() {
   );
 }
 
-function FailedCard() {
+function FailedCard({
+  inspectionCount,
+  failedItems,
+}: {
+  inspectionCount: number;
+  failedItems: checklist.Item[];
+}) {
   const { t } = useTranslation('user');
-
-  // TODO: mock failed reasons
-  const failedReasons = useMemo(
-    () => [t('steps.failed.reasons.deskDrawer'), t('steps.failed.reasons.bathroom')],
-    [t],
-  );
 
   return (
     <>
@@ -248,10 +249,10 @@ function FailedCard() {
             </Accordion.Header>
             <Accordion.Content>
               <ul className="flex flex-col gap-2">
-                {failedReasons.map((reason) => (
+                {failedItems.map((reason) => (
                   <li key={reason} className="text-box2 text-text-black flex items-center gap-2">
                     <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
-                    <span>{reason}</span>
+                    <span>{t(`steps.failed.reasons.${reason}`)}</span>
                   </li>
                 ))}
               </ul>
@@ -265,23 +266,21 @@ function FailedCard() {
           variant="failed"
           className="w-full"
           onClick={() =>
-            overlay.open(() => (
+            overlay.open(({ close }) => (
               <Dialog.Root>
                 <Dialog.Header>
                   <ModalBang className="mb-3" />
                   <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
                   <Dialog.Description>
-                    {/* TODO: mock remain count */}
-                    {t('steps.failed.retry.description', { remainCount: 2 })}
+                    {t('steps.failed.retry.description', { remainCount: 3 - inspectionCount })}
                   </Dialog.Description>
                 </Dialog.Header>
                 <Dialog.Footer>
                   <Dialog.Close asChild>
                     <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
                   </Dialog.Close>
-                  {/* TODO: retry submit */}
-                  <Button variant="failed" className="w-full">
-                    {t('steps.failed.retry.submit')}
+                  <Button variant="failed" className="w-full" onClick={close}>
+                    <Link to="/application">{t('steps.failed.retry.submit')}</Link>
                   </Button>
                 </Dialog.Footer>
               </Dialog.Root>
@@ -333,6 +332,8 @@ export function MainFrame() {
     inspectionStartTime,
     applicationUuid,
     cancelInspection,
+    inspectionCount,
+    failedItems,
   } = useCurrentSchedule();
 
   if (!user) return null;
@@ -354,7 +355,10 @@ export function MainFrame() {
             />
           ) : null,
           in_progress: <InProgressCard />,
-          failed: <FailedCard />,
+          failed:
+            inspectionCount && failedItems ? (
+              <FailedCard inspectionCount={inspectionCount} failedItems={failedItems} />
+            ) : null,
           passed: <PassedCard />,
         }}
       />
