@@ -25,7 +25,8 @@ export const InspectionChecklistProvider = ({
     () =>
       Object.values(checklist[roomType])
         .flatMap((item) => item)
-        .filter((i) => i !== null),
+        .filter((i) => i !== null)
+        .map((i) => i[0]),
     [roomType],
   );
   const schema = useMemo(() => createInspectionChecklistSchema(keys), [keys]);
