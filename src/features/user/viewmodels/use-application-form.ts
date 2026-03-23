@@ -63,7 +63,7 @@ export const useApplicationForm = ({
   });
 
   useEffect(() => {
-    if (inspectionStartTime && inspectionSlotUuid && !failedItems) {
+    if (inspectionStartTime && inspectionSlotUuid && failedItems === null) {
       form.reset({
         inspectionDayTimestamp: inspectionStartTime.startOf('day').valueOf(),
         inspectionSlotUuid,
@@ -86,7 +86,7 @@ export const useApplicationForm = ({
     if (inspectionSlotUuid == null) return;
 
     const request =
-      applicationUuid && !failedItems
+      applicationUuid && failedItems === null
         ? updateInspection({
             params: { path: { uuid: applicationUuid } },
             body: { inspectionSlotUuid },

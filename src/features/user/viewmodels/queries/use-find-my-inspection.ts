@@ -97,7 +97,7 @@ export const useFindMyInspection = (
     [data, isSuccess],
   );
   const failedItems = useMemo(
-    () => (isSuccess ? ((data.itemResults?.failed ?? []) as checklist.Item[]) : undefined),
+    () => (isSuccess ? ((data.itemResults?.failed ?? null) as checklist.Item[] | null) : null),
     [data, isSuccess],
   );
 
