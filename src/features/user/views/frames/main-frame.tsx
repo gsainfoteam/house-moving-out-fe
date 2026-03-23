@@ -124,13 +124,60 @@ function ApplicationCard() {
 }
 
 function WaitingCard({
-  onClick,
   inspectionStartTime,
+  cancelInspection,
 }: {
-  onClick: () => void;
   inspectionStartTime?: Dayjs;
+  cancelInspection: () => Promise<void>;
 }) {
   const { t } = useTranslation('user');
+
+  const openCancelDialog = useCallback(() => {
+    overlay.open(({ close }) => (
+      <Dialog.Root>
+        <Dialog.Header>
+          <ModalBang className="mb-3" />
+          <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
+          <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
+        </Dialog.Header>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed-outline" className="w-full">
+              {t('steps.waiting.cancel.button.cancel')}
+            </Button>
+          </Dialog.Close>
+          <Button
+            variant="failed"
+            className="w-full"
+            onClick={async () => {
+              await cancelInspection()
+                .then(() => {
+                  close();
+                  overlay.open(() => (
+                    <Dialog.Root>
+                      <Dialog.Header>
+                        <ModalBang className="mb-3" />
+                        <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
+                      </Dialog.Header>
+                      <Dialog.Footer>
+                        <Dialog.Close asChild>
+                          <Button variant="failed" className="w-full">
+                            {t('steps.waiting.cancelled.button')}
+                          </Button>
+                        </Dialog.Close>
+                      </Dialog.Footer>
+                    </Dialog.Root>
+                  ));
+                })
+                .catch(() => {});
+            }}
+          >
+            {t('steps.waiting.cancel.button.submit')}
+          </Button>
+        </Dialog.Footer>
+      </Dialog.Root>
+    ));
+  }, [cancelInspection, t]);
 
   return (
     <>
@@ -139,7 +186,10 @@ function WaitingCard({
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <div className="flex w-full flex-col items-center justify-center gap-3">
-          <button className="text-text-gray text-sub2 cursor-pointer underline" onClick={onClick}>
+          <button
+            className="text-text-gray text-sub2 cursor-pointer underline"
+            onClick={openCancelDialog}
+          >
             {t('steps.waiting.cancel_button')}
           </button>
           <Button variant="outline" className="w-full" asChild>
@@ -274,7 +324,6 @@ function PassedCard() {
 }
 
 export function MainFrame() {
-  const { t } = useTranslation('user');
   const { user } = useAuth();
   const {
     status,
@@ -286,54 +335,6 @@ export function MainFrame() {
     cancelInspection,
   } = useCurrentSchedule();
 
-  const openCancelDialog = useCallback(() => {
-    overlay.open(({ close }) => (
-      <Dialog.Root>
-        <Dialog.Header>
-          <ModalBang className="mb-3" />
-          <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
-          <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
-        </Dialog.Header>
-        <Dialog.Footer>
-          <Dialog.Close asChild>
-            <Button variant="failed-outline" className="w-full">
-              {t('steps.waiting.cancel.button.cancel')}
-            </Button>
-          </Dialog.Close>
-          <Button
-            variant="failed"
-            className="w-full"
-            onClick={async () => {
-              if (applicationUuid == null) return;
-              await cancelInspection({ params: { path: { uuid: applicationUuid } } })
-                .then(() => {
-                  close();
-                  overlay.open(() => (
-                    <Dialog.Root>
-                      <Dialog.Header>
-                        <ModalBang className="mb-3" />
-                        <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
-                      </Dialog.Header>
-                      <Dialog.Footer>
-                        <Dialog.Close asChild>
-                          <Button variant="failed" className="w-full">
-                            {t('steps.waiting.cancelled.button')}
-                          </Button>
-                        </Dialog.Close>
-                      </Dialog.Footer>
-                    </Dialog.Root>
-                  ));
-                })
-                .catch(() => {});
-            }}
-          >
-            {t('steps.waiting.cancel.button.submit')}
-          </Button>
-        </Dialog.Footer>
-      </Dialog.Root>
-    ));
-  }, [cancelInspection, applicationUuid, t]);
-
   if (!user) return null;
 
   return (
@@ -344,9 +345,14 @@ export function MainFrame() {
           not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
           not_target: <NotTargetCard />,
           application: <ApplicationCard />,
-          waiting: (
-            <WaitingCard inspectionStartTime={inspectionStartTime} onClick={openCancelDialog} />
-          ),
+          waiting: applicationUuid ? (
+            <WaitingCard
+              inspectionStartTime={inspectionStartTime}
+              cancelInspection={() =>
+                cancelInspection({ params: { path: { uuid: applicationUuid } } })
+              }
+            />
+          ) : null,
           in_progress: <InProgressCard />,
           failed: <FailedCard />,
           passed: <PassedCard />,
