@@ -110,6 +110,36 @@ function NotTargetCard() {
   );
 }
 
+function CleaningServiceCard() {
+  const { t } = useTranslation('user');
+
+  return (
+    <>
+      <LayoutCard.Center>
+        <LayoutCard.Header className="items-center">
+          <LayoutCard.Media>
+            <img src="./3d/not-period.png" alt="not-period" className="h-60" />
+          </LayoutCard.Media>
+          <LayoutCard.Text className="items-center">
+            <LayoutCard.Title className="text-text-black">
+              {t('steps.cleaning_service.title')}
+            </LayoutCard.Title>
+            <LayoutCard.Description>
+              {t('steps.cleaning_service.description')}
+            </LayoutCard.Description>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Center>
+      <LayoutCard.Footer>
+        <Button variant="outline" className="w-full">
+          {/* TODO: 버튼 기능 추가 */}
+          {t('steps.cleaning_service.button')}
+        </Button>
+      </LayoutCard.Footer>
+    </>
+  );
+}
+
 function ApplicationCard() {
   const { t } = useTranslation('user');
 
@@ -280,6 +310,7 @@ function PassedCard() {
 type Status =
   | 'not_period'
   | 'not_target'
+  | 'cleaning_service'
   | 'application'
   | 'waiting'
   | 'in_progress'
@@ -365,13 +396,17 @@ export function MainFrame() {
 
   if (!user) return null;
 
+  const effectiveStatus: Status = user.applyCleaningService ? 'cleaning_service' : status;
+  console.log('effectiveStatus', effectiveStatus);
+
   return (
     <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
       <SwitchCase
-        value={status}
+        value={effectiveStatus}
         caseBy={{
           not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
           not_target: <NotTargetCard />,
+          cleaning_service: <CleaningServiceCard />,
           application: <ApplicationCard />,
           waiting: (
             <WaitingCard inspectionStartTime={inspectionStartTime} onClick={openCancelDialog} />
