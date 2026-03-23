@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import z from 'zod';
 
-import { checklist } from '../models';
+import { checklist } from '@/common/lib';
 
 const createInspectionChecklistSchema = (items: checklist.Item[]) =>
   z.object({
@@ -25,7 +25,8 @@ export const InspectionChecklistProvider = ({
     () =>
       Object.values(checklist[roomType])
         .flatMap((item) => item)
-        .filter((i) => i !== null),
+        .filter((i) => i !== null)
+        .map((i) => i[0]),
     [roomType],
   );
   const schema = useMemo(() => createInspectionChecklistSchema(keys), [keys]);

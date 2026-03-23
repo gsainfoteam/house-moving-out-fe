@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import { $api } from '@/common/lib';
+import { $api, type checklist } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
@@ -91,11 +91,22 @@ export const useFindMyInspection = (
 
   const applicationUuid = useMemo(() => (isSuccess ? data.uuid : undefined), [data, isSuccess]);
 
+  const inspectionCount = useMemo(
+    () => (isSuccess ? data.inspectionCount : undefined),
+    [data, isSuccess],
+  );
+  const failedItems = useMemo(
+    () => (isSuccess ? ((data.itemResults?.failed ?? null) as checklist.Item[] | null) : null),
+    [data, isSuccess],
+  );
+
   return {
     applicationUuid,
     isLoading,
     isSuccess,
     inspectionStartTime,
     inspectionSlotUuid,
+    inspectionCount,
+    failedItems,
   };
 };

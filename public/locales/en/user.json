@@ -71,10 +71,6 @@
       "accordionTitle": "Check Reasons for Failure",
       "button": "Apply for Re-examination",
       "description": "Please check the reasons below and apply again.",
-      "reasons": {
-        "bathroom": "Insufficient bathroom cleaning",
-        "deskDrawer": "Insufficient desk drawer organization"
-      },
       "retry": {
         "cancel": "Cancel",
         "description": "You have {{remainCount}} re-examinations remaining.",
@@ -82,6 +78,10 @@
         "title": "Request re-examination?"
       },
       "title": "Re-inspection Required"
+    },
+    "final_failed": {
+      "description": "Please check the reasons below.",
+      "title": "Inspection Failed"
     },
     "in_progress": {
       "button": "Waiting for Results",

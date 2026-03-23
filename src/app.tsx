@@ -33,6 +33,15 @@ const createAuthConfig = (recentLogout: boolean): TAuthConfig => ({
   autoLogin: false,
 });
 
+function InnerWrap({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <OverlayHost />
+      {children}
+    </>
+  );
+}
+
 export function App() {
   const recentLogout = useAuthPrompt((state) => state.recentLogout);
   const authConfig = createAuthConfig(recentLogout);
@@ -41,9 +50,8 @@ export function App() {
     <AuthProvider authConfig={authConfig}>
       <QueryClientProvider client={queryClient}>
         <OverlayProvider>
-          <OverlayHost />
           <Toaster />
-          <RouterProvider router={router} />
+          <RouterProvider router={router} InnerWrap={InnerWrap} />
           {import.meta.env.DEV && <TanStackRouterDevtools router={router} position="bottom-left" />}
         </OverlayProvider>
       </QueryClientProvider>

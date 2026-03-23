@@ -3,7 +3,7 @@ import * as images from './checklist-images';
 import type { ParseKeys } from 'i18next';
 
 export type Section = ParseKeys<'inspector', {}, 'checklist.sections'>;
-export type Item = ParseKeys<'inspector', {}, 'checklist.items'>;
+export type Item = ParseKeys<'checklist'>;
 type Checklist = Record<Section, ([Item, ...string[]] | null)[]>;
 type IssueItem =
   | 'bathroom-light'

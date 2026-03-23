@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useTransition } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
@@ -7,13 +7,10 @@ import { useTranslation } from 'react-i18next';
 import ModalBang from '@/assets/modal-bang.svg?react';
 import { Accordion, Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { overlay } from '@/common/lib';
+import type { checklist } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
-import {
-  useCancelInspection,
-  useFindActiveMoveOutScheduleWithSlots,
-  useFindMyInspection,
-} from '../../viewmodels';
+import { useCurrentSchedule } from '../../viewmodels';
 import { Steps } from '../components';
 
 import type { Dayjs } from 'dayjs';
@@ -127,14 +124,76 @@ function ApplicationCard() {
   );
 }
 
-function WaitingCard({
-  onClick,
-  inspectionStartTime,
+function CancelDialog({
+  close,
+  cancelInspection,
 }: {
-  onClick: () => void;
-  inspectionStartTime?: Dayjs;
+  close: () => void;
+  cancelInspection: () => Promise<void>;
 }) {
   const { t } = useTranslation('user');
+  const [loading, startTransition] = useTransition();
+  return (
+    <Dialog.Root>
+      <Dialog.Header>
+        <ModalBang className="mb-3" />
+        <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
+        <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button variant="failed-outline" className="w-full">
+            {t('steps.waiting.cancel.button.cancel')}
+          </Button>
+        </Dialog.Close>
+        <Button
+          variant="failed"
+          className="w-full"
+          disabled={loading}
+          onClick={() =>
+            startTransition(async () => {
+              await cancelInspection()
+                .then(() => {
+                  close();
+                  overlay.open(() => (
+                    <Dialog.Root>
+                      <Dialog.Header>
+                        <ModalBang className="mb-3" />
+                        <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
+                      </Dialog.Header>
+                      <Dialog.Footer>
+                        <Dialog.Close asChild>
+                          <Button variant="failed" className="w-full">
+                            {t('steps.waiting.cancelled.button')}
+                          </Button>
+                        </Dialog.Close>
+                      </Dialog.Footer>
+                    </Dialog.Root>
+                  ));
+                })
+                .catch(() => {});
+            })
+          }
+        >
+          {t('steps.waiting.cancel.button.submit')}
+        </Button>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
+
+function WaitingCard({
+  inspectionStartTime,
+  cancelInspection,
+}: {
+  inspectionStartTime?: Dayjs;
+  cancelInspection: () => Promise<void>;
+}) {
+  const { t } = useTranslation('user');
+
+  const openCancelDialog = useCallback(() => {
+    overlay.open(({ close }) => <CancelDialog close={close} cancelInspection={cancelInspection} />);
+  }, [cancelInspection]);
 
   return (
     <>
@@ -143,7 +202,10 @@ function WaitingCard({
       </LayoutCard.Body>
       <LayoutCard.Footer>
         <div className="flex w-full flex-col items-center justify-center gap-3">
-          <button className="text-text-gray text-sub2 cursor-pointer underline" onClick={onClick}>
+          <button
+            className="text-text-gray text-sub2 cursor-pointer underline"
+            onClick={openCancelDialog}
+          >
             {t('steps.waiting.cancel_button')}
           </button>
           <Button variant="outline" className="w-full" asChild>
@@ -172,14 +234,16 @@ function InProgressCard() {
   );
 }
 
-function FailedCard() {
+function FailedCard({
+  inspectionCount,
+  failedItems,
+}: {
+  inspectionCount: number;
+  failedItems: checklist.Item[];
+}) {
   const { t } = useTranslation('user');
-
-  // TODO: mock failed reasons
-  const failedReasons = useMemo(
-    () => [t('steps.failed.reasons.deskDrawer'), t('steps.failed.reasons.bathroom')],
-    [t],
-  );
+  const remainCount = 3 - inspectionCount;
+  const isRetryable = remainCount > 0;
 
   return (
     <>
@@ -190,9 +254,11 @@ function FailedCard() {
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
             <LayoutCard.Title className="text-status-fail">
-              {t('steps.failed.title')}
+              {isRetryable ? t('steps.failed.title') : t('steps.final_failed.title')}
             </LayoutCard.Title>
-            <LayoutCard.Description>{t('steps.failed.description')}</LayoutCard.Description>
+            <LayoutCard.Description>
+              {isRetryable ? t('steps.failed.description') : t('steps.final_failed.description')}
+            </LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
         <LayoutCard.Body>
@@ -202,10 +268,10 @@ function FailedCard() {
             </Accordion.Header>
             <Accordion.Content>
               <ul className="flex flex-col gap-2">
-                {failedReasons.map((reason) => (
+                {failedItems.map((reason) => (
                   <li key={reason} className="text-box2 text-text-black flex items-center gap-2">
                     <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
-                    <span>{reason}</span>
+                    <span>{t(reason, { ns: 'checklist' })}</span>
                   </li>
                 ))}
               </ul>
@@ -214,37 +280,37 @@ function FailedCard() {
         </LayoutCard.Body>
       </LayoutCard.Center>
 
-      <LayoutCard.Footer>
-        <Button
-          variant="failed"
-          className="w-full"
-          onClick={() =>
-            overlay.open(() => (
-              <Dialog.Root>
-                <Dialog.Header>
-                  <ModalBang className="mb-3" />
-                  <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
-                  <Dialog.Description>
-                    {/* TODO: mock remain count */}
-                    {t('steps.failed.retry.description', { remainCount: 2 })}
-                  </Dialog.Description>
-                </Dialog.Header>
-                <Dialog.Footer>
-                  <Dialog.Close asChild>
-                    <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
-                  </Dialog.Close>
-                  {/* TODO: retry submit */}
-                  <Button variant="failed" className="w-full">
-                    {t('steps.failed.retry.submit')}
-                  </Button>
-                </Dialog.Footer>
-              </Dialog.Root>
-            ))
-          }
-        >
-          {t('steps.failed.button')}
-        </Button>
-      </LayoutCard.Footer>
+      {remainCount > 0 && (
+        <LayoutCard.Footer>
+          <Button
+            variant="failed"
+            className="w-full"
+            onClick={() =>
+              overlay.open(({ close }) => (
+                <Dialog.Root>
+                  <Dialog.Header>
+                    <ModalBang className="mb-3" />
+                    <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
+                    <Dialog.Description>
+                      {t('steps.failed.retry.description', { remainCount })}
+                    </Dialog.Description>
+                  </Dialog.Header>
+                  <Dialog.Footer>
+                    <Dialog.Close asChild>
+                      <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
+                    </Dialog.Close>
+                    <Button variant="failed" className="w-full" onClick={close} asChild>
+                      <Link to="/application">{t('steps.failed.retry.submit')}</Link>
+                    </Button>
+                  </Dialog.Footer>
+                </Dialog.Root>
+              ))
+            }
+          >
+            {t('steps.failed.button')}
+          </Button>
+        </LayoutCard.Footer>
+      )}
     </>
   );
 }
@@ -277,91 +343,19 @@ function PassedCard() {
   );
 }
 
-type Status =
-  | 'not_period'
-  | 'not_target'
-  | 'application'
-  | 'waiting'
-  | 'in_progress'
-  | 'failed'
-  | 'passed';
-
 export function MainFrame() {
-  const { t } = useTranslation('user');
   const { user } = useAuth();
-  const [status, setStatus] = useState<Status>('not_period');
-
   const {
-    isLoading: isLoadingSchedule,
+    status,
+    isLoadingSchedule,
     applicationStartTime,
-    isSuccess,
-  } = useFindActiveMoveOutScheduleWithSlots({
-    onNotTarget: useCallback(() => setStatus('not_target'), []),
-    onNotPeriod: useCallback(() => setStatus('not_period'), []),
-    onSuccess: useCallback(() => setStatus('application'), []),
-  });
-
-  const {
-    isLoading: isLoadingInspection,
+    isLoadingInspection,
     inspectionStartTime,
     applicationUuid,
-  } = useFindMyInspection(isSuccess, {
-    onNotFound: useCallback(() => setStatus('application'), []),
-    onFoundWaiting: useCallback(() => setStatus('waiting'), []),
-    onFoundInProgress: useCallback(() => setStatus('in_progress'), []),
-    onFailed: useCallback(() => setStatus('failed'), []),
-    onPassed: useCallback(() => setStatus('passed'), []),
-  });
-
-  const { mutateAsync: cancelInspection } = useCancelInspection();
-
-  const openCancelDialog = useCallback(() => {
-    overlay.open(({ close }) => (
-      <Dialog.Root>
-        <Dialog.Header>
-          <ModalBang className="mb-3" />
-          <Dialog.Title>{t('steps.waiting.cancel.title')}</Dialog.Title>
-          <Dialog.Description>{t('steps.waiting.cancel.description')}</Dialog.Description>
-        </Dialog.Header>
-        <Dialog.Footer>
-          <Dialog.Close asChild>
-            <Button variant="failed-outline" className="w-full">
-              {t('steps.waiting.cancel.button.cancel')}
-            </Button>
-          </Dialog.Close>
-          <Button
-            variant="failed"
-            className="w-full"
-            onClick={async () => {
-              if (applicationUuid == null) return;
-              await cancelInspection({ params: { path: { uuid: applicationUuid } } })
-                .then(() => {
-                  close();
-                  overlay.open(() => (
-                    <Dialog.Root>
-                      <Dialog.Header>
-                        <ModalBang className="mb-3" />
-                        <Dialog.Title>{t('steps.waiting.cancelled.title')}</Dialog.Title>
-                      </Dialog.Header>
-                      <Dialog.Footer>
-                        <Dialog.Close asChild>
-                          <Button variant="failed" className="w-full">
-                            {t('steps.waiting.cancelled.button')}
-                          </Button>
-                        </Dialog.Close>
-                      </Dialog.Footer>
-                    </Dialog.Root>
-                  ));
-                })
-                .catch(() => {});
-            }}
-          >
-            {t('steps.waiting.cancel.button.submit')}
-          </Button>
-        </Dialog.Footer>
-      </Dialog.Root>
-    ));
-  }, [cancelInspection, applicationUuid, t]);
+    cancelInspection,
+    inspectionCount,
+    failedItems,
+  } = useCurrentSchedule();
 
   if (!user) return null;
 
@@ -373,11 +367,19 @@ export function MainFrame() {
           not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
           not_target: <NotTargetCard />,
           application: <ApplicationCard />,
-          waiting: (
-            <WaitingCard inspectionStartTime={inspectionStartTime} onClick={openCancelDialog} />
-          ),
+          waiting: applicationUuid ? (
+            <WaitingCard
+              inspectionStartTime={inspectionStartTime}
+              cancelInspection={() =>
+                cancelInspection({ params: { path: { uuid: applicationUuid } } })
+              }
+            />
+          ) : null,
           in_progress: <InProgressCard />,
-          failed: <FailedCard />,
+          failed:
+            inspectionCount && failedItems ? (
+              <FailedCard inspectionCount={inspectionCount} failedItems={failedItems} />
+            ) : null,
           passed: <PassedCard />,
         }}
       />

@@ -3,9 +3,10 @@ import { Link, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { Accordion, Button, Checkbox, LayoutCard, Loading } from '@/common/components';
+import { checklist } from '@/common/lib';
 import { cn } from '@/common/utils';
 
-import { checklist, useInspectionChecklistContext } from '../../viewmodels';
+import { useInspectionChecklistContext } from '../../viewmodels';
 import { SampleImageButton } from '../components';
 
 export function InspectionFrame() {
@@ -61,7 +62,7 @@ export function InspectionFrame() {
                       <li key={itemKey} className="flex items-center justify-between gap-2 pl-2">
                         <span className="flex items-center gap-2">
                           <span id={`checklist-item-label-${itemKey}`}>
-                            {t(`checklist.items.${itemKey}`)}
+                            {t(itemKey, { ns: 'checklist' })}
                           </span>
                           {images.map((image, index) => (
                             <SampleImageButton key={index} image={image} />
