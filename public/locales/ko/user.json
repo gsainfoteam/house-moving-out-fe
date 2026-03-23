@@ -79,6 +79,10 @@
       },
       "title": "재검사가 필요합니다."
     },
+    "final_failed": {
+      "description": "아래 사유를 확인해주세요.",
+      "title": "통과하지 못했습니다."
+    },
     "in_progress": {
       "button": "검사 결과 대기 중",
       "description": "퇴사 검사 진행 중입니다.\n잠시 뒤에 검사 결과를 확인해주세요.",

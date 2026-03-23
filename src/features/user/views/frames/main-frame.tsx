@@ -227,6 +227,8 @@ function FailedCard({
   failedItems: checklist.Item[];
 }) {
   const { t } = useTranslation('user');
+  const remainCount = 3 - inspectionCount;
+  const isRetryable = remainCount > 0;
 
   return (
     <>
@@ -237,9 +239,11 @@ function FailedCard({
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
             <LayoutCard.Title className="text-status-fail">
-              {t('steps.failed.title')}
+              {isRetryable ? t('steps.failed.title') : t('steps.final_failed.title')}
             </LayoutCard.Title>
-            <LayoutCard.Description>{t('steps.failed.description')}</LayoutCard.Description>
+            <LayoutCard.Description>
+              {isRetryable ? t('steps.failed.description') : t('steps.final_failed.description')}
+            </LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
         <LayoutCard.Body>
@@ -261,35 +265,37 @@ function FailedCard({
         </LayoutCard.Body>
       </LayoutCard.Center>
 
-      <LayoutCard.Footer>
-        <Button
-          variant="failed"
-          className="w-full"
-          onClick={() =>
-            overlay.open(({ close }) => (
-              <Dialog.Root>
-                <Dialog.Header>
-                  <ModalBang className="mb-3" />
-                  <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
-                  <Dialog.Description>
-                    {t('steps.failed.retry.description', { remainCount: 3 - inspectionCount })}
-                  </Dialog.Description>
-                </Dialog.Header>
-                <Dialog.Footer>
-                  <Dialog.Close asChild>
-                    <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
-                  </Dialog.Close>
-                  <Button variant="failed" className="w-full" onClick={close}>
-                    <Link to="/application">{t('steps.failed.retry.submit')}</Link>
-                  </Button>
-                </Dialog.Footer>
-              </Dialog.Root>
-            ))
-          }
-        >
-          {t('steps.failed.button')}
-        </Button>
-      </LayoutCard.Footer>
+      {remainCount > 0 && (
+        <LayoutCard.Footer>
+          <Button
+            variant="failed"
+            className="w-full"
+            onClick={() =>
+              overlay.open(({ close }) => (
+                <Dialog.Root>
+                  <Dialog.Header>
+                    <ModalBang className="mb-3" />
+                    <Dialog.Title>{t('steps.failed.retry.title')}</Dialog.Title>
+                    <Dialog.Description>
+                      {t('steps.failed.retry.description', { remainCount })}
+                    </Dialog.Description>
+                  </Dialog.Header>
+                  <Dialog.Footer>
+                    <Dialog.Close asChild>
+                      <Button variant="failed-outline">{t('steps.failed.retry.cancel')}</Button>
+                    </Dialog.Close>
+                    <Button variant="failed" className="w-full" onClick={close}>
+                      <Link to="/application">{t('steps.failed.retry.submit')}</Link>
+                    </Button>
+                  </Dialog.Footer>
+                </Dialog.Root>
+              ))
+            }
+          >
+            {t('steps.failed.button')}
+          </Button>
+        </LayoutCard.Footer>
+      )}
     </>
   );
 }
