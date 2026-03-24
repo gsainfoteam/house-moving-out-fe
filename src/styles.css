@@ -101,17 +101,20 @@ html {
 h1 {
   font-size: var(--text-display);
   font-weight: var(--text-display--font-weight);
+  line-height: var(--text-display--line-height);
 }
 
 h2 {
   font-size: var(--text-heading);
   font-weight: var(--text-heading--font-weight);
+  line-height: var(--text-heading--line-height);
 }
 
 body,
 p {
   font-size: var(--text-body-lg);
   font-weight: var(--text-body-lg--font-weight);
+  line-height: var(--text-body-lg--line-height);
 }
 
 code {
