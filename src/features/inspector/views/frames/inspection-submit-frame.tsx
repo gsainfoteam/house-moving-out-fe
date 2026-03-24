@@ -2,7 +2,7 @@ import { useParams } from '@tanstack/react-router';
 
 import { useInspectionSubmitForm } from '../../viewmodels';
 
-import { InspectionSubmitView } from '../views/inspection-submit-view';
+import { InspectionSubmitView } from '../views';
 
 export function InspectionSubmitFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/submit' });

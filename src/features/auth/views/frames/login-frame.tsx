@@ -2,7 +2,7 @@ import { useSearch } from '@tanstack/react-router';
 
 import { useAuth, useAuthRedirect } from '../../viewmodels';
 
-import { LoginView } from '../views/login-view';
+import { LoginView } from '../views';
 
 export function LoginFrame() {
   const { idpLogIn } = useAuth();

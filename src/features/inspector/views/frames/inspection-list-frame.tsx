@@ -1,4 +1,4 @@
-import { InspectionListView } from '../views/inspection-list-view';
+import { InspectionListView } from '../views';
 import { useGetInspectionTargets } from '../../viewmodels';
 
 
