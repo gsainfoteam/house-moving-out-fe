@@ -51,7 +51,7 @@ export namespace InspectionListScreen {
     inspectionTime: string;
     roomNumber: string;
     residents: { name: string }[];
-    status: ApplicationStatus | null;
+    status?: ApplicationStatus | null;
   };
 
   export type Props = {
