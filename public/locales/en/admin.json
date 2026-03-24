@@ -196,8 +196,14 @@
     "detail": {
       "active": "Active",
       "applicationTime": "Application Time",
-      "cancel": "Cancel",
-      "complete": "Complete",
+      "canceled": "Cancel",
+      "changeSchedule": {
+        "cancel": "Cancel",
+        "description": "Do you really want to change status to {{status}}?",
+        "submit": "Change",
+        "title": "Change Status"
+      },
+      "completed": "Complete",
       "error": "Cannot load moving out inspection information",
       "notFound": "Moving out inspection not found.",
       "summary": {

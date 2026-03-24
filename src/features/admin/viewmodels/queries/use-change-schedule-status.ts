@@ -11,7 +11,7 @@ export const useChangeScheduleStatus = (uuid: string) => {
   const { t } = useTranslation('admin');
   const queryClient = useQueryClient();
 
-  const { isPending, mutate } = $api.useMutation(
+  const { isPending, mutateAsync } = $api.useMutation(
     'patch',
     ApiPaths.ScheduleController_updateStatus,
     {
@@ -37,9 +37,8 @@ export const useChangeScheduleStatus = (uuid: string) => {
     },
   );
 
-  const changeScheduleStatus = (status: ScheduleStatus) => {
-    mutate({ params: { path: { uuid } }, body: { status } });
-  };
+  const changeScheduleStatus = (status: ScheduleStatus) =>
+    mutateAsync({ params: { path: { uuid } }, body: { status } });
 
   return {
     isPending,

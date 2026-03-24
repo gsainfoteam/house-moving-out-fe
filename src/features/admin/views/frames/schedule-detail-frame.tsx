@@ -4,7 +4,8 @@ import dayjs from 'dayjs';
 import { countBy } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Loading } from '@/common/components';
+import { Button, Dialog, Loading } from '@/common/components';
+import { overlay } from '@/common/lib';
 
 import {
   useGetMoveOutScheduleQuery,
@@ -39,6 +40,33 @@ export function ScheduleDetailFrame() {
   });
   const genderCounts = countBy(targets, (target) => target.gender);
 
+  const changeSchedule = (status: ScheduleStatus) => () => {
+    overlay.open(({ close }) => (
+      <Dialog.Root>
+        <Dialog.Header>{t('schedule.detail.changeSchedule.title')}</Dialog.Header>
+        <Dialog.Body>
+          {t('schedule.detail.changeSchedule.description', {
+            status: t(`schedule.status.${status.toLowerCase()}`),
+          })}
+        </Dialog.Body>
+        <Dialog.Footer>
+          <Dialog.Close asChild>
+            <Button variant="failed">{t('schedule.detail.changeSchedule.cancel')}</Button>
+          </Dialog.Close>
+          <Button
+            variant="default"
+            onClick={() => changeScheduleStatus(status).then(close)}
+            className="w-full"
+          >
+            {t('schedule.detail.changeSchedule.submit')}
+          </Button>
+        </Dialog.Footer>
+      </Dialog.Root>
+    ));
+  };
+
+  console.log('test');
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <section className="border-border bg-bg flex flex-col gap-5 rounded-xl border p-5">
@@ -52,7 +80,7 @@ export function ScheduleDetailFrame() {
               <Button
                 variant="outline"
                 disabled={updatingStatus}
-                onClick={() => changeScheduleStatus(ScheduleStatus.ACTIVE)}
+                onClick={changeSchedule(ScheduleStatus.ACTIVE)}
               >
                 {t('schedule.detail.active')}
               </Button>
@@ -62,18 +90,18 @@ export function ScheduleDetailFrame() {
               <Button
                 variant="failed"
                 disabled={updatingStatus}
-                onClick={() => changeScheduleStatus(ScheduleStatus.CANCELED)}
+                onClick={changeSchedule(ScheduleStatus.CANCELED)}
               >
-                {t('schedule.detail.cancel')}
+                {t('schedule.detail.canceled')}
               </Button>
             )}
             {schedule.status === ScheduleStatus.ACTIVE && (
               <Button
                 variant="outline"
                 disabled={updatingStatus}
-                onClick={() => changeScheduleStatus(ScheduleStatus.COMPLETED)}
+                onClick={changeSchedule(ScheduleStatus.COMPLETED)}
               >
-                {t('schedule.detail.complete')}
+                {t('schedule.detail.completed')}
               </Button>
             )}
           </div>
