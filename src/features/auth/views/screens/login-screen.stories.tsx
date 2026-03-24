@@ -2,13 +2,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { LoginView } from './login-view';
+import { LoginScreen } from './login-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof LoginView> = {
-  title: 'Auth/LoginView',
-  component: LoginView,
+const meta: Meta<typeof LoginScreen> = {
+  title: 'Auth/LoginScreen',
+  component: LoginScreen,
   parameters: {
     layout: 'fullscreen',
   },
@@ -23,7 +23,7 @@ const meta: Meta<typeof LoginView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof LoginView>;
+type Story = StoryObj<typeof LoginScreen>;
 
 export const Default: Story = {
   args: {

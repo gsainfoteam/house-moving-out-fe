@@ -10,7 +10,7 @@ import { SignaturePad } from '../components';
 
 import type { UseFormRegister, UseFormReturn, UseFormStateReturn } from 'react-hook-form';
 
-export function InspectionNoteView({
+export function InspectionNoteScreen({
   register,
   formState,
   setValue,
@@ -18,7 +18,7 @@ export function InspectionNoteView({
   clearErrors,
   artifact,
   onSubmit,
-}: InspectionNoteView.Props) {
+}: InspectionNoteScreen.Props) {
   const { t } = useTranslation('inspector');
 
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
@@ -114,7 +114,7 @@ export function InspectionNoteView({
   );
 }
 
-export namespace InspectionNoteView {
+export namespace InspectionNoteScreen {
   export type FormFields = {
     items: Record<checklist.Item, boolean>;
     note: string;

@@ -13,7 +13,7 @@ import { Steps } from '../components';
 
 import type { Dayjs } from 'dayjs';
 
-export type MainViewStatus =
+export type MainScreenStatus =
   | 'not_period'
   | 'not_target'
   | 'application'
@@ -347,7 +347,7 @@ function PassedCard() {
   );
 }
 
-export function MainView({
+export function MainScreen({
   status,
   isLoading,
   applicationStartTime,
@@ -355,7 +355,7 @@ export function MainView({
   cancelInspection,
   inspectionCount,
   failedItems,
-}: MainView.Props) {
+}: MainScreen.Props) {
   return (
     <LayoutCard.Root isLoading={isLoading}>
       <SwitchCase
@@ -383,9 +383,9 @@ export function MainView({
   );
 }
 
-export namespace MainView {
+export namespace MainScreen {
   export type Props = {
-    status: MainViewStatus;
+    status: MainScreenStatus;
     isLoading: boolean;
     applicationStartTime?: Dayjs;
     inspectionStartTime?: Dayjs;

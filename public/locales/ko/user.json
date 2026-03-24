@@ -58,8 +58,7 @@
     "segment": {
       "faq": "FAQ",
       "notice": "공지"
-    },
-    "title": "공지 및 FAQ 목록"
+    }
   },
   "steps": {
     "application": {

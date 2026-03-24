@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 import { ArticleType, useFindArticles } from '../../viewmodels';
-
-import { ArticleListView } from '../views';
+import { ArticleListScreen } from '../screens';
 
 const PAGE_SIZE = 5;
 
@@ -19,7 +18,7 @@ export function ArticleListFrame() {
   });
 
   return (
-    <ArticleListView
+    <ArticleListScreen
       type={type}
       onTypeChange={(nextType) => {
         setType(nextType);

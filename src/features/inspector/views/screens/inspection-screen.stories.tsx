@@ -1,18 +1,19 @@
+import { RouterContextProvider } from '@tanstack/react-router';
+
 import { useForm } from 'react-hook-form';
 import { I18nextProvider } from 'react-i18next';
-import { RouterContextProvider } from '@tanstack/react-router';
 
 import { i18n } from '@/common/lib';
 import type { checklist } from '@/common/lib';
 import { router } from '@/main';
 
-import { InspectionView } from './inspection-view';
+import { InspectionScreen } from './inspection-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof InspectionView> = {
-  title: 'Inspector/InspectionView',
-  component: InspectionView,
+const meta: Meta<typeof InspectionScreen> = {
+  title: 'Inspector/InspectionScreen',
+  component: InspectionScreen,
   parameters: {
     layout: 'padded',
   },
@@ -29,7 +30,7 @@ const meta: Meta<typeof InspectionView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof InspectionView>;
+type Story = StoryObj<typeof InspectionScreen>;
 
 const mockTarget = {
   roomNumber: 'T012호',
@@ -43,15 +44,15 @@ type InspectionFormFields = {
   targetSignature: string;
 };
 
-function InspectionViewWrapper({
+function InspectionScreenWrapper({
   roomType,
 }: {
-  roomType: InspectionView.Props['roomType'];
+  roomType: InspectionScreen.Props['roomType'];
 }) {
   const { register } = useForm<InspectionFormFields>();
 
   return (
-    <InspectionView
+    <InspectionScreen
       isLoading={false}
       target={mockTarget}
       roomType={roomType}
@@ -64,18 +65,18 @@ function InspectionViewWrapper({
 }
 
 export const TypeB: Story = {
-  render: () => <InspectionViewWrapper roomType="b" />,
+  render: () => <InspectionScreenWrapper roomType="b" />,
 };
 
 export const Solo: Story = {
-  render: () => <InspectionViewWrapper roomType="solo" />,
+  render: () => <InspectionScreenWrapper roomType="solo" />,
 };
 
 export const Loading: Story = {
   render: () => {
     const { register } = useForm<InspectionFormFields>();
     return (
-      <InspectionView
+      <InspectionScreen
         isLoading={true}
         target={undefined}
         roomType={undefined}

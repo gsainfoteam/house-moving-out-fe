@@ -12,7 +12,7 @@ import { ArticleCard } from '../components';
 
 const PAGE_SIZE = 5;
 
-export function ArticleListView({
+export function ArticleListScreen({
   type,
   onTypeChange,
   articles,
@@ -20,7 +20,7 @@ export function ArticleListView({
   page,
   onPageChange,
   isLoading,
-}: ArticleListView.Props) {
+}: ArticleListScreen.Props) {
   const { t } = useTranslation('user');
 
   const tabs = [
@@ -83,7 +83,7 @@ export function ArticleListView({
   );
 }
 
-export namespace ArticleListView {
+export namespace ArticleListScreen {
   export type Props = {
     type: ArticleType;
     onTypeChange: (type: ArticleType) => void;

@@ -3,13 +3,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { MainView } from './main-view';
+import { MainScreen } from './main-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof MainView> = {
-  title: 'User/MainView',
-  component: MainView,
+const meta: Meta<typeof MainScreen> = {
+  title: 'User/MainScreen',
+  component: MainScreen,
   parameters: {
     layout: 'padded',
   },
@@ -24,7 +24,7 @@ const meta: Meta<typeof MainView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof MainView>;
+type Story = StoryObj<typeof MainScreen>;
 
 export const NotPeriod: Story = {
   args: {

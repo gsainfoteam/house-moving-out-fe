@@ -2,7 +2,7 @@ import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
-import { TermsDetailView } from '../views';
+import { TermsDetailScreen } from '../screens';
 
 export function TermsDetailFrame() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export function TermsDetailFrame() {
   };
 
   return (
-    <TermsDetailView
+    <TermsDetailScreen
       title={titles[type] ?? ''}
       termsUrl={`https://terms.gistory.me/embedded/moving-out/${type}/${version}/`}
       onBack={handleBack}

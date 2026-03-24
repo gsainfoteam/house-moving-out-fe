@@ -60,7 +60,7 @@ function NoticeConsentDialog({ onConfirm }: { onConfirm: () => Promise<void> }) 
   );
 }
 
-export function ApplicationView({
+export function ApplicationScreen({
   isLoading,
   inspectionDays,
   inspectionDayTimestamp,
@@ -70,7 +70,7 @@ export function ApplicationView({
   onSlotChange,
   isSubmitDisabled,
   onSubmit,
-}: ApplicationView.Props) {
+}: ApplicationScreen.Props) {
   const { t } = useTranslation('user');
 
   const handleSubmitClick = () => {
@@ -129,7 +129,7 @@ export function ApplicationView({
   );
 }
 
-export namespace ApplicationView {
+export namespace ApplicationScreen {
   export type Props = {
     isLoading: boolean;
     inspectionDays: Dayjs[];

@@ -7,7 +7,7 @@ import { LayoutCard } from '@/common/components';
 
 import { InspectionScheduleCard } from '../components';
 
-export function InspectionListView({ targets, isLoading }: InspectionListView.Props) {
+export function InspectionListScreen({ targets, isLoading }: InspectionListScreen.Props) {
   const { t } = useTranslation('inspector');
 
   return (
@@ -40,7 +40,7 @@ export function InspectionListView({ targets, isLoading }: InspectionListView.Pr
   );
 }
 
-export namespace InspectionListView {
+export namespace InspectionListScreen {
   export type Target = {
     uuid: string;
     inspectionTime: string;

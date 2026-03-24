@@ -2,13 +2,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { ConsentView } from './consent-view';
+import { ConsentScreen } from './consent-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof ConsentView> = {
-  title: 'Auth/ConsentView',
-  component: ConsentView,
+const meta: Meta<typeof ConsentScreen> = {
+  title: 'Auth/ConsentScreen',
+  component: ConsentScreen,
   parameters: {
     layout: 'fullscreen',
   },
@@ -23,7 +23,7 @@ const meta: Meta<typeof ConsentView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ConsentView>;
+type Story = StoryObj<typeof ConsentScreen>;
 
 export const NoneChecked: Story = {
   args: {

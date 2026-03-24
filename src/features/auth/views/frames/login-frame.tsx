@@ -1,15 +1,14 @@
 import { useSearch } from '@tanstack/react-router';
 
 import { useAuth, useAuthRedirect } from '../../viewmodels';
-
-import { LoginView } from '../views';
+import { LoginScreen } from '../screens';
 
 export function LoginFrame() {
   const { idpLogIn } = useAuth();
   const { redirect } = useSearch({ from: '/auth' });
 
   return (
-    <LoginView
+    <LoginScreen
       onLogin={() => {
         useAuthRedirect.getState().setRedirect(redirect);
         idpLogIn();

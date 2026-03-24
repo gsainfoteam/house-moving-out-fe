@@ -2,13 +2,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { TermsDetailView } from './terms-detail-view';
+import { TermsDetailScreen } from './terms-detail-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof TermsDetailView> = {
-  title: 'Auth/TermsDetailView',
-  component: TermsDetailView,
+const meta: Meta<typeof TermsDetailScreen> = {
+  title: 'Auth/TermsDetailScreen',
+  component: TermsDetailScreen,
   parameters: {
     layout: 'fullscreen',
   },
@@ -23,7 +23,7 @@ const meta: Meta<typeof TermsDetailView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof TermsDetailView>;
+type Story = StoryObj<typeof TermsDetailScreen>;
 
 export const Privacy: Story = {
   args: {

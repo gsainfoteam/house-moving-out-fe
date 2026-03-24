@@ -10,7 +10,7 @@ import { SampleImageButton } from '../components';
 
 import type { UseFormRegister } from 'react-hook-form';
 
-export function InspectionView({
+export function InspectionScreen({
   isLoading,
   target,
   roomType,
@@ -18,7 +18,7 @@ export function InspectionView({
   getSectionProgress,
   isAllChecked,
   uuid,
-}: InspectionView.Props) {
+}: InspectionScreen.Props) {
   const { t } = useTranslation('inspector');
 
   if (isLoading) return <Loading />;
@@ -95,7 +95,7 @@ export function InspectionView({
   );
 }
 
-export namespace InspectionView {
+export namespace InspectionScreen {
   export type Target = {
     roomNumber: string;
     residents: { name: string }[];

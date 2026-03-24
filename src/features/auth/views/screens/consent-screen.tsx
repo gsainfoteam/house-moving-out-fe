@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, LanguageToggle } from '@/common/components';
 import { cn } from '@/common/utils';
 
-export function ConsentView({
+export function ConsentScreen({
   allChecked,
   onAllChange,
   privacyChecked,
@@ -15,7 +15,7 @@ export function ConsentView({
   onTosTermsClick,
   onSubmit,
   isSubmitDisabled,
-}: ConsentView.Props) {
+}: ConsentScreen.Props) {
   const { t } = useTranslation('auth');
 
   return (
@@ -92,7 +92,7 @@ export function ConsentView({
   );
 }
 
-export namespace ConsentView {
+export namespace ConsentScreen {
   export type Props = {
     allChecked: boolean;
     onAllChange: (checked: boolean) => void;

@@ -8,8 +8,7 @@ import { overlay } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
 import { useApplicationForm } from '../../viewmodels';
-
-import { ApplicationView } from '../views';
+import { ApplicationScreen } from '../screens';
 
 export function ApplicationFrame() {
   const { user } = useAuth();
@@ -107,7 +106,7 @@ export function ApplicationFrame() {
   if (!user) return null;
 
   return (
-    <ApplicationView
+    <ApplicationScreen
       isLoading={isLoading}
       inspectionDays={inspectionDays}
       inspectionDayTimestamp={inspectionDayTimestamp}

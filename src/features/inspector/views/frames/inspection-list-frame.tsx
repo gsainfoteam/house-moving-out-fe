@@ -1,9 +1,9 @@
-import { InspectionListView } from '../views';
 import { useGetInspectionTargets } from '../../viewmodels';
+import { InspectionListScreen } from '../screens';
 
 
 export function InspectionListFrame() {
   const { targets, isLoading } = useGetInspectionTargets();
 
-  return <InspectionListView targets={targets} isLoading={isLoading} />;
+  return <InspectionListScreen targets={targets} isLoading={isLoading} />;
 }

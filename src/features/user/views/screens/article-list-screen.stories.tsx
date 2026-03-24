@@ -5,14 +5,14 @@ import { I18nextProvider } from 'react-i18next';
 import { i18n } from '@/common/lib';
 import type { Article } from '@/features/user';
 
+import { ArticleListScreen } from './article-list-screen';
 import { ArticleType } from '../../viewmodels';
-import { ArticleListView } from './article-list-view';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof ArticleListView> = {
-  title: 'User/ArticleListView',
-  component: ArticleListView,
+const meta: Meta<typeof ArticleListScreen> = {
+  title: 'User/ArticleListScreen',
+  component: ArticleListScreen,
   parameters: {
     layout: 'padded',
   },
@@ -27,7 +27,7 @@ const meta: Meta<typeof ArticleListView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ArticleListView>;
+type Story = StoryObj<typeof ArticleListScreen>;
 
 const mockNotices: Article[] = [
   {
@@ -113,7 +113,7 @@ export const Interactive: Story = {
     const articles = type === ArticleType.NOTICE ? mockNotices : mockFaqs;
 
     return (
-      <ArticleListView
+      <ArticleListScreen
         type={type}
         onTypeChange={(t) => {
           setType(t);

@@ -2,13 +2,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { ArticleDetailView } from './article-detail-view';
+import { ArticleDetailScreen } from './article-detail-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof ArticleDetailView> = {
-  title: 'User/ArticleDetailView',
-  component: ArticleDetailView,
+const meta: Meta<typeof ArticleDetailScreen> = {
+  title: 'User/ArticleDetailScreen',
+  component: ArticleDetailScreen,
   parameters: {
     layout: 'padded',
   },
@@ -23,7 +23,7 @@ const meta: Meta<typeof ArticleDetailView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ArticleDetailView>;
+type Story = StoryObj<typeof ArticleDetailScreen>;
 
 export const WithContent: Story = {
   args: {

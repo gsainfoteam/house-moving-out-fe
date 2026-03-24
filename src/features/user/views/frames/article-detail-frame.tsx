@@ -7,8 +7,7 @@ import dayjs from 'dayjs';
 import { useLocale } from '@/common/lib';
 
 import { useFindArticleByUuid } from '../../viewmodels';
-
-import { ArticleDetailView } from '../views';
+import { ArticleDetailScreen } from '../screens';
 
 export function ArticleDetailFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/articles/$uuid' });
@@ -27,7 +26,7 @@ export function ArticleDetailFrame() {
   if (isNotFound || !article) return null;
 
   return (
-    <ArticleDetailView
+    <ArticleDetailScreen
       title={title}
       content={content}
       updatedAt={dayjs(article.updatedAt).format('YYYY-MM-DD HH:mm')}

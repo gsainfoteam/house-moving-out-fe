@@ -1,8 +1,7 @@
 import { useParams } from '@tanstack/react-router';
 
 import { useInspectionChecklistContext } from '../../viewmodels';
-
-import { InspectionView } from '../views';
+import { InspectionScreen } from '../screens';
 
 export function InspectionFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/' });
@@ -10,7 +9,7 @@ export function InspectionFrame() {
     useInspectionChecklistContext();
 
   return (
-    <InspectionView
+    <InspectionScreen
       isLoading={isLoading}
       target={target}
       roomType={roomType}

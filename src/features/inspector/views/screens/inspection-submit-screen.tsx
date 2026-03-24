@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, LayoutCard } from '@/common/components';
 
-export function InspectionSubmitView({
+export function InspectionSubmitScreen({
   artifact,
   isAllChecked,
   isSubmitting,
   onSubmit,
-}: InspectionSubmitView.Props) {
+}: InspectionSubmitScreen.Props) {
   const { t } = useTranslation('inspector');
 
   return (
@@ -36,7 +36,7 @@ export function InspectionSubmitView({
   );
 }
 
-export namespace InspectionSubmitView {
+export namespace InspectionSubmitScreen {
   export type Props = {
     artifact: Uint8Array;
     isAllChecked: boolean;

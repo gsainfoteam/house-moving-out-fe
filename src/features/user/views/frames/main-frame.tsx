@@ -1,8 +1,7 @@
 import { useAuth } from '@/features/auth';
 
 import { useCurrentSchedule } from '../../viewmodels';
-
-import { MainView } from '../views';
+import { MainScreen } from '../screens';
 
 export function MainFrame() {
   const { user } = useAuth();
@@ -21,7 +20,7 @@ export function MainFrame() {
   if (!user) return null;
 
   return (
-    <MainView
+    <MainScreen
       status={status}
       isLoading={isLoadingSchedule || isLoadingInspection}
       applicationStartTime={applicationStartTime}

@@ -6,13 +6,13 @@ import { I18nextProvider } from 'react-i18next';
 import { i18n } from '@/common/lib';
 import { router } from '@/main';
 
-import { InspectionListView } from './inspection-list-view';
+import { InspectionListScreen } from './inspection-list-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof InspectionListView> = {
-  title: 'Inspector/InspectionListView',
-  component: InspectionListView,
+const meta: Meta<typeof InspectionListScreen> = {
+  title: 'Inspector/InspectionListScreen',
+  component: InspectionListScreen,
   parameters: {
     layout: 'padded',
   },
@@ -29,11 +29,11 @@ const meta: Meta<typeof InspectionListView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof InspectionListView>;
+type Story = StoryObj<typeof InspectionListScreen>;
 
 const baseTime = dayjs().startOf('day').hour(10);
 
-const mockTargets: InspectionListView.Target[] = [
+const mockTargets: InspectionListScreen.Target[] = [
   {
     uuid: 'target-1',
     inspectionTime: baseTime.toISOString(),

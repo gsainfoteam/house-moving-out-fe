@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import { LayoutCard } from '@/common/components';
 
-export function ArticleDetailView({
+export function ArticleDetailScreen({
   title,
   content,
   updatedAt,
   isLoading,
-}: ArticleDetailView.Props) {
+}: ArticleDetailScreen.Props) {
   const { t } = useTranslation('user');
 
   return (
@@ -33,7 +33,7 @@ export function ArticleDetailView({
   );
 }
 
-export namespace ArticleDetailView {
+export namespace ArticleDetailScreen {
   export type Props = {
     title: string | undefined;
     content: string | undefined;

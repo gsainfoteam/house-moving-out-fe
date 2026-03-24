@@ -2,13 +2,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { InspectionSubmitView } from './inspection-submit-view';
+import { InspectionSubmitScreen } from './inspection-submit-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof InspectionSubmitView> = {
-  title: 'Inspector/InspectionSubmitView',
-  component: InspectionSubmitView,
+const meta: Meta<typeof InspectionSubmitScreen> = {
+  title: 'Inspector/InspectionSubmitScreen',
+  component: InspectionSubmitScreen,
   parameters: {
     layout: 'padded',
   },
@@ -23,7 +23,7 @@ const meta: Meta<typeof InspectionSubmitView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof InspectionSubmitView>;
+type Story = StoryObj<typeof InspectionSubmitScreen>;
 
 const emptyArtifact = new Uint8Array();
 

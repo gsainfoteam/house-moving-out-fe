@@ -1,13 +1,12 @@
 import { useInspectionNoteForm, useInspectionChecklistFile } from '../../viewmodels';
-
-import { InspectionNoteView } from '../views';
+import { InspectionNoteScreen } from '../screens';
 
 export function InspectionNoteFrame() {
   const { form, onSubmit } = useInspectionNoteForm();
   const { artifact } = useInspectionChecklistFile('vector', true);
 
   return (
-    <InspectionNoteView
+    <InspectionNoteScreen
       register={form.register}
       formState={form.formState}
       setValue={form.setValue}

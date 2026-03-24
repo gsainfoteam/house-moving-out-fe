@@ -3,13 +3,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { InspectionNoteView } from './inspection-note-view';
+import { InspectionNoteScreen } from './inspection-note-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof InspectionNoteView> = {
-  title: 'Inspector/InspectionNoteView',
-  component: InspectionNoteView,
+const meta: Meta<typeof InspectionNoteScreen> = {
+  title: 'Inspector/InspectionNoteScreen',
+  component: InspectionNoteScreen,
   parameters: {
     layout: 'padded',
   },
@@ -24,17 +24,17 @@ const meta: Meta<typeof InspectionNoteView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof InspectionNoteView>;
+type Story = StoryObj<typeof InspectionNoteScreen>;
 
 export const Default: Story = {
   render: () => {
     const { register, formState, setValue, resetField, clearErrors } =
-      useForm<InspectionNoteView.FormFields>({
+      useForm<InspectionNoteScreen.FormFields>({
         defaultValues: { items: {} as never, note: '', inspectorSignature: '', targetSignature: '' },
       });
 
     return (
-      <InspectionNoteView
+      <InspectionNoteScreen
         register={register}
         formState={formState}
         setValue={setValue}

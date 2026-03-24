@@ -1,7 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-export function TermsDetailView({ title, termsUrl, onBack }: TermsDetailView.Props) {
+export function TermsDetailScreen({ title, termsUrl, onBack }: TermsDetailScreen.Props) {
   const { t } = useTranslation('auth');
 
   return (
@@ -27,7 +27,7 @@ export function TermsDetailView({ title, termsUrl, onBack }: TermsDetailView.Pro
   );
 }
 
-export namespace TermsDetailView {
+export namespace TermsDetailScreen {
   export type Props = {
     title: string;
     termsUrl: string;

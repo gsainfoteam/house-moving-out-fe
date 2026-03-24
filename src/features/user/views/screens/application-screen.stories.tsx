@@ -3,13 +3,13 @@ import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
 
-import { ApplicationView } from './application-view';
+import { ApplicationScreen } from './application-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof ApplicationView> = {
-  title: 'User/ApplicationView',
-  component: ApplicationView,
+const meta: Meta<typeof ApplicationScreen> = {
+  title: 'User/ApplicationScreen',
+  component: ApplicationScreen,
   parameters: {
     layout: 'padded',
   },
@@ -24,7 +24,7 @@ const meta: Meta<typeof ApplicationView> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ApplicationView>;
+type Story = StoryObj<typeof ApplicationScreen>;
 
 const today = dayjs().startOf('day');
 const mockDays = [today, today.add(1, 'day'), today.add(2, 'day'), today.add(3, 'day')];

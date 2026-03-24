@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, LanguageToggle } from '@/common/components';
 
-export function LoginView({ onLogin }: LoginView.Props) {
+export function LoginScreen({ onLogin }: LoginScreen.Props) {
   const { t } = useTranslation('auth');
 
   return (
@@ -22,7 +22,7 @@ export function LoginView({ onLogin }: LoginView.Props) {
   );
 }
 
-export namespace LoginView {
+export namespace LoginScreen {
   export type Props = {
     onLogin: () => void;
   };
