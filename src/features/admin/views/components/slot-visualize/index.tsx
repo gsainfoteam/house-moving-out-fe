@@ -9,7 +9,7 @@ import { cn } from '@/common/utils';
 const START_HOUR = 10;
 const END_HOUR = 18;
 
-const cellBase = cn('border border-gray-200 transition-colors duration-150 min-w-10');
+const cellBase = cn('border border-border transition-colors duration-150 min-w-10');
 const headerCell = cn('bg-bg-surface/80 font-medium text-text-primary px-3 py-2 text-center');
 const timeCell = cn(
   'bg-bg-surface/60 text-text-secondary px-2 py-1.5 text-label font-medium w-28 whitespace-nowrap',
@@ -46,7 +46,7 @@ export function SlotVisualize({
   const days = range(minDay, maxDay + 1);
 
   return (
-    <table className="text-body bg-bg w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border border-gray-200 shadow-sm select-none">
+    <table className="text-body bg-bg w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border border-border select-none">
       <thead>
         <tr>
           <th className={cn(cellBase, headerCell, 'text-text-primary font-semibold')} scope="col">

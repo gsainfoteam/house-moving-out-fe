@@ -25,7 +25,7 @@ export function ScheduleSummary({
   const genderCounts = countBy(targets, (target) => target.gender);
 
   return (
-    <section className="flex flex-col gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+    <section className="flex flex-col gap-5 rounded-xl border border-border bg-bg p-5">
       <div className="flex flex-col gap-3 border-b border-gray-100 pb-4">
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="text-body-lg text-text-primary font-bold">{schedule.title}</h2>

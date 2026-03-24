@@ -29,9 +29,9 @@ export function TargetListFrame() {
   if (!targets) return <Loading containerClassName="h-full" />;
   return (
     <main className="p-4">
-      <div className="bg-bg overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+      <div className="bg-bg overflow-hidden rounded-xl border border-border">
         {isCleaningEditable ? (
-          <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <div className="flex items-center justify-between border-b border-border px-4 py-3">
             <span className="text-body text-text-secondary">
               {numberOfDraftChanges
                 ? t('target.detail.cleaningUnsavedCount', {
@@ -63,7 +63,7 @@ export function TargetListFrame() {
             </div>
           </div>
         ) : null}
-        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
+        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
             <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
               <th className="[&&]:border-r-2">{t('target.detail.roomNumber')}</th>
@@ -105,7 +105,7 @@ export function TargetListFrame() {
                   <div className="flex items-center justify-center gap-2">
                     {isCleaningEditable ? (
                       <Checkbox
-                        className="scale-150"
+                        className="scale-100"
                         checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
                         onChange={(event) => {
                           handleCleaningServiceChange(

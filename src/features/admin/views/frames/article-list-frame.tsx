@@ -60,8 +60,8 @@ export function ArticleListFrame() {
       ) : rows.length === 0 ? (
         <div className="text-body text-text-secondary">{t('article.list.empty')}</div>
       ) : (
-        <div className="bg-bg overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-          <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
+        <div className="bg-bg overflow-hidden rounded-xl border border-border">
+          <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
             <thead>
               <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
                 <th>{t('article.list.columns.title')}</th>

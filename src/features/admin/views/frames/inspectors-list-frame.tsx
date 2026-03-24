@@ -50,8 +50,8 @@ export function InspectorsListFrame() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <div className="bg-bg overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
+      <div className="bg-bg overflow-hidden rounded-xl border border-border">
+        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
             <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
               <th>{t('inspectors.create.name.label')}</th>
