@@ -65,8 +65,6 @@ export function ScheduleDetailFrame() {
     ));
   };
 
-  console.log('test');
-
   return (
     <div className="flex flex-col gap-4 p-4">
       <section className="border-border bg-bg flex flex-col gap-5 rounded-xl border p-5">
