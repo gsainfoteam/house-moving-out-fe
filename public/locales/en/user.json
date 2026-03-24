@@ -1,4 +1,7 @@
 {
+  "timeSelect": {
+    "closed": "Closed"
+  },
   "application": {
     "button": {
       "cancel": "Cancel",

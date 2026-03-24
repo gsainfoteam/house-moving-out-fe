@@ -33,6 +33,10 @@
   "menu": {
     "title": "Menu"
   },
+  "pagination": {
+    "next": "Next",
+    "prev": "Prev"
+  },
   "switchToEnglish": "Switch to English",
   "switchToKorean": "Switch to Korean"
 }

@@ -37,7 +37,7 @@ export function ArticleCard({ article, className, ...props }: ArticleCard.Props)
           {dayjs(article.updatedAt).format('YYYY-MM-DD HH:mm')}
         </p>
       </div>
-      <IconChevronRight className="shrink-0" />
+      <IconChevronRight className="text-icon shrink-0" />
     </div>
   );
 }

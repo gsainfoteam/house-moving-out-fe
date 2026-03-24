@@ -1,4 +1,7 @@
 {
+  "timeSelect": {
+    "closed": "마감"
+  },
   "application": {
     "button": {
       "cancel": "이전",

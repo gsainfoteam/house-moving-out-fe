@@ -33,6 +33,10 @@
   "menu": {
     "title": "메뉴"
   },
+  "pagination": {
+    "next": "다음",
+    "prev": "이전"
+  },
   "switchToEnglish": "영어로 전환",
   "switchToKorean": "한국어로 전환"
 }

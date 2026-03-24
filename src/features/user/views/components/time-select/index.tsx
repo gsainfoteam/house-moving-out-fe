@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
 import { cn, cv } from '@/common/utils';
 
 import type { Dayjs } from 'dayjs';
 import type { VariantProps } from 'tailwind-variants';
 
 export function TimeSelect({ slot, value, onChange }: TimeSelect.Props) {
+  const { t } = useTranslation('user');
   const isSelected = value === slot.uuid;
   const isClosed = slot.isClosed;
   const state: TimeSelect.SlotState = isClosed ? 'closed' : isSelected ? 'selected' : 'default';
@@ -19,7 +22,7 @@ export function TimeSelect({ slot, value, onChange }: TimeSelect.Props) {
     >
       {isClosed && (
         <span className="text-caption bg-bg-surface text-text-secondary absolute top-1 right-1 rounded-md px-1 py-0.5">
-          마감
+          {t('timeSelect.closed')}
         </span>
       )}
       {slot.startTime.format('HH:mm')}
