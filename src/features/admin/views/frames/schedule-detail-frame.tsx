@@ -1,3 +1,5 @@
+import { useTransition } from 'react';
+
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
@@ -16,6 +18,42 @@ import {
   ScheduleStatus,
 } from '../../viewmodels';
 import { ScheduleStatusBadge } from '../components';
+
+function ChangeScheduleDialog({
+  onChange,
+  status,
+  close,
+}: {
+  onChange: () => Promise<void>;
+  status: ScheduleStatus;
+  close: () => void;
+}) {
+  const { t } = useTranslation('admin');
+  const [loading, startLoading] = useTransition();
+  return (
+    <Dialog.Root>
+      <Dialog.Header>{t('schedule.detail.changeSchedule.title')}</Dialog.Header>
+      <Dialog.Body>
+        {t('schedule.detail.changeSchedule.description', {
+          status: t(`schedule.status.${status.toLowerCase()}`),
+        })}
+      </Dialog.Body>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button variant="failed">{t('schedule.detail.changeSchedule.cancel')}</Button>
+        </Dialog.Close>
+        <Button
+          variant="default"
+          disabled={loading}
+          onClick={() => startLoading(() => onChange().then(close))}
+          className="w-full"
+        >
+          {t('schedule.detail.changeSchedule.submit')}
+        </Button>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
 
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/' });
@@ -42,26 +80,11 @@ export function ScheduleDetailFrame() {
 
   const changeSchedule = (status: ScheduleStatus) => () => {
     overlay.open(({ close }) => (
-      <Dialog.Root>
-        <Dialog.Header>{t('schedule.detail.changeSchedule.title')}</Dialog.Header>
-        <Dialog.Body>
-          {t('schedule.detail.changeSchedule.description', {
-            status: t(`schedule.status.${status.toLowerCase()}`),
-          })}
-        </Dialog.Body>
-        <Dialog.Footer>
-          <Dialog.Close asChild>
-            <Button variant="failed">{t('schedule.detail.changeSchedule.cancel')}</Button>
-          </Dialog.Close>
-          <Button
-            variant="default"
-            onClick={() => changeScheduleStatus(status).then(close)}
-            className="w-full"
-          >
-            {t('schedule.detail.changeSchedule.submit')}
-          </Button>
-        </Dialog.Footer>
-      </Dialog.Root>
+      <ChangeScheduleDialog
+        onChange={() => changeScheduleStatus(status).catch(() => {})}
+        status={status}
+        close={close}
+      />
     ));
   };
 
