@@ -16,6 +16,7 @@ import type { Dayjs } from 'dayjs';
 export type MainScreenStatus =
   | 'not_period'
   | 'not_target'
+  | 'cleaning_service'
   | 'application'
   | 'waiting'
   | 'in_progress'
@@ -106,6 +107,35 @@ function NotTargetCard() {
       <LayoutCard.Footer>
         <Button variant="outline" className="w-full">
           {t('steps.not_target.button')}
+        </Button>
+      </LayoutCard.Footer>
+    </>
+  );
+}
+
+function CleaningServiceCard() {
+  const { t } = useTranslation('user');
+
+  return (
+    <>
+      <LayoutCard.Center>
+        <LayoutCard.Header className="items-center">
+          <LayoutCard.Media>
+            <img src="./3d/not-period.png" alt="cleaning-service" className="h-60" />
+          </LayoutCard.Media>
+          <LayoutCard.Text className="items-center">
+            <LayoutCard.Title className="text-text-primary">
+              {t('steps.cleaning_service.title')}
+            </LayoutCard.Title>
+            <LayoutCard.Description>
+              {t('steps.cleaning_service.description')}
+            </LayoutCard.Description>
+          </LayoutCard.Text>
+        </LayoutCard.Header>
+      </LayoutCard.Center>
+      <LayoutCard.Footer>
+        <Button variant="outline" className="w-full">
+          {t('steps.cleaning_service.button')}
         </Button>
       </LayoutCard.Footer>
     </>
@@ -331,9 +361,7 @@ function PassedCard() {
             <img src="./3d/passed.png" alt="passed" className="h-60" />
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
-            <LayoutCard.Title className="text-primary">
-              {t('steps.passed.title')}
-            </LayoutCard.Title>
+            <LayoutCard.Title className="text-primary">{t('steps.passed.title')}</LayoutCard.Title>
             <LayoutCard.Description>{t('steps.passed.description')}</LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
@@ -363,6 +391,7 @@ export function MainScreen({
         caseBy={{
           not_period: <NotPeriodCard applicationStartTime={applicationStartTime} />,
           not_target: <NotTargetCard />,
+          cleaning_service: <CleaningServiceCard />,
           application: <ApplicationCard />,
           waiting:
             cancelInspection != null ? (

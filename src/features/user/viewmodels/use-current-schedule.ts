@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+import { useAuth } from '@/features/auth';
 
 import {
   useCancelInspection,
@@ -9,6 +11,7 @@ import {
 type Status =
   | 'not_period'
   | 'not_target'
+  | 'cleaning_service'
   | 'application'
   | 'waiting'
   | 'in_progress'
@@ -16,6 +19,7 @@ type Status =
   | 'passed';
 
 export const useCurrentSchedule = () => {
+  const { user } = useAuth();
   const [status, setStatus] = useState<Status>('not_period');
 
   const {
@@ -43,6 +47,10 @@ export const useCurrentSchedule = () => {
   });
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
+
+  useEffect(() => {
+    if (user?.applyCleaningService) queueMicrotask(() => setStatus('cleaning_service'));
+  }, [user?.applyCleaningService]);
 
   return {
     status,

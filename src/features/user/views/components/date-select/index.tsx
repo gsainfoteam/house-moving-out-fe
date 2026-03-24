@@ -5,10 +5,7 @@ import type { Dayjs } from 'dayjs';
 export function DateSelect({ days, value, onChange, className }: DateSelect.Props) {
   return (
     <div
-      className={cn(
-        'border-border flex w-full gap-0 overflow-hidden rounded-xl border',
-        className,
-      )}
+      className={cn('border-border flex w-full gap-0 overflow-hidden rounded-xl border', className)}
     >
       {days.map((day, index) => {
         const isSelected = value !== null && day.valueOf() === value.valueOf();

@@ -48,6 +48,13 @@ export const NotTarget: Story = {
   },
 };
 
+export const CleaningService: Story = {
+  args: {
+    status: 'cleaning_service',
+    isLoading: false,
+  },
+};
+
 export const Application: Story = {
   args: {
     status: 'application',

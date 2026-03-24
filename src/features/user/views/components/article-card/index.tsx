@@ -29,9 +29,13 @@ export function ArticleCard({ article, className, ...props }: ArticleCard.Props)
           ) : (
             <IconMessageFilled className="text-icon shrink-0" />
           )}
-          <div className="text-body-lg text-text-primary min-w-0 truncate font-semibold">{title}</div>
+          <div className="text-body-lg text-text-primary min-w-0 truncate font-semibold">
+            {title}
+          </div>
         </div>
-        <p className="text-caption text-text-muted">{dayjs(article.updatedAt).format('YYYY-MM-DD HH:mm')}</p>
+        <p className="text-caption text-text-muted">
+          {dayjs(article.updatedAt).format('YYYY-MM-DD HH:mm')}
+        </p>
       </div>
       <IconChevronRight className="shrink-0" />
     </div>

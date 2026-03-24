@@ -44,11 +44,7 @@ type InspectionFormFields = {
   targetSignature: string;
 };
 
-function InspectionScreenWrapper({
-  roomType,
-}: {
-  roomType: InspectionScreen.Props['roomType'];
-}) {
+function InspectionScreenWrapper({ roomType }: { roomType: InspectionScreen.Props['roomType'] }) {
   const { register } = useForm<InspectionFormFields>();
 
   return (

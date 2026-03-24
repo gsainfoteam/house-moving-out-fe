@@ -1,6 +1,13 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
 
-import { ArrowRightLeft, FileTextIcon, Globe, HomeIcon as HomeLucideIcon, LogOut, MessageCircle } from 'lucide-react';
+import {
+  ArrowRightLeft,
+  FileTextIcon,
+  Globe,
+  HomeIcon as HomeLucideIcon,
+  LogOut,
+  MessageCircle,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Drawer, Layout } from '@/common/components';

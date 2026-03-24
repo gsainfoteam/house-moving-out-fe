@@ -45,12 +45,7 @@ export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
     );
 
     return (
-      <div
-        className={cn(
-          'bg-bg border-border relative rounded-2xl border',
-          className,
-        )}
-      >
+      <div className={cn('bg-bg border-border relative rounded-2xl border', className)}>
         <SignatureCanvas
           ref={internalRef}
           backgroundColor="transparent"

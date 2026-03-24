@@ -31,10 +31,7 @@ const styles = cv({
   ],
   variants: {
     variant: {
-      default: [
-        'border-border',
-        'focus-visible:border-primary focus-visible:ring-primary',
-      ],
+      default: ['border-border', 'focus-visible:border-primary focus-visible:ring-primary'],
       error: [
         'border-status-fail',
         'focus-visible:border-status-fail focus-visible:ring-status-fail',

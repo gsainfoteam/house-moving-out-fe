@@ -1,7 +1,6 @@
 import { useGetInspectionTargets } from '../../viewmodels';
 import { InspectionListScreen } from '../screens';
 
-
 export function InspectionListFrame() {
   const { targets, isLoading } = useGetInspectionTargets();
 

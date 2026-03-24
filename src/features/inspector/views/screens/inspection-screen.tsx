@@ -63,7 +63,7 @@ export function InspectionScreen({
                       <li key={itemKey}>
                         <label
                           htmlFor={checkboxId}
-                          className="flex w-full cursor-pointer items-center gap-2 pl-2 py-1.5 pr-2"
+                          className="flex w-full cursor-pointer items-center gap-2 py-1.5 pr-2 pl-2"
                         >
                           <span className="flex items-center gap-2">
                             <span>{t(itemKey, { ns: 'checklist' })}</span>

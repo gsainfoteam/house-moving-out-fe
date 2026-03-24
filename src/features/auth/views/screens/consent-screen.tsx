@@ -19,14 +19,14 @@ export function ConsentScreen({
   const { t } = useTranslation('auth');
 
   return (
-    <form onSubmit={onSubmit} className="relative flex h-screen flex-col bg-bg px-6 pt-8 pb-8">
+    <form onSubmit={onSubmit} className="bg-bg relative flex h-screen flex-col px-6 pt-8 pb-8">
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>
       <div className="mx-auto flex h-full w-full max-w-md flex-col">
         <div className="flex flex-1 flex-col items-center justify-center gap-4">
           <img src="/3d/logo.png" alt="logo" className="size-40" />
-          <h1 className="whitespace-pre-line text-center text-display font-bold leading-tight">
+          <h1 className="text-display text-center leading-tight font-bold whitespace-pre-line">
             {t('consent.title')}
           </h1>
         </div>
@@ -49,9 +49,9 @@ export function ConsentScreen({
                   checked={privacyChecked}
                   onChange={(e) => onPrivacyChange(e.target.checked)}
                 />
-                <span className="flex-1 text-body-lg font-medium">
+                <span className="text-body-lg flex-1 font-medium">
                   {t('consent.privacyPolicy')}
-                  <span className="ml-1 text-primary">*</span>
+                  <span className="text-primary ml-1">*</span>
                 </span>
                 <button
                   type="button"
@@ -65,9 +65,9 @@ export function ConsentScreen({
 
               <label className="flex cursor-pointer items-center gap-3 rounded-lg px-1 py-1">
                 <Checkbox checked={tosChecked} onChange={(e) => onTosChange(e.target.checked)} />
-                <span className="flex-1 text-body-lg font-medium">
+                <span className="text-body-lg flex-1 font-medium">
                   {t('consent.termsOfService')}
-                  <span className="ml-1 text-primary">*</span>
+                  <span className="text-primary ml-1">*</span>
                 </span>
                 <button
                   type="button"

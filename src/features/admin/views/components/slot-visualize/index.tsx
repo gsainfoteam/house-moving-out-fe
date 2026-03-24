@@ -113,8 +113,7 @@ export function SlotVisualize({
                       className={cn(
                         cellBase,
                         'text-text-primary px-2 py-1.5 text-center font-medium tabular-nums',
-                        isSelected &&
-                          'ring-primary bg-primary text-text-white ring-2 ring-inset',
+                        isSelected && 'ring-primary bg-primary text-text-white ring-2 ring-inset',
                         !isSelected && isFull && 'bg-status-fail-light text-text-primary',
                         !isSelected && !isFull && 'bg-primary-light text-text-primary',
                         onClick && 'cursor-pointer',

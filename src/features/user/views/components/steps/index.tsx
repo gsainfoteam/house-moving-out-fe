@@ -106,7 +106,9 @@ export namespace Steps {
     variants: {
       status: {
         inactive: ['bg-icon'],
-        active: ['bg-primary drop-shadow-[0_0_9px_color-mix(in_srgb,var(--color-primary)_80%,transparent)]'],
+        active: [
+          'bg-primary drop-shadow-[0_0_9px_color-mix(in_srgb,var(--color-primary)_80%,transparent)]',
+        ],
         completed: ['bg-primary'],
       },
     },

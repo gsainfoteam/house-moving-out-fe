@@ -83,9 +83,7 @@ export function ApplicationScreen({
     <LayoutCard.Root isLoading={isLoading}>
       <LayoutCard.Header>
         <LayoutCard.Text>
-          <LayoutCard.Title className="text-primary">
-            {t('application.title')}
-          </LayoutCard.Title>
+          <LayoutCard.Title className="text-primary">{t('application.title')}</LayoutCard.Title>
           <LayoutCard.Description>{t('application.description')}</LayoutCard.Description>
         </LayoutCard.Text>
       </LayoutCard.Header>

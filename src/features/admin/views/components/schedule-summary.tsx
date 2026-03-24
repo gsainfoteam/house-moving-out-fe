@@ -35,7 +35,9 @@ export function ScheduleSummary({
 
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">
-          <span className="text-label text-text-secondary">{t('schedule.detail.applicationTime')}</span>
+          <span className="text-label text-text-secondary">
+            {t('schedule.detail.applicationTime')}
+          </span>
           <p className="text-body-lg text-text-primary">
             {`${dayjs(schedule.applicationStartTime).format('l ddd LT')} ~ ${dayjs(schedule.applicationEndTime).format('l ddd LT')}`}
           </p>
@@ -52,16 +54,22 @@ export function ScheduleSummary({
       </div>
 
       <div className="flex flex-col gap-2">
-        <h3 className="text-body text-text-secondary font-medium">{t('schedule.statistics.title')}</h3>
+        <h3 className="text-body text-text-secondary font-medium">
+          {t('schedule.statistics.title')}
+        </h3>
         <div className="grid grid-cols-3 gap-x-4 gap-y-2">
           <div className="text-body text-text-primary flex justify-between">
-            <span className="text-text-secondary">{t('schedule.statistics.all_not_inspected')}</span>
+            <span className="text-text-secondary">
+              {t('schedule.statistics.all_not_inspected')}
+            </span>
             <span className="font-medium">
               {(counts.not_inspected ?? 0) + (counts.waiting ?? 0)}
             </span>
           </div>
           <div className="text-body text-text-primary flex justify-between">
-            <span className="text-text-secondary">{t('schedule.statistics.all_single_target')}</span>
+            <span className="text-text-secondary">
+              {t('schedule.statistics.all_single_target')}
+            </span>
             <span className="font-medium">
               {(counts.solo_not_inspected ?? 0) + (counts.solo_waiting ?? 0)}
             </span>
@@ -73,7 +81,9 @@ export function ScheduleSummary({
             </span>
           </div>
           <div className="text-body text-text-primary flex justify-between">
-            <span className="text-text-secondary">{t('schedule.statistics.all_waiting_target')}</span>
+            <span className="text-text-secondary">
+              {t('schedule.statistics.all_waiting_target')}
+            </span>
             <span className="font-medium">
               {(counts.waiting ?? 0) + (counts.solo_waiting ?? 0)}
             </span>

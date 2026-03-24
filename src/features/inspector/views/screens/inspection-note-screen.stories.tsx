@@ -30,7 +30,12 @@ export const Default: Story = {
   render: () => {
     const { register, formState, setValue, resetField, clearErrors } =
       useForm<InspectionNoteScreen.FormFields>({
-        defaultValues: { items: {} as never, note: '', inspectorSignature: '', targetSignature: '' },
+        defaultValues: {
+          items: {} as never,
+          note: '',
+          inspectorSignature: '',
+          targetSignature: '',
+        },
       });
 
     return (

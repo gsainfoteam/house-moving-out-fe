@@ -35,15 +35,13 @@ export function ArticleListScreen({
           <div className="flex items-center gap-2.5">
             {tabs.map((tab, i) => (
               <Fragment key={tab.type}>
-                {i > 0 && (
-                  <span className="text-heading text-text-muted select-none">/</span>
-                )}
+                {i > 0 && <span className="text-heading text-text-muted select-none">/</span>}
                 <button
                   type="button"
                   onClick={() => onTypeChange(tab.type)}
                   className={
                     tab.type === type
-                      ? 'text-heading font-semibold text-text-primary'
+                      ? 'text-heading text-text-primary font-semibold'
                       : 'text-heading text-text-muted hover:text-text-secondary transition-colors'
                   }
                 >
@@ -52,7 +50,7 @@ export function ArticleListScreen({
               </Fragment>
             ))}
           </div>
-          <span className="text-label text-text-secondary rounded-full bg-bg-surface px-2.5 py-1">
+          <span className="text-label text-text-secondary bg-bg-surface rounded-full px-2.5 py-1">
             {totalCount.toLocaleString()}
           </span>
         </LayoutCard.Header>

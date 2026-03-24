@@ -33,7 +33,9 @@ export function InspectionScheduleCard({
       {...props}
     >
       <div className="flex items-center gap-4">
-        <span className="text-body-lg text-text-primary tabular-nums font-semibold">{time.format('HH:mm')}</span>
+        <span className="text-body-lg text-text-primary font-semibold tabular-nums">
+          {time.format('HH:mm')}
+        </span>
         <div className="bg-border my-1 w-px self-stretch" aria-hidden />
         <div className="flex flex-col gap-1 leading-tight">
           <span className="text-body-lg text-text-primary">{roomLabel}</span>

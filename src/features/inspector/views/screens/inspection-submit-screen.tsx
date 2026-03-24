@@ -15,7 +15,7 @@ export function InspectionSubmitScreen({
     <LayoutCard.Root asChild>
       <form onSubmit={onSubmit}>
         <LayoutCard.Body className="w-full items-start">
-          <div className="aspect-148/210 w-full overflow-hidden rounded-lg border border-border">
+          <div className="border-border aspect-148/210 w-full overflow-hidden rounded-lg border">
             <div className="-mt-16 scale-125">
               <TypstDocument artifact={artifact} />
             </div>
