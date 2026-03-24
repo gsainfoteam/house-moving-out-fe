@@ -4,13 +4,15 @@ import dayjs from 'dayjs';
 import { countBy } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
-import { Loading } from '@/common/components';
+import { Button, Loading } from '@/common/components';
 
 import {
   useGetMoveOutScheduleQuery,
   useTargets,
   InspectionType,
   ApplicationStatus,
+  useChangeScheduleStatus,
+  ScheduleStatus,
 } from '../../viewmodels';
 import { ScheduleStatusBadge } from '../components';
 
@@ -19,6 +21,7 @@ export function ScheduleDetailFrame() {
   const { data: schedule, isNotFound, error } = useGetMoveOutScheduleQuery(uuid);
   const { data: targets, isNotFound: targetNotFound, error: targetError } = useTargets(uuid);
   const { t } = useTranslation('admin');
+  const { changeScheduleStatus, isPending: updatingStatus } = useChangeScheduleStatus(uuid);
 
   if (isNotFound || targetNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
@@ -43,6 +46,36 @@ export function ScheduleDetailFrame() {
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-body-lg text-text-primary font-bold">{schedule.title}</h2>
             <ScheduleStatusBadge status={schedule.status} />
+          </div>
+          <div className="flex gap-2">
+            {schedule.status === ScheduleStatus.DRAFT && (
+              <Button
+                variant="outline"
+                disabled={updatingStatus}
+                onClick={() => changeScheduleStatus(ScheduleStatus.ACTIVE)}
+              >
+                {t('schedule.detail.active')}
+              </Button>
+            )}
+            {(schedule.status === ScheduleStatus.DRAFT ||
+              schedule.status === ScheduleStatus.ACTIVE) && (
+              <Button
+                variant="failed"
+                disabled={updatingStatus}
+                onClick={() => changeScheduleStatus(ScheduleStatus.CANCELED)}
+              >
+                {t('schedule.detail.cancel')}
+              </Button>
+            )}
+            {schedule.status === ScheduleStatus.ACTIVE && (
+              <Button
+                variant="outline"
+                disabled={updatingStatus}
+                onClick={() => changeScheduleStatus(ScheduleStatus.COMPLETED)}
+              >
+                {t('schedule.detail.complete')}
+              </Button>
+            )}
           </div>
         </div>
 

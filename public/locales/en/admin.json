@@ -197,6 +197,7 @@
       "active": "Active",
       "applicationTime": "Application Time",
       "cancel": "Cancel",
+      "complete": "Complete",
       "error": "Cannot load moving out inspection information",
       "notFound": "Moving out inspection not found.",
       "summary": {
