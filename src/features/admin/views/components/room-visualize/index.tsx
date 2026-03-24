@@ -15,12 +15,12 @@ const config = {
 };
 
 const cellBase = cn(
-  'border border-icon-light-gray transition-colors duration-150 min-w-18 px-2 py-1.5 bg-bg-surface/60',
+  'border border-border transition-colors duration-150 min-w-18 px-2 py-1.5 bg-bg-surface/60',
 );
 const roomHeaderCell = cn(
-  'bg-bg-surface/80 text-text-black text-box2 font-medium text-center tabular-nums',
+  'bg-bg-surface/80 text-text-primary text-body font-medium text-center tabular-nums',
 );
-const statusCell = cn('text-box2 text-center font-medium');
+const statusCell = cn('text-body text-center font-medium');
 
 type Status =
   | 'disabled'
@@ -32,13 +32,13 @@ type Status =
   | 'single_passed';
 
 const statusStyles: Record<Status, string> = {
-  disabled: cn('bg-status-inactive text-text-gray'),
-  passed: cn('bg-icon-green text-text-black'),
-  failed: cn('bg-icon-red text-text-black'),
-  not_inspected: cn('bg-icon-red text-text-black'),
+  disabled: cn('bg-status-inactive text-text-secondary'),
+  passed: cn('bg-status-pass-light text-text-primary'),
+  failed: cn('bg-status-fail-light text-text-primary'),
+  not_inspected: cn('bg-status-fail-light text-text-primary'),
   will_be_cleaned: cn('bg-status-progress text-text-white'),
-  single: cn('bg-icon-red text-text-black'),
-  single_passed: cn('bg-status-pending text-text-black'),
+  single: cn('bg-status-fail-light text-text-primary'),
+  single_passed: cn('bg-status-pending text-text-primary'),
 };
 
 const getStatus = (target: Target | undefined): Status | undefined => {
@@ -58,7 +58,7 @@ export function RoomVisualize({ targets }: { targets: Target[] }) {
   const { t } = useTranslation('admin');
 
   return (
-    <table className="text-box2 bg-bg-white w-full border-collapse">
+    <table className="text-body bg-bg w-full border-collapse">
       {Object.entries(config).map(([house, counts], configIndex) => (
         <tbody key={house}>
           <tr>

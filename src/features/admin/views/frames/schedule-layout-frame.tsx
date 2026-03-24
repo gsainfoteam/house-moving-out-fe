@@ -42,14 +42,14 @@ const LinkButton = ({
       from="/admin/schedules/$uuid"
       title={isCollapsed ? text : undefined}
       className={cn(
-        'text-sub2 flex items-center gap-2.5 rounded-lg px-3 py-2.5 transition-colors',
+        'text-body flex items-center gap-2.5 rounded-lg px-3 py-2.5 transition-colors',
         isCollapsed && 'justify-center px-2',
         isActive
-          ? 'bg-primary-main/12 text-primary-main font-medium'
-          : 'text-text-gray hover:bg-bg-surface hover:text-text-black',
+          ? 'bg-primary/12 text-primary font-medium'
+          : 'text-text-secondary hover:bg-bg-surface hover:text-text-primary',
       )}
     >
-      <span className={cn('shrink-0 [&>svg]:size-4', isActive && 'text-primary-main')}>{icon}</span>
+      <span className={cn('shrink-0 [&>svg]:size-4', isActive && 'text-primary')}>{icon}</span>
       {!isCollapsed && <span className="truncate">{text}</span>}
     </Link>
   );
@@ -63,7 +63,7 @@ export function ScheduleLayoutFrame() {
     <div className="flex min-h-0 flex-1">
       <aside
         className={cn(
-          'bg-bg-white flex shrink-0 flex-col gap-0.5 border-r border-gray-200 p-3 transition-[width] duration-200 ease-in-out',
+          'bg-bg flex shrink-0 flex-col gap-0.5 border-r border-gray-200 p-3 transition-[width] duration-200 ease-in-out',
           isCollapsed ? 'w-14' : 'w-52',
         )}
       >
@@ -97,7 +97,7 @@ export function ScheduleLayoutFrame() {
           type="button"
           onClick={() => setIsCollapsed((c) => !c)}
           title={isCollapsed ? t('schedule.sidebar.expand') : t('schedule.sidebar.collapse')}
-          className="text-text-gray hover:bg-bg-surface hover:text-text-black mt-2 flex items-center justify-center rounded-lg py-2 transition-colors [&>svg]:size-5"
+          className="text-text-secondary hover:bg-bg-surface hover:text-text-primary mt-2 flex items-center justify-center rounded-lg py-2 transition-colors [&>svg]:size-5"
           aria-label={isCollapsed ? t('schedule.sidebar.expand') : t('schedule.sidebar.collapse')}
         >
           {isCollapsed ? <ChevronRight /> : <ChevronLeft />}

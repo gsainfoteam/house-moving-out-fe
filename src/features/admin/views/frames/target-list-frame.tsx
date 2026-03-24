@@ -29,10 +29,10 @@ export function TargetListFrame() {
   if (!targets) return <Loading containerClassName="h-full" />;
   return (
     <main className="p-4">
-      <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+      <div className="bg-bg overflow-hidden rounded-xl border border-gray-200 shadow-sm">
         {isCleaningEditable ? (
           <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
-            <span className="text-box2 text-text-gray">
+            <span className="text-body text-text-secondary">
               {numberOfDraftChanges
                 ? t('target.detail.cleaningUnsavedCount', {
                     count: numberOfDraftChanges,
@@ -65,7 +65,7 @@ export function TargetListFrame() {
         ) : null}
         <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
-            <tr className="bg-bg-surface/80 [&_th]:text-text-black [&_th]:font-medium">
+            <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
               <th className="[&&]:border-r-2">{t('target.detail.roomNumber')}</th>
               <th>{t('target.detail.admissionYear')}</th>
               <th>{t('target.detail.name')}</th>
@@ -119,7 +119,7 @@ export function TargetListFrame() {
                       />
                     ) : target.applyCleaningService ? (
                       <Check
-                        className="text-primary-main size-5"
+                        className="text-primary size-5"
                         aria-label={t('target.detail.cleaningService')}
                       />
                     ) : null}

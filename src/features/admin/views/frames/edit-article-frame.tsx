@@ -60,7 +60,7 @@ export function EditArticleFrame() {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-title3 text-text-black font-semibold">{t('article.edit.title')}</h1>
+        <h1 className="text-title3 text-text-primary font-semibold">{t('article.edit.title')}</h1>
         <Button asChild variant="outline">
           <Link to="/admin/articles">{t('article.edit.back')}</Link>
         </Button>
