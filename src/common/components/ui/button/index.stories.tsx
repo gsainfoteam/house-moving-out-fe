@@ -123,7 +123,7 @@ export const InteractionStates: Story = {
   },
   render: (args) => (
     <div className="flex flex-col gap-4">
-      <div className="text-body text-text-gray">
+      <div className="text-body text-text-secondary">
         Hover: 마우스를 올려 상태 레이어 확인 / Focus Visible: Tab으로 포커스 이동해 포커스 링 확인
         / Active: 클릭 유지
       </div>
