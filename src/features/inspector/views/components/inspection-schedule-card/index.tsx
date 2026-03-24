@@ -37,9 +37,9 @@ export function InspectionScheduleCard({
           {time.format('HH:mm')}
         </span>
         <div className="bg-border my-1 w-px self-stretch" aria-hidden />
-        <div className="flex flex-col gap-1 leading-tight">
-          <span className="text-body-lg text-text-primary">{roomLabel}</span>
-          <span className="text-body text-text-secondary">{residentName}</span>
+        <div className="flex min-w-0 flex-col gap-1 leading-tight">
+          <span className="text-body-lg text-text-primary truncate">{roomLabel}</span>
+          <span className="text-body text-text-secondary truncate">{residentName}</span>
         </div>
       </div>
 
