@@ -8,7 +8,7 @@ import type { MoveOutSchedule } from '../../../viewmodels';
 export function ScheduleCard({ schedule }: { schedule: MoveOutSchedule }) {
   const { t } = useTranslation('admin');
   return (
-    <div className="flex flex-col gap-4 rounded-xl border border-border bg-bg p-5">
+    <div className="border-border bg-bg flex flex-col gap-4 rounded-xl border p-5">
       <div className="flex gap-1.5">
         <h3 className="text-body-lg text-text-primary font-bold">{schedule.title}</h3>
         <ScheduleStatusBadge status={schedule.status} />

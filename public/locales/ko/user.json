@@ -1,7 +1,4 @@
 {
-  "timeSelect": {
-    "closed": "마감"
-  },
   "application": {
     "button": {
       "cancel": "이전",
@@ -132,5 +129,8 @@
       "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
       "title": "검사 대기"
     }
+  },
+  "timeSelect": {
+    "closed": "마감"
   }
 }

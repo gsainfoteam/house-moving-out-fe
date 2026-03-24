@@ -46,7 +46,7 @@ export function SlotVisualize({
   const days = range(minDay, maxDay + 1);
 
   return (
-    <table className="text-body bg-bg w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border border-border select-none">
+    <table className="text-body bg-bg border-border w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border select-none">
       <thead>
         <tr>
           <th className={cn(cellBase, headerCell, 'text-text-primary font-semibold')} scope="col">

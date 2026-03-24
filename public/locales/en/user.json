@@ -1,7 +1,4 @@
 {
-  "timeSelect": {
-    "closed": "Closed"
-  },
   "application": {
     "button": {
       "cancel": "Cancel",
@@ -132,5 +129,8 @@
       "description": "Scheduled for {{inspectionDate}}.",
       "title": "Waiting"
     }
+  },
+  "timeSelect": {
+    "closed": "Closed"
   }
 }

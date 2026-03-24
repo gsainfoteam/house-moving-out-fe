@@ -31,7 +31,7 @@ function DatabaseSizeBar() {
   return (
     <div className="flex items-center gap-2">
       {`${t('databaseSize')} (${data.pretty}/500 MB)`}
-      <div className="relative h-3 w-36 overflow-hidden rounded-2xl bg-border">
+      <div className="bg-border relative h-3 w-36 overflow-hidden rounded-2xl">
         <div
           className={cn(
             'bg-primary absolute left-0 h-3',
@@ -57,7 +57,7 @@ export function AdminLayoutFrame() {
           import.meta.env.DEV ? 'flex' : 'hidden xl:flex',
         )}
       >
-        <header className="bg-bg flex shrink-0 items-center gap-6 border-b border-border px-4 py-3">
+        <header className="bg-bg border-border flex shrink-0 items-center gap-6 border-b px-4 py-3">
           <Link
             to="/admin"
             className="text-text-secondary hover:bg-bg-surface hover:text-text-primary flex items-center gap-2 rounded-lg p-2 transition-colors"

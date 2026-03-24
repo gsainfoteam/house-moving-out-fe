@@ -30,8 +30,8 @@ export function ApplicationListFrame() {
           {t('application.downloadDocuments')}
         </Button>
       </div>
-      <div className="bg-bg overflow-hidden rounded-xl border border-border">
-        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
+      <div className="bg-bg border-border overflow-hidden rounded-xl border">
+        <table className="[&_td,&_th]:border-border w-full text-center [&_td,&_th]:border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
             <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
               <th>{t('application.detail.id')}</th>

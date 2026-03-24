@@ -26,8 +26,8 @@ export function UserLayoutFrame() {
   const navigate = useNavigate();
   const { matches } = useRouterState();
 
-  const isInspectorSubtree = matches.some((match) =>
-    match.routeId.startsWith(InspectorRoute.id.slice(0, -1)), // remove trailing '/'
+  const isInspectorSubtree = matches.some(
+    (match) => match.routeId.startsWith(InspectorRoute.id.slice(0, -1)), // remove trailing '/'
   );
   const isArticlesRoute = matches.some(
     (match) => match.routeId === ArticlesRoute.id || match.routeId === ArticleDetailRoute.id,

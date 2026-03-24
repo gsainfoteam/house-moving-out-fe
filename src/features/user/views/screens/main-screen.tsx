@@ -394,13 +394,12 @@ export function MainScreen({
           not_target: <NotTargetCard />,
           cleaning_service: <CleaningServiceCard />,
           application: <ApplicationCard />,
-          waiting:
-            isNotNil(cancelInspection) ? (
-              <WaitingCard
-                inspectionStartTime={inspectionStartTime}
-                cancelInspection={cancelInspection}
-              />
-            ) : null,
+          waiting: isNotNil(cancelInspection) ? (
+            <WaitingCard
+              inspectionStartTime={inspectionStartTime}
+              cancelInspection={cancelInspection}
+            />
+          ) : null,
           in_progress: <InProgressCard />,
           failed:
             isNotNil(inspectionCount) && isNotNil(failedItems) ? (
