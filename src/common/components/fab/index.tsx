@@ -40,7 +40,7 @@ function FabItem({ icon, label, last = false, className, onClick, ...props }: Fa
     <div className="relative">
       <button
         className={cn(
-          'bg-bg-white hover:bg-bg-surface inset-ring-icon-gray relative z-10 flex w-full items-center justify-center gap-2.5 rounded-full px-5 py-2.5',
+          'bg-bg hover:bg-bg-surface inset-ring-icon relative z-10 flex w-full items-center justify-center gap-2.5 rounded-full px-5 py-2.5',
           className,
         )}
         onClick={(e) => {
@@ -50,7 +50,7 @@ function FabItem({ icon, label, last = false, className, onClick, ...props }: Fa
         {...props}
       >
         {icon}
-        <div className="text-h2 text-current">{label}</div>
+        <div className="text-body-lg text-current">{label}</div>
       </button>
       {last && (
         <div className="absolute bottom-0 left-2/3 z-0 translate-y-2/3" aria-hidden="true">
@@ -139,14 +139,14 @@ function FabRoot({ children }: Fab.RootProps) {
       <button
         ref={(node) => refs.setReference(node)}
         className={cn(
-          'bg-bg-white hover:bg-bg-surface fixed right-5 bottom-5 z-50 flex size-16 items-center justify-center rounded-full shadow-md',
+          'bg-bg hover:bg-bg-surface fixed right-5 bottom-5 z-50 flex size-16 items-center justify-center rounded-full shadow-md',
         )}
         {...getReferenceProps()}
       >
         {isOpen ? (
-          <XCloseIcon className="text-primary-main size-8" />
+          <XCloseIcon className="text-primary size-8" />
         ) : (
-          <MenuIcon className="text-primary-main size-8" />
+          <MenuIcon className="text-primary size-8" />
         )}
       </button>
     </>

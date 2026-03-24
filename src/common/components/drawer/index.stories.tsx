@@ -127,8 +127,8 @@ function OptionsDemo({
   trapFocus,
 }: OptionsArgs) {
   return (
-    <div className="bg-bg-white flex min-h-[160vh] w-full flex-col items-center justify-start gap-4 px-6 py-8">
-      <div className="text-body text-text-gray text-center">
+    <div className="bg-bg flex min-h-[160vh] w-full flex-col items-center justify-start gap-4 px-6 py-8">
+      <div className="text-body text-text-secondary text-center">
         컨트롤 패널에서 방향과 옵션을 바꿔가며 드로어 동작을 확인해 주세요.
       </div>
       <Button
@@ -146,7 +146,7 @@ function OptionsDemo({
                 <Drawer.Description>방향과 옵션별로 아래 동작을 확인해 주세요.</Drawer.Description>
               </Drawer.Header>
               <Drawer.Body className="space-y-3">
-                <ul className="text-body text-text-gray list-disc space-y-1 pl-5">
+                <ul className="text-body text-text-secondary list-disc space-y-1 pl-5">
                   <li>side: 드로어가 열리는 방향을 지정합니다.</li>
                   <li>closeOnBackdrop: 배경 클릭 시 드로어가 닫힙니다.</li>
                   <li>closeOnEscape: ESC 키 입력 시 드로어가 닫힙니다.</li>
@@ -197,7 +197,7 @@ function SidesDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: Op
                     <Drawer.Title>Top drawer</Drawer.Title>
                   </Drawer.Header>
                   <Drawer.Body>
-                    <p className="text-body text-text-gray text-center">
+                    <p className="text-body text-text-secondary text-center">
                       상단에서 열리는 드로어입니다. ESC 및 백드롭 동작을 확인해 주세요.
                     </p>
                   </Drawer.Body>
@@ -229,7 +229,7 @@ function SidesDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: Op
                     <Drawer.Title>Bottom drawer</Drawer.Title>
                   </Drawer.Header>
                   <Drawer.Body>
-                    <p className="text-body text-text-gray text-center">
+                    <p className="text-body text-text-secondary text-center">
                       하단에서 올라오는 바텀 시트 형태의 드로어입니다.
                     </p>
                   </Drawer.Body>
@@ -261,7 +261,7 @@ function SidesDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: Op
                     <Drawer.Title>Left drawer</Drawer.Title>
                   </Drawer.Header>
                   <Drawer.Body>
-                    <p className="text-body text-text-gray text-center">
+                    <p className="text-body text-text-secondary text-center">
                       좌측에서 슬라이드 인 되는 드로어입니다.
                     </p>
                   </Drawer.Body>
@@ -293,7 +293,7 @@ function SidesDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: Op
                     <Drawer.Title>Right drawer</Drawer.Title>
                   </Drawer.Header>
                   <Drawer.Body>
-                    <p className="text-body text-text-gray text-center">
+                    <p className="text-body text-text-secondary text-center">
                       우측에서 슬라이드 인 되는 드로어입니다.
                     </p>
                   </Drawer.Body>
@@ -334,7 +334,7 @@ function NestedDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: O
                 </Drawer.Description>
               </Drawer.Header>
               <Drawer.Body className="space-y-3">
-                <p className="text-body text-text-gray">
+                <p className="text-body text-text-secondary">
                   바깥 드로어는 오른쪽에서 열립니다. 아래 버튼을 눌러 안쪽 드로어를 열 수 있습니다.
                 </p>
               </Drawer.Body>
@@ -362,7 +362,7 @@ function NestedDemo({ closeOnBackdrop, closeOnEscape, lockScroll, trapFocus }: O
                           </Drawer.Description>
                         </Drawer.Header>
                         <Drawer.Body className="space-y-2">
-                          <p className="text-body text-text-gray text-center">
+                          <p className="text-body text-text-secondary text-center">
                             overlay 스택이 제대로 동작하면, 안쪽 드로어가 항상 최상단에 위치합니다.
                           </p>
                         </Drawer.Body>

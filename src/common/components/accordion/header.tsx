@@ -13,7 +13,7 @@ export function Header({ children, className }: Header.Props) {
       onClick={toggle}
       className={cn(
         'bg-bg-surface/80 flex w-full items-center justify-between gap-3 px-4 py-3 text-left',
-        isOpen && 'border-icon-light-gray border-b',
+        isOpen && 'border-border border-b',
         className,
       )}
       aria-expanded={isOpen}
@@ -21,7 +21,7 @@ export function Header({ children, className }: Header.Props) {
       {children}
       <ChevronDown
         className={cn(
-          'text-icon-gray shrink-0 transition-transform duration-300 ease-out',
+          'text-icon shrink-0 transition-transform duration-300 ease-out',
           isOpen && 'rotate-180',
         )}
         size={24}

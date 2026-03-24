@@ -6,7 +6,7 @@ import { cn } from '@/common/utils';
  * 레이아웃 카드 제목 텍스트입니다.
  */
 export const Title = ({ children, className }: Title.Props) => (
-  <h1 className={cn('text-h1 text-start', className)}>{children}</h1>
+  <h1 className={cn('text-heading text-text-primary text-start', className)}>{children}</h1>
 );
 
 export namespace Title {

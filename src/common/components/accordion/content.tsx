@@ -16,7 +16,7 @@ export function Content({ children, className }: Content.Props) {
       aria-hidden={!isOpen}
     >
       <div className="min-h-0 overflow-hidden">
-        <div className={cn('bg-bg-white px-4 py-3', className)}>{children}</div>
+        <div className={cn('bg-bg px-4 py-3', className)}>{children}</div>
       </div>
     </div>
   );

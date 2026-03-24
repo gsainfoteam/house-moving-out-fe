@@ -17,22 +17,22 @@ export function LanguageToggle() {
           if (!isKorean) toggleLanguage();
         }}
         className={cn(
-          'text-h2 uppercase transition-colors',
-          isKorean ? 'text-primary-main font-bold' : 'text-text-gray',
+          'text-body-lg uppercase transition-colors',
+          isKorean ? 'text-primary font-bold' : 'text-text-secondary',
         )}
         aria-label={t('switchToKorean')}
       >
         KOR
       </button>
-      <div className="bg-primary-main h-4 w-0.5" />
+      <div className="bg-primary h-4 w-0.5" />
       <button
         type="button"
         onClick={() => {
           if (isKorean) toggleLanguage();
         }}
         className={cn(
-          'text-h2 uppercase transition-colors',
-          !isKorean ? 'text-primary-main font-bold' : 'text-text-gray',
+          'text-body-lg uppercase transition-colors',
+          !isKorean ? 'text-primary font-bold' : 'text-text-secondary',
         )}
         aria-label={t('switchToEnglish')}
       >

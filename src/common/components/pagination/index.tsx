@@ -12,18 +12,18 @@ export function Pagination({ page, pageSize, totalCount, onChange, className }: 
     <div className={cn('flex w-full items-center justify-center gap-4', className)}>
       <button
         type="button"
-        className="text-body2 text-text-gray disabled:text-icon-gray"
+        className="text-body text-text-secondary disabled:text-icon"
         disabled={isFirst}
         onClick={() => !isFirst && onChange(page - 1)}
       >
         이전
       </button>
-      <span className="text-body2 text-text-black">
+      <span className="text-body text-text-primary">
         {page} / {totalPages}
       </span>
       <button
         type="button"
-        className="text-body2 text-text-gray disabled:text-icon-gray"
+        className="text-body text-text-secondary disabled:text-icon"
         disabled={isLast}
         onClick={() => !isLast && onChange(page + 1)}
       >
