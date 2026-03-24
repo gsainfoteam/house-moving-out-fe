@@ -60,6 +60,22 @@ function InspectionScreenWrapper({ roomType }: { roomType: InspectionScreen.Prop
   );
 }
 
+function InspectionScreenLoadingWrapper() {
+  const { register } = useForm<InspectionFormFields>();
+
+  return (
+    <InspectionScreen
+      isLoading={true}
+      target={undefined}
+      roomType={undefined}
+      register={register}
+      getSectionProgress={() => ({ totalCount: 0, completedCount: 0, isCompleted: false })}
+      isAllChecked={false}
+      uuid="test-uuid"
+    />
+  );
+}
+
 export const TypeB: Story = {
   render: () => <InspectionScreenWrapper roomType="b" />,
 };
@@ -69,18 +85,5 @@ export const Solo: Story = {
 };
 
 export const Loading: Story = {
-  render: () => {
-    const { register } = useForm<InspectionFormFields>();
-    return (
-      <InspectionScreen
-        isLoading={true}
-        target={undefined}
-        roomType={undefined}
-        register={register}
-        getSectionProgress={() => ({ totalCount: 0, completedCount: 0, isCompleted: false })}
-        isAllChecked={false}
-        uuid="test-uuid"
-      />
-    );
-  },
+  render: () => <InspectionScreenLoadingWrapper />,
 };
