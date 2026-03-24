@@ -67,6 +67,11 @@
       "description": "Please apply for the inspection using the button below.",
       "title": "Apply"
     },
+    "cleaning_service": {
+      "button": "Preview Inspection Criteria",
+      "description": "Cleaning service applicants cannot apply for a move-out inspection.",
+      "title": "Cleaning service applicants are not eligible for a move-out inspection."
+    },
     "failed": {
       "accordionTitle": "Check Reasons for Failure",
       "button": "Apply for Re-examination",
