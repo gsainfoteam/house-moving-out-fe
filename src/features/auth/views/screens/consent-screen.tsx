@@ -19,7 +19,7 @@ export function ConsentScreen({
   const { t } = useTranslation('auth');
 
   return (
-    <form onSubmit={onSubmit} className="bg-bg relative flex h-screen flex-col px-6 pt-8 pb-8">
+    <form onSubmit={onSubmit} className="bg-bg relative flex h-dvh flex-col px-6 pt-8 pb-8">
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>

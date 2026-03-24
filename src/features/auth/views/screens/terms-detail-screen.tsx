@@ -5,7 +5,7 @@ export function TermsDetailScreen({ title, termsUrl, onBack }: TermsDetailScreen
   const { t } = useTranslation('auth');
 
   return (
-    <div className="bg-bg flex h-screen flex-col px-4 pt-4 pb-5">
+    <div className="bg-bg flex h-dvh flex-col px-4 pt-4 pb-5">
       <div className="mx-auto flex h-full w-full max-w-md flex-col gap-3">
         <div className="border-border bg-bg-surface relative flex items-center justify-center rounded-xl border px-4 py-3">
           <button

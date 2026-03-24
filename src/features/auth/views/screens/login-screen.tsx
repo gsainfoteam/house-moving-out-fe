@@ -6,7 +6,7 @@ export function LoginScreen({ onLogin }: LoginScreen.Props) {
   const { t } = useTranslation('auth');
 
   return (
-    <div className="relative flex h-screen flex-col items-center justify-center">
+    <div className="relative flex h-dvh flex-col items-center justify-center">
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>
