@@ -397,7 +397,6 @@ export function MainFrame() {
   if (!user) return null;
 
   const effectiveStatus: Status = user.applyCleaningService ? 'cleaning_service' : status;
-  console.log('effectiveStatus', effectiveStatus);
 
   return (
     <LayoutCard.Root isLoading={isLoadingSchedule || isLoadingInspection}>
