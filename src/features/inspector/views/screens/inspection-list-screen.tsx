@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { LayoutCard } from '@/common/components';
 
+import { ApplicationStatus } from '../../viewmodels';
 import { InspectionScheduleCard } from '../components';
 
 export function InspectionListScreen({ targets, isLoading }: InspectionListScreen.Props) {
@@ -25,13 +26,17 @@ export function InspectionListScreen({ targets, isLoading }: InspectionListScree
             to="/inspector/$uuid"
             params={{ uuid: target.uuid }}
             className="w-full"
-            disabled={target.isPassed !== null}
+            disabled={
+              target.status === ApplicationStatus.PASSED ||
+              target.status === ApplicationStatus.FAILED ||
+              target.status === ApplicationStatus.NO_SHOW
+            }
           >
             <InspectionScheduleCard
               time={dayjs(target.inspectionTime)}
               roomLabel={target.roomNumber}
               residentName={target.residents.map((r) => r.name).join(', ')}
-              isPassed={target.isPassed}
+              status={target.status}
             />
           </Link>
         ))}
@@ -46,7 +51,7 @@ export namespace InspectionListScreen {
     inspectionTime: string;
     roomNumber: string;
     residents: { name: string }[];
-    isPassed: boolean | null;
+    status: ApplicationStatus | null;
   };
 
   export type Props = {

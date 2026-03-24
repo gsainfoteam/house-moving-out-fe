@@ -37,6 +37,7 @@
     "status": {
       "draft": "예정",
       "failed": "불통",
+      "no_show": "노쇼",
       "passed": "통과"
     }
   },

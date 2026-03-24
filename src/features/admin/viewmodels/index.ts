@@ -15,4 +15,5 @@ export {
   Gender,
   type MoveOutScheduleWithSlots,
   type Inspector,
+  ApplicationStatus,
 } from '../models';

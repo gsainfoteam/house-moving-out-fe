@@ -37,6 +37,7 @@
     "status": {
       "draft": "DRAFT",
       "failed": "FAILED",
+      "no_show": "NO SHOW",
       "passed": "PASSED"
     }
   },

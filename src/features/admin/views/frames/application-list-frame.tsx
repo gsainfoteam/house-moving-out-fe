@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { isNil } from 'es-toolkit';
 import { Download, InfoIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, Loading, Pagination } from '@/common/components';
 import { overlay } from '@/common/lib';
 
-import { useApplications, useDownloadDocuments } from '../../viewmodels';
+import { ApplicationStatus, useApplications, useDownloadDocuments } from '../../viewmodels';
 
 const PAGE_SIZE = 20;
 
@@ -61,7 +62,11 @@ export function ApplicationListFrame() {
                 <td>{t(`inspectionType.${a.inspectionCount === 1 ? 'first' : 'second'}`)}</td>
                 <td>{a.inspector.name}</td>
                 <td>
-                  {a.isPassed === null ? '-' : a.isPassed ? t(`result.passed`) : t(`result.failed`)}
+                  {isNil(a.status)
+                    ? '-'
+                    : a.status === ApplicationStatus.PASSED
+                      ? t(`result.passed`)
+                      : t(`result.failed`)}
                 </td>
                 <td>
                   {a.additionalComment && (

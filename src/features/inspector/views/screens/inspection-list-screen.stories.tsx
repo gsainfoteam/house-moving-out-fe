@@ -7,6 +7,7 @@ import { i18n } from '@/common/lib';
 import { router } from '@/main';
 
 import { InspectionListScreen } from './inspection-list-screen';
+import { ApplicationStatus } from '../../viewmodels';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -39,28 +40,28 @@ const mockTargets: InspectionListScreen.Target[] = [
     inspectionTime: baseTime.toISOString(),
     roomNumber: 'T012호',
     residents: [{ name: '홍길동' }],
-    isPassed: null,
+    status: null,
   },
   {
     uuid: 'target-2',
     inspectionTime: baseTime.add(30, 'minute').toISOString(),
     roomNumber: 'T034호',
     residents: [{ name: '김영희' }, { name: '이철수' }],
-    isPassed: null,
+    status: null,
   },
   {
     uuid: 'target-3',
     inspectionTime: baseTime.add(1, 'hour').toISOString(),
     roomNumber: 'T056호',
     residents: [{ name: '박민준' }],
-    isPassed: true,
+    status: ApplicationStatus.PASSED,
   },
   {
     uuid: 'target-4',
     inspectionTime: baseTime.add(2, 'hour').toISOString(),
     roomNumber: 'T078호',
     residents: [{ name: '최서연' }],
-    isPassed: false,
+    status: ApplicationStatus.FAILED,
   },
 ];
 
