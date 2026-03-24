@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { isNotNil } from 'es-toolkit';
 import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -18,7 +19,7 @@ const applicationFormSchema = z
     inspectionDayTimestamp: z.number().nullable(),
     inspectionSlotUuid: z.string().nullable(),
   })
-  .refine((data) => data.inspectionDayTimestamp != null && data.inspectionSlotUuid != null);
+  .refine((data) => isNotNil(data.inspectionDayTimestamp) && isNotNil(data.inspectionSlotUuid));
 
 export const useApplicationForm = ({
   applyInspection: { onSuccess: onApplySuccess, onFull: onApplyFull } = {},
@@ -78,7 +79,7 @@ export const useApplicationForm = ({
 
   const selectedDaySlots = useMemo(
     () =>
-      inspectionDayTimestamp != null ? inspectionSlotsByDayTimestamp[inspectionDayTimestamp] : [],
+      isNotNil(inspectionDayTimestamp) ? inspectionSlotsByDayTimestamp[inspectionDayTimestamp] : [],
     [inspectionDayTimestamp, inspectionSlotsByDayTimestamp],
   );
 

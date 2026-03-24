@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 
 import dayjs, { type Dayjs } from 'dayjs';
+import { isNotNil } from 'es-toolkit';
 import { groupBy } from 'es-toolkit/array';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -63,8 +64,8 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
 
   useEffect(() => {
     if (
-      applicationStartTime != null &&
-      applicationEndTime != null &&
+      isNotNil(applicationStartTime) &&
+      isNotNil(applicationEndTime) &&
       !(dayjs().isAfter(applicationStartTime) && dayjs().isBefore(applicationEndTime))
     ) {
       onNotPeriod?.(applicationStartTime, applicationEndTime);

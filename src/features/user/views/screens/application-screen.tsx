@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { isNotNil } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, Dialog, LayoutCard } from '@/common/components';
@@ -92,11 +93,11 @@ export function ApplicationScreen({
           <DateSelect
             days={inspectionDays}
             value={
-              inspectionDayTimestamp != null ? dayjs(inspectionDayTimestamp).startOf('day') : null
+              isNotNil(inspectionDayTimestamp) ? dayjs(inspectionDayTimestamp).startOf('day') : null
             }
             onChange={(day) => onDayChange(day)}
           />
-          {inspectionDayTimestamp != null && (
+          {isNotNil(inspectionDayTimestamp) && (
             <div className="mt-6 grid grid-cols-3 gap-2">
               {selectedDaySlots.map((slot) => (
                 <TimeSelect

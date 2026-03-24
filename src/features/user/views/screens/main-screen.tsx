@@ -2,6 +2,7 @@ import { useCallback, useTransition } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
+import { isNotNil } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
@@ -394,7 +395,7 @@ export function MainScreen({
           cleaning_service: <CleaningServiceCard />,
           application: <ApplicationCard />,
           waiting:
-            cancelInspection != null ? (
+            isNotNil(cancelInspection) ? (
               <WaitingCard
                 inspectionStartTime={inspectionStartTime}
                 cancelInspection={cancelInspection}
@@ -402,7 +403,7 @@ export function MainScreen({
             ) : null,
           in_progress: <InProgressCard />,
           failed:
-            inspectionCount != null && failedItems != null ? (
+            isNotNil(inspectionCount) && isNotNil(failedItems) ? (
               <FailedCard inspectionCount={inspectionCount} failedItems={failedItems} />
             ) : null,
           passed: <PassedCard />,
