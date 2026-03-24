@@ -1,0 +1,45 @@
+import { I18nextProvider } from 'react-i18next';
+
+import { i18n } from '@/common/lib';
+
+import { ArticleDetailView } from './article-detail-view';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+const meta: Meta<typeof ArticleDetailView> = {
+  title: 'User/ArticleDetailView',
+  component: ArticleDetailView,
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <I18nextProvider i18n={i18n}>
+        <Story />
+      </I18nextProvider>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof ArticleDetailView>;
+
+export const WithContent: Story = {
+  args: {
+    title: '2024년 퇴사 안내',
+    content:
+      '안녕하세요. 2024년 퇴사 절차에 대해 안내드립니다.\n\n퇴사 전 반드시 방 청소를 완료해 주세요. 청소 기준은 별도 공지를 참고해 주시기 바랍니다.\n\n문의사항은 관리실로 연락해 주세요.',
+    updatedAt: '2024-03-15 10:00',
+    isLoading: false,
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    title: undefined,
+    content: undefined,
+    updatedAt: '',
+    isLoading: true,
+  },
+};
