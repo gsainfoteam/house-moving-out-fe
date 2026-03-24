@@ -6,9 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { $api, type checklist } from '@/common/lib';
-import { ApplicationStatus } from '@/features/admin';
 
-import { ApiPaths } from '../../models';
+import { ApiPaths, ApplicationStatus } from '../../models';
 
 export const useFindMyInspection = (
   enabled: boolean,
