@@ -67,6 +67,11 @@
       "description": "하단의 버튼을 통해\n퇴사 검사를 신청해주세요.",
       "title": "검사 신청"
     },
+    "cleaning_service": {
+      "button": "퇴사 검사 기준 미리보기",
+      "description": "업체청소 신청자는 퇴사 검사를 신청할 수 없습니다.",
+      "title": "업체청소 신청자는 퇴사 검사 신청이 불가능합니다."
+    },
     "failed": {
       "accordionTitle": "불통과 사유 확인하기",
       "button": "재검사 신청하기",
@@ -98,11 +103,6 @@
       "button": "퇴사 검사 기준 미리보기",
       "description": "문의사항이 있으신 경우, 하단의 문의하기 버튼을 클릭해주세요.",
       "title": "퇴사 검사 신청 대상이 아닙니다."
-    },
-    "cleaning_service": {
-      "button": "퇴사 검사 기준 미리보기",
-      "description": "업체청소 신청자는 퇴사 검사를 신청할 수 없습니다.",
-      "title": "업체청소 신청자는 퇴사 검사 신청이 불가능합니다."
     },
     "passed": {
       "button": "홈으로",
