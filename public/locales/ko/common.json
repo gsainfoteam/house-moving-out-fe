@@ -16,6 +16,8 @@
     "toUserMode": "피검사자 모드로"
   },
   "header": {
+    "menu": "메뉴",
+    "mypage": "마이페이지",
     "subtitle": {
       "noRoom": "학번: {{studentId}}",
       "room": "학번: {{studentId}} | 호실: {{room}}"
@@ -27,6 +29,9 @@
     "faq": "FAQ (자주 묻는 질문) 보러가기",
     "kakaotalk": "카카오톡 채널 '2026 GIST HOUSE'",
     "title": "문의하기"
+  },
+  "menu": {
+    "title": "메뉴"
   },
   "switchToEnglish": "영어로 전환",
   "switchToKorean": "한국어로 전환"
