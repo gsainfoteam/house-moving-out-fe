@@ -3,13 +3,19 @@ import React from 'react';
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
+import { isNil } from 'es-toolkit';
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import { InspectionType, useManageCleaningService, useTargets } from '../../viewmodels';
+import {
+  ApplicationStatus,
+  InspectionType,
+  useManageCleaningService,
+  useTargets,
+} from '../../viewmodels';
 
 export function TargetListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/targets' });
@@ -126,9 +132,9 @@ export function TargetListFrame() {
                   </div>
                 </td>
                 <td>
-                  {target.isPassed === null
+                  {isNil(target.status)
                     ? '-'
-                    : target.isPassed
+                    : target.status === ApplicationStatus.PASSED
                       ? t('result.passed')
                       : t('result.failed')}
                 </td>

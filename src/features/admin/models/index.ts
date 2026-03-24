@@ -17,5 +17,6 @@ export {
   TargetInfoResDtoInspectionType as InspectionType,
   PathsArticleGetParametersQueryType as ArticleType,
   ArticleDtoLanguage as ArticleLanguage,
+  ApplicationResDtoStatus as ApplicationStatus,
 } from '@/@types/api-schema';
 export { ApiPaths } from '@/@types/api-schema';

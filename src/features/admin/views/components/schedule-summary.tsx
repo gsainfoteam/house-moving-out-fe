@@ -3,7 +3,12 @@ import { countBy } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
 import { ScheduleStatusBadge } from './schedule-status-badge';
-import { InspectionType, type MoveOutScheduleWithSlots, type Target } from '../../viewmodels';
+import {
+  ApplicationStatus,
+  InspectionType,
+  type MoveOutScheduleWithSlots,
+  type Target,
+} from '../../viewmodels';
 
 export function ScheduleSummary({
   schedule,
@@ -14,7 +19,7 @@ export function ScheduleSummary({
 }) {
   const { t } = useTranslation('admin');
   const counts = countBy(targets, (target) => {
-    if (target.isPassed === true) return 'passed';
+    if (target.status === ApplicationStatus.PASSED) return 'passed';
     if (target.lastInspectionTime) {
       if (target.inspectionType !== InspectionType.SOLO) return 'waiting';
       return 'solo_waiting';

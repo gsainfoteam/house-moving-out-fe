@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { cn } from '@/common/utils';
 
-import { InspectionType, type Target } from '../../../viewmodels';
+import { ApplicationStatus, InspectionType, type Target } from '../../../viewmodels';
 
 const config = {
   G: [19, 19, 19, 19, 19, 19],
@@ -45,11 +45,12 @@ const getStatus = (target: Target | undefined): Status | undefined => {
   if (!target) return undefined;
   if (target.applyCleaningService) return 'will_be_cleaned';
   if (target.inspectionType === InspectionType.EMPTY) return 'disabled';
-  if (target.isPassed) {
+  if (target.status === ApplicationStatus.PASSED) {
     if (target.inspectionType === InspectionType.FULL) return 'passed';
     return 'single_passed';
   }
-  if (target.isPassed === false) return 'failed';
+  if (target.status) return 'failed';
+  // TODO: more handling for status
   if (target.inspectionType === InspectionType.FULL) return 'not_inspected';
   return 'single';
 };
