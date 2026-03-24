@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useAuth } from '@/features/auth';
 
@@ -48,12 +48,8 @@ export const useCurrentSchedule = () => {
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
 
-  useEffect(() => {
-    if (user?.applyCleaningService) queueMicrotask(() => setStatus('cleaning_service'));
-  }, [user?.applyCleaningService]);
-
   return {
-    status,
+    status: user?.applyCleaningService ? 'cleaning_service' : status,
     isLoadingSchedule,
     applicationStartTime,
     isLoadingInspection,
