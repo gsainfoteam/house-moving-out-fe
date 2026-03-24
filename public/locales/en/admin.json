@@ -146,6 +146,9 @@
     "failed": "Failed",
     "passed": "Passed"
   },
+  "room": {
+    "list": "Room List"
+  },
   "schedule": {
     "create": {
       "action": "Create",

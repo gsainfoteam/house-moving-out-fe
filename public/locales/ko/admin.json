@@ -145,6 +145,9 @@
     "failed": "불통",
     "passed": "통과"
   },
+  "room": {
+    "list": "방 목록"
+  },
   "schedule": {
     "create": {
       "action": "생성하기",

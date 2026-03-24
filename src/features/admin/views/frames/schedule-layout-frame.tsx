@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Clipboard,
   LayoutDashboard,
+  ListIcon,
   Pencil,
   Target,
 } from 'lucide-react';
@@ -72,6 +73,12 @@ export function ScheduleLayoutFrame() {
             to="."
             icon={<LayoutDashboard />}
             text={t('schedule.main')}
+            isCollapsed={isCollapsed}
+          />
+          <LinkButton
+            to="./rooms"
+            icon={<ListIcon />}
+            text={t('room.list')}
             isCollapsed={isCollapsed}
           />
           <LinkButton
