@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ArticleType, useFindArticles } from '../../viewmodels';
 
-import { ArticleListView } from './article-list-view';
+import { ArticleListView } from '../views/article-list-view';
 
 const PAGE_SIZE = 5;
 

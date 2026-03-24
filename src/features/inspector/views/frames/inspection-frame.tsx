@@ -2,7 +2,7 @@ import { useParams } from '@tanstack/react-router';
 
 import { useInspectionChecklistContext } from '../../viewmodels';
 
-import { InspectionView } from './inspection-view';
+import { InspectionView } from '../views/inspection-view';
 
 export function InspectionFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/' });

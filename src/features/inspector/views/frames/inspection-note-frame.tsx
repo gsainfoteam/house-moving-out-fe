@@ -1,6 +1,6 @@
 import { useInspectionNoteForm, useInspectionChecklistFile } from '../../viewmodels';
 
-import { InspectionNoteView } from './inspection-note-view';
+import { InspectionNoteView } from '../views/inspection-note-view';
 
 export function InspectionNoteFrame() {
   const { form, onSubmit } = useInspectionNoteForm();

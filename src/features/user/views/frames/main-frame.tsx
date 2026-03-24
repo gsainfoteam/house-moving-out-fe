@@ -2,7 +2,7 @@ import { useAuth } from '@/features/auth';
 
 import { useCurrentSchedule } from '../../viewmodels';
 
-import { MainView } from './main-view';
+import { MainView } from '../views/main-view';
 
 export function MainFrame() {
   const { user } = useAuth();

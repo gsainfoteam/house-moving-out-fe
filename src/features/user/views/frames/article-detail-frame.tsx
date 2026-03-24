@@ -8,7 +8,7 @@ import { useLocale } from '@/common/lib';
 
 import { useFindArticleByUuid } from '../../viewmodels';
 
-import { ArticleDetailView } from './article-detail-view';
+import { ArticleDetailView } from '../views/article-detail-view';
 
 export function ArticleDetailFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/articles/$uuid' });

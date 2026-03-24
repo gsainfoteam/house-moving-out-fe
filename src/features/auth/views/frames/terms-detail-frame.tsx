@@ -2,7 +2,7 @@ import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
-import { TermsDetailView } from './terms-detail-view';
+import { TermsDetailView } from '../views/terms-detail-view';
 
 export function TermsDetailFrame() {
   const navigate = useNavigate();

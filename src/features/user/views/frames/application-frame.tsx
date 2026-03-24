@@ -9,7 +9,7 @@ import { useAuth } from '@/features/auth';
 
 import { useApplicationForm } from '../../viewmodels';
 
-import { ApplicationView } from './application-view';
+import { ApplicationView } from '../views/application-view';
 
 export function ApplicationFrame() {
   const { user } = useAuth();
