@@ -18,7 +18,7 @@ export function TimeSelect({ slot, value, onChange }: TimeSelect.Props) {
       onClick={() => !isClosed && onChange(slot)}
     >
       {isClosed && (
-        <span className="text-small bg-icon-gray text-text-black absolute top-1 right-1 rounded px-1 py-0.5">
+        <span className="text-caption bg-bg-surface text-text-secondary absolute top-1 right-1 rounded-md px-1 py-0.5">
           마감
         </span>
       )}
@@ -42,14 +42,14 @@ export namespace TimeSelect {
   };
 
   export const slotStyles = cv({
-    base: ['text-box2 w-full relative rounded-lg px-7.5 py-3 text-center transition-all'],
+    base: ['text-body w-full relative rounded-xl px-6 py-2.5 text-center transition-all'],
     variants: {
       state: {
         closed: [
-          'inset-ring-1 inset-ring-icon-gray bg-icon-light-gray text-text-gray cursor-not-allowed line-through',
+          'inset-ring-1 inset-ring-border bg-bg-surface text-text-secondary cursor-not-allowed line-through',
         ],
-        selected: ['font-bold inset-ring-2 inset-ring-primary-main bg-icon-green text-text-black'],
-        default: ['bg-bg-white text-text-black inset-ring-1 inset-ring-icon-gray'],
+        selected: ['font-semibold inset-ring-2 inset-ring-primary bg-primary-light text-primary'],
+        default: ['bg-bg text-text-primary inset-ring-1 inset-ring-border'],
       },
     },
   });

@@ -6,7 +6,7 @@ export function DateSelect({ days, value, onChange, className }: DateSelect.Prop
   return (
     <div
       className={cn(
-        'border-icon-gray flex w-full gap-0 overflow-hidden rounded-lg border',
+        'border-border flex w-full gap-0 overflow-hidden rounded-xl border',
         className,
       )}
     >
@@ -22,18 +22,18 @@ export function DateSelect({ days, value, onChange, className }: DateSelect.Prop
             data-selected={isSelected}
             className={cn(
               'flex flex-1 flex-col gap-1 px-5 py-2.5 text-center transition-all',
-              !isFirst && 'border-icon-gray border-l',
-              isSelected ? 'bg-primary-main text-text-white' : 'bg-icon-light-gray',
+              !isFirst && 'border-border border-l',
+              isSelected ? 'bg-primary text-text-white' : 'bg-bg',
             )}
             onClick={() => onChange(day)}
           >
-            <span className={cn('text-sub2', isSelected && 'font-bold')}>
+            <span className={cn('text-body', isSelected && 'font-bold')}>
               {day.format('MM/DD')}
             </span>
             <span
               className={cn(
-                'text-sub',
-                isSelected ? 'text-text-white font-bold' : 'text-text-black',
+                'text-label',
+                isSelected ? 'text-text-white font-bold' : 'text-text-primary',
               )}
             >
               ({day.format('ddd')})
