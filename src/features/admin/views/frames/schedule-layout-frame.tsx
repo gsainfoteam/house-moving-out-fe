@@ -13,6 +13,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Clipboard,
+  ClockIcon,
   LayoutDashboard,
   ListIcon,
   Pencil,
@@ -85,6 +86,12 @@ export function ScheduleLayoutFrame() {
             to="./targets"
             icon={<Target />}
             text={t('target.list')}
+            isCollapsed={isCollapsed}
+          />
+          <LinkButton
+            to="./times"
+            icon={<ClockIcon />}
+            text={t('application.time')}
             isCollapsed={isCollapsed}
           />
           <LinkButton
