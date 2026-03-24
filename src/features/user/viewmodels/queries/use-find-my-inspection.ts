@@ -1,10 +1,12 @@
 import { useEffect, useMemo } from 'react';
 
 import dayjs from 'dayjs';
+import { isNil } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { $api, type checklist } from '@/common/lib';
+import { ApplicationStatus } from '@/features/admin';
 
 import { ApiPaths } from '../../models';
 
@@ -40,11 +42,11 @@ export const useFindMyInspection = (
 
   useEffect(() => {
     if (isSuccess) {
-      if (data.isPassed === true) {
+      if (data.status === ApplicationStatus.PASSED) {
         onPassed?.();
-      } else if (data.isPassed === false) {
+      } else if (data.status === ApplicationStatus.FAILED) {
         onFailed?.();
-      } else if (data.isPassed === undefined) {
+      } else if (isNil(data.status)) {
         const startTime = dayjs(data.inspectionSlot.startTime);
         const endTime = dayjs(data.inspectionSlot.endTime);
         const now = dayjs();
@@ -55,6 +57,7 @@ export const useFindMyInspection = (
           onFoundWaiting?.();
         }
       }
+      // TODO: no show status
     } else if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
@@ -67,7 +70,7 @@ export const useFindMyInspection = (
   }, [
     data?.inspectionSlot.endTime,
     data?.inspectionSlot.startTime,
-    data?.isPassed,
+    data?.status,
     error?.statusCode,
     isError,
     isSuccess,

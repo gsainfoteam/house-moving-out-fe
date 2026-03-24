@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { LayoutCard } from '@/common/components';
+import { ApplicationStatus } from '@/features/admin';
 
 import { useGetInspectionTargets } from '../../viewmodels';
 import { InspectionScheduleCard } from '../components';
@@ -27,13 +28,17 @@ export function InspectionListFrame() {
             to="/inspector/$uuid"
             params={{ uuid: target.uuid }}
             className="w-full"
-            disabled={target.isPassed !== null}
+            disabled={
+              target.status === ApplicationStatus.PASSED ||
+              target.status === ApplicationStatus.FAILED ||
+              target.status === ApplicationStatus.NO_SHOW
+            }
           >
             <InspectionScheduleCard
               time={dayjs(target.inspectionTime)}
               roomLabel={target.roomNumber}
               residentName={target.residents.map((resident) => resident.name).join(', ')}
-              isPassed={target.isPassed}
+              status={target.status}
             />
           </Link>
         ))}

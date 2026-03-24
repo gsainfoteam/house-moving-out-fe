@@ -1,8 +1,7 @@
-import { useMemo } from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import { cn } from '@/common/utils';
+import { ApplicationStatus } from '@/features/admin';
 
 import type { Dayjs } from 'dayjs';
 
@@ -10,17 +9,14 @@ export function InspectionScheduleCard({
   time,
   roomLabel,
   residentName,
-  isPassed,
+  status,
   className,
   ...props
 }: InspectionScheduleCard.Props) {
   const { t } = useTranslation('inspector');
 
-  const status = useMemo(() => {
-    if (isPassed === null) return 'draft';
-    if (isPassed) return 'passed';
-    return 'failed';
-  }, [isPassed]);
+  const effectiveStatus =
+    status === ApplicationStatus.PENDING_NO_SHOW ? 'draft' : (status?.toLowerCase() ?? 'draft');
 
   return (
     <div
@@ -44,13 +40,14 @@ export function InspectionScheduleCard({
       <span
         className={cn(
           'text-box2 rounded-full px-3 py-1 text-center',
-          InspectionScheduleCard.statusStyle[status],
+          InspectionScheduleCard.statusStyle[effectiveStatus],
         )}
       >
         {/* t('schedule.status.draft') */}
         {/* t('schedule.status.passed') */}
         {/* t('schedule.status.failed') */}
-        {t(`schedule.status.${status}`)}
+        {/* t('schedule.status.no_show') */}
+        {t(`schedule.status.${effectiveStatus}`)}
       </span>
     </div>
   );
@@ -61,7 +58,7 @@ export namespace InspectionScheduleCard {
     time: Dayjs;
     roomLabel: string;
     residentName: string;
-    isPassed: boolean | null;
+    status?: ApplicationStatus;
     className?: string;
   }
 
@@ -69,5 +66,6 @@ export namespace InspectionScheduleCard {
     draft: cn('bg-icon-gray text-text-white'),
     passed: cn('bg-primary-main text-text-white'),
     failed: cn('bg-icon-red/80 text-status-fail'),
+    no_show: cn('bg-icon-red/80 text-status-fail'),
   };
 }

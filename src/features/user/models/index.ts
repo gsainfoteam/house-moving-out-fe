@@ -10,4 +10,5 @@ export {
   ApiPaths,
   PathsArticleGetParametersQueryType as ArticleType,
   CreateMoveOutScheduleWithTargetsFormDtoResidentGenderByHouseFloorKey as Gender,
+  ApplicationResDtoStatus as ApplicationStatus,
 } from '@/@types/api-schema';
