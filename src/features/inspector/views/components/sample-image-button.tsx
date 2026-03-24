@@ -5,7 +5,7 @@ import { overlay } from '@/common/lib';
 function SampleImageOverlay({ close, image }: { close: () => void; image: string }) {
   return (
     <div className="fixed inset-0 p-4">
-      <div className="bg-bg-white relative top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-2xl p-4 shadow-2xl">
+      <div className="bg-bg relative top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-2xl p-4 shadow-2xl">
         <button onClick={close} className="cursor-pointer self-end" aria-label="close">
           <XCloseIcon />
         </button>

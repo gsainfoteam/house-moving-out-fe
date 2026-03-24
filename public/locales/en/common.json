@@ -16,6 +16,8 @@
     "toUserMode": "To resident mode"
   },
   "header": {
+    "menu": "Menu",
+    "mypage": "My Page",
     "subtitle": {
       "noRoom": "Student ID: {{studentId}}",
       "room": "Student ID: {{studentId}} | {{room}}"
@@ -27,6 +29,13 @@
     "faq": "Go to FAQ",
     "kakaotalk": "KakaoTalk: 2026 GIST HOUSE",
     "title": "Inquiry"
+  },
+  "menu": {
+    "title": "Menu"
+  },
+  "pagination": {
+    "next": "Next",
+    "prev": "Prev"
   },
   "switchToEnglish": "Switch to English",
   "switchToKorean": "Switch to Korean"

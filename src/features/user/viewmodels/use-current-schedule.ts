@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
 
+import { useAuth } from '@/features/auth';
+
 import {
   useCancelInspection,
   useFindActiveMoveOutScheduleWithSlots,
@@ -9,6 +11,7 @@ import {
 type Status =
   | 'not_period'
   | 'not_target'
+  | 'cleaning_service'
   | 'application'
   | 'waiting'
   | 'in_progress'
@@ -16,6 +19,7 @@ type Status =
   | 'passed';
 
 export const useCurrentSchedule = () => {
+  const { user } = useAuth();
   const [status, setStatus] = useState<Status>('not_period');
 
   const {
@@ -45,7 +49,7 @@ export const useCurrentSchedule = () => {
   const { mutateAsync: cancelInspection } = useCancelInspection();
 
   return {
-    status,
+    status: user?.applyCleaningService ? 'cleaning_service' : status,
     isLoadingSchedule,
     applicationStartTime,
     isLoadingInspection,

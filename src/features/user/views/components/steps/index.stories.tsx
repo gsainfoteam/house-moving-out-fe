@@ -55,7 +55,7 @@ export const AllStates: Story = {
   render: () => (
     <div className="flex flex-col gap-12">
       <div>
-        <h3 className="text-h2 mb-4 font-bold">Step 1 Active</h3>
+        <h3 className="text-body-lg mb-4 font-bold">Step 1 Active</h3>
         <Steps activeStepIndex={0}>
           {mockSteps.map((step, index) => (
             <Steps.Item key={index} title={step.title} description={step.description} />
@@ -63,7 +63,7 @@ export const AllStates: Story = {
         </Steps>
       </div>
       <div>
-        <h3 className="text-h2 mb-4 font-bold">Step 2 Active</h3>
+        <h3 className="text-body-lg mb-4 font-bold">Step 2 Active</h3>
         <Steps activeStepIndex={1}>
           {mockSteps.map((step, index) => (
             <Steps.Item key={index} title={step.title} description={step.description} />
@@ -71,7 +71,7 @@ export const AllStates: Story = {
         </Steps>
       </div>
       <div>
-        <h3 className="text-h2 mb-4 font-bold">Step 3 Active</h3>
+        <h3 className="text-body-lg mb-4 font-bold">Step 3 Active</h3>
         <Steps activeStepIndex={2}>
           {mockSteps.map((step, index) => (
             <Steps.Item key={index} title={step.title} description={step.description} />
@@ -79,7 +79,7 @@ export const AllStates: Story = {
         </Steps>
       </div>
       <div>
-        <h3 className="text-h2 mb-4 font-bold">Step 4 Active</h3>
+        <h3 className="text-body-lg mb-4 font-bold">Step 4 Active</h3>
         <Steps activeStepIndex={3}>
           {mockSteps.map((step, index) => (
             <Steps.Item key={index} title={step.title} description={step.description} />

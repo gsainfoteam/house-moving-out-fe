@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
+
 import { cn } from '@/common/utils';
 
 export function Pagination({ page, pageSize, totalCount, onChange, className }: Pagination.Props) {
+  const { t } = useTranslation('common');
   const safePageSize = pageSize > 0 ? pageSize : 1;
   const totalPages = Math.max(1, Math.ceil(totalCount / safePageSize));
   const isFirst = page <= 1;
@@ -12,22 +15,22 @@ export function Pagination({ page, pageSize, totalCount, onChange, className }: 
     <div className={cn('flex w-full items-center justify-center gap-4', className)}>
       <button
         type="button"
-        className="text-body2 text-text-gray disabled:text-icon-gray"
+        className="text-body text-text-secondary disabled:text-icon"
         disabled={isFirst}
         onClick={() => !isFirst && onChange(page - 1)}
       >
-        이전
+        {t('pagination.prev')}
       </button>
-      <span className="text-body2 text-text-black">
+      <span className="text-body text-text-primary">
         {page} / {totalPages}
       </span>
       <button
         type="button"
-        className="text-body2 text-text-gray disabled:text-icon-gray"
+        className="text-body text-text-secondary disabled:text-icon"
         disabled={isLast}
         onClick={() => !isLast && onChange(page + 1)}
       >
-        다음
+        {t('pagination.next')}
       </button>
     </div>
   );

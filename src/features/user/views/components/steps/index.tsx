@@ -13,7 +13,7 @@ function StepIcon({ status, stepIndex }: { status: Steps.StepStatus; stepIndex: 
       {status === 'completed' ? (
         <Check size={24} strokeWidth={3} className="text-text-white" />
       ) : (
-        <span className="text-text-white text-button">{stepIndex}</span>
+        <span className="text-text-white text-heading font-bold">{stepIndex}</span>
       )}
     </div>
   );
@@ -59,13 +59,13 @@ export function Steps({ activeStepIndex, className, children }: Steps.Props) {
             <div className={cn('flex-1')}>
               <div className="flex flex-col gap-1">
                 <div className="flex flex-col gap-0.5">
-                  <div className="text-sub text-text-gray">
+                  <div className="text-label text-text-secondary">
                     {t('steps.label', { number: index + 1 })}
                   </div>
                   <div className={Steps.titleStyles({ status })}>{step.title}</div>
                 </div>
                 {status === 'active' && step.description && (
-                  <div className="text-sub text-text-gray whitespace-pre-line">
+                  <div className="text-label text-text-secondary whitespace-pre-line">
                     {step.description}
                   </div>
                 )}
@@ -105,9 +105,11 @@ export namespace Steps {
     base: ['flex size-10 items-center justify-center rounded-full'],
     variants: {
       status: {
-        inactive: ['bg-icon-gray'],
-        active: ['bg-primary-main drop-shadow-[0_0_12px_var(--color-primary-main)]'],
-        completed: ['bg-primary-main'],
+        inactive: ['bg-icon'],
+        active: [
+          'bg-primary drop-shadow-[0_0_9px_color-mix(in_srgb,var(--color-primary)_80%,transparent)]',
+        ],
+        completed: ['bg-primary'],
       },
     },
   });
@@ -116,8 +118,8 @@ export namespace Steps {
     base: ['w-1 flex-1'],
     variants: {
       status: {
-        active: ['bg-primary-main'],
-        inactive: ['border-icon-gray w-0 border-l-4 border-dashed'],
+        active: ['bg-primary'],
+        inactive: ['border-icon w-0 border-l-4 border-dashed'],
       },
     },
   });
@@ -130,9 +132,9 @@ export namespace Steps {
     base: [],
     variants: {
       status: {
-        inactive: ['text-text-gray text-waiting'],
-        active: ['text-text-black text-in-progress'],
-        completed: ['text-text-black text-in-progress'],
+        inactive: ['text-text-secondary text-heading'],
+        active: ['text-text-primary text-heading'],
+        completed: ['text-text-primary text-heading'],
       },
     },
   });

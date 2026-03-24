@@ -126,7 +126,7 @@ export const Root = ({
                 aria-describedby={descriptionId}
                 className={cn(
                   'relative flex max-h-full w-full flex-col gap-4',
-                  'bg-bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)]',
+                  'bg-bg shadow-[0_8px_30px_rgba(0,0,0,0.12)]',
                   'rounded-2xl p-5',
                   'absolute',
                   'cursor-grab active:cursor-grabbing',
@@ -136,7 +136,7 @@ export const Root = ({
                 {...props}
               >
                 <div
-                  className={cn('bg-logo-gray absolute z-10 rounded-full', handleClassName)}
+                  className={cn('bg-border-strong absolute z-10 rounded-full', handleClassName)}
                   aria-hidden="true"
                 />
                 {children}

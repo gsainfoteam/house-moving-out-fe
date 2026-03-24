@@ -58,8 +58,7 @@
     "segment": {
       "faq": "FAQ",
       "notice": "Notice"
-    },
-    "title": "Notice & FAQ List"
+    }
   },
   "steps": {
     "application": {
@@ -130,5 +129,8 @@
       "description": "Scheduled for {{inspectionDate}}.",
       "title": "Waiting"
     }
+  },
+  "timeSelect": {
+    "closed": "Closed"
   }
 }

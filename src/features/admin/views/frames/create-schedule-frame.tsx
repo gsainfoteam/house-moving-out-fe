@@ -91,7 +91,7 @@ export function CreateScheduleFrame() {
         </div>
         <div className="flex flex-col gap-2">
           <div>{t('schedule.create.genderByFloor.label')}</div>
-          <table className="w-fit text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-2 [&_td,&_th]:py-2">
+          <table className="[&_td,&_th]:border-border w-fit text-center [&_td,&_th]:border [&_td,&_th]:px-2 [&_td,&_th]:py-2">
             <thead>
               <tr>
                 <th>{t('schedule.create.genderByFloor.house')}</th>

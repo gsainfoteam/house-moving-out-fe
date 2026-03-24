@@ -75,7 +75,7 @@ function DialogInDrawerDemo() {
                 </Drawer.Description>
               </Drawer.Header>
               <Drawer.Body>
-                <p className="text-body text-text-gray">
+                <p className="text-body text-text-secondary">
                   드로어가 열린 상태에서 다이얼로그를 열면, 다이얼로그가 최상단에 표시됩니다.
                 </p>
               </Drawer.Body>
@@ -93,7 +93,7 @@ function DialogInDrawerDemo() {
                           </Dialog.Description>
                         </Dialog.Header>
                         <Dialog.Body>
-                          <p className="text-body text-text-gray">
+                          <p className="text-body text-text-secondary">
                             overlay 스택이 제대로 동작하면, 가장 최근에 연 오버레이가 항상 최상단에
                             위치합니다.
                           </p>
@@ -137,7 +137,7 @@ function DrawerInDialogDemo() {
                 </Dialog.Description>
               </Dialog.Header>
               <Dialog.Body>
-                <p className="text-body text-text-gray">
+                <p className="text-body text-text-secondary">
                   다이얼로그가 열린 상태에서 드로어를 열면, 드로어가 최상단에 표시됩니다.
                 </p>
               </Dialog.Body>
@@ -157,7 +157,7 @@ function DrawerInDialogDemo() {
                           </Drawer.Description>
                         </Drawer.Header>
                         <Drawer.Body>
-                          <p className="text-body text-text-gray text-center">
+                          <p className="text-body text-text-secondary text-center">
                             overlay 스택이 제대로 동작하면, 가장 최근에 연 오버레이가 항상 최상단에
                             위치합니다.
                           </p>
@@ -201,7 +201,7 @@ function ComplexStackDemo() {
                 </Dialog.Description>
               </Dialog.Header>
               <Dialog.Body>
-                <p className="text-body text-text-gray">
+                <p className="text-body text-text-secondary">
                   첫 번째 다이얼로그입니다. 아래 버튼들을 눌러 다른 오버레이들을 순서대로
                   열어보세요.
                 </p>
@@ -220,7 +220,7 @@ function ComplexStackDemo() {
                           </Drawer.Description>
                         </Drawer.Header>
                         <Drawer.Body>
-                          <p className="text-body text-text-gray">
+                          <p className="text-body text-text-secondary">
                             드로어가 열린 상태입니다. 아래 버튼을 눌러 세 번째 오버레이를
                             열어보세요.
                           </p>
@@ -239,7 +239,7 @@ function ComplexStackDemo() {
                                     </Dialog.Description>
                                   </Dialog.Header>
                                   <Dialog.Body>
-                                    <p className="text-body text-text-gray">
+                                    <p className="text-body text-text-secondary">
                                       오버레이 스택 순서: 1. First Dialog → 2. Drawer → 3. Second
                                       Dialog (최상단)
                                     </p>

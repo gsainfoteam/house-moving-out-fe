@@ -30,9 +30,9 @@ export const useApplyInspection = ({
     onError: (error) => {
       if (error?.statusCode === 400) {
         toast.error(t('error.badRequest', { ns: 'common' }));
-      } else if (error?.statusCode == 401) {
+      } else if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
-      } else if (error?.statusCode == 403) {
+      } else if (error?.statusCode === 403) {
         toast.error(t('application.error.notStartedOrEnded'));
       } else if (error?.statusCode === 404) {
         toast.error(t('application.error.noAvailableInspector'));

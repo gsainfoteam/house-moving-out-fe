@@ -34,7 +34,7 @@ export function ArticleForm({
       })}
     >
       <div>
-        <div className="text-sub2 text-text-black mb-2">{t('article.form.type.label')}</div>
+        <div className="text-body text-text-primary mb-2">{t('article.form.type.label')}</div>
         <div className="flex gap-2">
           <Button
             type="button"
@@ -54,7 +54,7 @@ export function ArticleForm({
       </div>
 
       <div>
-        <div className="text-sub2 text-text-black mb-2">{t('article.form.visibility.label')}</div>
+        <div className="text-body text-text-primary mb-2">{t('article.form.visibility.label')}</div>
         <Button
           type="button"
           variant={isVisible ? 'default' : 'outline'}
@@ -65,7 +65,7 @@ export function ArticleForm({
       </div>
 
       <div>
-        <label className="text-sub2 text-text-black">{t('article.form.titleKo.label')}</label>
+        <label className="text-body text-text-primary">{t('article.form.titleKo.label')}</label>
         <Input
           error={errors.titleKo?.message && t('article.form.error.required')}
           placeholder={t('article.form.titleKo.placeholder')}
@@ -74,7 +74,7 @@ export function ArticleForm({
       </div>
 
       <div>
-        <label className="text-sub2 text-text-black">{t('article.form.titleEn.label')}</label>
+        <label className="text-body text-text-primary">{t('article.form.titleEn.label')}</label>
         <Input
           error={errors.titleEn?.message && t('article.form.error.required')}
           placeholder={t('article.form.titleEn.placeholder')}
@@ -83,13 +83,13 @@ export function ArticleForm({
       </div>
 
       <div>
-        <label className="text-sub2 text-text-black">{t('article.form.contentKo.label')}</label>
+        <label className="text-body text-text-primary">{t('article.form.contentKo.label')}</label>
         <textarea
           className={cn(
-            'bg-bg-white w-full rounded-lg border-[1.5px] px-4 py-3',
-            'text-box text-text-black placeholder:text-text-gray',
-            'focus-visible:border-primary-main focus-visible:ring-primary-main focus-visible:ring-2 focus-visible:outline-none',
-            errors.contentKo ? 'border-status-fail' : 'border-icon-gray',
+            'bg-bg w-full rounded-lg border-[1.5px] px-4 py-3',
+            'text-body-lg text-text-primary placeholder:text-text-secondary',
+            'focus-visible:border-primary focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none',
+            errors.contentKo ? 'border-status-fail' : 'border-icon',
           )}
           rows={8}
           placeholder={t('article.form.contentKo.placeholder')}
@@ -101,13 +101,13 @@ export function ArticleForm({
       </div>
 
       <div>
-        <label className="text-sub2 text-text-black">{t('article.form.contentEn.label')}</label>
+        <label className="text-body text-text-primary">{t('article.form.contentEn.label')}</label>
         <textarea
           className={cn(
-            'bg-bg-white w-full rounded-lg border-[1.5px] px-4 py-3',
-            'text-box text-text-black placeholder:text-text-gray',
-            'focus-visible:border-primary-main focus-visible:ring-primary-main focus-visible:ring-2 focus-visible:outline-none',
-            errors.contentEn ? 'border-status-fail' : 'border-icon-gray',
+            'bg-bg w-full rounded-lg border-[1.5px] px-4 py-3',
+            'text-body-lg text-text-primary placeholder:text-text-secondary',
+            'focus-visible:border-primary focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none',
+            errors.contentEn ? 'border-status-fail' : 'border-icon',
           )}
           rows={8}
           placeholder={t('article.form.contentEn.placeholder')}

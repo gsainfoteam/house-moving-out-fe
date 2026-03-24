@@ -58,8 +58,7 @@
     "segment": {
       "faq": "FAQ",
       "notice": "공지"
-    },
-    "title": "공지 및 FAQ 목록"
+    }
   },
   "steps": {
     "application": {
@@ -130,5 +129,8 @@
       "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
       "title": "검사 대기"
     }
+  },
+  "timeSelect": {
+    "closed": "마감"
   }
 }

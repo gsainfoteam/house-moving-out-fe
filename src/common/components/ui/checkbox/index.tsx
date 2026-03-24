@@ -13,21 +13,21 @@ export const Checkbox = forwardRef<
       type="checkbox"
       ref={ref}
       className={cn(
-        'peer absolute inset-0 z-10 size-4 cursor-pointer opacity-0',
-        'focus-visible:ring-primary-main focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+        'peer absolute inset-0 z-10 size-5 cursor-pointer opacity-0',
+        'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
       )}
       {...props}
     />
     <span
       aria-hidden
       className={cn(
-        'flex size-4 shrink-0 items-center justify-center rounded border-2 transition-colors',
-        'border-icon-light-gray peer-checked:border-primary-main peer-checked:bg-primary-main',
+        'flex size-5 shrink-0 items-center justify-center rounded-md border-2 transition-colors',
+        'border-border peer-checked:border-primary peer-checked:bg-primary',
         'pointer-events-none',
       )}
     >
       <Check
-        className="text-text-white invisible size-3 group-has-checked:visible"
+        className="text-text-white invisible size-3.5 group-has-checked:visible"
         strokeWidth={3}
         aria-hidden
       />

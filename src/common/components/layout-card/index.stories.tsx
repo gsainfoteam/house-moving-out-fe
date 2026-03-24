@@ -22,12 +22,12 @@ export const Default: Story = {
         <LayoutCard.Center>
           <LayoutCard.Header className="items-center">
             <LayoutCard.Media>
-              <div className="bg-primary-main/10 text-primary-main flex h-40 w-full items-center justify-center rounded-xl">
+              <div className="bg-primary/10 text-primary flex h-40 w-full items-center justify-center rounded-xl">
                 검사 통과 일러스트
               </div>
             </LayoutCard.Media>
             <LayoutCard.Text className="items-center">
-              <LayoutCard.Title className="text-primary-main">검사 통과</LayoutCard.Title>
+              <LayoutCard.Title className="text-primary">검사 통과</LayoutCard.Title>
               <LayoutCard.Description>
                 점검이 모두 완료되었어요. 다음 단계로 이동해 주세요.
               </LayoutCard.Description>
@@ -62,9 +62,9 @@ export const WithDetails: Story = {
           </LayoutCard.Text>
         </LayoutCard.Header>
         <LayoutCard.Body>
-          <details className="border-logo-gray w-full rounded-lg border p-3">
-            <summary className="text-button cursor-pointer">추가 정보</summary>
-            <ul className="text-box2 text-text-black mt-2 flex flex-col gap-2">
+          <details className="border-border w-full rounded-lg border p-3">
+            <summary className="text-body-lg cursor-pointer">추가 정보</summary>
+            <ul className="text-body text-text-primary mt-2 flex flex-col gap-2">
               <li className="flex items-center gap-2">
                 <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
                 책상 서랍 정리가 필요해요.

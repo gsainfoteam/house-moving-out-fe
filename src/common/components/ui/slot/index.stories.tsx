@@ -35,7 +35,7 @@ export const AsChild: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
       <Button asChild>
-        <a href="https://example.com" className="text-button">
+        <a href="https://example.com" className="text-body-lg">
           Slot Button Link
         </a>
       </Button>

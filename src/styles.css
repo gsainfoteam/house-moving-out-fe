@@ -39,97 +39,82 @@ html {
 }
 
 @theme {
-  --text-h1: 24px;
-  --text-h1--font-weight: 500;
-  --text-h1--line-height: 29px;
+  /* Typography — 6-step scale */
+  --text-display: 24px;
+  --text-display--font-weight: 700;
+  --text-display--line-height: 29px;
 
-  --text-h2: 16px;
-  --text-h2--font-weight: 500;
-  --text-h2--line-height: 19px;
+  --text-heading: 20px;
+  --text-heading--font-weight: 600;
+  --text-heading--line-height: 26px;
 
-  --text-button: 20px;
-  --text-button--font-weight: 700;
-  --text-button--line-height: 24px;
+  --text-body-lg: 16px;
+  --text-body-lg--font-weight: 500;
+  --text-body-lg--line-height: 22px;
 
-  --text-modal-button: 18px;
-  --text-modal-button--font-weight: 600;
-  --text-modal-button--line-height: 18px;
+  --text-body: 14px;
+  --text-body--font-weight: 400;
+  --text-body--line-height: 20px;
 
-  --text-modal-title: 20px;
-  --text-modal-title--font-weight: 600;
-  --text-modal-title--line-height: 28px;
+  --text-label: 13px;
+  --text-label--font-weight: 500;
+  --text-label--line-height: 18px;
 
-  --text-modal-description: 18px;
-  --text-modal-description--font-weight: 600;
-  --text-modal-description--line-height: 24px;
+  --text-caption: 11px;
+  --text-caption--font-weight: 400;
+  --text-caption--line-height: 15px;
 
-  --text-in-progress: 20px;
-  --text-in-progress--font-weight: 600;
-  --text-in-progress--line-height: 24px;
+  /* Primary (deep pink) */
+  --color-primary: #db2777;
+  --color-primary-light: #fdf2f8;
+  --color-primary-muted: #ec4899;
 
-  --text-waiting: 20px;
-  --text-waiting--font-weight: 500;
-  --text-waiting--line-height: 24px;
-
-  --text-sub: 13px;
-  --text-sub--font-weight: 400;
-  --text-sub--line-height: 16px;
-
-  --text-sub2: 15px;
-  --text-sub2--font-weight: 400;
-  --text-sub2--line-height: 18px;
-
-  --text-box: 16px;
-  --text-box--font-weight: 500;
-  --text-box--line-height: 19px;
-
-  --text-box2: 14px;
-  --text-box2--font-weight: 400;
-  --text-box2--line-height: 17px;
-
-  --text-small: 7px;
-  --text-small--font-weight: 500;
-  --text-small--line-height: 9px;
-
-  --color-status-pass: #28c76f;
-  --color-status-fail: #ea5455;
-  --color-status-pending: #ff9f43;
-  --color-status-progress: #69c5ff;
-  --color-status-inactive: #a8aaac;
-
-  --color-text-black: #1a1a1a;
-  --color-text-gray: #858585;
+  /* Text */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #666666;
+  --color-text-muted: #9ca3af;
   --color-text-white: #ffffff;
 
-  --color-bg-surface: #f1f1f1;
-  --color-bg-white: #ffffff;
-  --color-bg-green: #f3fbee;
+  /* Background */
+  --color-bg: #ffffff;
+  --color-bg-surface: #f5f5f5;
+  --color-bg-subtle: #fafafa;
 
-  --color-logo-gray: #d9d9d9;
-  --color-logo-white: #ffffff;
+  /* Border */
+  --color-border: #e5e5e5;
+  --color-border-strong: #d1d1d1;
 
-  --color-icon-gray: #b4b4b4;
-  --color-icon-light-gray: #e5e5e5;
-  --color-icon-green: #e0f4d2;
-  --color-icon-red: #ffe2e2;
+  /* Icon */
+  --color-icon: #b4b4b4;
+  --color-icon-muted: #e5e5e5;
 
-  --color-primary-main: #637457;
+  /* Status */
+  --color-status-pass: #22c55e;
+  --color-status-fail: #ef4444;
+  --color-status-pending: #f97316;
+  --color-status-progress: #3b82f6;
+  --color-status-inactive: #9ca3af;
+  --color-status-pass-light: #f0fdf4;
+  --color-status-fail-light: #fef2f2;
 }
 
 h1 {
-  font-size: var(--text-h1);
-  font-weight: var(--text-h1--font-weight);
+  font-size: var(--text-display);
+  font-weight: var(--text-display--font-weight);
+  line-height: var(--text-display--line-height);
 }
 
 h2 {
-  font-size: var(--text-h2);
-  font-weight: var(--text-h2--font-weight);
+  font-size: var(--text-heading);
+  font-weight: var(--text-heading--font-weight);
+  line-height: var(--text-heading--line-height);
 }
 
 body,
 p {
-  font-size: var(--text-box);
-  font-weight: var(--text-box--font-weight);
+  font-size: var(--text-body-lg);
+  font-weight: var(--text-body-lg--font-weight);
+  line-height: var(--text-body-lg--line-height);
 }
 
 code {

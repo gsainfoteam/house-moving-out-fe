@@ -21,7 +21,7 @@ const middleware: Middleware = {
     return request;
   },
   async onResponse({ request, response, options }) {
-    if (response.status == 401) {
+    if (response.status === 401) {
       if (request.headers.has('x-retry') || request.url.includes(ApiPaths.AuthController_refresh)) {
         return response;
       }

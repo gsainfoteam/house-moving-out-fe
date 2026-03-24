@@ -22,7 +22,7 @@ export namespace SignaturePad {
 }
 
 export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
-  ({ className, penColor = 'var(--color-text-black)', lineWidth = 2, onChange }, ref) => {
+  ({ className, penColor = 'var(--color-text-primary)', lineWidth = 2, onChange }, ref) => {
     const internalRef = useRef<SignatureCanvas | null>(null);
     const resolvedPenColor = useMemo(() => resolveCssVarColor(penColor), [penColor]);
 
@@ -45,12 +45,7 @@ export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
     );
 
     return (
-      <div
-        className={cn(
-          'bg-bg-white border-icon-light-gray relative rounded-2xl border shadow-sm',
-          className,
-        )}
-      >
+      <div className={cn('bg-bg border-border relative rounded-2xl border', className)}>
         <SignatureCanvas
           ref={internalRef}
           backgroundColor="transparent"
@@ -63,7 +58,7 @@ export const SignaturePad = forwardRef<SignaturePad.Handle, SignaturePad.Props>(
             onChange(internalRef.current.toDataURL());
           }}
           canvasProps={{
-            className: 'block h-30 w-full rounded-2xl bg-bg-white',
+            className: 'block h-30 w-full rounded-2xl bg-bg',
           }}
         />
       </div>

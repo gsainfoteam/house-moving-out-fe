@@ -12,7 +12,7 @@ import { Title as AccordionTitle } from './title';
  * <Accordion.Root defaultOpen={false}>
  *   <Accordion.Header>
  *     <Accordion.Title>가구 및 에어컨</Accordion.Title>
- *     <span className="ml-auto text-primary-main">(5/5)</span>
+ *     <span className="ml-auto text-primary">(5/5)</span>
  *   </Accordion.Header>
  *   <Accordion.Content>...</Accordion.Content>
  * </Accordion.Root>

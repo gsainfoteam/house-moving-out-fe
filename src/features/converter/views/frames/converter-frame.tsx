@@ -10,7 +10,7 @@ export function ConverterFrame() {
   const { onChange, data, download } = useConverterForm();
   const tableRef = useRef<HTMLTableElement>(null);
   return (
-    <div className="flex max-h-screen flex-col gap-4 p-4">
+    <div className="flex max-h-dvh flex-col gap-4 p-4">
       <div>Data will never be sent to server.</div>
       <div className="flex gap-2">
         <input

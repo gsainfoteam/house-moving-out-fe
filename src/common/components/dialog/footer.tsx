@@ -13,7 +13,7 @@ export const Footer = ({
 }: HTMLAttributes<HTMLDivElement> & Footer.Props) => (
   <div
     className={cn(
-      'text-modal-button flex gap-2',
+      'text-label flex gap-2',
       orientation === 'horizontal' ? 'justify-between' : 'flex-col',
       className,
     )}

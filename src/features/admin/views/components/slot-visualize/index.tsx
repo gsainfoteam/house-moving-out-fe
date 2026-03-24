@@ -9,10 +9,10 @@ import { cn } from '@/common/utils';
 const START_HOUR = 10;
 const END_HOUR = 18;
 
-const cellBase = cn('border border-gray-200 transition-colors duration-150 min-w-10');
-const headerCell = cn('bg-bg-surface/80 font-medium text-text-black px-3 py-2 text-center');
+const cellBase = cn('border border-border transition-colors duration-150 min-w-10');
+const headerCell = cn('bg-bg-surface/80 font-medium text-text-primary px-3 py-2 text-center');
 const timeCell = cn(
-  'bg-bg-surface/60 text-text-gray px-2 py-1.5 text-sub font-medium w-28 whitespace-nowrap',
+  'bg-bg-surface/60 text-text-secondary px-2 py-1.5 text-label font-medium w-28 whitespace-nowrap',
 );
 
 export function SlotVisualize({
@@ -46,10 +46,10 @@ export function SlotVisualize({
   const days = range(minDay, maxDay + 1);
 
   return (
-    <table className="text-box2 bg-bg-white w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border border-gray-200 shadow-sm select-none">
+    <table className="text-body bg-bg border-border w-full min-w-[200px] border-collapse overflow-hidden rounded-xl border select-none">
       <thead>
         <tr>
-          <th className={cn(cellBase, headerCell, 'text-text-black font-semibold')} scope="col">
+          <th className={cn(cellBase, headerCell, 'text-text-primary font-semibold')} scope="col">
             {title}
           </th>
           {days.map((d) => (
@@ -85,7 +85,7 @@ export function SlotVisualize({
                         data-empty
                         className={cn(
                           cellBase,
-                          'bg-icon-light-gray/60 text-text-gray',
+                          'bg-border/60 text-text-secondary',
                           onClick && 'cursor-not-allowed',
                         )}
                         aria-hidden
@@ -112,11 +112,10 @@ export function SlotVisualize({
                       key={d}
                       className={cn(
                         cellBase,
-                        'text-text-black px-2 py-1.5 text-center font-medium tabular-nums',
-                        isSelected &&
-                          'ring-primary-main bg-primary-main text-text-white ring-2 ring-inset',
-                        !isSelected && isFull && 'bg-icon-red text-text-black',
-                        !isSelected && !isFull && 'bg-bg-green text-text-black',
+                        'text-text-primary px-2 py-1.5 text-center font-medium tabular-nums',
+                        isSelected && 'ring-primary bg-primary text-text-white ring-2 ring-inset',
+                        !isSelected && isFull && 'bg-status-fail-light text-text-primary',
+                        !isSelected && !isFull && 'bg-primary-light text-text-primary',
                         onClick && 'cursor-pointer',
                         onClick && 'hover:opacity-60',
                       )}

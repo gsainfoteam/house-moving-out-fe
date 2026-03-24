@@ -8,7 +8,7 @@ import { cn } from '@/common/utils';
  * @see Dialog.Description
  */
 export const Header = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex flex-col items-center gap-1', className)} {...props} />
+  <div className={cn('flex flex-col items-center gap-2', className)} {...props} />
 );
 
 export namespace Header {

@@ -116,8 +116,8 @@ function OptionsDemo({
   trapFocus,
 }: OptionsArgs) {
   return (
-    <div className="bg-bg-white flex min-h-[160vh] w-full flex-col items-center justify-start gap-4 px-6 py-8">
-      <div className="text-body text-text-gray text-center">
+    <div className="bg-bg flex min-h-[160vh] w-full flex-col items-center justify-start gap-4 px-6 py-8">
+      <div className="text-body text-text-secondary text-center">
         컨트롤 패널에서 옵션을 바꿔가며 동작을 확인해 주세요.
       </div>
       <Button
@@ -134,7 +134,7 @@ function OptionsDemo({
                 <Dialog.Description>옵션별로 아래 동작을 확인해 주세요.</Dialog.Description>
               </Dialog.Header>
               <Dialog.Body className="space-y-3">
-                <ul className="text-body text-text-gray list-disc space-y-1 pl-5">
+                <ul className="text-body text-text-secondary list-disc space-y-1 pl-5">
                   <li>closeOnBackdrop: 배경 클릭 시 다이얼로그가 닫힙니다.</li>
                   <li>closeOnEscape: ESC 키 입력 시 다이얼로그가 닫힙니다.</li>
                   <li>lockScroll: 다이얼로그가 열리면 배경 스크롤이 잠깁니다.</li>
@@ -264,10 +264,10 @@ function ConsentScrollDialog() {
               key={index}
               className={cn(
                 'rounded-lg px-3 py-2.5 transition-colors',
-                values[index] ? 'bg-primary-main/10' : 'bg-bg-surface/30',
+                values[index] ? 'bg-primary/10' : 'bg-bg-surface/30',
               )}
             >
-              <label className="text-box2 text-text-black flex cursor-pointer items-start gap-2 leading-normal">
+              <label className="text-body text-text-primary flex cursor-pointer items-start gap-2 leading-normal">
                 <Checkbox {...register(String(index))} className="mt-0.5 shrink-0" />
                 {item}
               </label>

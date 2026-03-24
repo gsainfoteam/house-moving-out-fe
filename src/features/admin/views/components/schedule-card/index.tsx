@@ -8,17 +8,17 @@ import type { MoveOutSchedule } from '../../../viewmodels';
 export function ScheduleCard({ schedule }: { schedule: MoveOutSchedule }) {
   const { t } = useTranslation('admin');
   return (
-    <div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+    <div className="border-border bg-bg flex flex-col gap-4 rounded-xl border p-5">
       <div className="flex gap-1.5">
-        <h3 className="text-h2 text-text-black font-bold">{schedule.title}</h3>
+        <h3 className="text-body-lg text-text-primary font-bold">{schedule.title}</h3>
         <ScheduleStatusBadge status={schedule.status} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <span className="text-sub text-text-gray font-medium">
+        <span className="text-label text-text-secondary font-medium">
           {t('schedule.detail.applicationTime')}
         </span>
-        <div className="text-box text-text-black">
+        <div className="text-body-lg text-text-primary">
           {`${dayjs(schedule.applicationStartTime).format('LLLL')} ~ ${dayjs(schedule.applicationEndTime).format('LLLL')}`}
         </div>
       </div>

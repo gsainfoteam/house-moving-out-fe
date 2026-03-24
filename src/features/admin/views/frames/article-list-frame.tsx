@@ -34,7 +34,7 @@ export function ArticleListFrame() {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-title3 text-text-black font-semibold">{t('article.list.title')}</h1>
+        <h1 className="text-title3 text-text-primary font-semibold">{t('article.list.title')}</h1>
         <Button asChild>
           <Link to="/admin/articles/new">{t('article.list.create')}</Link>
         </Button>
@@ -58,12 +58,12 @@ export function ArticleListFrame() {
       {isLoading ? (
         <Loading containerClassName="h-full" />
       ) : rows.length === 0 ? (
-        <div className="text-body2 text-text-gray">{t('article.list.empty')}</div>
+        <div className="text-body text-text-secondary">{t('article.list.empty')}</div>
       ) : (
-        <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-          <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
+        <div className="bg-bg border-border overflow-hidden rounded-xl border">
+          <table className="[&_td,&_th]:border-border w-full text-center [&_td,&_th]:border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
             <thead>
-              <tr className="bg-bg-surface/80 [&_th]:text-text-black [&_th]:font-medium">
+              <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
                 <th>{t('article.list.columns.title')}</th>
                 <th>{t('article.list.columns.updatedAt')}</th>
                 <th>{t('article.list.columns.visibility')}</th>

@@ -3,19 +3,12 @@ import { extendTailwindMerge } from 'tailwind-merge';
 import { createTV } from 'tailwind-variants';
 
 const tokens = [
-  'text-h1',
-  'text-h2',
-  'text-button',
-  'text-modal-button',
-  'text-modal-title',
-  'text-modal-description',
-  'text-in-progress',
-  'text-waiting',
-  'text-sub',
-  'text-sub2',
-  'text-box',
-  'text-box2',
-  'text-small',
+  'text-display',
+  'text-heading',
+  'text-body-lg',
+  'text-body',
+  'text-label',
+  'text-caption',
 ] as const;
 
 const twMergeConfig = {

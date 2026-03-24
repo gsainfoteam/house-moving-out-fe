@@ -50,10 +50,10 @@ export function InspectorsListFrame() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <div className="bg-bg-white overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-        <table className="w-full text-center [&_td,&_th]:border [&_td,&_th]:border-gray-200 [&_td,&_th]:px-3 [&_td,&_th]:py-2">
+      <div className="bg-bg border-border overflow-hidden rounded-xl border">
+        <table className="[&_td,&_th]:border-border w-full text-center [&_td,&_th]:border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
           <thead>
-            <tr className="bg-bg-surface/80 [&_th]:text-text-black [&_th]:font-medium">
+            <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
               <th>{t('inspectors.create.name.label')}</th>
               <th>{t('inspectors.create.email.label')}</th>
               <th>{t('inspectors.create.studentNumber.label')}</th>

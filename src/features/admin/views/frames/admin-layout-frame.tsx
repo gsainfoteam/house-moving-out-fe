@@ -12,8 +12,8 @@ function SmallScreenBlocker() {
   const { t } = useTranslation('admin');
   return (
     <div className="bg-bg-surface fixed inset-0 z-30 flex flex-col items-center justify-center gap-4 px-6 text-center xl:hidden">
-      <h1 className="text-title3 text-text-black font-semibold">{t('smallScreen.title')}</h1>
-      <p className="text-body2 text-text-gray">
+      <h1 className="text-title3 text-text-primary font-semibold">{t('smallScreen.title')}</h1>
+      <p className="text-body text-text-secondary">
         {t('smallScreen.descriptionLine1')}
         <br />
         {t('smallScreen.descriptionLine2')}
@@ -31,10 +31,10 @@ function DatabaseSizeBar() {
   return (
     <div className="flex items-center gap-2">
       {`${t('databaseSize')} (${data.pretty}/500 MB)`}
-      <div className="relative h-3 w-36 overflow-hidden rounded-2xl bg-gray-200">
+      <div className="bg-border relative h-3 w-36 overflow-hidden rounded-2xl">
         <div
           className={cn(
-            'bg-primary-main absolute left-0 h-3',
+            'bg-primary absolute left-0 h-3',
             percentage >= 80 && 'bg-yellow-500',
             percentage >= 90 && 'bg-red-500',
           )}
@@ -57,24 +57,24 @@ export function AdminLayoutFrame() {
           import.meta.env.DEV ? 'flex' : 'hidden xl:flex',
         )}
       >
-        <header className="bg-bg-white flex shrink-0 items-center gap-6 border-b border-gray-200 px-4 py-3 shadow-sm">
+        <header className="bg-bg border-border flex shrink-0 items-center gap-6 border-b px-4 py-3">
           <Link
             to="/admin"
-            className="text-text-gray hover:bg-bg-surface hover:text-text-black flex items-center gap-2 rounded-lg p-2 transition-colors"
+            className="text-text-secondary hover:bg-bg-surface hover:text-text-primary flex items-center gap-2 rounded-lg p-2 transition-colors"
           >
             <HomeIcon className="size-5 shrink-0" aria-hidden />
-            <span className="text-sub2">{t('home')}</span>
+            <span className="text-body">{t('home')}</span>
           </Link>
           <nav className="flex flex-1 items-center gap-1">
             <Link
               to="/admin/schedules"
-              className="text-sub2 text-text-black hover:bg-bg-surface hover:text-primary-main rounded-lg px-3 py-2 font-medium transition-colors"
+              className="text-body text-text-primary hover:bg-bg-surface hover:text-primary rounded-lg px-3 py-2 font-medium transition-colors"
             >
               {t('schedule.list')}
             </Link>
             <Link
               to="/admin/articles"
-              className="text-sub2 text-text-black hover:bg-bg-surface hover:text-primary-main rounded-lg px-3 py-2 font-medium transition-colors"
+              className="text-body text-text-primary hover:bg-bg-surface hover:text-primary rounded-lg px-3 py-2 font-medium transition-colors"
             >
               {t('article.list.nav')}
             </Link>
