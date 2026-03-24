@@ -194,7 +194,9 @@
       }
     },
     "detail": {
+      "active": "Active",
       "applicationTime": "Application Time",
+      "cancel": "Cancel",
       "error": "Cannot load moving out inspection information",
       "notFound": "Moving out inspection not found.",
       "summary": {
@@ -233,6 +235,7 @@
   "status": {
     "disabled": "Disabled",
     "failed": "Failed",
+    "no_show": "No Show",
     "not_inspected": "Not Inspected",
     "passed": "Passed",
     "single": "Single inspection",
