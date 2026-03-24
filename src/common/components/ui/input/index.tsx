@@ -22,8 +22,8 @@ export const Input = forwardRef<
 
 const styles = cv({
   base: [
-    'w-full rounded-lg border-[1.5px] bg-bg-white px-4 py-3',
-    'text-box text-text-black placeholder:text-text-gray',
+    'w-full rounded-xl border bg-bg px-4 py-2.5',
+    'text-body-lg text-text-primary placeholder:text-text-secondary',
     'transition-all duration-200',
     'file:border-0 file:bg-transparent file:text-sm file:font-medium',
     'focus-visible:outline-none focus-visible:ring-2',
@@ -32,8 +32,8 @@ const styles = cv({
   variants: {
     variant: {
       default: [
-        'border-icon-gray',
-        'focus-visible:border-primary-main focus-visible:ring-primary-main',
+        'border-border',
+        'focus-visible:border-primary focus-visible:ring-primary',
       ],
       error: [
         'border-status-fail',
