@@ -1,0 +1,86 @@
+import { RouterContextProvider } from '@tanstack/react-router';
+
+import dayjs from 'dayjs';
+import { I18nextProvider } from 'react-i18next';
+
+import { i18n } from '@/common/lib';
+import { router } from '@/main';
+
+import { InspectionListView } from './inspection-list-view';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+const meta: Meta<typeof InspectionListView> = {
+  title: 'Inspector/InspectionListView',
+  component: InspectionListView,
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <RouterContextProvider router={router}>
+        <I18nextProvider i18n={i18n}>
+          <Story />
+        </I18nextProvider>
+      </RouterContextProvider>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof InspectionListView>;
+
+const baseTime = dayjs().startOf('day').hour(10);
+
+const mockTargets: InspectionListView.Target[] = [
+  {
+    uuid: 'target-1',
+    inspectionTime: baseTime.toISOString(),
+    roomNumber: 'T012호',
+    residents: [{ name: '홍길동' }],
+    isPassed: null,
+  },
+  {
+    uuid: 'target-2',
+    inspectionTime: baseTime.add(30, 'minute').toISOString(),
+    roomNumber: 'T034호',
+    residents: [{ name: '김영희' }, { name: '이철수' }],
+    isPassed: null,
+  },
+  {
+    uuid: 'target-3',
+    inspectionTime: baseTime.add(1, 'hour').toISOString(),
+    roomNumber: 'T056호',
+    residents: [{ name: '박민준' }],
+    isPassed: true,
+  },
+  {
+    uuid: 'target-4',
+    inspectionTime: baseTime.add(2, 'hour').toISOString(),
+    roomNumber: 'T078호',
+    residents: [{ name: '최서연' }],
+    isPassed: false,
+  },
+];
+
+export const WithTargets: Story = {
+  args: {
+    targets: mockTargets,
+    isLoading: false,
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    targets: [],
+    isLoading: true,
+  },
+};
+
+export const Empty: Story = {
+  args: {
+    targets: [],
+    isLoading: false,
+  },
+};
