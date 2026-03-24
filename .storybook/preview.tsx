@@ -1,5 +1,3 @@
-import { createElement } from 'react';
-
 import type { Preview } from '@storybook/react-vite';
 import { RouterContextProvider } from '@tanstack/react-router';
 
@@ -9,7 +7,11 @@ import '../src/styles.css';
 
 const preview: Preview = {
   decorators: [
-    (Story) => createElement(RouterContextProvider, { router }, createElement(Story)),
+    (Story) => (
+      <RouterContextProvider router={router}>
+        <Story />
+      </RouterContextProvider>
+    ),
   ],
   parameters: {
     controls: {
