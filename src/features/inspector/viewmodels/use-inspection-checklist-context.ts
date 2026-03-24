@@ -2,7 +2,8 @@ import { useCallback, useMemo } from 'react';
 
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import { checklist } from '../models';
+import { checklist } from '@/common/lib';
+
 import { useInspectionTargetInfo } from './use-inspection-target-info';
 
 export const useInspectionChecklistContext = () => {

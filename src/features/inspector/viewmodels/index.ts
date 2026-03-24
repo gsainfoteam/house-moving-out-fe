@@ -5,4 +5,3 @@ export * from './use-inspection-note-form';
 export * from './use-inspection-checklist-file';
 export * from './use-inspection-submit-form';
 export * from './use-inspection-target-info';
-export { checklist } from '../models';
