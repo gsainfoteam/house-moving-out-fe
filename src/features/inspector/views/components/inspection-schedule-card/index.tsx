@@ -25,7 +25,7 @@ export function InspectionScheduleCard({
   return (
     <div
       className={cn(
-        'bg-bg-white border-icon-light-gray hover:bg-bg-surface border transition-colors duration-200',
+        'bg-bg border-border hover:bg-bg-surface border transition-colors duration-200',
         'flex w-full items-center justify-between rounded-xl',
         'px-4 py-3',
         className,
@@ -33,17 +33,17 @@ export function InspectionScheduleCard({
       {...props}
     >
       <div className="flex items-center gap-4">
-        <h1 className="text-text-black tabular-nums">{time.format('HH:mm')}</h1>
-        <div className="bg-icon-light-gray my-1 w-px self-stretch" aria-hidden />
+        <span className="text-body-lg text-text-primary tabular-nums font-semibold">{time.format('HH:mm')}</span>
+        <div className="bg-border my-1 w-px self-stretch" aria-hidden />
         <div className="flex flex-col gap-1 leading-tight">
-          <span className="text-box text-text-black">{roomLabel}</span>
-          <span className="text-box2 text-text-gray">{residentName}</span>
+          <span className="text-body-lg text-text-primary">{roomLabel}</span>
+          <span className="text-body text-text-secondary">{residentName}</span>
         </div>
       </div>
 
       <span
         className={cn(
-          'text-box2 rounded-full px-3 py-1 text-center',
+          'text-body rounded-full px-3 py-1 text-center',
           InspectionScheduleCard.statusStyle[status],
         )}
       >
@@ -66,8 +66,8 @@ export namespace InspectionScheduleCard {
   }
 
   export const statusStyle = {
-    draft: cn('bg-icon-gray text-text-white'),
-    passed: cn('bg-primary-main text-text-white'),
-    failed: cn('bg-icon-red/80 text-status-fail'),
+    draft: cn('bg-icon text-text-white'),
+    passed: cn('bg-primary text-text-white'),
+    failed: cn('bg-status-fail-light/80 text-status-fail'),
   };
 }

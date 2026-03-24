@@ -28,7 +28,7 @@ type Story = StoryObj<typeof SignaturePad>;
 
 export const Playground: Story = {
   args: {
-    penColor: 'var(--color-text-black)',
+    penColor: 'var(--color-text-primary)',
     lineWidth: 2,
   },
 };
@@ -50,14 +50,14 @@ export const WithControls: Story = {
         <div className="flex gap-2">
           <button
             type="button"
-            className="bg-bg-surface text-text-black text-box2 rounded-lg px-3 py-2"
+            className="bg-bg-surface text-text-primary text-body rounded-lg px-3 py-2"
             onClick={() => padRef.current?.clear()}
           >
             지우기
           </button>
           <button
             type="button"
-            className="bg-primary-main text-text-white text-box2 rounded-lg px-3 py-2"
+            className="bg-primary text-text-white text-body rounded-lg px-3 py-2"
             onClick={() => {
               if (!padRef.current) return;
               setDataUrl(padRef.current.toDataURL());
@@ -68,11 +68,11 @@ export const WithControls: Story = {
         </div>
         {dataUrl && (
           <div className="flex flex-col gap-2">
-            <span className="text-box2 text-text-gray">dataURL 미리보기</span>
+            <span className="text-body text-text-secondary">dataURL 미리보기</span>
             <img
               src={dataUrl}
               alt="signature-preview"
-              className="bg-bg-white border-icon-light-gray h-40 w-full rounded-2xl border object-contain"
+              className="bg-bg border-border h-40 w-full rounded-2xl border object-contain"
             />
           </div>
         )}
