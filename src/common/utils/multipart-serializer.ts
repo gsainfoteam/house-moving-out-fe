@@ -1,4 +1,4 @@
-import { isBlob, isFile, isPlainObject } from 'es-toolkit';
+import { isBlob, isFile, isNil, isPlainObject } from 'es-toolkit';
 
 export const multipartSerializer =
   (nested = false) =>
@@ -28,7 +28,7 @@ export const multipartSerializer =
           appendFormData(JSON.stringify(data), parentKey);
         }
       } else if (typeof data !== 'undefined' && parentKey) {
-        fd.append(parentKey, data == null ? '' : data.toString());
+        fd.append(parentKey, isNil(data) ? '' : data.toString());
       }
     }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { groupBy } from 'es-toolkit';
+import { groupBy, isNotNil } from 'es-toolkit';
 
 import { useBulkUpdateCleaningService, useGetMoveOutScheduleQuery, useTargets } from './queries';
 import { ScheduleStatus } from '../models';
@@ -10,7 +10,7 @@ export const useManageCleaningService = (uuid: string) => {
   const { data: schedule } = useGetMoveOutScheduleQuery(uuid);
   const bulkUpdateCleaningService = useBulkUpdateCleaningService();
   const [draftCleaningMap, setDraftCleaningMap] = useState<Record<string, boolean>>({});
-  const isCleaningEditable = schedule != null && schedule.status === ScheduleStatus.DRAFT;
+  const isCleaningEditable = isNotNil(schedule) && schedule.status === ScheduleStatus.DRAFT;
   const isSaving = bulkUpdateCleaningService.isPending;
   const hasDraftChanges = Object.keys(draftCleaningMap).length > 0;
 

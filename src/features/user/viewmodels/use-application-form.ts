@@ -84,7 +84,7 @@ export const useApplicationForm = ({
   );
 
   const onSubmit = form.handleSubmit(({ inspectionSlotUuid }) => {
-    if (inspectionSlotUuid == null) return;
+    if (inspectionSlotUuid === null) return;
 
     const request =
       applicationUuid && failedItems === null
