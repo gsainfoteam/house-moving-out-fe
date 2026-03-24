@@ -26,7 +26,9 @@ export function UserLayoutFrame() {
   const navigate = useNavigate();
   const { matches } = useRouterState();
 
-  const isInspectorRoute = matches.some((match) => match.routeId === InspectorRoute.id);
+  const isInspectorSubtree = matches.some((match) =>
+    match.routeId.startsWith(InspectorRoute.id.slice(0, -1)), // remove trailing '/'
+  );
   const isArticlesRoute = matches.some(
     (match) => match.routeId === ArticlesRoute.id || match.routeId === ArticleDetailRoute.id,
   );
@@ -44,11 +46,11 @@ export function UserLayoutFrame() {
               className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
               onClick={() => {
                 close();
-                navigate({ to: isInspectorRoute ? '/' : '/inspector', replace: true });
+                navigate({ to: isInspectorSubtree ? '/' : '/inspector', replace: true });
               }}
             >
               <ArrowRightLeft size={20} className="text-icon" />
-              {isInspectorRoute ? t('fab.toUserMode') : t('fab.toInspectorMode')}
+              {isInspectorSubtree ? t('fab.toUserMode') : t('fab.toInspectorMode')}
             </button>
           )}
           <button
