@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { I18nextProvider } from 'react-i18next';
 
 import { i18n } from '@/common/lib';
+import { ApplicationStatus } from '@/features/admin';
 
 import { InspectionScheduleCard } from '.';
 
@@ -33,7 +34,7 @@ export const Draft: Story = {
     time: baseTime,
     roomLabel: 'T012호',
     residentName: '홍길동',
-    isPassed: null,
+    status: null,
   },
 };
 
@@ -42,7 +43,7 @@ export const Active: Story = {
     time: baseTime.add(1, 'hour'),
     roomLabel: 'T045호',
     residentName: '김영희',
-    isPassed: null,
+    status: null,
   },
 };
 
@@ -51,7 +52,7 @@ export const Completed: Story = {
     time: baseTime.add(2, 'hour').add(30, 'minute'),
     roomLabel: 'T078호',
     residentName: '이철수',
-    isPassed: true,
+    status: ApplicationStatus.PASSED,
   },
 };
 
@@ -62,25 +63,25 @@ export const List: Story = {
         time={baseTime}
         roomLabel="T012호"
         residentName="홍길동"
-        isPassed={null}
+        status={null}
       />
       <InspectionScheduleCard
         time={baseTime.add(30, 'minute')}
         roomLabel="T012호"
         residentName="홍길동"
-        isPassed={null}
+        status={null}
       />
       <InspectionScheduleCard
         time={baseTime.add(1, 'hour')}
         roomLabel="T012호"
         residentName="홍길동"
-        isPassed={true}
+        status={ApplicationStatus.PASSED}
       />
       <InspectionScheduleCard
         time={baseTime.add(2, 'hour').add(30, 'minute')}
         roomLabel="T012호"
         residentName="홍길동"
-        isPassed={false}
+        status={ApplicationStatus.FAILED}
       />
     </div>
   ),

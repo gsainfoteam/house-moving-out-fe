@@ -58,7 +58,7 @@ export namespace InspectionScheduleCard {
     time: Dayjs;
     roomLabel: string;
     residentName: string;
-    status?: ApplicationStatus;
+    status: ApplicationStatus | null;
     className?: string;
   }
 
