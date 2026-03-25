@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
-import { I18nextProvider, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import ModalBang from '@/assets/modal-bang.svg?react';
 import ModalCheck from '@/assets/modal-check.svg?react';
 import ModalX from '@/assets/modal-x.svg?react';
-import { i18n, OverlayHost, overlay, OverlayProvider } from '@/common/lib';
+import { overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 
 import { Button, Checkbox } from '../ui';
@@ -51,16 +51,6 @@ const meta: Meta<OptionsArgs> = {
       description: '포커스 트랩 사용',
     },
   },
-  decorators: [
-    (Story) => (
-      <I18nextProvider i18n={i18n}>
-        <OverlayProvider>
-          <OverlayHost />
-          <Story />
-        </OverlayProvider>
-      </I18nextProvider>
-    ),
-  ],
 };
 
 export default meta;

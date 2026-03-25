@@ -1,6 +1,4 @@
-import { I18nextProvider, useTranslation } from 'react-i18next';
-
-import { i18n } from '@/common/lib';
+import { useTranslation } from 'react-i18next';
 
 import { LanguageToggle } from '.';
 
@@ -13,13 +11,6 @@ const meta: Meta<typeof LanguageToggle> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <I18nextProvider i18n={i18n}>
-        <Story />
-      </I18nextProvider>
-    ),
-  ],
 };
 
 export default meta;

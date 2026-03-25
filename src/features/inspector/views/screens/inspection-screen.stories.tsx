@@ -1,11 +1,6 @@
-import { RouterContextProvider } from '@tanstack/react-router';
-
 import { useForm } from 'react-hook-form';
-import { I18nextProvider } from 'react-i18next';
 
-import { i18n } from '@/common/lib';
 import type { checklist } from '@/common/lib';
-import { router } from '@/main';
 
 import { InspectionScreen } from './inspection-screen';
 
@@ -18,15 +13,12 @@ const meta: Meta<typeof InspectionScreen> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <RouterContextProvider router={router}>
-        <I18nextProvider i18n={i18n}>
-          <Story />
-        </I18nextProvider>
-      </RouterContextProvider>
-    ),
-  ],
+  argTypes: {
+    isNoneChecked: { control: 'boolean' },
+  },
+  args: {
+    isNoneChecked: true,
+  },
 };
 
 export default meta;
@@ -44,7 +36,13 @@ type InspectionFormFields = {
   targetSignature: string;
 };
 
-function InspectionScreenWrapper({ roomType }: { roomType: InspectionScreen.Props['roomType'] }) {
+function InspectionScreenWrapper({
+  roomType,
+  isNoneChecked,
+}: {
+  roomType: InspectionScreen.Props['roomType'];
+  isNoneChecked: boolean;
+}) {
   const { register } = useForm<InspectionFormFields>();
 
   return (
@@ -55,6 +53,9 @@ function InspectionScreenWrapper({ roomType }: { roomType: InspectionScreen.Prop
       register={register}
       getSectionProgress={() => ({ totalCount: 3, completedCount: 0, isCompleted: false })}
       isAllChecked={false}
+      isNoneChecked={isNoneChecked}
+      onNoShowRequest={async () => '010-1234-5678'}
+      onNoShowConfirm={async () => {}}
       uuid="test-uuid"
     />
   );
@@ -71,17 +72,24 @@ function InspectionScreenLoadingWrapper() {
       register={register}
       getSectionProgress={() => ({ totalCount: 0, completedCount: 0, isCompleted: false })}
       isAllChecked={false}
+      isNoneChecked={false}
+      onNoShowRequest={async () => '010-1234-5678'}
+      onNoShowConfirm={async () => {}}
       uuid="test-uuid"
     />
   );
 }
 
 export const TypeB: Story = {
-  render: () => <InspectionScreenWrapper roomType="b" />,
+  render: ({ isNoneChecked }) => (
+    <InspectionScreenWrapper roomType="b" isNoneChecked={isNoneChecked} />
+  ),
 };
 
 export const Solo: Story = {
-  render: () => <InspectionScreenWrapper roomType="solo" />,
+  render: ({ isNoneChecked }) => (
+    <InspectionScreenWrapper roomType="solo" isNoneChecked={isNoneChecked} />
+  ),
 };
 
 export const Loading: Story = {

@@ -1,8 +1,5 @@
 import { useState } from 'react';
 
-import { I18nextProvider } from 'react-i18next';
-
-import { i18n } from '@/common/lib';
 import type { Article } from '@/features/user';
 
 import { ArticleListScreen } from './article-list-screen';
@@ -17,13 +14,6 @@ const meta: Meta<typeof ArticleListScreen> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <I18nextProvider i18n={i18n}>
-        <Story />
-      </I18nextProvider>
-    ),
-  ],
 };
 
 export default meta;
