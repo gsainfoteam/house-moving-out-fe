@@ -22,13 +22,15 @@ export function TargetListFrame() {
   const { data: targets, error } = useTargets(uuid);
   const { t } = useTranslation('admin');
   const {
-    isCleaningEditable,
+    isEditable,
     numberOfDraftChanges,
     isSaving,
-    handleResetCleaningChanges,
+    handleResetChanges,
     handleCleaningServiceChange,
-    handleSaveCleaningChanges,
+    handleRepairChange,
+    handleSaveChanges,
     isDraftCleaning,
+    isDraftRepair,
   } = useManageCleaningService(uuid);
 
   if (error) return <div>{t('target.error.load')}</div>;
@@ -36,30 +38,30 @@ export function TargetListFrame() {
   return (
     <main className="p-4">
       <div className="bg-bg border-border overflow-hidden rounded-xl border">
-        {isCleaningEditable ? (
+        {isEditable ? (
           <div className="border-border flex items-center justify-between border-b px-4 py-3">
             <span className="text-body text-text-secondary">
               {numberOfDraftChanges
-                ? t('target.detail.cleaningUnsavedCount', {
+                ? t('target.detail.unsavedCount', {
                     count: numberOfDraftChanges,
                   })
-                : t('target.detail.cleaningNoChanges')}
+                : t('target.detail.noChanges')}
             </span>
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
                 size="default"
                 disabled={!numberOfDraftChanges || isSaving}
-                onClick={handleResetCleaningChanges}
+                onClick={handleResetChanges}
               >
                 {t('target.action.resetCleaningChanges')}
               </Button>
               <Button
                 variant="default"
                 size="default"
-                disabled={!numberOfDraftChanges || !isCleaningEditable || isSaving}
+                disabled={!numberOfDraftChanges || !isEditable || isSaving}
                 onClick={() => {
-                  void handleSaveCleaningChanges();
+                  void handleSaveChanges();
                 }}
               >
                 {isSaving
@@ -81,6 +83,7 @@ export function TargetListFrame() {
               <th>{t('target.detail.name')}</th>
               <th>{t('target.detail.type')}</th>
               <th>{t('target.detail.cleaningService')}</th>
+              <th>{t('target.detail.repairAfterMoveOut')}</th>
               <th>{t('target.detail.result')}</th>
               <th>{t('target.detail.lastInspection')}</th>
               <th>{t('target.detail.inspectionCount')}</th>
@@ -109,7 +112,7 @@ export function TargetListFrame() {
                 </td>
                 <td>
                   <div className="flex items-center justify-center gap-2">
-                    {isCleaningEditable ? (
+                    {isEditable ? (
                       <Checkbox
                         className="scale-100"
                         checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
@@ -120,10 +123,34 @@ export function TargetListFrame() {
                             target.applyCleaningService,
                           );
                         }}
-                        disabled={!isCleaningEditable || isSaving}
+                        disabled={!isEditable || isSaving}
                         aria-label={t('target.detail.cleaningService')}
                       />
                     ) : target.applyCleaningService ? (
+                      <Check
+                        className="text-primary size-5"
+                        aria-label={t('target.detail.cleaningService')}
+                      />
+                    ) : null}
+                  </div>
+                </td>
+                <td>
+                  <div className="flex items-center justify-center gap-2">
+                    {isEditable ? (
+                      <Checkbox
+                        className="scale-100"
+                        checked={isDraftRepair(target.uuid) ?? target.applyRepairCheck}
+                        onChange={(event) => {
+                          handleRepairChange(
+                            target.uuid,
+                            event.target.checked,
+                            target.applyRepairCheck,
+                          );
+                        }}
+                        disabled={!isEditable || isSaving}
+                        aria-label={t('target.detail.cleaningService')}
+                      />
+                    ) : target.applyRepairCheck ? (
                       <Check
                         className="text-primary size-5"
                         aria-label={t('target.detail.cleaningService')}
