@@ -28,6 +28,7 @@ type Status =
   | 'failed'
   | 'not_inspected'
   | 'will_be_cleaned'
+  | 'will_be_repaired'
   | 'single'
   | 'single_passed'
   | 'no_show';
@@ -38,6 +39,7 @@ const statusStyles: Record<Status, string> = {
   failed: cn('bg-status-fail-light text-text-primary'),
   not_inspected: cn('bg-status-fail-light text-text-primary'),
   will_be_cleaned: cn('bg-status-progress text-text-white'),
+  will_be_repaired: cn('bg-status-progress text-text-white'),
   single: cn('bg-status-fail-light text-text-primary'),
   single_passed: cn('bg-status-pending text-text-primary'),
   no_show: cn('bg-status-fail-light text-text-primary'),
@@ -48,6 +50,7 @@ const getStatus = (target: Target | undefined): Status | undefined => {
   if (target.applyCleaningService) return 'will_be_cleaned';
   if (target.inspectionType === InspectionType.EMPTY) return 'disabled';
   if (target.status === ApplicationStatus.PASSED) {
+    if (target.applyRepairCheck) return 'will_be_repaired';
     if (target.inspectionType === InspectionType.FULL) return 'passed';
     return 'single_passed';
   }
@@ -92,6 +95,7 @@ export function RoomVisualize({ targets }: { targets: Target[] }) {
                 // t('status.failed')
                 // t('status.not_inspected')
                 // t('status.will_be_cleaned')
+                // t('status.will_be_repaired')
                 // t('status.single')
                 // t('status.single_passed')
                 // t('status.no_show')

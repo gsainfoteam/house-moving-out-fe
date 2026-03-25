@@ -247,7 +247,8 @@
     "passed": "Passed",
     "single": "Single inspection",
     "single_passed": "Single Passed",
-    "will_be_cleaned": "Will be cleaned"
+    "will_be_cleaned": "Will be cleaned",
+    "will_be_repaired": "Pass/Repair"
   },
   "target": {
     "action": {
@@ -257,20 +258,22 @@
     },
     "detail": {
       "admissionYear": "Admission Year",
-      "cleaningNoChanges": "No vendor cleaning changes",
       "cleaningService": "Vendor Cleaning",
-      "cleaningUnsavedCount_one": "{{count}} unsaved vendor cleaning change",
-      "cleaningUnsavedCount_other": "{{count}} unsaved vendor cleaning changes",
       "inspectionCount": "# of Inspections",
       "lastInspection": "Last Inspection",
       "name": "Name",
+      "noChanges": "No changes",
+      "repairAfterMoveOut": "Repair after Move Out",
       "result": "Result",
       "roomNumber": "Room #",
-      "type": "Inspection Type"
+      "type": "Inspection Type",
+      "unsavedCount_one": "{{count}} unsaved change",
+      "unsavedCount_other": "{{count}} unsaved changes"
     },
     "error": {
       "cleaningLockedByStatus": "Vendor cleaning cannot be edited for active schedules",
-      "load": "Cannot load target room list"
+      "load": "Cannot load target room list",
+      "repairLockedByStatus": "Repair after move out cannot be edited for active schedules"
     },
     "list": "Target Room List"
   },
