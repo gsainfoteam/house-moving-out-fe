@@ -106,6 +106,7 @@ export const useManageCleaningService = (uuid: string) => {
   const handleResetChanges = () => {
     if (isSaving) return;
     setDraftCleaningMap({});
+    setDraftRepair({});
   };
 
   return {
