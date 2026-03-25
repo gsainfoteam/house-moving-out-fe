@@ -44,10 +44,19 @@ export const useInspectionChecklistContext = () => {
     return listValues.every((i) => values[i]);
   }, [values, list]);
 
+  const isNoneChecked = useMemo(() => {
+    if (list === undefined) return true;
+    const listValues = checklist.sections.flatMap((section) =>
+      list[section].filter((i) => i !== null).map(([i]) => i),
+    );
+    return listValues.every((i) => !values[i]);
+  }, [values, list]);
+
   return {
     form,
     getSectionProgress,
     isAllChecked,
+    isNoneChecked,
     items: values,
     isLoading,
     target,

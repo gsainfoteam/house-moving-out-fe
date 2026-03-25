@@ -2,7 +2,8 @@
   "checklist": {
     "cta": {
       "allClear": "No issues (Pass)",
-      "hasIssues": "Has issues (Fail)"
+      "hasIssues": "Has issues (Fail)",
+      "noShow": "Mark as No-Show"
     },
     "sections": {
       "bathroom": "Bathroom",
@@ -13,6 +14,23 @@
       "issues": "Issues",
       "power": "Power",
       "window-balcony": "Window & Balcony"
+    },
+    "noShow": {
+      "title": "Mark as No-Show",
+      "description": "Please contact the student before marking as no-show. Continue?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "phone": {
+        "title": "Mark as No-Show",
+        "answered": "Answered",
+        "noAnswer": "No Answer"
+      },
+      "final": {
+        "title": "No-Show",
+        "description": "Confirming will record this as a no-show.",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
     }
   },
   "error": {

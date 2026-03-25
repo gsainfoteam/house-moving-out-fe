@@ -2,13 +2,79 @@ import { Link } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
-import { Accordion, Button, Checkbox, LayoutCard, Loading } from '@/common/components';
-import { checklist } from '@/common/lib';
+import { Accordion, Button, Checkbox, Dialog, LayoutCard, Loading } from '@/common/components';
+import { checklist, overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 
 import { SampleImageButton } from '../components';
 
 import type { UseFormRegister } from 'react-hook-form';
+
+function NoShowFinalDialog({ onConfirm }: { onConfirm: () => void }) {
+  const { t } = useTranslation('inspector');
+  return (
+    <Dialog.Root closeOnBackdrop={false} closeOnEscape={false}>
+      <Dialog.Header>
+        <Dialog.Title>{t('checklist.noShow.final.title')}</Dialog.Title>
+        <Dialog.Description>{t('checklist.noShow.final.description')}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button variant="outline">{t('checklist.noShow.final.cancel')}</Button>
+        </Dialog.Close>
+        <Dialog.Close asChild>
+          <Button variant="failed" onClick={onConfirm}>
+            {t('checklist.noShow.final.confirm')}
+          </Button>
+        </Dialog.Close>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
+
+function NoShowPhoneDialog({ phone, onNoAnswer }: { phone: string; onNoAnswer: () => void }) {
+  const { t } = useTranslation('inspector');
+  return (
+    <Dialog.Root closeOnBackdrop={false} closeOnEscape={false}>
+      <Dialog.Header>
+        <Dialog.Title>{t('checklist.noShow.phone.title')}</Dialog.Title>
+        <Dialog.Description>{phone}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button variant="outline">{t('checklist.noShow.phone.answered')}</Button>
+        </Dialog.Close>
+        <Dialog.Close asChild>
+          <Button variant="failed" onClick={onNoAnswer}>
+            {t('checklist.noShow.phone.noAnswer')}
+          </Button>
+        </Dialog.Close>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
+
+function NoShowDialog({ onConfirm }: { onConfirm: () => void }) {
+  const { t } = useTranslation('inspector');
+  return (
+    <Dialog.Root>
+      <Dialog.Header>
+        <Dialog.Title>{t('checklist.noShow.title')}</Dialog.Title>
+        <Dialog.Description>{t('checklist.noShow.description')}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button variant="outline">{t('checklist.noShow.cancel')}</Button>
+        </Dialog.Close>
+        <Dialog.Close asChild>
+          <Button variant="subtle" onClick={onConfirm}>
+            {t('checklist.noShow.confirm')}
+          </Button>
+        </Dialog.Close>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
 
 export function InspectionScreen({
   isLoading,
@@ -17,9 +83,39 @@ export function InspectionScreen({
   register,
   getSectionProgress,
   isAllChecked,
+  isNoneChecked,
+  onNoShowRequest,
+  onNoShowConfirm,
   uuid,
 }: InspectionScreen.Props) {
   const { t } = useTranslation('inspector');
+
+  const handleNoShowClick = () => {
+    overlay.open(({ close: closeDialog1 }) => (
+      <NoShowDialog
+        onConfirm={async () => {
+          closeDialog1();
+          const phone = await onNoShowRequest();
+          overlay.open(({ close: closeDialog2 }) => (
+            <NoShowPhoneDialog
+              phone={phone}
+              onNoAnswer={() => {
+                closeDialog2();
+                overlay.open(({ close: closeDialog3 }) => (
+                  <NoShowFinalDialog
+                    onConfirm={async () => {
+                      await onNoShowConfirm();
+                      closeDialog3();
+                    }}
+                  />
+                ));
+              }}
+            />
+          ));
+        }}
+      />
+    ));
+  };
 
   if (isLoading) return <Loading />;
   if (!target) return <div>{t('error.notFound')}</div>;
@@ -84,7 +180,12 @@ export function InspectionScreen({
           );
         })}
       </LayoutCard.Body>
-      <LayoutCard.Footer>
+      <LayoutCard.Footer className="flex-col">
+        {isNoneChecked && (
+          <Button variant="subtle" onClick={handleNoShowClick}>
+            {t('checklist.cta.noShow')}
+          </Button>
+        )}
         <Button variant={isAllChecked ? 'default' : 'failed'} className="w-full" asChild>
           <Link to="/inspector/$uuid/note" params={{ uuid }}>
             {isAllChecked ? t('checklist.cta.allClear') : t('checklist.cta.hasIssues')}
@@ -117,6 +218,9 @@ export namespace InspectionScreen {
       isCompleted: boolean;
     };
     isAllChecked: boolean;
+    isNoneChecked: boolean;
+    onNoShowRequest: () => Promise<string>;
+    onNoShowConfirm: () => Promise<void>;
     uuid: string;
   };
 }

@@ -2,7 +2,8 @@
   "checklist": {
     "cta": {
       "allClear": "특이사항 없음 (통과)",
-      "hasIssues": "특이사항 있음 (불통과)"
+      "hasIssues": "특이사항 있음 (불통과)",
+      "noShow": "노쇼 처리"
     },
     "sections": {
       "bathroom": "화장실",
@@ -13,6 +14,23 @@
       "issues": "이상 여부",
       "power": "전원",
       "window-balcony": "창문 및 베란다(테라스)"
+    },
+    "noShow": {
+      "title": "노쇼 처리",
+      "description": "노쇼처리를 하기 전에 번호로 연락을 해주세요. 계속 하시겠습니까?",
+      "cancel": "취소",
+      "confirm": "확인",
+      "phone": {
+        "title": "노쇼 처리",
+        "answered": "응답 확인",
+        "noAnswer": "미응답"
+      },
+      "final": {
+        "title": "노쇼",
+        "description": "확인을 누르면 노쇼로 기록됩니다",
+        "cancel": "취소",
+        "confirm": "확인"
+      }
     }
   },
   "error": {
