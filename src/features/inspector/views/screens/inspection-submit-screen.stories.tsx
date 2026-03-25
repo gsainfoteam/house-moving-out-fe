@@ -1,7 +1,3 @@
-import { I18nextProvider } from 'react-i18next';
-
-import { i18n } from '@/common/lib';
-
 import { InspectionSubmitScreen } from './inspection-submit-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -13,13 +9,6 @@ const meta: Meta<typeof InspectionSubmitScreen> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <I18nextProvider i18n={i18n}>
-        <Story />
-      </I18nextProvider>
-    ),
-  ],
 };
 
 export default meta;

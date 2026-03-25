@@ -1,4 +1,4 @@
-import { OverlayHost, overlay, OverlayProvider } from '@/common/lib';
+import { overlay } from '@/common/lib';
 
 import { Button } from '../ui';
 
@@ -44,14 +44,6 @@ const meta: Meta<OptionsArgs> = {
       description: '포커스 트랩 사용',
     },
   },
-  decorators: [
-    (Story) => (
-      <OverlayProvider>
-        <OverlayHost />
-        <Story />
-      </OverlayProvider>
-    ),
-  ],
 };
 
 export default meta;

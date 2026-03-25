@@ -1,8 +1,4 @@
 import dayjs from 'dayjs';
-import { I18nextProvider } from 'react-i18next';
-
-import { i18n } from '@/common/lib';
-
 import { ScheduleCard } from '.';
 
 import type { MoveOutSchedule, ScheduleStatus } from '../../../viewmodels';
@@ -29,11 +25,9 @@ const meta: Meta<typeof ScheduleCard> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <I18nextProvider i18n={i18n}>
-        <div className="w-[360px]">
-          <Story />
-        </div>
-      </I18nextProvider>
+      <div className="w-[360px]">
+        <Story />
+      </div>
     ),
   ],
 };

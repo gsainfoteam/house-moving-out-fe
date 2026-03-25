@@ -1,4 +1,4 @@
-import { OverlayHost, overlay, OverlayProvider } from '@/common/lib';
+import { overlay } from '@/common/lib';
 
 import { Button } from './button';
 import { Dialog } from '../dialog';
@@ -12,14 +12,6 @@ const meta: Meta = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <OverlayProvider>
-        <OverlayHost />
-        <Story />
-      </OverlayProvider>
-    ),
-  ],
 };
 
 export default meta;

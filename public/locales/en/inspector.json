@@ -2,7 +2,27 @@
   "checklist": {
     "cta": {
       "allClear": "No issues (Pass)",
-      "hasIssues": "Has issues (Fail)"
+      "hasIssues": "Has issues (Fail)",
+      "noShow": "Mark as No-Show"
+    },
+    "noShow": {
+      "cancel": "Cancel",
+      "confirm": "Show Contact",
+      "description": "You must attempt to contact the student before marking as no-show. Confirming will display the student's contact number.",
+      "final": {
+        "cancel": "Cancel",
+        "confirm": "Mark as No-Show",
+        "description": "The student did not respond and will be marked as a no-show. This action cannot be undone.",
+        "title": "Confirm No-Show"
+      },
+      "phone": {
+        "answered": "Call Completed",
+        "description": "Please contact the student using the number below.",
+        "noAnswer": "No Answer",
+        "title": "Student Contact"
+      },
+      "requestFailed": "Failed to retrieve contact information.",
+      "title": "Mark as No-Show"
     },
     "sections": {
       "bathroom": "Bathroom",

@@ -1,7 +1,5 @@
 import dayjs from 'dayjs';
-import { I18nextProvider } from 'react-i18next';
 
-import { i18n } from '@/common/lib';
 import { ApplicationStatus } from '@/features/admin';
 
 import { InspectionScheduleCard } from '.';
@@ -15,13 +13,6 @@ const meta: Meta<typeof InspectionScheduleCard> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <I18nextProvider i18n={i18n}>
-        <Story />
-      </I18nextProvider>
-    ),
-  ],
 };
 
 export default meta;

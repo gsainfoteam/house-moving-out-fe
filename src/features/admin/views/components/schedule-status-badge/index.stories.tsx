@@ -1,7 +1,3 @@
-import { I18nextProvider } from 'react-i18next';
-
-import { i18n } from '@/common/lib';
-
 import { ScheduleStatusBadge } from '.';
 
 import type { ScheduleStatus } from '../../../viewmodels';
@@ -21,13 +17,6 @@ const meta: Meta<typeof ScheduleStatusBadge> = {
       description: '일정 상태',
     },
   },
-  decorators: [
-    (Story) => (
-      <I18nextProvider i18n={i18n}>
-        <Story />
-      </I18nextProvider>
-    ),
-  ],
 };
 
 export default meta;

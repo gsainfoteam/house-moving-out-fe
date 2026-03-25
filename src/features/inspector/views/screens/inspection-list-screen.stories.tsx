@@ -1,10 +1,4 @@
-import { RouterContextProvider } from '@tanstack/react-router';
-
 import dayjs from 'dayjs';
-import { I18nextProvider } from 'react-i18next';
-
-import { i18n } from '@/common/lib';
-import { router } from '@/main';
 
 import { InspectionListScreen } from './inspection-list-screen';
 import { ApplicationStatus } from '../../viewmodels';
@@ -18,15 +12,6 @@ const meta: Meta<typeof InspectionListScreen> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <RouterContextProvider router={router}>
-        <I18nextProvider i18n={i18n}>
-          <Story />
-        </I18nextProvider>
-      </RouterContextProvider>
-    ),
-  ],
 };
 
 export default meta;

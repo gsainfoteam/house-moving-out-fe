@@ -5,5 +5,6 @@ export {
   ApiPaths,
   MoveOutScheduleResDtoStatus as ScheduleStatus,
   ApplicationResDtoStatus as ApplicationStatus,
+  RecordTargetNoShowDtoStatus as NoShowStatus,
 } from '@/@types/api-schema';
 export { default as mainContent } from './template.typ?raw';
