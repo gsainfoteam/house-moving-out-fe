@@ -60,6 +60,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
   }, [applicationStartTime, applicationEndTime]);
 
   useEffect(() => {
+    if (user?.applyCleaningService) return;
     if (isNotTarget) {
       setStatus('not_target');
       return;
@@ -69,7 +70,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
       return;
     }
     setStatus('application');
-  }, [isNotTarget, isNotPeriod, isSuccess, setStatus]);
+  }, [user?.applyCleaningService, isNotTarget, isNotPeriod, isSuccess, setStatus]);
 
   const slotsByDay = useMemo(() => {
     const rawByDay = Map.groupBy(
