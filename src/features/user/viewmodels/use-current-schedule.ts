@@ -48,7 +48,7 @@ export const useCurrentSchedule = () => {
       }
       return inspectionStatus ?? 'not_period';
     }
-    return 'not_period';
+    return scheduleStatus ?? 'not_period';
   }, [user, scheduleStatus, inspectionStatus]);
 
   return {
