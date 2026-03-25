@@ -58,6 +58,7 @@
   },
   "list": {
     "empty": "등록된 게시글이 없습니다.",
+    "emptyDescription": "게시글을 기다리고 있습니다.",
     "segment": {
       "faq": "FAQ",
       "notice": "공지"

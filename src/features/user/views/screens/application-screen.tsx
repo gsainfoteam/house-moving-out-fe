@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { isNotNil } from 'es-toolkit';
+import { Calendar, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, Dialog, LayoutCard, useList } from '@/common/components';
@@ -92,44 +93,39 @@ export function ApplicationScreen({
       </LayoutCard.Header>
       <LayoutCard.Body>
         <div className="h-full w-full">
-          <inspectionDayList.Empty>
-            <div className="border-border flex w-full items-center justify-center rounded-xl border py-4">
-              <p className="text-body text-text-muted">{t('application.emptyDate')}</p>
-            </div>
-          </inspectionDayList.Empty>
-          <inspectionDayList.Present>
-            <DateSelect
-              days={inspectionDays}
-              value={
-                isNotNil(inspectionDayTimestamp)
-                  ? dayjs(inspectionDayTimestamp).startOf('day')
-                  : null
-              }
-              onChange={(day) => onDayChange(day)}
-            />
-          </inspectionDayList.Present>
+          <inspectionDayList.Root scrollable={false}>
+            <inspectionDayList.Empty icon={<Calendar />} title={t('application.emptyDate')} />
+            <inspectionDayList.Present>
+              <DateSelect
+                days={inspectionDays}
+                value={
+                  isNotNil(inspectionDayTimestamp)
+                    ? dayjs(inspectionDayTimestamp).startOf('day')
+                    : null
+                }
+                onChange={(day) => onDayChange(day)}
+              />
+            </inspectionDayList.Present>
+          </inspectionDayList.Root>
           {isNotNil(inspectionDayTimestamp) && (
-            <>
-              <selectedSlotList.Empty>
-                <p className="text-body text-text-muted mt-6 text-center">
-                  {t('application.emptySlot')}
-                </p>
-              </selectedSlotList.Empty>
-              <selectedSlotList.Present>
-                <div className="mt-6 grid grid-cols-3 gap-2">
-                  <selectedSlotList.Content>
-                    {(slot) => (
-                      <TimeSelect
-                        key={slot.uuid}
-                        slot={slot}
-                        value={selectedSlotUuid}
-                        onChange={onSlotChange}
-                      />
-                    )}
-                  </selectedSlotList.Content>
-                </div>
-              </selectedSlotList.Present>
-            </>
+            <selectedSlotList.Root scrollable={false}>
+              <selectedSlotList.Empty
+                className="mt-6"
+                icon={<Clock />}
+                title={t('application.emptySlot')}
+                description={t('application.description')}
+              />
+              <selectedSlotList.Builder className="mt-6 grid grid-cols-3 gap-2">
+                {(slot) => (
+                  <TimeSelect
+                    key={slot.uuid}
+                    slot={slot}
+                    value={selectedSlotUuid}
+                    onChange={onSlotChange}
+                  />
+                )}
+              </selectedSlotList.Builder>
+            </selectedSlotList.Root>
           )}
         </div>
       </LayoutCard.Body>

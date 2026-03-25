@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
+import { BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { LayoutCard, Pagination, useList } from '@/common/components';
@@ -56,21 +57,25 @@ export function ArticleListScreen({
           </span>
         </LayoutCard.Header>
         <LayoutCard.Body className="gap-3">
-          <list.Empty>
-            <p className="text-body text-text-muted py-8 text-center">{t('list.empty')}</p>
-          </list.Empty>
-          <list.Content>
-            {(article) => (
-              <Link
-                key={article.uuid}
-                to="/articles/$uuid"
-                params={{ uuid: article.uuid }}
-                className="w-full"
-              >
-                <ArticleCard article={article} />
-              </Link>
-            )}
-          </list.Content>
+          <list.Root className="gap-3">
+            <list.Empty
+              icon={<BookOpen />}
+              title={t('list.empty')}
+              description={t('list.emptyDescription')}
+            />
+            <list.Builder className="flex w-full flex-col gap-3">
+              {(article) => (
+                <Link
+                  key={article.uuid}
+                  to="/articles/$uuid"
+                  params={{ uuid: article.uuid }}
+                  className="w-full"
+                >
+                  <ArticleCard article={article} />
+                </Link>
+              )}
+            </list.Builder>
+          </list.Root>
         </LayoutCard.Body>
         {totalCount > PAGE_SIZE && (
           <LayoutCard.Footer>

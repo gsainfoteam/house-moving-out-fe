@@ -58,6 +58,7 @@
   },
   "list": {
     "empty": "No posts available.",
+    "emptyDescription": "Waiting for articles.",
     "segment": {
       "faq": "FAQ",
       "notice": "Notice"

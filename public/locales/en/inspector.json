@@ -41,6 +41,10 @@
     "notFound": "Inspection information could not be found.",
     "notInspector": "You must be logged in as an inspector to access this page."
   },
+  "inspector": {
+    "emptySchedule": "No inspection schedules.",
+    "emptyScheduleDescription": "Waiting for new inspection schedules."
+  },
   "list": {
     "description": "Tap the inspect button on the right to start the inspection.",
     "title": "Move-out inspection schedules"
