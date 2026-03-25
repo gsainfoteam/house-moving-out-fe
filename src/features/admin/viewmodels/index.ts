@@ -9,7 +9,7 @@ export {
   InspectionType,
   type Target,
   type MoveOutSchedule,
-  type ScheduleStatus,
+  ScheduleStatus,
   ArticleLanguage,
   type CreateArticleRequest,
   Gender,

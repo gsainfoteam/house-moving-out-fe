@@ -21,7 +21,8 @@
     "error": {
       "load": "신청 목록을 불러올 수 없습니다"
     },
-    "list": "신청 목록"
+    "list": "신청 목록",
+    "time": "신청 현황"
   },
   "article": {
     "create": {
@@ -145,6 +146,9 @@
     "failed": "불통",
     "passed": "통과"
   },
+  "room": {
+    "list": "방 목록"
+  },
   "schedule": {
     "create": {
       "action": "생성하기",
@@ -189,7 +193,16 @@
       }
     },
     "detail": {
+      "active": "활성화하기",
       "applicationTime": "신청기간",
+      "canceled": "취소하기",
+      "changeSchedule": {
+        "cancel": "그만두기",
+        "description": "정말 상태를 {{status}}로 바꾸시겠습니까?",
+        "submit": "변경하기",
+        "title": "상태 변경"
+      },
+      "completed": "마감",
       "error": "퇴사검사 정보를 불러올 수 없습니다",
       "notFound": "존재하지 않는 퇴사검사입니다",
       "summary": {
@@ -228,11 +241,13 @@
   "status": {
     "disabled": "미사용",
     "failed": "불통",
+    "no_show": "노쇼",
     "not_inspected": "미이행",
     "passed": "통과",
     "single": "1인 퇴검",
     "single_passed": "1인 통과",
-    "will_be_cleaned": "위탁청소"
+    "will_be_cleaned": "위탁청소",
+    "will_be_repaired": "통과/수리"
   },
   "target": {
     "action": {
@@ -242,19 +257,21 @@
     },
     "detail": {
       "admissionYear": "학번",
-      "cleaningNoChanges": "위탁청소 변경사항이 없습니다",
       "cleaningService": "위탁청소",
-      "cleaningUnsavedCount": "위탁청소 변경 {{count}}건",
       "inspectionCount": "검사 횟수",
       "lastInspection": "마지막 검사일시",
       "name": "이름",
+      "noChanges": "변경사항이 없습니다",
+      "repairAfterMoveOut": "퇴사 후 수리",
       "result": "결과",
       "roomNumber": "호실 번호",
-      "type": "검사 종류"
+      "type": "검사 종류",
+      "unsavedCount": "변경 {{count}}건"
     },
     "error": {
       "cleaningLockedByStatus": "진행중인 스케줄은 위탁청소 여부를 수정할 수 없습니다",
-      "load": "퇴사검사 대상자 목록을 불러올 수 없습니다"
+      "load": "퇴사검사 대상자 목록을 불러올 수 없습니다",
+      "repairLockedByStatus": "진행중인 스케줄은 퇴사 후 수리 여부를 수정할 수 없습니다"
     },
     "list": "검사 대상자 목록"
   },

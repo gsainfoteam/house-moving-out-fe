@@ -21,7 +21,8 @@
     "error": {
       "load": "Cannot load inspection application list"
     },
-    "list": "Inspection Application List"
+    "list": "Inspection Application List",
+    "time": "Application Summary"
   },
   "article": {
     "create": {
@@ -146,6 +147,9 @@
     "failed": "Failed",
     "passed": "Passed"
   },
+  "room": {
+    "list": "Room List"
+  },
   "schedule": {
     "create": {
       "action": "Create",
@@ -190,7 +194,16 @@
       }
     },
     "detail": {
+      "active": "Active",
       "applicationTime": "Application Time",
+      "canceled": "Cancel",
+      "changeSchedule": {
+        "cancel": "Cancel",
+        "description": "Do you really want to change status to {{status}}?",
+        "submit": "Change",
+        "title": "Change Status"
+      },
+      "completed": "Complete",
       "error": "Cannot load moving out inspection information",
       "notFound": "Moving out inspection not found.",
       "summary": {
@@ -229,11 +242,13 @@
   "status": {
     "disabled": "Disabled",
     "failed": "Failed",
+    "no_show": "No Show",
     "not_inspected": "Not Inspected",
     "passed": "Passed",
     "single": "Single inspection",
     "single_passed": "Single Passed",
-    "will_be_cleaned": "Will be cleaned"
+    "will_be_cleaned": "Will be cleaned",
+    "will_be_repaired": "Pass/Repair"
   },
   "target": {
     "action": {
@@ -243,20 +258,22 @@
     },
     "detail": {
       "admissionYear": "Admission Year",
-      "cleaningNoChanges": "No vendor cleaning changes",
       "cleaningService": "Vendor Cleaning",
-      "cleaningUnsavedCount_one": "{{count}} unsaved vendor cleaning change",
-      "cleaningUnsavedCount_other": "{{count}} unsaved vendor cleaning changes",
       "inspectionCount": "# of Inspections",
       "lastInspection": "Last Inspection",
       "name": "Name",
+      "noChanges": "No changes",
+      "repairAfterMoveOut": "Repair after Move Out",
       "result": "Result",
       "roomNumber": "Room #",
-      "type": "Inspection Type"
+      "type": "Inspection Type",
+      "unsavedCount_one": "{{count}} unsaved change",
+      "unsavedCount_other": "{{count}} unsaved changes"
     },
     "error": {
       "cleaningLockedByStatus": "Vendor cleaning cannot be edited for active schedules",
-      "load": "Cannot load target room list"
+      "load": "Cannot load target room list",
+      "repairLockedByStatus": "Repair after move out cannot be edited for active schedules"
     },
     "list": "Target Room List"
   },
