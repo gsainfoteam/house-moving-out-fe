@@ -5,6 +5,23 @@
       "hasIssues": "Has issues (Fail)",
       "noShow": "Mark as No-Show"
     },
+    "noShow": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "description": "Please contact the student before marking as no-show. Continue?",
+      "final": {
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "description": "Confirming will record this as a no-show.",
+        "title": "No-Show"
+      },
+      "phone": {
+        "answered": "Answered",
+        "noAnswer": "No Answer",
+        "title": "Mark as No-Show"
+      },
+      "title": "Mark as No-Show"
+    },
     "sections": {
       "bathroom": "Bathroom",
       "bed": "Bed",
@@ -14,23 +31,6 @@
       "issues": "Issues",
       "power": "Power",
       "window-balcony": "Window & Balcony"
-    },
-    "noShow": {
-      "title": "Mark as No-Show",
-      "description": "Please contact the student before marking as no-show. Continue?",
-      "cancel": "Cancel",
-      "confirm": "Confirm",
-      "phone": {
-        "title": "Mark as No-Show",
-        "answered": "Answered",
-        "noAnswer": "No Answer"
-      },
-      "final": {
-        "title": "No-Show",
-        "description": "Confirming will record this as a no-show.",
-        "cancel": "Cancel",
-        "confirm": "Confirm"
-      }
     }
   },
   "error": {

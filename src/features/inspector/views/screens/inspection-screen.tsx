@@ -38,7 +38,9 @@ function NoShowPhoneDialog({ phone, onNoAnswer }: { phone: string; onNoAnswer: (
     <Dialog.Root closeOnBackdrop={false} closeOnEscape={false}>
       <Dialog.Header>
         <Dialog.Title>{t('checklist.noShow.phone.title')}</Dialog.Title>
-        <Dialog.Description>{phone}</Dialog.Description>
+        <Dialog.Description>
+          <a href={`callto:${phone}`}>{phone}</a>
+        </Dialog.Description>
       </Dialog.Header>
       <Dialog.Footer>
         <Dialog.Close asChild>
@@ -96,11 +98,14 @@ export function InspectionScreen({
         onConfirm={async () => {
           closeDialog1();
           const phone = await onNoShowRequest();
+          if (!phone) return;
+
           overlay.open(({ close: closeDialog2 }) => (
             <NoShowPhoneDialog
               phone={phone}
               onNoAnswer={() => {
                 closeDialog2();
+
                 overlay.open(({ close: closeDialog3 }) => (
                   <NoShowFinalDialog
                     onConfirm={async () => {
@@ -219,7 +224,7 @@ export namespace InspectionScreen {
     };
     isAllChecked: boolean;
     isNoneChecked: boolean;
-    onNoShowRequest: () => Promise<string>;
+    onNoShowRequest: () => Promise<string | undefined>;
     onNoShowConfirm: () => Promise<void>;
     uuid: string;
   };
