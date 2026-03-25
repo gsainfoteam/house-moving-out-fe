@@ -79,6 +79,7 @@ export const useFindMyInspection = (
     onFailed,
     onFoundInProgress,
     onFoundWaiting,
+    onNoShow,
     onNotFound,
     onPassed,
     t,
