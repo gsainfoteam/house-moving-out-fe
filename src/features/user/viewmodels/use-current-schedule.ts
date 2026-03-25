@@ -53,7 +53,7 @@ export const useCurrentSchedule = () => {
   return {
     status: user?.applyCleaningService
       ? 'cleaning_service'
-      : user?.roomNumber
+      : user?.roomNumber || status === 'not_period'
         ? status
         : 'not_target',
     isLoadingSchedule,
