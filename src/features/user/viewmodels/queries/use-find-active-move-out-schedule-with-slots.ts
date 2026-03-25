@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import dayjs, { type Dayjs } from 'dayjs';
-import { isNotNil } from 'es-toolkit';
+import dayjs from 'dayjs';
 import { groupBy } from 'es-toolkit/array';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -11,15 +10,7 @@ import { useAuth } from '@/features/auth';
 
 import { ApiPaths } from '../../models';
 
-export const useFindActiveMoveOutScheduleWithSlots = ({
-  onNotTarget,
-  onNotPeriod,
-  onSuccess,
-}: {
-  onNotTarget?: () => void;
-  onNotPeriod?: (applicationStartTime?: Dayjs, applicationEndTime?: Dayjs) => void;
-  onSuccess?: () => void;
-} = {}) => {
+export const useFindActiveMoveOutScheduleWithSlots = () => {
   const { user } = useAuth();
   const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
@@ -37,40 +28,16 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   );
 
   useEffect(() => {
-    if (isSuccess) {
-      onSuccess?.();
-    } else if (isError) {
+    if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
-      } else if (error?.statusCode === 403) {
-        onNotTarget?.();
       } else if (error?.statusCode === 404) {
         toast.error(t('application.error.notFound'));
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }
     }
-  }, [error?.statusCode, isError, isSuccess, onNotPeriod, onNotTarget, onSuccess, t]);
-
-  const applicationStartTime = useMemo(
-    () => (data ? dayjs(data.applicationStartTime) : undefined),
-    [data],
-  );
-
-  const applicationEndTime = useMemo(
-    () => (data ? dayjs(data.applicationEndTime) : undefined),
-    [data],
-  );
-
-  useEffect(() => {
-    if (
-      isNotNil(applicationStartTime) &&
-      isNotNil(applicationEndTime) &&
-      !(dayjs().isAfter(applicationStartTime) && dayjs().isBefore(applicationEndTime))
-    ) {
-      onNotPeriod?.(applicationStartTime, applicationEndTime);
-    }
-  }, [applicationStartTime, applicationEndTime, onNotPeriod]);
+  }, [error?.statusCode, isError, t]);
 
   const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
     if (!user || !data?.inspectionSlots?.length) return [{}, []];
@@ -92,13 +59,29 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     return [byDay, days] as const;
   }, [data, user]);
 
+  const status = useMemo(() => {
+    if (isSuccess) {
+      const applicationStartTime = dayjs(data?.applicationStartTime);
+      const applicationEndTime = dayjs(data?.applicationEndTime);
+      if (!(dayjs().isAfter(applicationStartTime) && dayjs().isBefore(applicationEndTime))) {
+        return 'not_period' as const;
+      }
+      return 'success' as const;
+    }
+  }, [data?.applicationEndTime, data?.applicationStartTime, isSuccess]);
+
+  const applicationStartTime = useMemo(
+    () => (data?.applicationStartTime ? dayjs(data?.applicationStartTime) : undefined),
+    [data?.applicationStartTime],
+  );
+
   return {
     data,
     isLoading,
     isError,
     isSuccess,
+    status,
     applicationStartTime,
-    applicationEndTime,
     inspectionSlotsByDayTimestamp,
     inspectionDays,
   };

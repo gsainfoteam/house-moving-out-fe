@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useMemo } from 'react';
 
 import { useAuth } from '@/features/auth';
 
@@ -21,17 +21,12 @@ type Status =
 
 export const useCurrentSchedule = () => {
   const { user } = useAuth();
-  const [status, setStatus] = useState<Status>('not_period');
-
   const {
     isLoading: isLoadingSchedule,
-    applicationStartTime,
     isSuccess,
-  } = useFindActiveMoveOutScheduleWithSlots({
-    onNotTarget: useCallback(() => setStatus('not_target'), []),
-    onNotPeriod: useCallback(() => setStatus('not_period'), []),
-    onSuccess: useCallback(() => setStatus('application'), []),
-  });
+    status: scheduleStatus,
+    applicationStartTime,
+  } = useFindActiveMoveOutScheduleWithSlots();
 
   const {
     isLoading: isLoadingInspection,
@@ -39,23 +34,25 @@ export const useCurrentSchedule = () => {
     applicationUuid,
     inspectionCount,
     failedItems,
-  } = useFindMyInspection(isSuccess, {
-    onNotFound: useCallback(() => setStatus('application'), []),
-    onFoundWaiting: useCallback(() => setStatus('waiting'), []),
-    onFoundInProgress: useCallback(() => setStatus('in_progress'), []),
-    onFailed: useCallback(() => setStatus('failed'), []),
-    onPassed: useCallback(() => setStatus('passed'), []),
-    onNoShow: useCallback(() => setStatus('no_show'), []),
-  });
+    status: inspectionStatus,
+  } = useFindMyInspection(isSuccess);
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
 
+  const status: Status = useMemo(() => {
+    if (user?.applyCleaningService) return 'cleaning_service';
+    if (!user?.roomNumber) return 'not_target';
+    if (scheduleStatus === 'success') {
+      if (inspectionStatus === 'not_found') {
+        return 'application';
+      }
+      return inspectionStatus ?? 'not_period';
+    }
+    return 'not_period';
+  }, [user, scheduleStatus, inspectionStatus]);
+
   return {
-    status: user?.applyCleaningService
-      ? 'cleaning_service'
-      : user?.roomNumber || status === 'not_period'
-        ? status
-        : 'not_target',
+    status,
     isLoadingSchedule,
     applicationStartTime,
     isLoadingInspection,

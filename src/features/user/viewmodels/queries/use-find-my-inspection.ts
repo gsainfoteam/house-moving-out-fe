@@ -9,24 +9,7 @@ import { $api, type checklist } from '@/common/lib';
 
 import { ApiPaths, ApplicationStatus } from '../../models';
 
-export const useFindMyInspection = (
-  enabled: boolean,
-  {
-    onPassed,
-    onFailed,
-    onNoShow,
-    onFoundWaiting,
-    onFoundInProgress,
-    onNotFound,
-  }: {
-    onPassed?: () => void;
-    onFailed?: () => void;
-    onNoShow?: () => void;
-    onFoundWaiting?: () => void;
-    onFoundInProgress?: () => void;
-    onNotFound?: () => void;
-  } = {},
-) => {
+export const useFindMyInspection = (enabled: boolean) => {
   const { t } = useTranslation('user');
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
@@ -42,48 +25,16 @@ export const useFindMyInspection = (
   );
 
   useEffect(() => {
-    if (isSuccess) {
-      if (data.status === ApplicationStatus.PASSED) {
-        onPassed?.();
-      } else if (data.status === ApplicationStatus.FAILED) {
-        onFailed?.();
-      } else if (data.status === ApplicationStatus.NO_SHOW) {
-        onNoShow?.();
-      } else if (isNil(data.status)) {
-        const startTime = dayjs(data.inspectionSlot.startTime);
-        const endTime = dayjs(data.inspectionSlot.endTime);
-        const now = dayjs();
-
-        if (now.isAfter(startTime) && now.isBefore(endTime)) {
-          onFoundInProgress?.();
-        } else {
-          onFoundWaiting?.();
-        }
-      }
-    } else if (isError) {
+    if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
       } else if (error?.statusCode === 404) {
-        onNotFound?.();
+        // status
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }
     }
-  }, [
-    data?.inspectionSlot.endTime,
-    data?.inspectionSlot.startTime,
-    data?.status,
-    error?.statusCode,
-    isError,
-    isSuccess,
-    onFailed,
-    onFoundInProgress,
-    onFoundWaiting,
-    onNoShow,
-    onNotFound,
-    onPassed,
-    t,
-  ]);
+  }, [data, error, isError, isSuccess, t]);
 
   const inspectionStartTime = useMemo(
     () => (isSuccess ? dayjs(data.inspectionSlot.startTime) : undefined),
@@ -106,6 +57,32 @@ export const useFindMyInspection = (
     [data, isSuccess],
   );
 
+  const status = useMemo(() => {
+    if (isSuccess) {
+      if (data.status === ApplicationStatus.PASSED) {
+        return 'passed' as const;
+      } else if (data.status === ApplicationStatus.FAILED) {
+        return 'failed' as const;
+      } else if (data.status === ApplicationStatus.NO_SHOW) {
+        return 'no_show' as const;
+      } else if (isNil(data.status)) {
+        const startTime = dayjs(data.inspectionSlot.startTime);
+        const endTime = dayjs(data.inspectionSlot.endTime);
+        const now = dayjs();
+
+        if (now.isAfter(startTime) && now.isBefore(endTime)) {
+          return 'in_progress' as const;
+        } else {
+          return 'waiting' as const;
+        }
+      }
+    } else if (isError) {
+      if (error?.statusCode === 404) {
+        return 'not_found' as const;
+      }
+    }
+  }, [data, error, isError, isSuccess]);
+
   return {
     applicationUuid,
     isLoading,
@@ -114,5 +91,6 @@ export const useFindMyInspection = (
     inspectionSlotUuid,
     inspectionCount,
     failedItems,
+    status,
   };
 };
