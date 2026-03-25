@@ -20,6 +20,7 @@
     "i18n:types": "i18next-cli types",
     "gen:i18n": "bun run i18n:extract --watch & bun run i18n:types --watch & wait",
     "gen:api": "bun run scripts/gen-api.ts",
+    "gen:pwa": "pwa-assets-generator --preset minimal public/pwa/favicon.png",
     "postinstall": "bun run ./scripts/missing-typst-css.ts"
   },
   "dependencies": {
