@@ -6,6 +6,7 @@ import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
+import { VitePWA as vitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
@@ -23,6 +24,44 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
       svgr(),
+      vitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: ['favicon.ico', 'pwa/*.png'],
+        manifest: {
+          name: 'House Moving Out',
+          short_name: 'House',
+          description: 'House Moving Out',
+          theme_color: '#ffffff',
+          background_color: '#ffffff',
+          display: 'standalone',
+          icons: [
+            {
+              src: 'pwa/pwa-64x64.png',
+              sizes: '64x64',
+              type: 'image/png',
+            },
+            {
+              src: 'pwa/pwa-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+            },
+            {
+              src: 'pwa/pwa-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+            },
+            {
+              src: 'pwa/maskable-icon-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'maskable',
+            },
+          ],
+        },
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        },
+      }),
     ],
     resolve: {
       alias: {
