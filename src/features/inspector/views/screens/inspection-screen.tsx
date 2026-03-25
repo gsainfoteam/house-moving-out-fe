@@ -23,11 +23,9 @@ function NoShowFinalDialog({ onConfirm }: { onConfirm: () => void }) {
         <Dialog.Close asChild>
           <Button variant="outline">{t('checklist.noShow.final.cancel')}</Button>
         </Dialog.Close>
-        <Dialog.Close asChild>
-          <Button variant="failed" onClick={onConfirm}>
-            {t('checklist.noShow.final.confirm')}
-          </Button>
-        </Dialog.Close>
+        <Button variant="failed" onClick={onConfirm} className="w-full">
+          {t('checklist.noShow.final.confirm')}
+        </Button>
       </Dialog.Footer>
     </Dialog.Root>
   );
@@ -42,7 +40,10 @@ function NoShowPhoneDialog({ phone, onNoAnswer }: { phone: string; onNoAnswer: (
         <Dialog.Description>{t('checklist.noShow.phone.description')}</Dialog.Description>
       </Dialog.Header>
       <Dialog.Body className="flex justify-center">
-        <a href={`tel:${phone.replace(/[^\d+]/g, '')}`} className="flex items-center gap-1 underline">
+        <a
+          href={`tel:${phone.replace(/[^\d+]/g, '')}`}
+          className="flex items-center gap-1 underline"
+        >
           <PhoneCall size={14} />
           {phone}
         </a>
