@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
-import { isNil } from 'es-toolkit';
+import { isNil, range } from 'es-toolkit';
 import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -90,89 +90,103 @@ export function TargetListFrame() {
             </tr>
           </thead>
           <tbody>
-            {targets.map((target) => (
-              <tr key={target.roomNumber}>
-                <td className={cn('[&&]:border-r-2')}>{target.roomNumber}</td>
-                {[...target.residents, null, null, null].slice(0, 3).map((s, index) =>
-                  s ? (
-                    <React.Fragment key={index}>
-                      <td>{s.studentNumber}</td>
-                      <td>{s.name}</td>
-                    </React.Fragment>
-                  ) : (
-                    <td colSpan={2} key={index} />
-                  ),
-                )}
-                <td>
-                  {target.inspectionType === InspectionType.EMPTY
-                    ? ''
-                    : target.inspectionType === InspectionType.FULL
-                      ? t('type.all')
-                      : t('type.individual')}
-                </td>
-                <td>
-                  <div className="flex items-center justify-center gap-2">
-                    {isEditable ? (
-                      <Checkbox
-                        className="scale-100"
-                        checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
-                        onChange={(event) => {
-                          handleCleaningServiceChange(
-                            target.uuid,
-                            event.target.checked,
-                            target.applyCleaningService,
-                          );
-                        }}
-                        disabled={!isEditable || isSaving}
-                        aria-label={t('target.detail.cleaningService')}
-                      />
-                    ) : target.applyCleaningService ? (
-                      <Check
-                        className="text-primary size-5"
-                        aria-label={t('target.detail.cleaningService')}
-                      />
-                    ) : null}
-                  </div>
-                </td>
-                <td>
-                  <div className="flex items-center justify-center gap-2">
-                    {isEditable ? (
-                      <Checkbox
-                        className="scale-100"
-                        checked={isDraftRepair(target.uuid) ?? target.applyRepairCheck}
-                        onChange={(event) => {
-                          handleRepairChange(
-                            target.uuid,
-                            event.target.checked,
-                            target.applyRepairCheck,
-                          );
-                        }}
-                        disabled={!isEditable || isSaving}
-                        aria-label={t('target.detail.cleaningService')}
-                      />
-                    ) : target.applyRepairCheck ? (
-                      <Check
-                        className="text-primary size-5"
-                        aria-label={t('target.detail.cleaningService')}
-                      />
-                    ) : null}
-                  </div>
-                </td>
-                <td>
-                  {isNil(target.status)
-                    ? '-'
-                    : target.status === ApplicationStatus.PASSED
-                      ? t('result.passed')
-                      : t('result.failed')}
-                </td>
-                <td>
-                  {target.lastInspectionTime
-                    ? dayjs(target.lastInspectionTime).format('YYYY-MM-DD HH:mm')
-                    : '-'}
-                </td>
-                <td>{target.inspectionCount}</td>
-              </tr>
-            ))}
+            {targets.map((target) => {
+              const empty = target.inspectionType === InspectionType.EMPTY;
+              const noTarget = target.residents.length === 0;
+              return (
+                <tr key={target.roomNumber}>
+                  <td className={cn('[&&]:border-r-2')}>{target.roomNumber}</td>
+                  {range(3)
+                    .map((index) => target.residents[index])
+                    .map((s, index) =>
+                      s ? (
+                        <React.Fragment key={s.studentNumber}>
+                          <td>{s.studentNumber}</td>
+                          <td>{s.name}</td>
+                        </React.Fragment>
+                      ) : (
+                        <td colSpan={2} key={index} />
+                      ),
+                    )}
+                  <td>
+                    {target.inspectionType === InspectionType.EMPTY
+                      ? ''
+                      : target.inspectionType === InspectionType.FULL
+                        ? t('type.all')
+                        : t('type.individual')}
+                  </td>
+                  <td>
+                    {empty || noTarget ? null : (
+                      <div className="flex items-center justify-center gap-2">
+                        {isEditable ? (
+                          <Checkbox
+                            className="scale-100"
+                            checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
+                            onChange={(event) => {
+                              handleCleaningServiceChange(
+                                target.uuid,
+                                event.target.checked,
+                                target.applyCleaningService,
+                              );
+                            }}
+                            disabled={!isEditable || isSaving}
+                            aria-label={t('target.detail.cleaningService')}
+                          />
+                        ) : target.applyCleaningService ? (
+                          <Check
+                            className="text-primary size-5"
+                            aria-label={t('target.detail.cleaningService')}
+                          />
+                        ) : null}
+                      </div>
+                    )}
+                  </td>
+                  <td>
+                    {empty || noTarget ? null : (
+                      <div className="flex items-center justify-center gap-2">
+                        {isEditable ? (
+                          <Checkbox
+                            className="scale-100"
+                            checked={isDraftRepair(target.uuid) ?? target.applyRepairCheck}
+                            onChange={(event) => {
+                              handleRepairChange(
+                                target.uuid,
+                                event.target.checked,
+                                target.applyRepairCheck,
+                              );
+                            }}
+                            disabled={!isEditable || isSaving}
+                            aria-label={t('target.detail.cleaningService')}
+                          />
+                        ) : target.applyRepairCheck ? (
+                          <Check
+                            className="text-primary size-5"
+                            aria-label={t('target.detail.cleaningService')}
+                          />
+                        ) : null}
+                      </div>
+                    )}
+                  </td>
+                  <td>
+                    {empty || noTarget
+                      ? null
+                      : isNil(target.status)
+                        ? '-'
+                        : target.status === ApplicationStatus.PASSED
+                          ? t('result.passed')
+                          : t('result.failed')}
+                  </td>
+                  <td>
+                    {empty || noTarget
+                      ? null
+                      : target.lastInspectionTime
+                        ? dayjs(target.lastInspectionTime).format('YYYY-MM-DD HH:mm')
+                        : '-'}
+                  </td>
+                  <td>{empty || noTarget ? null : target.inspectionCount}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
