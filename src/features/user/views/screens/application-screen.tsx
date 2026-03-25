@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { isNotNil } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Checkbox, Dialog, LayoutCard } from '@/common/components';
+import { Button, Checkbox, Dialog, LayoutCard, useList } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 import { useLoading } from '@/common/viewmodels';
@@ -73,6 +73,8 @@ export function ApplicationScreen({
   onSubmit,
 }: ApplicationScreen.Props) {
   const { t } = useTranslation('user');
+  const inspectionDayList = useList(inspectionDays);
+  const selectedSlotList = useList(selectedDaySlots);
 
   const handleSubmitClick = () => {
     overlay.open(({ close }) => (
@@ -90,24 +92,44 @@ export function ApplicationScreen({
       </LayoutCard.Header>
       <LayoutCard.Body>
         <div className="h-full w-full">
-          <DateSelect
-            days={inspectionDays}
-            value={
-              isNotNil(inspectionDayTimestamp) ? dayjs(inspectionDayTimestamp).startOf('day') : null
-            }
-            onChange={(day) => onDayChange(day)}
-          />
-          {isNotNil(inspectionDayTimestamp) && (
-            <div className="mt-6 grid grid-cols-3 gap-2">
-              {selectedDaySlots.map((slot) => (
-                <TimeSelect
-                  key={slot.uuid}
-                  slot={slot}
-                  value={selectedSlotUuid}
-                  onChange={onSlotChange}
-                />
-              ))}
+          <inspectionDayList.Empty>
+            <div className="border-border flex w-full items-center justify-center rounded-xl border py-4">
+              <p className="text-body text-text-muted">{t('application.emptyDate')}</p>
             </div>
+          </inspectionDayList.Empty>
+          <inspectionDayList.Present>
+            <DateSelect
+              days={inspectionDays}
+              value={
+                isNotNil(inspectionDayTimestamp)
+                  ? dayjs(inspectionDayTimestamp).startOf('day')
+                  : null
+              }
+              onChange={(day) => onDayChange(day)}
+            />
+          </inspectionDayList.Present>
+          {isNotNil(inspectionDayTimestamp) && (
+            <>
+              <selectedSlotList.Empty>
+                <p className="text-body text-text-muted mt-6 text-center">
+                  {t('application.emptySlot')}
+                </p>
+              </selectedSlotList.Empty>
+              <selectedSlotList.Present>
+                <div className="mt-6 grid grid-cols-3 gap-2">
+                  <selectedSlotList.Content>
+                    {(slot) => (
+                      <TimeSelect
+                        key={slot.uuid}
+                        slot={slot}
+                        value={selectedSlotUuid}
+                        onChange={onSlotChange}
+                      />
+                    )}
+                  </selectedSlotList.Content>
+                </div>
+              </selectedSlotList.Present>
+            </>
           )}
         </div>
       </LayoutCard.Body>

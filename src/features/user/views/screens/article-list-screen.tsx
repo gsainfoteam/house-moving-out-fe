@@ -4,7 +4,7 @@ import { Link } from '@tanstack/react-router';
 
 import { useTranslation } from 'react-i18next';
 
-import { LayoutCard, Pagination } from '@/common/components';
+import { LayoutCard, Pagination, useList } from '@/common/components';
 import type { Article } from '@/features/user';
 
 import { ArticleType } from '../../viewmodels';
@@ -22,6 +22,7 @@ export function ArticleListScreen({
   isLoading,
 }: ArticleListScreen.Props) {
   const { t } = useTranslation('user');
+  const list = useList(articles);
 
   const tabs = [
     { type: ArticleType.NOTICE, label: t('list.segment.notice') },
@@ -55,16 +56,21 @@ export function ArticleListScreen({
           </span>
         </LayoutCard.Header>
         <LayoutCard.Body className="gap-3">
-          {articles.map((article) => (
-            <Link
-              key={article.uuid}
-              to="/articles/$uuid"
-              params={{ uuid: article.uuid }}
-              className="w-full"
-            >
-              <ArticleCard article={article} />
-            </Link>
-          ))}
+          <list.Empty>
+            <p className="text-body text-text-muted py-8 text-center">{t('list.empty')}</p>
+          </list.Empty>
+          <list.Content>
+            {(article) => (
+              <Link
+                key={article.uuid}
+                to="/articles/$uuid"
+                params={{ uuid: article.uuid }}
+                className="w-full"
+              >
+                <ArticleCard article={article} />
+              </Link>
+            )}
+          </list.Content>
         </LayoutCard.Body>
         {totalCount > PAGE_SIZE && (
           <LayoutCard.Footer>
