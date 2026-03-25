@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
       svgr(),
       vitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'pwa/*.png'],
+        includeAssets: ['favicon.png', 'favicon.ico', 'pwa/*.png'],
         manifest: {
           name: 'House Moving Out',
           short_name: 'House',
