@@ -51,7 +51,11 @@ export const useCurrentSchedule = () => {
   const { mutateAsync: cancelInspection } = useCancelInspection();
 
   return {
-    status: user?.applyCleaningService ? 'cleaning_service' : status,
+    status: user?.applyCleaningService
+      ? 'cleaning_service'
+      : user?.roomNumber
+        ? status
+        : 'not_target',
     isLoadingSchedule,
     applicationStartTime,
     isLoadingInspection,
