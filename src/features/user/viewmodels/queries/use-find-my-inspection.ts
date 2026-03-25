@@ -14,12 +14,14 @@ export const useFindMyInspection = (
   {
     onPassed,
     onFailed,
+    onNoShow,
     onFoundWaiting,
     onFoundInProgress,
     onNotFound,
   }: {
     onPassed?: () => void;
     onFailed?: () => void;
+    onNoShow?: () => void;
     onFoundWaiting?: () => void;
     onFoundInProgress?: () => void;
     onNotFound?: () => void;
@@ -45,6 +47,8 @@ export const useFindMyInspection = (
         onPassed?.();
       } else if (data.status === ApplicationStatus.FAILED) {
         onFailed?.();
+      } else if (data.status === ApplicationStatus.NO_SHOW) {
+        onNoShow?.();
       } else if (isNil(data.status)) {
         const startTime = dayjs(data.inspectionSlot.startTime);
         const endTime = dayjs(data.inspectionSlot.endTime);
@@ -56,7 +60,6 @@ export const useFindMyInspection = (
           onFoundWaiting?.();
         }
       }
-      // TODO: no show status
     } else if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
