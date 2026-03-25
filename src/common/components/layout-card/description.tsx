@@ -12,6 +12,6 @@ export const Description = ({ children, className }: Description.Props) => (
 export namespace Description {
   export type Props = PropsWithChildren<{
     className?: string;
-    children: string;
+    children?: string;
   }>;
 }

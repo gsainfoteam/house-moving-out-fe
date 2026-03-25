@@ -130,6 +130,28 @@
       "title": "Waiting"
     }
   },
+  "mypage": {
+    "accountSettings": "Account Settings",
+    "fields": {
+      "studentNumber": "Student ID",
+      "gender": "Gender",
+      "roomNumber": "Room",
+      "cleaningService": "Cleaning Service",
+      "inspector": "Inspector"
+    },
+    "inspector": {
+      "yes": "Inspector",
+      "no": "General"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "cleaningService": {
+      "applied": "Applied",
+      "notApplied": "Not Applied"
+    }
+  },
   "timeSelect": {
     "closed": "Closed"
   }

@@ -130,6 +130,28 @@
       "title": "검사 대기"
     }
   },
+  "mypage": {
+    "accountSettings": "계정 설정",
+    "fields": {
+      "studentNumber": "학번",
+      "gender": "성별",
+      "roomNumber": "호실",
+      "cleaningService": "위탁청소 신청",
+      "inspector": "검사자 여부"
+    },
+    "inspector": {
+      "yes": "검사자",
+      "no": "일반"
+    },
+    "gender": {
+      "male": "남성",
+      "female": "여성"
+    },
+    "cleaningService": {
+      "applied": "신청",
+      "notApplied": "미신청"
+    }
+  },
   "timeSelect": {
     "closed": "마감"
   }
