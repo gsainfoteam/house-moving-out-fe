@@ -60,6 +60,28 @@
       "notice": "공지"
     }
   },
+  "mypage": {
+    "accountSettings": "계정 설정",
+    "cleaningService": {
+      "applied": "신청",
+      "notApplied": "미신청"
+    },
+    "fields": {
+      "cleaningService": "위탁청소 신청",
+      "gender": "성별",
+      "inspector": "검사자 여부",
+      "roomNumber": "호실",
+      "studentNumber": "학번"
+    },
+    "gender": {
+      "female": "여성",
+      "male": "남성"
+    },
+    "inspector": {
+      "no": "일반",
+      "yes": "검사자"
+    }
+  },
   "steps": {
     "application": {
       "button": "퇴사 검사 신청하기",
@@ -128,28 +150,6 @@
       "change_button": "검사 일정 변경하기",
       "description": "퇴사 검사가 {{inspectionDate}}에\n예정되어 있습니다.",
       "title": "검사 대기"
-    }
-  },
-  "mypage": {
-    "accountSettings": "계정 설정",
-    "fields": {
-      "studentNumber": "학번",
-      "gender": "성별",
-      "roomNumber": "호실",
-      "cleaningService": "위탁청소 신청",
-      "inspector": "검사자 여부"
-    },
-    "inspector": {
-      "yes": "검사자",
-      "no": "일반"
-    },
-    "gender": {
-      "male": "남성",
-      "female": "여성"
-    },
-    "cleaningService": {
-      "applied": "신청",
-      "notApplied": "미신청"
     }
   },
   "timeSelect": {

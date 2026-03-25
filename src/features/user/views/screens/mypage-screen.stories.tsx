@@ -1,3 +1,5 @@
+import { Gender } from '@/features/user';
+
 import { MypageScreen } from './mypage-screen';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -20,7 +22,7 @@ export const Default: Story = {
     name: '홍길동',
     email: 'gildong@gm.gist.ac.kr',
     studentNumber: '20250000',
-    gender: 'MALE',
+    gender: Gender.MALE,
     roomNumber: '101',
     houseName: 'G',
     applyCleaningService: false,
@@ -35,7 +37,7 @@ export const Inspector: Story = {
     name: '김지니',
     email: 'jini@gm.gist.ac.kr',
     studentNumber: '20240001',
-    gender: 'FEMALE',
+    gender: Gender.FEMALE,
     roomNumber: '205',
     houseName: 'H',
     applyCleaningService: false,
@@ -50,7 +52,7 @@ export const CleaningService: Story = {
     name: '이민준',
     email: 'minjun@gm.gist.ac.kr',
     studentNumber: '20230042',
-    gender: 'MALE',
+    gender: Gender.MALE,
     roomNumber: '312',
     houseName: 'G',
     applyCleaningService: true,

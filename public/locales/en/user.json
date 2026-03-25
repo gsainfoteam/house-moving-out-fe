@@ -60,6 +60,28 @@
       "notice": "Notice"
     }
   },
+  "mypage": {
+    "accountSettings": "Account Settings",
+    "cleaningService": {
+      "applied": "Applied",
+      "notApplied": "Not Applied"
+    },
+    "fields": {
+      "cleaningService": "Cleaning Service",
+      "gender": "Gender",
+      "inspector": "Inspector",
+      "roomNumber": "Room",
+      "studentNumber": "Student ID"
+    },
+    "gender": {
+      "female": "Female",
+      "male": "Male"
+    },
+    "inspector": {
+      "no": "General",
+      "yes": "Inspector"
+    }
+  },
   "steps": {
     "application": {
       "button": "Apply Inspection",
@@ -128,28 +150,6 @@
       "change_button": "Change Inspection Schedule",
       "description": "Scheduled for {{inspectionDate}}.",
       "title": "Waiting"
-    }
-  },
-  "mypage": {
-    "accountSettings": "Account Settings",
-    "fields": {
-      "studentNumber": "Student ID",
-      "gender": "Gender",
-      "roomNumber": "Room",
-      "cleaningService": "Cleaning Service",
-      "inspector": "Inspector"
-    },
-    "inspector": {
-      "yes": "Inspector",
-      "no": "General"
-    },
-    "gender": {
-      "male": "Male",
-      "female": "Female"
-    },
-    "cleaningService": {
-      "applied": "Applied",
-      "notApplied": "Not Applied"
     }
   },
   "timeSelect": {
