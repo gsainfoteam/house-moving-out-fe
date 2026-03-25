@@ -23,7 +23,7 @@ export const useBulkUpdateRepair = () => {
       } else if (error.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
       } else if (error.statusCode === 403) {
-        toast.error(t('target.error.cleaningLockedByStatus'));
+        toast.error(t('target.error.repairLockedByStatus'));
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }

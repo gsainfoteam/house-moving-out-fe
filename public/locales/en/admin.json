@@ -258,7 +258,8 @@
     },
     "error": {
       "cleaningLockedByStatus": "Vendor cleaning cannot be edited for active schedules",
-      "load": "Cannot load target room list"
+      "load": "Cannot load target room list",
+      "repairLockedByStatus": "Repair after move out cannot be edited for active schedules"
     },
     "list": "Target Room List"
   },
