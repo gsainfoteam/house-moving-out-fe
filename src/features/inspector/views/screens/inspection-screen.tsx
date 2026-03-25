@@ -75,7 +75,7 @@ function NoShowDialog({ onConfirm }: { onConfirm: () => Promise<void> }) {
         <Dialog.Close asChild>
           <Button variant="outline">{t('checklist.noShow.cancel')}</Button>
         </Dialog.Close>
-        <Button variant="default" onClick={onConfirm}>
+        <Button variant="default" onClick={onConfirm} className="w-full">
           {t('checklist.noShow.confirm')}
         </Button>
       </Dialog.Footer>

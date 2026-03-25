@@ -75,6 +75,7 @@
       "accordionTitle": "Check Reasons for Failure",
       "button": "Apply for Re-examination",
       "description": "Please check the reasons below and apply again.",
+      "no_show": "You did not show up for the inspection.",
       "retry": {
         "cancel": "Cancel",
         "description": "You have {{remainCount}} re-examinations remaining.",
