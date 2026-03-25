@@ -21,6 +21,7 @@
         "noAnswer": "No Answer",
         "title": "Student Contact"
       },
+      "requestFailed": "Failed to retrieve contact information.",
       "title": "Mark as No-Show"
     },
     "sections": {

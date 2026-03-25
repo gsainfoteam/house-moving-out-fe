@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 
 import { PhoneCall } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { Accordion, Button, Checkbox, Dialog, LayoutCard, Loading } from '@/common/components';
 import { checklist, overlay } from '@/common/lib';
@@ -62,7 +63,7 @@ function NoShowPhoneDialog({ phone, onNoAnswer }: { phone: string; onNoAnswer: (
   );
 }
 
-function NoShowDialog({ onConfirm }: { onConfirm: () => void }) {
+function NoShowDialog({ onConfirm }: { onConfirm: () => Promise<void> }) {
   const { t } = useTranslation('inspector');
   return (
     <Dialog.Root>
@@ -74,11 +75,9 @@ function NoShowDialog({ onConfirm }: { onConfirm: () => void }) {
         <Dialog.Close asChild>
           <Button variant="outline">{t('checklist.noShow.cancel')}</Button>
         </Dialog.Close>
-        <Dialog.Close asChild>
-          <Button variant="default" onClick={onConfirm}>
-            {t('checklist.noShow.confirm')}
-          </Button>
-        </Dialog.Close>
+        <Button variant="default" onClick={onConfirm}>
+          {t('checklist.noShow.confirm')}
+        </Button>
       </Dialog.Footer>
     </Dialog.Root>
   );
@@ -102,9 +101,12 @@ export function InspectionScreen({
     overlay.open(({ close: closeDialog1 }) => (
       <NoShowDialog
         onConfirm={async () => {
-          closeDialog1();
           const phone = await onNoShowRequest();
-          if (!phone) return;
+          if (!phone) {
+            toast.error(t('checklist.noShow.requestFailed'));
+            return;
+          }
+          closeDialog1();
 
           overlay.open(({ close: closeDialog2 }) => (
             <NoShowPhoneDialog

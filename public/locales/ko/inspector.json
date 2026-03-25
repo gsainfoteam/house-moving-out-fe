@@ -21,6 +21,7 @@
         "noAnswer": "미응답",
         "title": "학생 연락처"
       },
+      "requestFailed": "연락처를 불러오는 데 실패했습니다.",
       "title": "노쇼 처리"
     },
     "sections": {
