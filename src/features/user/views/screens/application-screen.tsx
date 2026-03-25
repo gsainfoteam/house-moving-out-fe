@@ -63,7 +63,7 @@ function NoticeConsentDialog({ onConfirm }: { onConfirm: () => Promise<void> }) 
 
 export function ApplicationScreen({
   isLoading,
-  inspectionDays,
+  days,
   inspectionDayTimestamp,
   selectedDaySlots,
   selectedSlotUuid,
@@ -91,7 +91,7 @@ export function ApplicationScreen({
       <LayoutCard.Body>
         <div className="h-full w-full">
           <DateSelect
-            days={inspectionDays}
+            days={days}
             value={
               isNotNil(inspectionDayTimestamp) ? dayjs(inspectionDayTimestamp).startOf('day') : null
             }
@@ -131,7 +131,7 @@ export function ApplicationScreen({
 export namespace ApplicationScreen {
   export type Props = {
     isLoading: boolean;
-    inspectionDays: Dayjs[];
+    days: Dayjs[];
     inspectionDayTimestamp: number | null;
     selectedDaySlots: TimeSelect.Slot[];
     selectedSlotUuid: string | null;

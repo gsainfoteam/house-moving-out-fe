@@ -97,7 +97,7 @@ const mockSlots = [
 export const NoDateSelected: Story = {
   args: {
     isLoading: false,
-    inspectionDays: mockDays,
+    days: mockDays,
     inspectionDayTimestamp: null,
     selectedDaySlots: [],
     selectedSlotUuid: null,
@@ -111,7 +111,7 @@ export const NoDateSelected: Story = {
 export const DateSelected: Story = {
   args: {
     isLoading: false,
-    inspectionDays: mockDays,
+    days: mockDays,
     inspectionDayTimestamp: today.valueOf(),
     selectedDaySlots: mockSlots,
     selectedSlotUuid: null,
@@ -125,7 +125,7 @@ export const DateSelected: Story = {
 export const DateAndSlotSelected: Story = {
   args: {
     isLoading: false,
-    inspectionDays: mockDays,
+    days: mockDays,
     inspectionDayTimestamp: today.valueOf(),
     selectedDaySlots: mockSlots,
     selectedSlotUuid: 'slot-2',
@@ -139,7 +139,7 @@ export const DateAndSlotSelected: Story = {
 export const Loading: Story = {
   args: {
     isLoading: true,
-    inspectionDays: [],
+    days: [],
     inspectionDayTimestamp: null,
     selectedDaySlots: [],
     selectedSlotUuid: null,

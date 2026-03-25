@@ -39,7 +39,7 @@
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
-    "es-toolkit": "^1.43.0",
+    "es-toolkit": "^1.45.1",
     "i18next": "^25.7.3",
     "i18next-http-backend": "^3.0.2",
     "lucide-react": "^0.562.0",

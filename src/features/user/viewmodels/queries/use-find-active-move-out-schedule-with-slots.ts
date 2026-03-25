@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 
 import dayjs, { type Dayjs } from 'dayjs';
 import { isNotNil } from 'es-toolkit';
-import { groupBy } from 'es-toolkit/array';
+import { mapValues } from 'es-toolkit/map';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -72,25 +72,31 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     }
   }, [applicationStartTime, applicationEndTime, onNotPeriod]);
 
-  const [inspectionSlotsByDayTimestamp, inspectionDays] = useMemo(() => {
-    if (!user || !data?.inspectionSlots?.length) return [{}, []];
+  const slotsByDay = useMemo(() => {
+    if (!user || !data?.inspectionSlots?.length) return new Map();
 
-    const inspectionSlots = data.inspectionSlots
-      .filter((s) => s.gender === user.gender)
-      .map((slot) => ({
-        ...slot,
-        day: dayjs(slot.startTime).startOf('day'),
-        startTime: dayjs(slot.startTime),
-        endTime: dayjs(slot.endTime),
-        isClosed: slot.reservedCount >= slot.capacity,
-      }))
-      .sort((a, b) => a.startTime.diff(b.startTime));
+    const rawByDay = Map.groupBy(
+      data.inspectionSlots.filter((s) => s.gender === user.gender),
+      (s) => dayjs(s.startTime).startOf('day').valueOf(),
+    );
 
-    const byDay = groupBy(inspectionSlots, (s) => s.day.valueOf());
-    const days = Object.keys(byDay).map((timestamp) => dayjs(Number(timestamp)).startOf('day'));
-
-    return [byDay, days] as const;
+    return mapValues(rawByDay, (slots) =>
+      slots
+        .map((slot) => ({
+          ...slot,
+          day: dayjs(slot.startTime).startOf('day'),
+          startTime: dayjs(slot.startTime),
+          endTime: dayjs(slot.endTime),
+          isClosed: slot.reservedCount >= slot.capacity,
+        }))
+        .sort((a, b) => a.startTime.diff(b.startTime)),
+    );
   }, [data, user]);
+
+  const days = useMemo(
+    () => [...slotsByDay.keys()].map((timestamp) => dayjs(timestamp).startOf('day')),
+    [slotsByDay],
+  );
 
   return {
     data,
@@ -99,7 +105,7 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     isSuccess,
     applicationStartTime,
     applicationEndTime,
-    inspectionSlotsByDayTimestamp,
-    inspectionDays,
+    slotsByDay,
+    days,
   };
 };

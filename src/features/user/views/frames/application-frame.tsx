@@ -84,7 +84,7 @@ export function ApplicationFrame() {
 
   const {
     form: { formState, watch, setValue },
-    inspectionDays,
+    days,
     isLoading,
     inspectionDayTimestamp,
     selectedDaySlots,
@@ -108,7 +108,7 @@ export function ApplicationFrame() {
   return (
     <ApplicationScreen
       isLoading={isLoading}
-      inspectionDays={inspectionDays}
+      days={days}
       inspectionDayTimestamp={inspectionDayTimestamp}
       selectedDaySlots={selectedDaySlots}
       selectedSlotUuid={selectedSlotUuid}

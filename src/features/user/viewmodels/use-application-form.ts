@@ -36,8 +36,8 @@ export const useApplicationForm = ({
   const {
     applicationStartTime,
     applicationEndTime,
-    inspectionDays,
-    inspectionSlotsByDayTimestamp,
+    days,
+    slotsByDay,
     isLoading,
     isError,
     isSuccess,
@@ -79,8 +79,8 @@ export const useApplicationForm = ({
 
   const selectedDaySlots = useMemo(
     () =>
-      isNotNil(inspectionDayTimestamp) ? inspectionSlotsByDayTimestamp[inspectionDayTimestamp] : [],
-    [inspectionDayTimestamp, inspectionSlotsByDayTimestamp],
+      isNotNil(inspectionDayTimestamp) ? (slotsByDay.get(inspectionDayTimestamp) ?? []) : [],
+    [inspectionDayTimestamp, slotsByDay],
   );
 
   const onSubmit = form.handleSubmit(({ inspectionSlotUuid }) => {
@@ -101,7 +101,7 @@ export const useApplicationForm = ({
     form,
     applicationStartTime,
     applicationEndTime,
-    inspectionDays,
+    days,
     isLoading,
     isError,
     isSuccess,
