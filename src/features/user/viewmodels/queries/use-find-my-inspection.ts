@@ -8,24 +8,11 @@ import { toast } from 'sonner';
 import { $api, type checklist } from '@/common/lib';
 
 import { ApiPaths, ApplicationStatus } from '../../models';
+import { useScheduleStatus } from '../use-schedule-status';
 
-export const useFindMyInspection = (
-  enabled: boolean,
-  {
-    onPassed,
-    onFailed,
-    onFoundWaiting,
-    onFoundInProgress,
-    onNotFound,
-  }: {
-    onPassed?: () => void;
-    onFailed?: () => void;
-    onFoundWaiting?: () => void;
-    onFoundInProgress?: () => void;
-    onNotFound?: () => void;
-  } = {},
-) => {
+export const useFindMyInspection = (enabled: boolean) => {
   const { t } = useTranslation('user');
+  const { setStatus } = useScheduleStatus();
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
     ApiPaths.ApplicationController_findMyInspection,
@@ -40,46 +27,42 @@ export const useFindMyInspection = (
   );
 
   useEffect(() => {
-    if (isSuccess) {
-      if (data.status === ApplicationStatus.PASSED) {
-        onPassed?.();
-      } else if (data.status === ApplicationStatus.FAILED) {
-        onFailed?.();
-      } else if (isNil(data.status)) {
-        const startTime = dayjs(data.inspectionSlot.startTime);
-        const endTime = dayjs(data.inspectionSlot.endTime);
-        const now = dayjs();
-
-        if (now.isAfter(startTime) && now.isBefore(endTime)) {
-          onFoundInProgress?.();
-        } else {
-          onFoundWaiting?.();
-        }
-      }
-      // TODO: no show status
-    } else if (isError) {
+    if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
-      } else if (error?.statusCode === 404) {
-        onNotFound?.();
-      } else {
+      } else if (error?.statusCode !== 404) {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }
     }
-  }, [
-    data?.inspectionSlot.endTime,
-    data?.inspectionSlot.startTime,
-    data?.status,
-    error?.statusCode,
-    isError,
-    isSuccess,
-    onFailed,
-    onFoundInProgress,
-    onFoundWaiting,
-    onNotFound,
-    onPassed,
-    t,
-  ]);
+  }, [error?.statusCode, isError, t]);
+
+  useEffect(() => {
+    if (isError) {
+      if (error?.statusCode === 404) setStatus('application');
+      return;
+    }
+    if (!isSuccess) return;
+
+    if (data.status === ApplicationStatus.PASSED) {
+      setStatus('passed');
+      return;
+    }
+    if (data.status === ApplicationStatus.PENDING_NO_SHOW) {
+      setStatus('in_progress');
+      return;
+    }
+    if (data.status === ApplicationStatus.FAILED || data.status === ApplicationStatus.NO_SHOW) {
+      setStatus('failed');
+      return;
+    }
+
+    if (isNil(data.status)) {
+      const now = dayjs();
+      const startTime = dayjs(data.inspectionSlot.startTime);
+      const endTime = dayjs(data.inspectionSlot.endTime);
+      setStatus(now.isAfter(startTime) && now.isBefore(endTime) ? 'in_progress' : 'waiting');
+    }
+  }, [data, error?.statusCode, isError, isSuccess, setStatus]);
 
   const inspectionStartTime = useMemo(
     () => (isSuccess ? dayjs(data.inspectionSlot.startTime) : undefined),
@@ -97,6 +80,7 @@ export const useFindMyInspection = (
     () => (isSuccess ? data.inspectionCount : undefined),
     [data, isSuccess],
   );
+
   const failedItems = useMemo(
     () => (isSuccess ? ((data.itemResults?.failed ?? null) as checklist.Item[] | null) : null),
     [data, isSuccess],

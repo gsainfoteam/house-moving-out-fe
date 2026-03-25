@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useAuth } from '@/features/auth';
 
@@ -7,30 +7,21 @@ import {
   useFindActiveMoveOutScheduleWithSlots,
   useFindMyInspection,
 } from './queries';
-
-type Status =
-  | 'not_period'
-  | 'not_target'
-  | 'cleaning_service'
-  | 'application'
-  | 'waiting'
-  | 'in_progress'
-  | 'failed'
-  | 'passed';
+import { useScheduleStatus } from './use-schedule-status';
 
 export const useCurrentSchedule = () => {
   const { user } = useAuth();
-  const [status, setStatus] = useState<Status>('not_period');
+  const { status, setStatus } = useScheduleStatus();
+
+  useEffect(() => {
+    if (user?.applyCleaningService) setStatus('cleaning_service');
+  }, [user, setStatus]);
 
   const {
     isLoading: isLoadingSchedule,
     applicationStartTime,
     isSuccess,
-  } = useFindActiveMoveOutScheduleWithSlots({
-    onNotTarget: useCallback(() => setStatus('not_target'), []),
-    onNotPeriod: useCallback(() => setStatus('not_period'), []),
-    onSuccess: useCallback(() => setStatus('application'), []),
-  });
+  } = useFindActiveMoveOutScheduleWithSlots();
 
   const {
     isLoading: isLoadingInspection,
@@ -38,18 +29,12 @@ export const useCurrentSchedule = () => {
     applicationUuid,
     inspectionCount,
     failedItems,
-  } = useFindMyInspection(isSuccess, {
-    onNotFound: useCallback(() => setStatus('application'), []),
-    onFoundWaiting: useCallback(() => setStatus('waiting'), []),
-    onFoundInProgress: useCallback(() => setStatus('in_progress'), []),
-    onFailed: useCallback(() => setStatus('failed'), []),
-    onPassed: useCallback(() => setStatus('passed'), []),
-  });
+  } = useFindMyInspection(isSuccess);
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
 
   return {
-    status: user?.applyCleaningService ? 'cleaning_service' : status,
+    status,
     isLoadingSchedule,
     applicationStartTime,
     isLoadingInspection,

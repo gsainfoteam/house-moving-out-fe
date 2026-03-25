@@ -12,17 +12,8 @@ import type { checklist } from '@/common/lib';
 
 import { Steps } from '../components';
 
+import type { ScheduleStatus } from '../../viewmodels';
 import type { Dayjs } from 'dayjs';
-
-export type MainScreenStatus =
-  | 'not_period'
-  | 'not_target'
-  | 'cleaning_service'
-  | 'application'
-  | 'waiting'
-  | 'in_progress'
-  | 'failed'
-  | 'passed';
 
 function StatusSteps({
   activeStepIndex,
@@ -414,7 +405,7 @@ export function MainScreen({
 
 export namespace MainScreen {
   export type Props = {
-    status: MainScreenStatus;
+    status: ScheduleStatus;
     isLoading: boolean;
     applicationStartTime?: Dayjs;
     inspectionStartTime?: Dayjs;

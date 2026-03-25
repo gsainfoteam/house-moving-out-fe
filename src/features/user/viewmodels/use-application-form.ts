@@ -42,12 +42,15 @@ export const useApplicationForm = ({
     isError,
     isSuccess,
   } = useFindActiveMoveOutScheduleWithSlots();
+
   const { inspectionStartTime, inspectionSlotUuid, applicationUuid, failedItems } =
     useFindMyInspection(isSuccess);
+
   const { mutateAsync: applyInspection } = useApplyInspection({
     onSuccess: onApplySuccess,
     onFull: onApplyFull,
   });
+
   const { mutateAsync: updateInspection } = useUpdateInspection({
     onSuccess: onUpdateSuccess,
     onFull: onUpdateFull,
@@ -78,8 +81,7 @@ export const useApplicationForm = ({
   });
 
   const selectedDaySlots = useMemo(
-    () =>
-      isNotNil(inspectionDayTimestamp) ? (slotsByDay.get(inspectionDayTimestamp) ?? []) : [],
+    () => (isNotNil(inspectionDayTimestamp) ? (slotsByDay.get(inspectionDayTimestamp) ?? []) : []),
     [inspectionDayTimestamp, slotsByDay],
   );
 

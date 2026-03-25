@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import dayjs, { type Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { isNotNil } from 'es-toolkit';
 import { mapValues } from 'es-toolkit/map';
 import { useTranslation } from 'react-i18next';
@@ -10,18 +10,12 @@ import { $api } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
 import { ApiPaths } from '../../models';
+import { useScheduleStatus } from '../use-schedule-status';
 
-export const useFindActiveMoveOutScheduleWithSlots = ({
-  onNotTarget,
-  onNotPeriod,
-  onSuccess,
-}: {
-  onNotTarget?: () => void;
-  onNotPeriod?: (applicationStartTime?: Dayjs, applicationEndTime?: Dayjs) => void;
-  onSuccess?: () => void;
-} = {}) => {
+export const useFindActiveMoveOutScheduleWithSlots = () => {
   const { user } = useAuth();
   const { t } = useTranslation('user');
+  const { setStatus } = useScheduleStatus();
   const { data, error, isLoading, isSuccess, isError } = $api.useQuery(
     'get',
     ApiPaths.ScheduleController_findActiveMoveOutScheduleWithSlots,
@@ -37,20 +31,16 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
   );
 
   useEffect(() => {
-    if (isSuccess) {
-      onSuccess?.();
-    } else if (isError) {
+    if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
-      } else if (error?.statusCode === 403) {
-        onNotTarget?.();
       } else if (error?.statusCode === 404) {
         toast.error(t('application.error.notFound'));
-      } else {
+      } else if (error?.statusCode !== 403) {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }
     }
-  }, [error?.statusCode, isError, isSuccess, onNotPeriod, onNotTarget, onSuccess, t]);
+  }, [error?.statusCode, isError, t]);
 
   const applicationStartTime = useMemo(
     () => (data ? dayjs(data.applicationStartTime) : undefined),
@@ -62,21 +52,28 @@ export const useFindActiveMoveOutScheduleWithSlots = ({
     [data],
   );
 
+  const isNotTarget = useMemo(() => error?.statusCode === 403, [error?.statusCode]);
+
+  const isNotPeriod = useMemo(() => {
+    if (!isNotNil(applicationStartTime) || !isNotNil(applicationEndTime)) return false;
+    return !(dayjs().isAfter(applicationStartTime) && dayjs().isBefore(applicationEndTime));
+  }, [applicationStartTime, applicationEndTime]);
+
   useEffect(() => {
-    if (
-      isNotNil(applicationStartTime) &&
-      isNotNil(applicationEndTime) &&
-      !(dayjs().isAfter(applicationStartTime) && dayjs().isBefore(applicationEndTime))
-    ) {
-      onNotPeriod?.(applicationStartTime, applicationEndTime);
+    if (isNotTarget) {
+      setStatus('not_target');
+      return;
     }
-  }, [applicationStartTime, applicationEndTime, onNotPeriod]);
+    if (isNotPeriod || !isSuccess) {
+      setStatus('not_period');
+      return;
+    }
+    setStatus('application');
+  }, [isNotTarget, isNotPeriod, isSuccess, setStatus]);
 
   const slotsByDay = useMemo(() => {
-    if (!user || !data?.inspectionSlots?.length) return new Map();
-
     const rawByDay = Map.groupBy(
-      data.inspectionSlots.filter((s) => s.gender === user.gender),
+      (data?.inspectionSlots ?? []).filter((s) => s.gender === user?.gender),
       (s) => dayjs(s.startTime).startOf('day').valueOf(),
     );
 
