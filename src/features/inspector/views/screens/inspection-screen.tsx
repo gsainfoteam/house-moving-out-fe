@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
+import { PhoneCall } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Accordion, Button, Checkbox, Dialog, LayoutCard, Loading } from '@/common/components';
@@ -38,10 +39,14 @@ function NoShowPhoneDialog({ phone, onNoAnswer }: { phone: string; onNoAnswer: (
     <Dialog.Root closeOnBackdrop={false} closeOnEscape={false}>
       <Dialog.Header>
         <Dialog.Title>{t('checklist.noShow.phone.title')}</Dialog.Title>
-        <Dialog.Description>
-          <a href={`callto:${phone}`}>{phone}</a>
-        </Dialog.Description>
+        <Dialog.Description>{t('checklist.noShow.phone.description')}</Dialog.Description>
       </Dialog.Header>
+      <Dialog.Body className="flex justify-center">
+        <a href={`callto:${phone}`} className="flex items-center gap-1 underline">
+          <PhoneCall size={14} />
+          {phone}
+        </a>
+      </Dialog.Body>
       <Dialog.Footer>
         <Dialog.Close asChild>
           <Button variant="outline">{t('checklist.noShow.phone.answered')}</Button>

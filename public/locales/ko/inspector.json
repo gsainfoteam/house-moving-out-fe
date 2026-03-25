@@ -7,18 +7,19 @@
     },
     "noShow": {
       "cancel": "취소",
-      "confirm": "확인",
-      "description": "노쇼처리를 하기 전에 번호로 연락을 해주세요. 계속 하시겠습니까?",
+      "confirm": "연락처 확인",
+      "description": "노쇼 처리 전에 학생에게 먼저 연락을 시도해야 합니다. 확인을 누르면 학생의 연락처가 표시됩니다.",
       "final": {
         "cancel": "취소",
-        "confirm": "확인",
-        "description": "확인을 누르면 노쇼로 기록됩니다",
-        "title": "노쇼"
+        "confirm": "노쇼 처리",
+        "description": "학생이 응답하지 않아 노쇼로 처리됩니다. 이 작업은 되돌릴 수 없습니다.",
+        "title": "노쇼 처리 확정"
       },
       "phone": {
-        "answered": "응답 확인",
+        "answered": "통화 완료",
+        "description": "아래 연락처로 학생에게 연락하세요.",
         "noAnswer": "미응답",
-        "title": "노쇼 처리"
+        "title": "학생 연락처"
       },
       "title": "노쇼 처리"
     },
