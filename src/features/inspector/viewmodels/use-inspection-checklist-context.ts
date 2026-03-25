@@ -46,7 +46,7 @@ export const useInspectionChecklistContext = () => {
 
   const isNoneChecked = useMemo(() => {
     if (list === undefined) return false;
-    const listValues = checklist.sections.flatMap((section) =>
+    const listValues = [...checklist.sections, 'issues' as const].flatMap((section) =>
       list[section].filter((i) => i !== null).map(([i]) => i),
     );
     return listValues.every((i) => !values[i]);
