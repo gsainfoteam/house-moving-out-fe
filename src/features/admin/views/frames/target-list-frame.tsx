@@ -156,12 +156,12 @@ export function TargetListFrame() {
                               );
                             }}
                             disabled={!isEditable || isSaving}
-                            aria-label={t('target.detail.cleaningService')}
+                            aria-label={t('target.detail.repairAfterMoveOut')}
                           />
                         ) : target.applyRepairCheck ? (
                           <Check
                             className="text-primary size-5"
-                            aria-label={t('target.detail.cleaningService')}
+                            aria-label={t('target.detail.repairAfterMoveOut')}
                           />
                         ) : null}
                       </div>
