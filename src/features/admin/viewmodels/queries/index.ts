@@ -13,3 +13,4 @@ export * from './use-update-article';
 export * from './use-change-article-visibility';
 export * from './use-database-size';
 export * from './use-bulk-update-repair';
+export * from './use-change-schedule-status';

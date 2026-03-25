@@ -21,7 +21,8 @@
     "error": {
       "load": "Cannot load inspection application list"
     },
-    "list": "Inspection Application List"
+    "list": "Inspection Application List",
+    "time": "Application Summary"
   },
   "article": {
     "create": {
@@ -146,6 +147,9 @@
     "failed": "Failed",
     "passed": "Passed"
   },
+  "room": {
+    "list": "Room List"
+  },
   "schedule": {
     "create": {
       "action": "Create",
@@ -190,7 +194,16 @@
       }
     },
     "detail": {
+      "active": "Active",
       "applicationTime": "Application Time",
+      "canceled": "Cancel",
+      "changeSchedule": {
+        "cancel": "Cancel",
+        "description": "Do you really want to change status to {{status}}?",
+        "submit": "Change",
+        "title": "Change Status"
+      },
+      "completed": "Complete",
       "error": "Cannot load moving out inspection information",
       "notFound": "Moving out inspection not found.",
       "summary": {
@@ -229,6 +242,7 @@
   "status": {
     "disabled": "Disabled",
     "failed": "Failed",
+    "no_show": "No Show",
     "not_inspected": "Not Inspected",
     "passed": "Passed",
     "single": "Single inspection",
