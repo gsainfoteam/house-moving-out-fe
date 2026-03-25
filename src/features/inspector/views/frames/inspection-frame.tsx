@@ -1,12 +1,13 @@
 import { useParams } from '@tanstack/react-router';
 
-import { useInspectionChecklistContext } from '../../viewmodels';
+import { NoShowStatus, useInspectionChecklistContext, useRecordNoShow } from '../../viewmodels';
 import { InspectionScreen } from '../screens';
 
 export function InspectionFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/' });
   const { form, getSectionProgress, isAllChecked, isNoneChecked, target, isLoading, roomType } =
     useInspectionChecklistContext();
+  const { recordNoShow } = useRecordNoShow();
 
   return (
     <InspectionScreen
@@ -18,12 +19,10 @@ export function InspectionFrame() {
       isAllChecked={isAllChecked}
       isNoneChecked={isNoneChecked}
       onNoShowRequest={async () => {
-        // TODO: BE 호출 → 1차 노쇼 기록 + 전화번호 반환
-        return '';
+        const result = await recordNoShow(uuid, NoShowStatus.PENDING_NO_SHOW);
+        return result?.targetPhoneNumber;
       }}
-      onNoShowConfirm={async () => {
-        // TODO: BE 호출 → 최종 노쇼 확정
-      }}
+      onNoShowConfirm={async () => void (await recordNoShow(uuid, NoShowStatus.NO_SHOW))}
       uuid={uuid}
     />
   );
