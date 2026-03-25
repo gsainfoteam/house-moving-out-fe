@@ -67,7 +67,11 @@ export function MypageScreen({
           {roomNumber && (
             <InfoRow
               label={t('mypage.fields.roomNumber')}
-              value={houseName ? `${houseName}동 ${roomNumber}호` : `${roomNumber}호`}
+              value={
+                houseName
+                  ? t('mypage.fields.roomFormatWithBuilding', { houseName, roomNumber })
+                  : t('mypage.fields.roomFormat', { roomNumber })
+              }
             />
           )}
           {applyCleaningService !== undefined && (

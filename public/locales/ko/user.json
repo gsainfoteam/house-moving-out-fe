@@ -71,6 +71,8 @@
       "gender": "성별",
       "inspector": "검사자 여부",
       "roomNumber": "호실",
+      "roomFormat": "{{roomNumber}}호",
+      "roomFormatWithBuilding": "{{houseName}}동 {{roomNumber}}호",
       "studentNumber": "학번"
     },
     "gender": {

@@ -71,6 +71,8 @@
       "gender": "Gender",
       "inspector": "Inspector",
       "roomNumber": "Room",
+      "roomFormat": "Room {{roomNumber}}",
+      "roomFormatWithBuilding": "{{houseName}}-{{roomNumber}}",
       "studentNumber": "Student ID"
     },
     "gender": {
