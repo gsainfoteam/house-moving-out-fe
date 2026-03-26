@@ -33,15 +33,8 @@ export const useApplicationForm = ({
   updateInspection: Parameters<typeof useUpdateInspection>[0];
 }) => {
   const navigate = useNavigate();
-  const {
-    applicationStartTime,
-    applicationEndTime,
-    inspectionDays,
-    inspectionSlotsByDayTimestamp,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useFindActiveMoveOutScheduleWithSlots();
+  const { inspectionDays, inspectionSlotsByDayTimestamp, isLoading, isError, isSuccess } =
+    useFindActiveMoveOutScheduleWithSlots();
   const { inspectionStartTime, inspectionSlotUuid, applicationUuid, failedItems } =
     useFindMyInspection(isSuccess);
   const { mutateAsync: applyInspection } = useApplyInspection({
@@ -99,8 +92,6 @@ export const useApplicationForm = ({
 
   return {
     form,
-    applicationStartTime,
-    applicationEndTime,
     inspectionDays,
     isLoading,
     isError,

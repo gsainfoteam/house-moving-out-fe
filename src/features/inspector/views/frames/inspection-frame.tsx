@@ -1,4 +1,4 @@
-import { useParams } from '@tanstack/react-router';
+import { useNavigate, useParams } from '@tanstack/react-router';
 
 import { NoShowStatus, useInspectionChecklistContext, useRecordNoShow } from '../../viewmodels';
 import { InspectionScreen } from '../screens';
@@ -8,6 +8,7 @@ export function InspectionFrame() {
   const { form, getSectionProgress, isAllChecked, isNoneChecked, target, isLoading, roomType } =
     useInspectionChecklistContext();
   const { recordNoShow } = useRecordNoShow();
+  const navigate = useNavigate();
 
   return (
     <InspectionScreen
@@ -22,7 +23,10 @@ export function InspectionFrame() {
         const result = await recordNoShow(uuid, NoShowStatus.PENDING_NO_SHOW);
         return result?.targetPhoneNumber;
       }}
-      onNoShowConfirm={async () => void (await recordNoShow(uuid, NoShowStatus.NO_SHOW))}
+      onNoShowConfirm={async () => {
+        await recordNoShow(uuid, NoShowStatus.NO_SHOW);
+        navigate({ to: '/inspector' });
+      }}
       uuid={uuid}
     />
   );
