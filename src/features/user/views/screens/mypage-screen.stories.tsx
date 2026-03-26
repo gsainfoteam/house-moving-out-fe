@@ -27,6 +27,7 @@ export const Default: Story = {
     houseName: 'G',
     applyCleaningService: false,
     isInspector: false,
+    onBack: () => {},
     onLogout: () => {},
   },
 };
@@ -42,6 +43,7 @@ export const Inspector: Story = {
     houseName: 'H',
     applyCleaningService: false,
     isInspector: true,
+    onBack: () => {},
     onLogout: () => {},
   },
 };
@@ -57,6 +59,7 @@ export const CleaningService: Story = {
     houseName: 'G',
     applyCleaningService: true,
     isInspector: false,
+    onBack: () => {},
     onLogout: () => {},
   },
 };
@@ -67,6 +70,7 @@ export const NoRoom: Story = {
     name: '이민준',
     email: 'minjun@gm.gist.ac.kr',
     studentNumber: '20230042',
+    onBack: () => {},
     onLogout: () => {},
   },
 };

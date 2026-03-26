@@ -1,5 +1,5 @@
 import { isNotNil } from 'es-toolkit';
-import { ExternalLink, LogOut } from 'lucide-react';
+import { ChevronLeft, ExternalLink, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, LayoutCard } from '@/common/components';
@@ -41,14 +41,24 @@ export function MypageScreen({
   houseName,
   applyCleaningService,
   isInspector,
+  onBack,
   onLogout,
 }: MypageScreen.Props) {
   const { t } = useTranslation('user');
 
   return (
     <LayoutCard.Root isLoading={isLoading}>
-      <LayoutCard.Header className="items-center">
-        {name && <Avatar name={name} />}
+      <LayoutCard.Header className="relative items-center">
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="absolute left-0 flex cursor-pointer items-center rounded-md p-1"
+          >
+            <ChevronLeft size={24} className="text-icon" />
+          </button>
+        )}
+        {name && <div className="mt-6"><Avatar name={name} /></div>}
         <LayoutCard.Text className="items-center">
           <LayoutCard.Title className="text-text-primary">{name}</LayoutCard.Title>
           <LayoutCard.Description>{email}</LayoutCard.Description>
@@ -123,6 +133,7 @@ export namespace MypageScreen {
     houseName?: string;
     applyCleaningService?: boolean;
     isInspector?: boolean;
+    onBack?: () => void;
     onLogout?: () => void;
   };
 }
