@@ -2,9 +2,10 @@ import { Link } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { isNotNil } from 'es-toolkit';
+import { Calendar, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Checkbox, Dialog, LayoutCard } from '@/common/components';
+import { Button, Checkbox, Dialog, LayoutCard, useList } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 import { useLoading } from '@/common/viewmodels';
@@ -73,6 +74,8 @@ export function ApplicationScreen({
   onSubmit,
 }: ApplicationScreen.Props) {
   const { t } = useTranslation('user');
+  const inspectionDayList = useList(inspectionDays);
+  const selectedSlotList = useList(selectedDaySlots);
 
   const handleSubmitClick = () => {
     overlay.open(({ close }) => (
@@ -89,27 +92,40 @@ export function ApplicationScreen({
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body>
-        <div className="h-full w-full">
-          <DateSelect
-            days={inspectionDays}
-            value={
-              isNotNil(inspectionDayTimestamp) ? dayjs(inspectionDayTimestamp).startOf('day') : null
-            }
-            onChange={(day) => onDayChange(day)}
-          />
-          {isNotNil(inspectionDayTimestamp) && (
-            <div className="mt-6 grid grid-cols-3 gap-2">
-              {selectedDaySlots.map((slot) => (
+        <inspectionDayList.Root scrollable={false}>
+          <inspectionDayList.Empty icon={<Calendar />} title={t('application.emptyDate')} />
+          <inspectionDayList.Present>
+            <DateSelect
+              days={inspectionDays}
+              value={
+                isNotNil(inspectionDayTimestamp)
+                  ? dayjs(inspectionDayTimestamp).startOf('day')
+                  : null
+              }
+              onChange={(day) => onDayChange(day)}
+            />
+          </inspectionDayList.Present>
+        </inspectionDayList.Root>
+        {isNotNil(inspectionDayTimestamp) && (
+          <selectedSlotList.Root scrollable={false}>
+            <selectedSlotList.Empty
+              className="mt-6"
+              icon={<Clock />}
+              title={t('application.emptySlot')}
+              description={t('application.description')}
+            />
+            <selectedSlotList.Builder className="mt-6 grid grid-cols-3 gap-2">
+              {(slot) => (
                 <TimeSelect
                   key={slot.uuid}
                   slot={slot}
                   value={selectedSlotUuid}
                   onChange={onSlotChange}
                 />
-              ))}
-            </div>
-          )}
-        </div>
+              )}
+            </selectedSlotList.Builder>
+          </selectedSlotList.Root>
+        )}
       </LayoutCard.Body>
       <LayoutCard.Footer className="mt-auto">
         <Button variant="outline" className="flex-1" asChild>

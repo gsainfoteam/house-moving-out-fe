@@ -42,6 +42,8 @@
         "title": "Modification complete"
       }
     },
+    "emptyDate": "No available dates.",
+    "emptySlot": "No available time slots.",
     "error": {
       "invalidUuid": "Invalid application UUID.",
       "noAvailableInspector": "No inspector available for this time slot.",
@@ -55,6 +57,8 @@
     "back": "Back to list"
   },
   "list": {
+    "empty": "No posts available.",
+    "emptyDescription": "Waiting for articles.",
     "segment": {
       "faq": "FAQ",
       "notice": "Notice"

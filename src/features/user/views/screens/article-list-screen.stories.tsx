@@ -1,74 +1,91 @@
 import { useState } from 'react';
 
+import { Layout } from '@/common/components';
 import type { Article } from '@/features/user';
 
 import { ArticleListScreen } from './article-list-screen';
 import { ArticleType } from '../../viewmodels';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof ArticleListScreen> = {
   title: 'User/ArticleListScreen',
   component: ArticleListScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
+  args: {
+    onLoadMore: () => {},
+    hasMore: false,
+    isFetchingMore: false,
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof ArticleListScreen>;
 
-const mockNotices: Article[] = [
-  {
-    uuid: '1',
-    type: ArticleType.NOTICE,
-    titleKo: '2024년 퇴사 안내',
-    titleEn: 'Move-out Notice 2024',
-    updatedAt: '2024-03-15T10:00:00.000Z',
-  } as Article,
-  {
-    uuid: '2',
-    type: ArticleType.NOTICE,
-    titleKo: '청소 기준 안내',
-    titleEn: 'Cleaning Guidelines',
-    updatedAt: '2024-03-10T09:00:00.000Z',
-  } as Article,
-  {
-    uuid: '3',
-    type: ArticleType.NOTICE,
-    titleKo: '이사 일정 변경 안내',
-    titleEn: 'Schedule Change Notice',
-    updatedAt: '2024-03-05T14:00:00.000Z',
-  } as Article,
-];
+const mockNotices: Article[] = Array.from(
+  { length: 5 },
+  (_, i) =>
+    ({
+      uuid: String(i + 1),
+      type: ArticleType.NOTICE,
+      titleKo: `공지사항 ${i + 1}번`,
+      titleEn: `Notice ${i + 1}`,
+      updatedAt: new Date(Date.now() - i * 86400000).toISOString(),
+    }) as Article,
+);
 
-const mockFaqs: Article[] = [
-  {
-    uuid: '4',
-    type: ArticleType.FAQ,
-    titleKo: '이사 신청은 어떻게 하나요?',
-    titleEn: 'How do I apply for moving?',
-    updatedAt: '2024-03-14T15:30:00.000Z',
-  } as Article,
-  {
-    uuid: '5',
-    type: ArticleType.FAQ,
-    titleKo: '반입 가능 물품이 궁금해요',
-    titleEn: 'What items can I bring?',
-    updatedAt: '2024-03-13T09:00:00.000Z',
-  } as Article,
-];
+const manyNotices: Article[] = Array.from(
+  { length: 20 },
+  (_, i) =>
+    ({
+      uuid: String(i + 1),
+      type: ArticleType.NOTICE,
+      titleKo: `공지사항 ${i + 1}번`,
+      titleEn: `Notice ${i + 1}`,
+      updatedAt: new Date(Date.now() - i * 86400000).toISOString(),
+    }) as Article,
+);
+
+const manyFaqs: Article[] = Array.from(
+  { length: 15 },
+  (_, i) =>
+    ({
+      uuid: String(100 + i + 1),
+      type: ArticleType.FAQ,
+      titleKo: `자주 묻는 질문 ${i + 1}번`,
+      titleEn: `FAQ ${i + 1}`,
+      updatedAt: new Date(Date.now() - i * 43200000).toISOString(),
+    }) as Article,
+);
 
 export const WithNotices: Story = {
   args: {
     type: ArticleType.NOTICE,
     onTypeChange: () => {},
     articles: mockNotices,
-    totalCount: 3,
-    page: 1,
-    onPageChange: () => {},
+    totalCount: 5,
     isLoading: false,
+  },
+};
+
+export const HasMore: Story = {
+  args: {
+    type: ArticleType.NOTICE,
+    onTypeChange: () => {},
+    articles: mockNotices,
+    totalCount: 20,
+    isLoading: false,
+    hasMore: true,
   },
 };
 
@@ -78,8 +95,6 @@ export const Loading: Story = {
     onTypeChange: () => {},
     articles: [],
     totalCount: 0,
-    page: 1,
-    onPageChange: () => {},
     isLoading: true,
   },
 };
@@ -90,8 +105,6 @@ export const Empty: Story = {
     onTypeChange: () => {},
     articles: [],
     totalCount: 0,
-    page: 1,
-    onPageChange: () => {},
     isLoading: false,
   },
 };
@@ -99,21 +112,25 @@ export const Empty: Story = {
 export const Interactive: Story = {
   render: () => {
     const [type, setType] = useState<ArticleType>(ArticleType.NOTICE);
-    const [page, setPage] = useState(1);
-    const articles = type === ArticleType.NOTICE ? mockNotices : mockFaqs;
+    const allArticles = type === ArticleType.NOTICE ? manyNotices : manyFaqs;
+    const [loaded, setLoaded] = useState(10);
+
+    const articles = allArticles.slice(0, loaded);
+    const hasMore = loaded < allArticles.length;
 
     return (
       <ArticleListScreen
         type={type}
         onTypeChange={(t) => {
           setType(t);
-          setPage(1);
+          setLoaded(10);
         }}
         articles={articles}
-        totalCount={articles.length}
-        page={page}
-        onPageChange={setPage}
+        totalCount={allArticles.length}
         isLoading={false}
+        hasMore={hasMore}
+        isFetchingMore={false}
+        onLoadMore={() => setLoaded((n) => Math.min(n + 10, allArticles.length))}
       />
     );
   },

@@ -3,32 +3,22 @@ import { useState } from 'react';
 import { ArticleType, useFindArticles } from '../../viewmodels';
 import { ArticleListScreen } from '../screens';
 
-const PAGE_SIZE = 5;
-
 export function ArticleListFrame() {
   const [type, setType] = useState<ArticleType>(ArticleType.NOTICE);
-  const [page, setPage] = useState(1);
 
-  const offset = (page - 1) * PAGE_SIZE;
-
-  const { articles, totalCount, isLoading } = useFindArticles({
-    type,
-    offset,
-    limit: PAGE_SIZE,
-  });
+  const { articles, totalCount, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useFindArticles({ type });
 
   return (
     <ArticleListScreen
       type={type}
-      onTypeChange={(nextType) => {
-        setType(nextType);
-        setPage(1);
-      }}
+      onTypeChange={(nextType) => setType(nextType)}
       articles={articles}
       totalCount={totalCount}
-      page={page}
-      onPageChange={setPage}
       isLoading={isLoading}
+      hasMore={hasNextPage ?? false}
+      isFetchingMore={isFetchingNextPage}
+      onLoadMore={fetchNextPage}
     />
   );
 }

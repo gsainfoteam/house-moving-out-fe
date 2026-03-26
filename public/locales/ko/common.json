@@ -18,10 +18,6 @@
   "header": {
     "menu": "메뉴",
     "mypage": "마이페이지",
-    "subtitle": {
-      "noRoom": "학번: {{studentId}}",
-      "room": "학번: {{studentId}} | 호실: {{room}}"
-    },
     "title": "하우스 퇴사검사"
   },
   "inquiryDrawer": {
