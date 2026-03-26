@@ -114,10 +114,10 @@ export function ApplicationFrame() {
       selectedSlotUuid={selectedSlotUuid}
       onDayChange={(day) => {
         setValue('inspectionDayTimestamp', day.valueOf());
-        setValue('inspectionSlotUuid', null);
+        setValue('inspectionSlotUuid', null, { shouldValidate: true });
       }}
       onSlotChange={(slot) => {
-        setValue('inspectionSlotUuid', slot.uuid);
+        setValue('inspectionSlotUuid', slot.uuid, { shouldValidate: true });
       }}
       isSubmitDisabled={!formState.isValid}
       onSubmit={async () => {
