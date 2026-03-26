@@ -92,42 +92,40 @@ export function ApplicationScreen({
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body>
-        <div className="h-full w-full">
-          <inspectionDayList.Root scrollable={false}>
-            <inspectionDayList.Empty icon={<Calendar />} title={t('application.emptyDate')} />
-            <inspectionDayList.Present>
-              <DateSelect
-                days={inspectionDays}
-                value={
-                  isNotNil(inspectionDayTimestamp)
-                    ? dayjs(inspectionDayTimestamp).startOf('day')
-                    : null
-                }
-                onChange={(day) => onDayChange(day)}
-              />
-            </inspectionDayList.Present>
-          </inspectionDayList.Root>
-          {isNotNil(inspectionDayTimestamp) && (
-            <selectedSlotList.Root scrollable={false}>
-              <selectedSlotList.Empty
-                className="mt-6"
-                icon={<Clock />}
-                title={t('application.emptySlot')}
-                description={t('application.description')}
-              />
-              <selectedSlotList.Builder className="mt-6 grid grid-cols-3 gap-2">
-                {(slot) => (
-                  <TimeSelect
-                    key={slot.uuid}
-                    slot={slot}
-                    value={selectedSlotUuid}
-                    onChange={onSlotChange}
-                  />
-                )}
-              </selectedSlotList.Builder>
-            </selectedSlotList.Root>
-          )}
-        </div>
+        <inspectionDayList.Root scrollable={false}>
+          <inspectionDayList.Empty icon={<Calendar />} title={t('application.emptyDate')} />
+          <inspectionDayList.Present>
+            <DateSelect
+              days={inspectionDays}
+              value={
+                isNotNil(inspectionDayTimestamp)
+                  ? dayjs(inspectionDayTimestamp).startOf('day')
+                  : null
+              }
+              onChange={(day) => onDayChange(day)}
+            />
+          </inspectionDayList.Present>
+        </inspectionDayList.Root>
+        {isNotNil(inspectionDayTimestamp) && (
+          <selectedSlotList.Root scrollable={false}>
+            <selectedSlotList.Empty
+              className="mt-6"
+              icon={<Clock />}
+              title={t('application.emptySlot')}
+              description={t('application.description')}
+            />
+            <selectedSlotList.Builder className="mt-6 grid grid-cols-3 gap-2">
+              {(slot) => (
+                <TimeSelect
+                  key={slot.uuid}
+                  slot={slot}
+                  value={selectedSlotUuid}
+                  onChange={onSlotChange}
+                />
+              )}
+            </selectedSlotList.Builder>
+          </selectedSlotList.Root>
+        )}
       </LayoutCard.Body>
       <LayoutCard.Footer className="mt-auto">
         <Button variant="outline" className="flex-1" asChild>
