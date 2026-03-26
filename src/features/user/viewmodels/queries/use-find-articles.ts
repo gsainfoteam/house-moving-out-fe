@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -40,8 +40,12 @@ export function useFindArticles({ type }: { type: ArticleType }) {
     }
   }, [error, isError, t]);
 
-  const articles = [...(data?.pages.flatMap((p) => p.articles) ?? [])].sort(
-    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  const articles = useMemo(
+    () =>
+      [...(data?.pages.flatMap((p) => p.articles) ?? [])].sort(
+        (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      ),
+    [data?.pages],
   );
 
   return {
