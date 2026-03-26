@@ -5,7 +5,6 @@ import {
   FileTextIcon,
   Globe,
   HomeIcon as HomeLucideIcon,
-  LogOut,
   MessageCircle,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +20,7 @@ import { Route as InspectorRoute } from '@/routes/_auth-required/_user/inspector
 export function UserLayoutFrame() {
   const { t } = useTranslation('common');
   const { toggleLanguage } = useLanguage();
-  const { logOut, isInspector } = useAuth({ showToast: true });
+  const { isInspector } = useAuth();
 
   const navigate = useNavigate();
   const { matches } = useRouterState();
@@ -122,17 +121,6 @@ export function UserLayoutFrame() {
           >
             <Globe size={20} className="text-icon" />
             {t('fab.languageChange')}
-          </button>
-          <button
-            type="button"
-            className="text-body-lg text-status-fail flex w-full items-center gap-3 py-3"
-            onClick={() => {
-              close();
-              logOut({});
-            }}
-          >
-            <LogOut size={20} className="text-status-fail" />
-            {t('fab.logout')}
           </button>
         </Drawer.Body>
       </Drawer.Root>

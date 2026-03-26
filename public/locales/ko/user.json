@@ -60,6 +60,30 @@
       "notice": "공지"
     }
   },
+  "mypage": {
+    "accountSettings": "계정 설정",
+    "cleaningService": {
+      "applied": "신청",
+      "notApplied": "미신청"
+    },
+    "fields": {
+      "cleaningService": "위탁청소 신청",
+      "gender": "성별",
+      "inspector": "검사자 여부",
+      "roomFormat": "{{roomNumber}}호",
+      "roomFormatWithBuilding": "{{houseName}}동 {{roomNumber}}호",
+      "roomNumber": "호실",
+      "studentNumber": "학번"
+    },
+    "gender": {
+      "female": "여성",
+      "male": "남성"
+    },
+    "inspector": {
+      "no": "일반",
+      "yes": "검사자"
+    }
+  },
   "steps": {
     "application": {
       "button": "퇴사 검사 신청하기",
