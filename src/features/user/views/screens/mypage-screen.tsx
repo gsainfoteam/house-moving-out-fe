@@ -1,3 +1,4 @@
+import { isNotNil } from 'es-toolkit';
 import { ExternalLink, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -74,7 +75,7 @@ export function MypageScreen({
               }
             />
           )}
-          {applyCleaningService !== undefined && (
+          {isNotNil(applyCleaningService) && (
             <InfoRow
               label={t('mypage.fields.cleaningService')}
               value={
@@ -84,7 +85,7 @@ export function MypageScreen({
               }
             />
           )}
-          {isInspector !== undefined && (
+          {isNotNil(isInspector) && (
             <InfoRow
               label={t('mypage.fields.inspector')}
               value={isInspector ? t('mypage.inspector.yes') : t('mypage.inspector.no')}

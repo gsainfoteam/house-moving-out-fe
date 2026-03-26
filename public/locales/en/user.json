@@ -70,9 +70,9 @@
       "cleaningService": "Cleaning Service",
       "gender": "Gender",
       "inspector": "Inspector",
-      "roomNumber": "Room",
       "roomFormat": "Room {{roomNumber}}",
       "roomFormatWithBuilding": "{{houseName}}-{{roomNumber}}",
+      "roomNumber": "Room",
       "studentNumber": "Student ID"
     },
     "gender": {
