@@ -64,6 +64,30 @@
       "notice": "Notice"
     }
   },
+  "mypage": {
+    "accountSettings": "Account Settings",
+    "cleaningService": {
+      "applied": "Applied",
+      "notApplied": "Not Applied"
+    },
+    "fields": {
+      "cleaningService": "Cleaning Service",
+      "gender": "Gender",
+      "inspector": "Inspector",
+      "roomFormat": "Room {{roomNumber}}",
+      "roomFormatWithBuilding": "{{houseName}}-{{roomNumber}}",
+      "roomNumber": "Room",
+      "studentNumber": "Student ID"
+    },
+    "gender": {
+      "female": "Female",
+      "male": "Male"
+    },
+    "inspector": {
+      "no": "General",
+      "yes": "Inspector"
+    }
+  },
   "steps": {
     "application": {
       "button": "Apply Inspection",

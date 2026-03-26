@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { LayoutCard } from '@/common/components';
+import { MypageFrame } from '@/features/user';
 
 export const Route = createFileRoute('/_auth-required/_user/mypage')({
-  component: () => <LayoutCard.Root />,
+  component: MypageFrame,
 });
