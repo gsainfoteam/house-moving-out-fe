@@ -2,9 +2,12 @@ import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
 
 import {
   ArrowRightLeft,
+  ExternalLink,
   FileTextIcon,
   Globe,
+  HelpCircle,
   HomeIcon as HomeLucideIcon,
+  Mail,
   MessageCircle,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -71,7 +74,6 @@ export function UserLayoutFrame() {
             type="button"
             className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
             onClick={() => {
-              close();
               overlay.open(() => (
                 <Drawer.Root>
                   <Drawer.Header>
@@ -82,26 +84,30 @@ export function UserLayoutFrame() {
                       href="https://pf.kakao.com/_BIthX"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-underline cursor-pointer"
+                      className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
                     >
-                      <p>{t('inquiryDrawer.kakaotalk')}</p>
+                      <MessageCircle size={20} className="text-icon shrink-0" />
+                      <span>{t('inquiryDrawer.kakaotalk')}</span>
+                      <ExternalLink size={14} className="text-icon ml-auto shrink-0" />
                     </a>
                     <a
                       href="mailto:gist_house@gist.ac.kr"
-                      target="_blank"
                       rel="noopener noreferrer"
-                      className="text-underline cursor-pointer"
+                      className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
                     >
-                      <p>{t('inquiryDrawer.email')}</p>
+                      <Mail size={20} className="text-icon shrink-0" />
+                      <span>{t('inquiryDrawer.email')}</span>
+                      <ExternalLink size={14} className="text-icon ml-auto shrink-0" />
                     </a>
-                    <br />
                     <a
                       href="https://sites.google.com/view/gisthouse/home/%EC%9E%90%EC%A3%BC%ED%95%98%EB%8A%94-%EC%A7%88%EB%AC%B8faq?authuser=0"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-underline cursor-pointer"
+                      className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
                     >
-                      {t('inquiryDrawer.faq')}
+                      <HelpCircle size={20} className="text-icon shrink-0" />
+                      <span>{t('inquiryDrawer.faq')}</span>
+                      <ExternalLink size={14} className="text-icon ml-auto shrink-0" />
                     </a>
                   </Drawer.Body>
                 </Drawer.Root>

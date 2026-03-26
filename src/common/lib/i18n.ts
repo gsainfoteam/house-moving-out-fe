@@ -10,11 +10,13 @@ export function useLocale(): Language {
   return i18nInstance.language as Language;
 }
 
+const initialLang = navigator.language.split('-')[0] === 'ko' ? 'ko' : 'en';
+
 await i18n
   .use(HttpBackend)
   .use(initReactI18next)
   .init({
-    lng: 'ko',
+    lng: initialLang,
     fallbackLng: 'ko',
     defaultNS: '_',
     ns: ['_', 'auth', 'common', 'user', 'checklist'],
