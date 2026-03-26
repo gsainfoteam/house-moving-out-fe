@@ -27,7 +27,11 @@ export function useList<T>(items: T[]) {
     () => ({
       Root: ({ children, className, scrollable = true }: RootProps) => (
         <div
-          className={cn('flex min-h-0 w-full flex-col', scrollable && 'overflow-y-auto', className)}
+          className={cn(
+            'no-scrollbar flex min-h-0 w-full flex-col',
+            scrollable && 'overflow-y-auto',
+            className,
+          )}
         >
           {children}
         </div>
