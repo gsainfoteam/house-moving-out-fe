@@ -22,7 +22,7 @@
       "noRoom": "학번: {{studentId}}",
       "room": "학번: {{studentId}} | 호실: {{room}}"
     },
-    "title": "{{name}}님의 퇴사 검사 현황"
+    "title": "하우스 퇴사검사"
   },
   "inquiryDrawer": {
     "email": "e-mail: gist_house@gist.ac.kr",
