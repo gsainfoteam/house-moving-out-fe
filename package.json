@@ -1,6 +1,6 @@
 {
   "name": "house-moving-out-fe",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,6 +20,7 @@
     "i18n:types": "i18next-cli types",
     "gen:i18n": "bun run i18n:extract --watch & bun run i18n:types --watch & wait",
     "gen:api": "bun run scripts/gen-api.ts",
+    "gen:pwa": "pwa-assets-generator --preset minimal public/pwa/favicon.png",
     "postinstall": "bun run ./scripts/missing-typst-css.ts"
   },
   "dependencies": {
@@ -74,6 +75,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@types/react-signature-canvas": "^1.0.7",
+    "@vite-pwa/assets-generator": "^1.0.2",
     "@vitejs/plugin-react": "^5.0.4",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.2",
@@ -98,6 +100,7 @@
     "typescript-eslint": "^8.53.0",
     "unused-imports": "^0.0.1-security",
     "vite": "^7.3.1",
+    "vite-plugin-pwa": "^1.2.0",
     "vite-plugin-svgr": "^4.5.0",
     "vitest": "^3.0.5",
     "web-vitals": "^5.1.0"
