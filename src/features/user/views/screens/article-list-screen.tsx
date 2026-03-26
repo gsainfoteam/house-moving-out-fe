@@ -1,29 +1,46 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
 import { BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { LayoutCard, Pagination, useList } from '@/common/components';
+import { LayoutCard, useList } from '@/common/components';
 import type { Article } from '@/features/user';
 
 import { ArticleType } from '../../viewmodels';
 import { ArticleCard } from '../components';
-
-const PAGE_SIZE = 5;
 
 export function ArticleListScreen({
   type,
   onTypeChange,
   articles,
   totalCount,
-  page,
-  onPageChange,
   isLoading,
+  hasMore,
+  isFetchingMore,
+  onLoadMore,
 }: ArticleListScreen.Props) {
   const { t } = useTranslation('user');
   const list = useList(articles);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || !onLoadMore) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasMore && !isFetchingMore) {
+          onLoadMore();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMore, isFetchingMore, onLoadMore]);
 
   const tabs = [
     { type: ArticleType.NOTICE, label: t('list.segment.notice') },
@@ -75,18 +92,9 @@ export function ArticleListScreen({
                 </Link>
               )}
             </list.Builder>
+            {hasMore && <div ref={sentinelRef} className="h-1 w-full shrink-0" />}
           </list.Root>
         </LayoutCard.Body>
-        {totalCount > PAGE_SIZE && (
-          <LayoutCard.Footer>
-            <Pagination
-              page={page}
-              pageSize={PAGE_SIZE}
-              totalCount={totalCount}
-              onChange={onPageChange}
-            />
-          </LayoutCard.Footer>
-        )}
       </LayoutCard.Root>
     </div>
   );
@@ -98,8 +106,9 @@ export namespace ArticleListScreen {
     onTypeChange: (type: ArticleType) => void;
     articles: Article[];
     totalCount: number;
-    page: number;
-    onPageChange: (page: number) => void;
     isLoading: boolean;
+    hasMore: boolean;
+    isFetchingMore: boolean;
+    onLoadMore: () => void;
   };
 }

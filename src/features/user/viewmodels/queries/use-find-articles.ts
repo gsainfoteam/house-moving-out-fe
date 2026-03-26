@@ -7,29 +7,29 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths, type ArticleType } from '../../models';
 
-export function useFindArticles({
-  type,
-  offset,
-  limit,
-}: {
-  type: ArticleType;
-  offset?: number;
-  limit?: number;
-}) {
+const LIMIT = 20;
+
+export function useFindArticles({ type }: { type: ArticleType }) {
   const { t } = useTranslation('user');
-  const { data, error, isError, isLoading } = $api.useQuery(
-    'get',
-    ApiPaths.ArticleController_findArticles,
-    {
-      params: {
-        query: {
-          offset,
-          limit,
-          type,
+
+  const { data, error, isError, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    $api.useInfiniteQuery(
+      'get',
+      ApiPaths.ArticleController_findArticles,
+      {
+        params: {
+          query: { type, limit: LIMIT, offset: 0 },
         },
       },
-    },
-  );
+      {
+        pageParamName: 'offset',
+        initialPageParam: 0,
+        getNextPageParam: (lastPage, allPages) => {
+          const loaded = allPages.flatMap((p) => p.articles).length;
+          return loaded < lastPage.totalCount ? loaded : undefined;
+        },
+      },
+    );
 
   useEffect(() => {
     if (!isError) return;
@@ -40,9 +40,16 @@ export function useFindArticles({
     }
   }, [error, isError, t]);
 
+  const articles = [...(data?.pages.flatMap((p) => p.articles) ?? [])].sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
+
   return {
-    articles: data?.articles ?? [],
-    totalCount: data?.totalCount ?? 0,
+    articles,
+    totalCount: data?.pages[0]?.totalCount ?? 0,
     isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   };
 }
