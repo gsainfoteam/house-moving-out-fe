@@ -52,7 +52,7 @@ export function App() {
         <OverlayProvider>
           <Toaster />
           <RouterProvider router={router} InnerWrap={InnerWrap} />
-          {import.meta.env.DEV && <TanStackRouterDevtools router={router} position="bottom-left" />}
+          {import.meta.env.DEV && <TanStackRouterDevtools router={router} position="top-left" />}
         </OverlayProvider>
       </QueryClientProvider>
     </AuthProvider>
