@@ -44,15 +44,19 @@ export function useList<T>(items: T[]) {
         return (
           <div
             className={cn(
-              'border-border bg-bg-surface/30 flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl border px-4 py-8 text-center',
+              'border-border bg-bg-surface/30 flex h-full w-full flex-col items-center justify-center gap-3 rounded-xl border px-4 py-8 text-center',
               className,
             )}
           >
             {icon ? <div className="text-icon [&_svg]:size-8">{icon}</div> : null}
-            {title ? (
-              <p className="text-display text-text-primary leading-tight font-semibold">{title}</p>
-            ) : null}
-            {description ? <p className="text-caption text-text-muted">{description}</p> : null}
+            <div className="flex flex-col gap-1">
+              {title ? (
+                <div className="text-heading text-text-primary leading-tight font-semibold">
+                  {title}
+                </div>
+              ) : null}
+              {description ? <p className="text-caption text-text-muted">{description}</p> : null}
+            </div>
           </div>
         );
       },
