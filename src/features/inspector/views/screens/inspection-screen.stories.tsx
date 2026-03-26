@@ -1,6 +1,6 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
-import type { checklist } from '@/common/lib';
+import { checklist } from '@/common/lib';
 
 import { InspectionScreen } from './inspection-screen';
 
@@ -43,7 +43,24 @@ function InspectionScreenWrapper({
   roomType: InspectionScreen.Props['roomType'];
   isNoneChecked: boolean;
 }) {
-  const { register } = useForm<InspectionFormFields>();
+  const { register, setValue, control } = useForm<InspectionFormFields>();
+  const values = useWatch({ control, name: 'items' });
+  const list = roomType ? checklist[roomType] : undefined;
+
+  const getSectionProgress = (sectionKey: checklist.Section) => {
+    if (!list || !values) return { totalCount: 0, completedCount: 0, isCompleted: false };
+    const sectionValues = list[sectionKey].filter((i) => i !== null).map(([i]) => values[i]);
+    const totalCount = sectionValues.length;
+    const completedCount = sectionValues.filter(Boolean).length;
+    return { totalCount, completedCount, isCompleted: totalCount > 0 && completedCount === totalCount };
+  };
+
+  const checkSection = (sectionKey: checklist.Section, checked: boolean) => {
+    if (!list) return;
+    list[sectionKey]
+      .filter((i) => i !== null)
+      .forEach(([itemKey]) => setValue(`items.${itemKey}`, checked, { shouldDirty: true }));
+  };
 
   return (
     <InspectionScreen
@@ -51,7 +68,8 @@ function InspectionScreenWrapper({
       target={mockTarget}
       roomType={roomType}
       register={register}
-      getSectionProgress={() => ({ totalCount: 3, completedCount: 0, isCompleted: false })}
+      getSectionProgress={getSectionProgress}
+      checkSection={checkSection}
       isAllChecked={false}
       isNoneChecked={isNoneChecked}
       onNoShowRequest={async () => '010-1234-5678'}
@@ -71,6 +89,7 @@ function InspectionScreenLoadingWrapper() {
       roomType={undefined}
       register={register}
       getSectionProgress={() => ({ totalCount: 0, completedCount: 0, isCompleted: false })}
+      checkSection={() => {}}
       isAllChecked={false}
       isNoneChecked={false}
       onNoShowRequest={async () => '010-1234-5678'}

@@ -5,8 +5,16 @@ import { InspectionScreen } from '../screens';
 
 export function InspectionFrame() {
   const { uuid } = useParams({ from: '/_auth-required/_user/inspector/$uuid/' });
-  const { form, getSectionProgress, isAllChecked, isNoneChecked, target, isLoading, roomType } =
-    useInspectionChecklistContext();
+  const {
+    form,
+    getSectionProgress,
+    checkSection,
+    isAllChecked,
+    isNoneChecked,
+    target,
+    isLoading,
+    roomType,
+  } = useInspectionChecklistContext();
   const { recordNoShow } = useRecordNoShow();
   const navigate = useNavigate();
 
@@ -17,6 +25,7 @@ export function InspectionFrame() {
       roomType={roomType}
       register={form.register}
       getSectionProgress={getSectionProgress}
+      checkSection={checkSection}
       isAllChecked={isAllChecked}
       isNoneChecked={isNoneChecked}
       onNoShowRequest={async () => {
