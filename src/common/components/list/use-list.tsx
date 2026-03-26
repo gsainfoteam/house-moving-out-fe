@@ -63,7 +63,13 @@ export function useList<T>(items: T[]) {
       Present: ({ children }: PropsWithChildren) => (!isEmpty ? <>{children}</> : null),
       Builder: ({ children, className }: BuilderProps) => {
         if (isEmpty) return null;
-        return <ul className={cn('flex flex-col', className)}>{items.map(children)}</ul>;
+        return (
+          <ul className={cn('flex flex-col', className)}>
+            {items.map((item, index) => (
+              <li key={index}>{children(item, index)}</li>
+            ))}
+          </ul>
+        );
       },
     }),
     [items, isEmpty],

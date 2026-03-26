@@ -25,7 +25,7 @@ export function ScheduleListFrame() {
         />
         <list.Builder className="gap-4">
           {(schedule) => (
-            <Link key={schedule.uuid} to="/admin/schedules/$uuid" params={{ uuid: schedule.uuid }}>
+            <Link to="/admin/schedules/$uuid" params={{ uuid: schedule.uuid }}>
               <ScheduleCard schedule={schedule} />
             </Link>
           )}

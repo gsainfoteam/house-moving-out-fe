@@ -83,7 +83,6 @@ export function ArticleListScreen({
             <list.Builder className="flex w-full flex-col gap-3">
               {(article) => (
                 <Link
-                  key={article.uuid}
                   to="/articles/$uuid"
                   params={{ uuid: article.uuid }}
                   className="w-full"

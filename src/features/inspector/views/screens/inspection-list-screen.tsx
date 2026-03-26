@@ -31,7 +31,6 @@ export function InspectionListScreen({ targets, isLoading }: InspectionListScree
           <list.Builder className="flex w-full flex-col gap-3">
             {(target) => (
               <Link
-                key={target.uuid}
                 to="/inspector/$uuid"
                 params={{ uuid: target.uuid }}
                 className="w-full"

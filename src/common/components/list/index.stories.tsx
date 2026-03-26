@@ -35,9 +35,9 @@ function ListPreview({ items }: { items: Item[] }) {
 
             <list.Builder className="flex w-full flex-col gap-2">
               {(item) => (
-                <li key={item.id} className="border-border rounded-lg border px-3 py-2">
+                <div className="border-border rounded-lg border px-3 py-2">
                   <span className="text-body text-text-primary">{item.label}</span>
-                </li>
+                </div>
               )}
             </list.Builder>
           </list.Root>
