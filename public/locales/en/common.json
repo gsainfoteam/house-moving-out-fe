@@ -18,10 +18,6 @@
   "header": {
     "menu": "Menu",
     "mypage": "My Page",
-    "subtitle": {
-      "noRoom": "Student ID: {{studentId}}",
-      "room": "Student ID: {{studentId}} | {{room}}"
-    },
     "title": "Move-out Inspection"
   },
   "inquiryDrawer": {
