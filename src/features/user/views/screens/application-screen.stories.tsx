@@ -148,6 +148,20 @@ export const DateAndSlotSelected: Story = {
   },
 };
 
+export const Empty: Story = {
+  args: {
+    isLoading: false,
+    inspectionDays: [],
+    inspectionDayTimestamp: null,
+    selectedDaySlots: [],
+    selectedSlotUuid: null,
+    onDayChange: () => {},
+    onSlotChange: () => {},
+    isSubmitDisabled: true,
+    onSubmit: async () => {},
+  },
+};
+
 export const Loading: Story = {
   args: {
     isLoading: true,
