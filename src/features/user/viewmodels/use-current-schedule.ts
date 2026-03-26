@@ -16,7 +16,8 @@ type Status =
   | 'waiting'
   | 'in_progress'
   | 'failed'
-  | 'passed';
+  | 'passed'
+  | 'no_show';
 
 export const useCurrentSchedule = () => {
   const { user } = useAuth();
@@ -44,12 +45,17 @@ export const useCurrentSchedule = () => {
     onFoundInProgress: useCallback(() => setStatus('in_progress'), []),
     onFailed: useCallback(() => setStatus('failed'), []),
     onPassed: useCallback(() => setStatus('passed'), []),
+    onNoShow: useCallback(() => setStatus('no_show'), []),
   });
 
   const { mutateAsync: cancelInspection } = useCancelInspection();
 
   return {
-    status: user?.applyCleaningService ? 'cleaning_service' : status,
+    status: user?.applyCleaningService
+      ? 'cleaning_service'
+      : user?.roomNumber
+        ? status
+        : 'not_target',
     isLoadingSchedule,
     applicationStartTime,
     isLoadingInspection,

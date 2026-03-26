@@ -22,7 +22,8 @@ export type MainScreenStatus =
   | 'waiting'
   | 'in_progress'
   | 'failed'
-  | 'passed';
+  | 'passed'
+  | 'no_show';
 
 function StatusSteps({
   activeStepIndex,
@@ -275,7 +276,7 @@ function FailedCard({
   failedItems,
 }: {
   inspectionCount: number;
-  failedItems: checklist.Item[];
+  failedItems?: checklist.Item[];
 }) {
   const { t } = useTranslation('user');
   const remainCount = 3 - inspectionCount;
@@ -293,27 +294,36 @@ function FailedCard({
               {isRetryable ? t('steps.failed.title') : t('steps.final_failed.title')}
             </LayoutCard.Title>
             <LayoutCard.Description>
-              {isRetryable ? t('steps.failed.description') : t('steps.final_failed.description')}
+              {failedItems
+                ? isRetryable
+                  ? t('steps.failed.description')
+                  : t('steps.final_failed.description')
+                : t('steps.failed.no_show')}
             </LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
-        <LayoutCard.Body>
-          <Accordion.Root>
-            <Accordion.Header>
-              <Accordion.Title>{t('steps.failed.accordionTitle')}</Accordion.Title>
-            </Accordion.Header>
-            <Accordion.Content>
-              <ul className="flex flex-col gap-2">
-                {failedItems.map((reason) => (
-                  <li key={reason} className="text-body text-text-primary flex items-center gap-2">
-                    <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
-                    <span>{t(reason, { ns: 'checklist' })}</span>
-                  </li>
-                ))}
-              </ul>
-            </Accordion.Content>
-          </Accordion.Root>
-        </LayoutCard.Body>
+        {failedItems && (
+          <LayoutCard.Body>
+            <Accordion.Root>
+              <Accordion.Header>
+                <Accordion.Title>{t('steps.failed.accordionTitle')}</Accordion.Title>
+              </Accordion.Header>
+              <Accordion.Content>
+                <ul className="flex flex-col gap-2">
+                  {failedItems.map((reason) => (
+                    <li
+                      key={reason}
+                      className="text-body text-text-primary flex items-center gap-2"
+                    >
+                      <span className="bg-status-fail size-1.5 shrink-0 rounded-full" />
+                      <span>{t(reason, { ns: 'checklist' })}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Accordion.Content>
+            </Accordion.Root>
+          </LayoutCard.Body>
+        )}
       </LayoutCard.Center>
 
       {remainCount > 0 && (
@@ -406,6 +416,7 @@ export function MainScreen({
               <FailedCard inspectionCount={inspectionCount} failedItems={failedItems} />
             ) : null,
           passed: <PassedCard />,
+          no_show: isNotNil(inspectionCount) && <FailedCard inspectionCount={inspectionCount} />,
         }}
       />
     </LayoutCard.Root>
