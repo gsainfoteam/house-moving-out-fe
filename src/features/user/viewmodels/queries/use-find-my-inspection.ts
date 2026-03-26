@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { $api, type checklist } from '@/common/lib';
 
 import { ApiPaths, ApplicationStatus } from '../../models';
+import { useNow } from '../../utils';
 
 export const useFindMyInspection = (enabled: boolean) => {
   const { t } = useTranslation('user');
@@ -23,6 +24,7 @@ export const useFindMyInspection = (enabled: boolean) => {
       },
     },
   );
+  const now = useNow();
 
   useEffect(() => {
     if (isError) {
@@ -68,7 +70,6 @@ export const useFindMyInspection = (enabled: boolean) => {
       } else if (isNil(data.status)) {
         const startTime = dayjs(data.inspectionSlot.startTime);
         const endTime = dayjs(data.inspectionSlot.endTime);
-        const now = dayjs();
 
         if (now.isAfter(startTime) && now.isBefore(endTime)) {
           return 'in_progress' as const;
@@ -81,7 +82,7 @@ export const useFindMyInspection = (enabled: boolean) => {
         return 'not_found' as const;
       }
     }
-  }, [data, error, isError, isSuccess]);
+  }, [data, error, isError, isSuccess, now]);
 
   return {
     applicationUuid,

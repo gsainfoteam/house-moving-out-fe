@@ -9,6 +9,7 @@ import { $api } from '@/common/lib';
 import { useAuth } from '@/features/auth';
 
 import { ApiPaths } from '../../models';
+import { useNow } from '../../utils';
 
 export const useFindActiveMoveOutScheduleWithSlots = () => {
   const { user } = useAuth();
@@ -26,6 +27,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
       enabled: !!user,
     },
   );
+  const now = useNow();
 
   useEffect(() => {
     if (isError) {
@@ -63,12 +65,12 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     if (isSuccess) {
       const applicationStartTime = dayjs(data?.applicationStartTime);
       const applicationEndTime = dayjs(data?.applicationEndTime);
-      if (!(dayjs().isAfter(applicationStartTime) && dayjs().isBefore(applicationEndTime))) {
+      if (!(now.isAfter(applicationStartTime) && now.isBefore(applicationEndTime))) {
         return 'not_period' as const;
       }
       return 'success' as const;
     }
-  }, [data?.applicationEndTime, data?.applicationStartTime, isSuccess]);
+  }, [data?.applicationEndTime, data?.applicationStartTime, isSuccess, now]);
 
   const applicationStartTime = useMemo(
     () => (data?.applicationStartTime ? dayjs(data?.applicationStartTime) : undefined),
