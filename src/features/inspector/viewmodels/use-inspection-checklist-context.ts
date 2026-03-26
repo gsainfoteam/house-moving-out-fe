@@ -52,9 +52,22 @@ export const useInspectionChecklistContext = () => {
     return listValues.every((i) => !values[i]);
   }, [values, list]);
 
+  const checkSection = useCallback(
+    (sectionKey: checklist.Section, checked: boolean) => {
+      if (!list) return;
+      list[sectionKey]
+        .filter((i) => i !== null)
+        .forEach(([itemKey, _]) => {
+          form.setValue(`items.${itemKey}`, checked, { shouldDirty: true });
+        });
+    },
+    [list, form],
+  );
+
   return {
     form,
     getSectionProgress,
+    checkSection,
     isAllChecked,
     isNoneChecked,
     items: values,

@@ -89,6 +89,7 @@ export function InspectionScreen({
   roomType,
   register,
   getSectionProgress,
+  checkSection,
   isAllChecked,
   isNoneChecked,
   onNoShowRequest,
@@ -161,6 +162,12 @@ export function InspectionScreen({
                 >
                   ({completedCount}/{totalCount})
                 </span>
+                <span role="presentation" onClick={(e) => e.stopPropagation()}>
+                  <Checkbox
+                    checked={isCompleted}
+                    onChange={(e) => checkSection(sectionKey, e.target.checked)}
+                  />
+                </span>
               </Accordion.Header>
               <Accordion.Content className="p-2 py-1.5">
                 <ul className="text-body text-text-primary flex flex-col">
@@ -230,6 +237,7 @@ export namespace InspectionScreen {
       completedCount: number;
       isCompleted: boolean;
     };
+    checkSection: (section: checklist.Section, checked: boolean) => void;
     isAllChecked: boolean;
     isNoneChecked: boolean;
     onNoShowRequest: () => Promise<string | undefined>;
