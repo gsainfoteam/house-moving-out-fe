@@ -1,15 +1,27 @@
+import { useState } from 'react';
+
 import dayjs from 'dayjs';
+
+import { Layout } from '@/common/components';
 
 import { ApplicationScreen } from './application-screen';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { TimeSelect } from '../components';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof ApplicationScreen> = {
   title: 'User/ApplicationScreen',
   component: ApplicationScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
 };
 
@@ -19,7 +31,7 @@ type Story = StoryObj<typeof ApplicationScreen>;
 const today = dayjs().startOf('day');
 const mockDays = [today, today.add(1, 'day'), today.add(2, 'day'), today.add(3, 'day')];
 
-const mockSlots = [
+const mockSlots: TimeSelect.Slot[] = [
   {
     uuid: 'slot-1',
     startTime: today.hour(9).minute(0),
@@ -147,5 +159,29 @@ export const Loading: Story = {
     onSlotChange: () => {},
     isSubmitDisabled: true,
     onSubmit: async () => {},
+  },
+};
+
+export const Interactive: Story = {
+  render: () => {
+    const [day, setDay] = useState<number | null>(null);
+    const [slotUuid, setSlotUuid] = useState<string | null>(null);
+
+    return (
+      <ApplicationScreen
+        isLoading={false}
+        inspectionDays={mockDays}
+        inspectionDayTimestamp={day}
+        selectedDaySlots={day !== null ? mockSlots : []}
+        selectedSlotUuid={slotUuid}
+        onDayChange={(d) => {
+          setDay(d.valueOf());
+          setSlotUuid(null);
+        }}
+        onSlotChange={(s) => setSlotUuid(s.uuid)}
+        isSubmitDisabled={slotUuid === null}
+        onSubmit={async () => {}}
+      />
+    );
   },
 };

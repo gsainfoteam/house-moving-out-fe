@@ -1,16 +1,25 @@
 import dayjs from 'dayjs';
 
+import { Layout } from '@/common/components';
+
 import { InspectionListScreen } from './inspection-list-screen';
 import { ApplicationStatus } from '../../viewmodels';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof InspectionListScreen> = {
   title: 'Inspector/InspectionListScreen',
   component: InspectionListScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
 };
 
@@ -50,9 +59,24 @@ const mockTargets: InspectionListScreen.Target[] = [
   },
 ];
 
+const manyTargets: InspectionListScreen.Target[] = Array.from({ length: 20 }, (_, i) => ({
+  uuid: `target-${i + 1}`,
+  inspectionTime: baseTime.add(i * 30, 'minute').toISOString(),
+  roomNumber: `T0${String(i + 1).padStart(2, '0')}호`,
+  residents: [{ name: `거주자 ${i + 1}` }],
+  status: i % 4 === 0 ? ApplicationStatus.PASSED : i % 4 === 1 ? ApplicationStatus.FAILED : null,
+}));
+
 export const WithTargets: Story = {
   args: {
     targets: mockTargets,
+    isLoading: false,
+  },
+};
+
+export const ManyTargets: Story = {
+  args: {
+    targets: manyTargets,
     isLoading: false,
   },
 };
