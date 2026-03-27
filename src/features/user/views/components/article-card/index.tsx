@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { IconBellFilled, IconMessageFilled, IconChevronRight } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 
-import { useLocale } from '@/common/lib';
 import { cn } from '@/common/utils';
+import { useLanguage } from '@/common/viewmodels';
 import { ArticleType, type Article } from '@/features/user';
 
 export function ArticleCard({ article, className, ...props }: ArticleCard.Props) {
-  const locale = useLocale();
+  const { currentLanguage: locale } = useLanguage();
   const title = useMemo(() => {
     return locale === 'ko' ? article.titleKo : article.titleEn;
   }, [article, locale]);

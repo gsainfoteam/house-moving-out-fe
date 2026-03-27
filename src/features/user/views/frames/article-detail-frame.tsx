@@ -4,7 +4,7 @@ import { useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 
-import { useLocale } from '@/common/lib';
+import { useLanguage } from '@/common/viewmodels';
 
 import { useFindArticleByUuid } from '../../viewmodels';
 import { ArticleDetailScreen } from '../screens';
@@ -14,7 +14,7 @@ export function ArticleDetailFrame() {
 
   const { article, isLoading, isNotFound } = useFindArticleByUuid(uuid);
 
-  const locale = useLocale();
+  const { currentLanguage: locale } = useLanguage();
   const title = useMemo(() => {
     return locale === 'ko' ? article?.titleKo : article?.titleEn;
   }, [article, locale]);
