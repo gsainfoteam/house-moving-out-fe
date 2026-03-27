@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactNode } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
@@ -9,15 +9,13 @@ import { cn } from '@/common/utils';
 
 import { Button } from '../ui/button';
 
-import type { LayoutCard } from '../layout-card';
-
 export function Layout({ className, onMenuOpen, children }: Layout.Props) {
   const { t } = useTranslation('common');
 
   return (
     <div className={cn('bg-bg-surface h-dvh px-5 py-6', className)}>
       <div className="mx-auto flex h-full min-h-0 w-full max-w-100 flex-col gap-5">
-        <div className="flex items-center justify-between">
+        <div className="no-transition flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img src="/house-full-logo.png" alt={t('header.title')} className="h-8" />
             {/* <span className="text-text-primary text-display font-bold">{t('header.title')}</span> */}
@@ -50,6 +48,6 @@ export namespace Layout {
   export type Props = {
     className?: string;
     onMenuOpen?: () => void;
-    children: ReactElement<LayoutCard.Root.Props>;
+    children: ReactNode;
   };
 }

@@ -120,3 +120,102 @@ p {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+/* View Transitions */
+
+.no-transition {
+  view-transition-name: none;
+}
+
+.vt-layout-card {
+  view-transition-name: layout-card;
+}
+
+:root {
+  --anim-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --anim-medium: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --anim-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html:active-view-transition-type(forwards),
+html:active-view-transition-type(backwards) {
+  &::view-transition-old(root),
+  &::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* forwards */
+html:active-view-transition-type(forwards) {
+  &::view-transition-old(layout-card) {
+    animation: slide-out-to-left var(--anim-medium) both;
+  }
+  &::view-transition-new(layout-card) {
+    animation: slide-in-from-right var(--anim-medium) both;
+  }
+}
+
+/* backwards */
+html:active-view-transition-type(backwards) {
+  &::view-transition-old(layout-card) {
+    animation: slide-out-to-right var(--anim-medium) both;
+  }
+  &::view-transition-new(layout-card) {
+    animation: slide-in-from-left var(--anim-medium) both;
+  }
+}
+
+/* reload */
+html:active-view-transition-type(reload) {
+  &::view-transition-old(root) {
+    animation:
+      fade-out var(--anim-fast) both,
+      scale-down var(--anim-fast) both;
+  }
+  &::view-transition-new(root) {
+    animation:
+      fade-in var(--anim-fast) both 0.25s,
+      scale-up var(--anim-fast) both 0.25s;
+  }
+}
+
+@keyframes slide-out-to-left {
+  to {
+    transform: translateX(-100vw);
+  }
+}
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(100vw);
+  }
+}
+@keyframes slide-out-to-right {
+  to {
+    transform: translateX(100vw);
+  }
+}
+@keyframes slide-in-from-left {
+  from {
+    transform: translateX(-100vw);
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes scale-down {
+  to {
+    scale: 0.95;
+  }
+}
+@keyframes scale-up {
+  from {
+    scale: 0.95;
+  }
+}

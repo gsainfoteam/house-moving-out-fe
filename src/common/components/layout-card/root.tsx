@@ -15,7 +15,7 @@ export const Root = ({ children, isLoading, className, asChild }: Root.Props) =>
   return (
     <Comp
       className={cn(
-        'bg-bg border-border flex h-full min-h-0 flex-col gap-5 overflow-y-auto rounded-2xl border p-5 shadow-xs',
+        'vt-layout-card bg-bg border-border flex h-full min-h-0 flex-col gap-5 overflow-y-auto rounded-2xl border p-5 shadow-xs',
         className,
       )}
     >
