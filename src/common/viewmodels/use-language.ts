@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import type { Language } from '@/common/lib/i18n';
-import { SUPPORTED_LANGUAGES } from '@/common/lib/i18n';
+import { SUPPORTED_LANGUAGES, type Language } from '@/common/lib/languages';
 
 export const useLanguage = () => {
   const { i18n: i18nInstance } = useTranslation();

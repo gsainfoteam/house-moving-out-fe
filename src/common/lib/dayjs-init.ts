@@ -2,7 +2,9 @@ import dayjs from 'dayjs';
 import ko from 'dayjs/locale/ko';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-import { i18n, type Language } from './i18n';
+import { i18n } from './i18n';
+
+import type { Language } from './languages';
 
 dayjs.locale(ko);
 dayjs.extend(localizedFormat);
