@@ -17,13 +17,14 @@ export function ArticleDetailScreen({
   return (
     <LayoutCard.Root isLoading={isLoading}>
       <LayoutCard.Header>
-        <div
+        <button
+          type="button"
           className="text-body text-text-secondary inline-flex items-center gap-1"
           onClick={() => router.history.back()}
         >
           <IconChevronLeft className="text-icon size-4" />
           <span>{t('detail.back')}</span>
-        </div>
+        </button>
         <LayoutCard.Text>
           <LayoutCard.Title>{title}</LayoutCard.Title>
           <LayoutCard.Description>{updatedAt}</LayoutCard.Description>
