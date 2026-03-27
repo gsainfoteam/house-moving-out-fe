@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement } from 'react';
 
 import { Link } from '@tanstack/react-router';
 
@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { cn } from '@/common/utils';
 
 import { Button } from '../ui/button';
+
+import type { LayoutCard } from '../layout-card';
 
 export function Layout({ className, onMenuOpen, children }: Layout.Props) {
   const { t } = useTranslation('common');
@@ -48,6 +50,6 @@ export namespace Layout {
   export type Props = {
     className?: string;
     onMenuOpen?: () => void;
-    children: ReactNode;
+    children: ReactElement<LayoutCard.Root.Props>;
   };
 }
