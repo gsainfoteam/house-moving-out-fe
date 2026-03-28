@@ -16,6 +16,17 @@ export const queryClient = new QueryClient();
 export const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
+  defaultViewTransition: {
+    types: ({ fromLocation, toLocation, hrefChanged }) => {
+      if (!fromLocation || !hrefChanged) return ['reload'];
+      if (fromLocation.pathname === toLocation.pathname) return ['reload'];
+
+      const fromIndex = fromLocation.state.__TSR_index;
+      const toIndex = toLocation.state.__TSR_index;
+
+      return [fromIndex > toIndex ? 'backwards' : 'forwards'];
+    },
+  },
   context: {
     queryClient,
   },

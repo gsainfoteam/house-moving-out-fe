@@ -17,11 +17,11 @@ export function Layout({ className, onMenuOpen, children }: Layout.Props) {
   return (
     <div className={cn('bg-bg-surface h-dvh px-5 py-6', className)}>
       <div className="mx-auto flex h-full min-h-0 w-full max-w-100 flex-col gap-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="no-transition flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2">
             <img src="/house-full-logo.png" alt={t('header.title')} className="h-8" />
             {/* <span className="text-text-primary text-display font-bold">{t('header.title')}</span> */}
-          </div>
+          </Link>
           <div className="flex items-center gap-2">
             {onMenuOpen && (
               <Button

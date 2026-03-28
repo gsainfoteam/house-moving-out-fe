@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
@@ -12,17 +12,19 @@ export function ArticleDetailScreen({
   isLoading,
 }: ArticleDetailScreen.Props) {
   const { t } = useTranslation('user');
+  const router = useRouter();
 
   return (
     <LayoutCard.Root isLoading={isLoading}>
       <LayoutCard.Header>
-        <Link
-          to="/articles"
+        <button
+          type="button"
           className="text-body text-text-secondary inline-flex items-center gap-1"
+          onClick={() => router.history.back()}
         >
           <IconChevronLeft className="text-icon size-4" />
           <span>{t('detail.back')}</span>
-        </Link>
+        </button>
         <LayoutCard.Text>
           <LayoutCard.Title>{title}</LayoutCard.Title>
           <LayoutCard.Description>{updatedAt}</LayoutCard.Description>
