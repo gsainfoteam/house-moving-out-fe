@@ -83,13 +83,15 @@ const DrawerContent = () => {
       </Drawer.Header>
       <Drawer.Body>
         {isAdmin && (
-          <Link
-            to="/admin"
-            className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
-          >
-            <ArrowRightLeft size={20} className="text-icon" />
-            {t('fab.toAdmin')}
-          </Link>
+          <Drawer.Close asChild>
+            <Link
+              to="/admin"
+              className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
+            >
+              <ArrowRightLeft size={20} className="text-icon" />
+              {t('fab.toAdmin')}
+            </Link>
+          </Drawer.Close>
         )}
         {isInspector && (
           <Drawer.Close asChild>
@@ -105,7 +107,7 @@ const DrawerContent = () => {
         )}
         <Drawer.Close asChild>
           <Link
-            to={isInspectorSubtree ? '/' : '/inspector'}
+            to={isArticlesRoute ? '/articles' : '/'}
             className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
           >
             {isArticlesRoute ? (
@@ -119,9 +121,7 @@ const DrawerContent = () => {
         <button
           type="button"
           className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
-          onClick={() => {
-            overlay.open(() => <InquiryDrawer />);
-          }}
+          onClick={() => overlay.open(() => <InquiryDrawer />)}
         >
           <MessageCircle size={20} className="text-icon" />
           {t('fab.inquiry')}
