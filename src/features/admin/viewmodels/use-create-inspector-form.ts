@@ -18,7 +18,7 @@ const schema = z.object({
   availableSlotUuids: z.uuid().array(),
 });
 
-export const useCreateInspectorForm = () => {
+export const useCreateInspectorForm = (scheduleUuid: string) => {
   const { register, handleSubmit, formState, setValue, getValues, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -31,7 +31,10 @@ export const useCreateInspectorForm = () => {
 
   const onSubmit = handleSubmit(
     async (data) => {
-      await createInspector({ body: { inspectors: [data] } });
+      await createInspector({
+        params: { query: { scheduleUuid } },
+        body: { inspectors: [data] },
+      });
       toast.success(t('inspectors.create.succeed'));
       await navigate({
         to: '/admin/schedules/$uuid/inspectors',
