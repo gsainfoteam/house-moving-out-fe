@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { RouterProvider } from '@tanstack/react-router';
+import { RouterProvider, useLocation } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 import { AuthProvider, type TAuthConfig } from 'react-oauth2-code-pkce';
@@ -34,10 +34,19 @@ const createAuthConfig = (recentLogout: boolean): TAuthConfig => ({
 });
 
 function InnerWrap({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
   return (
     <>
       <OverlayHost />
       {children}
+      {import.meta.env.DEV && (
+        <TanStackRouterDevtools
+          router={router}
+          key={isAdmin ? 'bottom-right' : 'top-left'}
+          position={isAdmin ? 'bottom-right' : 'top-left'}
+        />
+      )}
     </>
   );
 }
@@ -52,7 +61,6 @@ export function App() {
         <OverlayProvider>
           <Toaster />
           <RouterProvider router={router} InnerWrap={InnerWrap} />
-          {import.meta.env.DEV && <TanStackRouterDevtools router={router} position="top-left" />}
         </OverlayProvider>
       </QueryClientProvider>
     </AuthProvider>
