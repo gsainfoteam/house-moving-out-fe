@@ -23,7 +23,7 @@ import { Route as InspectorRoute } from '@/routes/_auth-required/_user/inspector
 export function UserLayoutFrame() {
   const { t } = useTranslation('common');
   const { toggleLanguage } = useLanguage();
-  const { isInspector } = useAuth();
+  const { isInspector, isAdmin } = useAuth();
 
   const navigate = useNavigate();
   const { matches } = useRouterState();
@@ -42,6 +42,19 @@ export function UserLayoutFrame() {
           <Drawer.Title>{t('menu.title')}</Drawer.Title>
         </Drawer.Header>
         <Drawer.Body>
+          {isAdmin && (
+            <button
+              type="button"
+              className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
+              onClick={() => {
+                close();
+                navigate({ to: '/admin' });
+              }}
+            >
+              <ArrowRightLeft size={20} className="text-icon" />
+              {t('fab.toAdmin')}
+            </button>
+          )}
           {isInspector && (
             <button
               type="button"

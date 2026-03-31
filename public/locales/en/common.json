@@ -12,6 +12,7 @@
     "inquiry": "Inquiry",
     "languageChange": "Language",
     "logout": "Logout",
+    "toAdmin": "Admin Page",
     "toInspectorMode": "To inspector mode",
     "toUserMode": "To resident mode"
   },
