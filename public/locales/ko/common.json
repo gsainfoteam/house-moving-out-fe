@@ -12,6 +12,7 @@
     "inquiry": "문의하기",
     "languageChange": "언어변경",
     "logout": "로그아웃",
+    "toAdmin": "관리자 페이지로",
     "toInspectorMode": "검사자 모드로",
     "toUserMode": "피검사자 모드로"
   },
