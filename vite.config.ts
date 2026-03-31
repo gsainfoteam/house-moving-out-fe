@@ -28,9 +28,9 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.png', 'favicon.ico', 'pwa/*.png'],
         manifest: {
-          name: 'House Moving Out',
-          short_name: 'House',
-          description: 'House Moving Out',
+          name: '하우스연합회 퇴사검사',
+          short_name: '퇴사검사',
+          description: '하우스연합회 퇴사검사',
           theme_color: '#ffffff',
           background_color: '#ffffff',
           display: 'standalone',
