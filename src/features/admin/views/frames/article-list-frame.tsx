@@ -7,12 +7,18 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Loading } from '@/common/components';
 
-import { ArticleType, useChangeArticleVisibility, useFindArticles } from '../../viewmodels';
+import {
+  ArticleType,
+  useChangeArticleVisibility,
+  useDeleteArticle,
+  useFindArticles,
+} from '../../viewmodels';
 
 export function ArticleListFrame() {
   const { t } = useTranslation('admin');
   const [type, setType] = useState<ArticleType>(ArticleType.NOTICE);
-  const { mutate: changeVisibility, isPending } = useChangeArticleVisibility();
+  const { mutate: changeVisibility, isPending: isChangingVisibility } = useChangeArticleVisibility();
+  const { mutate: deleteArticle, isPending: isDeletingArticle } = useDeleteArticle();
   const { data: notices, isLoading: isNoticesLoading } = useFindArticles({
     type: ArticleType.NOTICE,
     offset: 0,
@@ -87,7 +93,7 @@ export function ArticleListFrame() {
                       </Button>
                       <Button
                         variant="outline"
-                        disabled={isPending}
+                        disabled={isChangingVisibility || isDeletingArticle}
                         onClick={() =>
                           changeVisibility({
                             params: { path: { uuid: article.uuid } },
@@ -98,6 +104,18 @@ export function ArticleListFrame() {
                         {article.isVisible
                           ? t('article.list.actions.hide')
                           : t('article.list.actions.show')}
+                      </Button>
+                      <Button
+                        variant="failed"
+                        disabled={isChangingVisibility || isDeletingArticle}
+                        onClick={() => {
+                          if (!window.confirm(t('article.list.actions.deleteConfirm'))) return;
+                          deleteArticle({
+                            params: { path: { uuid: article.uuid } },
+                          });
+                        }}
+                      >
+                        {t('article.list.actions.delete')}
                       </Button>
                     </div>
                   </td>

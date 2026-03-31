@@ -54,7 +54,7 @@ export function EditArticleFrame() {
     await navigate({ to: '/admin/articles' });
   };
 
-  if (isLoading) return <Loading containerClassName="h-full" />;
+  if (isLoading) return <Loading containerClassName="h-full w-full" />;
   if (isNotFound || !data) return <div className="p-4">{t('article.edit.notFound')}</div>;
 
   return (
