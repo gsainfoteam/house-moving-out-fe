@@ -18,7 +18,7 @@ export function CreateInspectorFrame() {
   const { t } = useTranslation('admin');
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/inspectors/new' });
   const { register, onSubmit, isSubmitting, setGender, gender, errors, toggleSlot, slots } =
-    useCreateInspectorForm();
+    useCreateInspectorForm(uuid);
   const { data: inspectors, isNotFound: isInspectorsNotFound } = useInspectorsOfSchedule(uuid);
   const { data: schedule, isNotFound: isScheduleNotFound } = useGetMoveOutScheduleQuery(uuid);
 

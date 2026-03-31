@@ -86,7 +86,12 @@ export function InspectorsListFrame() {
                       className="bg-red-600"
                       onClick={() =>
                         // TODO: add confirm modal after HMF-36
-                        deleteInspector({ params: { path: { id: i.uuid } } })
+                        deleteInspector({
+                          params: {
+                            query: { scheduleUuid: uuid },
+                            path: { uuid: i.uuid },
+                          },
+                        })
                       }
                     >
                       <Trash />
