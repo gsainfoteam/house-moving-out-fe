@@ -1,12 +1,10 @@
 import dayjs from 'dayjs';
-import ko from 'dayjs/locale/ko';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import { i18n } from './i18n';
 
 import type { Language } from './languages';
 
-dayjs.locale(ko);
 dayjs.extend(localizedFormat);
 
 const loaderMap: Record<Language, () => Promise<ILocale>> = {
@@ -14,7 +12,7 @@ const loaderMap: Record<Language, () => Promise<ILocale>> = {
   en: () => import('dayjs/locale/en'),
 };
 
-i18n.on('languageChanged', async (lng: Language) => {
+const handleChangeLanguage = async (lng: Language) => {
   try {
     const prevLocale = dayjs.locale();
     dayjs.locale(lng);
@@ -26,6 +24,9 @@ i18n.on('languageChanged', async (lng: Language) => {
       i18n.changeLanguage(lng);
     }
   } catch {
-    dayjs.locale(ko);
+    dayjs.locale(await import('dayjs/locale/ko'));
   }
-});
+};
+
+i18n.on('languageChanged', handleChangeLanguage);
+handleChangeLanguage(i18n.language as Language);
