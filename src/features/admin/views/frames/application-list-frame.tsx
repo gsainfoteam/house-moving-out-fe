@@ -64,9 +64,13 @@ export function ApplicationListFrame() {
                 <td>
                   {isNil(a.status)
                     ? '-'
-                    : a.status === ApplicationStatus.PASSED
-                      ? t(`result.passed`)
-                      : t(`result.failed`)}
+                    : // t('result.passed')
+                      // t('result.failed')
+                      // t('result.no_show')
+                      // t('result.no_show_canceled')
+                      // t('result.canceled')
+                      // t('result.pending_no_show')
+                      t(`result.${a.status.toLowerCase()}`)}
                 </td>
                 <td>
                   {a.additionalComment && (

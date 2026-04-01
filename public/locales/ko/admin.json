@@ -145,8 +145,12 @@
     }
   },
   "result": {
+    "canceled": "취소",
     "failed": "불통",
-    "passed": "통과"
+    "no_show": "노쇼",
+    "no_show_canceled": "취소(노쇼)",
+    "passed": "통과",
+    "pending_no_show": "노쇼 확인중"
   },
   "room": {
     "list": "방 목록"

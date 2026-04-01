@@ -146,8 +146,12 @@
     }
   },
   "result": {
+    "canceled": "Canceled",
     "failed": "Failed",
-    "passed": "Passed"
+    "no_show": "No Show",
+    "no_show_canceled": "Canceled (No Show)",
+    "passed": "Passed",
+    "pending_no_show": "Pending No Show"
   },
   "room": {
     "list": "Room List"

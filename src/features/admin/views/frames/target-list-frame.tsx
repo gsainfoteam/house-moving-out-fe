@@ -10,12 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Loading } from '@/common/components';
 import { cn } from '@/common/utils';
 
-import {
-  ApplicationStatus,
-  InspectionType,
-  useManageCleaningService,
-  useTargets,
-} from '../../viewmodels';
+import { InspectionType, useManageCleaningService, useTargets } from '../../viewmodels';
 
 export function TargetListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/targets' });
@@ -172,9 +167,7 @@ export function TargetListFrame() {
                       ? null
                       : isNil(target.status)
                         ? '-'
-                        : target.status === ApplicationStatus.PASSED
-                          ? t('result.passed')
-                          : t('result.failed')}
+                        : t(`result.${target.status.toLowerCase()}`)}
                   </td>
                   <td>
                     {empty || noTarget
