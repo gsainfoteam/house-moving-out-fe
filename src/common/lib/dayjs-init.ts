@@ -18,8 +18,10 @@ const handleChangeLanguage = async (lng: Language) => {
     dayjs.locale(lng);
     const loader = loaderMap[lng];
     if (!loader) throw new Error(`Unsupported language: ${lng}`);
-    const locale = await loader();
-    dayjs.locale(locale);
+    if (lng !== 'en') {
+      const locale = await loader();
+      dayjs.locale(locale);
+    }
     if (prevLocale !== lng) {
       i18n.changeLanguage(lng);
     }
