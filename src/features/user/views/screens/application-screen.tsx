@@ -41,7 +41,11 @@ function NoticeConsentDialog({ onConfirm }: { onConfirm: () => Promise<void> }) 
               )}
             >
               <label className="text-body text-text-primary flex cursor-pointer items-start gap-2 px-3 py-2.5 leading-normal">
-                <Checkbox {...register(String(index))} className="mt-0.5 shrink-0" />
+                <Checkbox
+                  {...register(String(index))}
+                  className="mt-0.5 shrink-0"
+                  defaultChecked={import.meta.env.DEV}
+                />
                 {item}
               </label>
             </li>
