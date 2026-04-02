@@ -42,12 +42,12 @@
     "notInspector": "검사자 계정으로만 접근할 수 있는 페이지입니다."
   },
   "inspector": {
-    "emptySchedule": "검사 일정이 없습니다.",
-    "emptyScheduleDescription": "새 검사 일정을 기다리고 있습니다."
+    "emptySchedule": "",
+    "emptyScheduleDescription": ""
   },
   "list": {
-    "description": "우측의 검사 버튼을 눌러 퇴사 검사를 시작해 주세요.",
-    "title": "퇴사검사 일정"
+    "description": "",
+    "title": ""
   },
   "note": {
     "commentPlaceholder": "추가 코멘트를 입력하세요.",
@@ -59,9 +59,11 @@
   },
   "schedule": {
     "status": {
+      "canceled": "취소",
       "draft": "예정",
       "failed": "불통",
       "no_show": "노쇼",
+      "no_show_canceled": "취소(노쇼)",
       "passed": "통과"
     }
   },

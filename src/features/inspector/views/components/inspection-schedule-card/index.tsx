@@ -49,6 +49,8 @@ export function InspectionScheduleCard({
         {/* t('schedule.status.passed') */}
         {/* t('schedule.status.failed') */}
         {/* t('schedule.status.no_show') */}
+        {/* t('schedule.status.canceled') */}
+        {/* t('schedule.status.no_show_canceled') */}
         {t(`schedule.status.${effectiveStatus}`)}
       </span>
     </div>
@@ -69,5 +71,7 @@ export namespace InspectionScheduleCard {
     passed: cn('bg-primary text-text-white'),
     failed: cn('bg-status-fail-light/80 text-status-fail'),
     no_show: cn('bg-status-fail-light/80 text-status-fail'),
+    canceled: cn('bg-status-fail-light/80 text-status-fail'),
+    no_show_canceled: cn('bg-status-fail-light/80 text-status-fail'),
   };
 }
