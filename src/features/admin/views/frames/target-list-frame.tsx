@@ -88,8 +88,6 @@ export function TargetListFrame() {
             {targets
               .filter((t) => t.inspectionType !== InspectionType.EMPTY)
               .map((target) => {
-                const empty = target.inspectionType === InspectionType.EMPTY;
-                const noTarget = target.residents.length === 0;
                 return (
                   <tr key={target.roomNumber}>
                     <td className={cn('[&&]:border-r-2')}>{target.roomNumber}</td>
@@ -111,72 +109,62 @@ export function TargetListFrame() {
                         : t('type.individual')}
                     </td>
                     <td>
-                      {empty || noTarget ? null : (
-                        <div className="flex items-center justify-center gap-2">
-                          {isEditable ? (
-                            <Checkbox
-                              className="scale-100"
-                              checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
-                              onChange={(event) => {
-                                handleCleaningServiceChange(
-                                  target.uuid,
-                                  event.target.checked,
-                                  target.applyCleaningService,
-                                );
-                              }}
-                              disabled={!isEditable || isSaving}
-                              aria-label={t('target.detail.cleaningService')}
-                            />
-                          ) : target.applyCleaningService ? (
-                            <Check
-                              className="text-primary size-5"
-                              aria-label={t('target.detail.cleaningService')}
-                            />
-                          ) : null}
-                        </div>
-                      )}
+                      <div className="flex items-center justify-center gap-2">
+                        {isEditable ? (
+                          <Checkbox
+                            className="scale-100"
+                            checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
+                            onChange={(event) => {
+                              handleCleaningServiceChange(
+                                target.uuid,
+                                event.target.checked,
+                                target.applyCleaningService,
+                              );
+                            }}
+                            disabled={!isEditable || isSaving}
+                            aria-label={t('target.detail.cleaningService')}
+                          />
+                        ) : target.applyCleaningService ? (
+                          <Check
+                            className="text-primary size-5"
+                            aria-label={t('target.detail.cleaningService')}
+                          />
+                        ) : null}
+                      </div>
                     </td>
                     <td>
-                      {empty || noTarget ? null : (
-                        <div className="flex items-center justify-center gap-2">
-                          {isEditable ? (
-                            <Checkbox
-                              className="scale-100"
-                              checked={isDraftRepair(target.uuid) ?? target.applyRepairCheck}
-                              onChange={(event) => {
-                                handleRepairChange(
-                                  target.uuid,
-                                  event.target.checked,
-                                  target.applyRepairCheck,
-                                );
-                              }}
-                              disabled={!isEditable || isSaving}
-                              aria-label={t('target.detail.repairAfterMoveOut')}
-                            />
-                          ) : target.applyRepairCheck ? (
-                            <Check
-                              className="text-primary size-5"
-                              aria-label={t('target.detail.repairAfterMoveOut')}
-                            />
-                          ) : null}
-                        </div>
-                      )}
+                      <div className="flex items-center justify-center gap-2">
+                        {isEditable ? (
+                          <Checkbox
+                            className="scale-100"
+                            checked={isDraftRepair(target.uuid) ?? target.applyRepairCheck}
+                            onChange={(event) => {
+                              handleRepairChange(
+                                target.uuid,
+                                event.target.checked,
+                                target.applyRepairCheck,
+                              );
+                            }}
+                            disabled={!isEditable || isSaving}
+                            aria-label={t('target.detail.repairAfterMoveOut')}
+                          />
+                        ) : target.applyRepairCheck ? (
+                          <Check
+                            className="text-primary size-5"
+                            aria-label={t('target.detail.repairAfterMoveOut')}
+                          />
+                        ) : null}
+                      </div>
                     </td>
                     <td>
-                      {empty || noTarget
-                        ? null
-                        : isNil(target.status)
-                          ? '-'
-                          : t(`result.${target.status.toLowerCase()}`)}
+                      {isNil(target.status) ? '-' : t(`result.${target.status.toLowerCase()}`)}
                     </td>
                     <td>
-                      {empty || noTarget
-                        ? null
-                        : target.lastInspectionTime
-                          ? dayjs(target.lastInspectionTime).format('YYYY-MM-DD HH:mm')
-                          : '-'}
+                      {target.lastInspectionTime
+                        ? dayjs(target.lastInspectionTime).format('YYYY-MM-DD HH:mm')
+                        : '-'}
                     </td>
-                    <td>{empty || noTarget ? null : target.inspectionCount}</td>
+                    <td>{target.inspectionCount}</td>
                   </tr>
                 );
               })}
