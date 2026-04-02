@@ -263,7 +263,6 @@
       "savingCleaningChanges": "저장 중..."
     },
     "detail": {
-      "admissionYear": "학번",
       "cleaningService": "위탁청소",
       "inspectionCount": "검사 횟수",
       "lastInspection": "마지막 검사일시",
@@ -272,6 +271,7 @@
       "repairAfterMoveOut": "퇴사 후 수리",
       "result": "결과",
       "roomNumber": "호실 번호",
+      "studentId": "학번",
       "type": "검사 종류",
       "unsavedCount": "변경 {{count}}건"
     },

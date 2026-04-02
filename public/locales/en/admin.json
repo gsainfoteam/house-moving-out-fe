@@ -264,7 +264,6 @@
       "savingCleaningChanges": "Saving..."
     },
     "detail": {
-      "admissionYear": "Admission Year",
       "cleaningService": "Vendor Cleaning",
       "inspectionCount": "# of Inspections",
       "lastInspection": "Last Inspection",
@@ -273,6 +272,7 @@
       "repairAfterMoveOut": "Repair after Move Out",
       "result": "Result",
       "roomNumber": "Room #",
+      "studentId": "Student #",
       "type": "Inspection Type",
       "unsavedCount_one": "{{count}} unsaved change",
       "unsavedCount_other": "{{count}} unsaved changes"

@@ -70,11 +70,11 @@ export function TargetListFrame() {
           <thead>
             <tr className="bg-bg-surface/80 [&_th]:text-text-primary [&_th]:font-medium">
               <th className="[&&]:border-r-2">{t('target.detail.roomNumber')}</th>
-              <th>{t('target.detail.admissionYear')}</th>
+              <th>{t('target.detail.studentId')}</th>
               <th>{t('target.detail.name')}</th>
-              <th>{t('target.detail.admissionYear')}</th>
+              <th>{t('target.detail.studentId')}</th>
               <th>{t('target.detail.name')}</th>
-              <th>{t('target.detail.admissionYear')}</th>
+              <th>{t('target.detail.studentId')}</th>
               <th>{t('target.detail.name')}</th>
               <th>{t('target.detail.type')}</th>
               <th>{t('target.detail.cleaningService')}</th>
