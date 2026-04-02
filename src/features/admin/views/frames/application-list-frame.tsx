@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Dialog, Loading, Pagination } from '@/common/components';
 import { overlay } from '@/common/lib';
 
-import { ApplicationStatus, useApplications, useDownloadDocuments } from '../../viewmodels';
+import { useApplications, useDownloadDocuments } from '../../viewmodels';
 
 const PAGE_SIZE = 20;
 
