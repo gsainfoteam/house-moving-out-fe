@@ -2,6 +2,7 @@ import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 
 import {
   ArrowRightLeft,
+  SettingsIcon,
   ExternalLink,
   FileTextIcon,
   Globe,
@@ -88,7 +89,7 @@ const DrawerContent = () => {
               to="/admin"
               className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
             >
-              <ArrowRightLeft size={20} className="text-icon" />
+              <SettingsIcon size={20} className="text-icon" />
               {t('fab.toAdmin')}
             </Link>
           </Drawer.Close>

@@ -145,8 +145,12 @@
     }
   },
   "result": {
+    "canceled": "취소",
     "failed": "불통",
-    "passed": "통과"
+    "no_show": "노쇼",
+    "no_show_canceled": "취소(노쇼)",
+    "passed": "통과",
+    "pending_no_show": "노쇼 확인중"
   },
   "room": {
     "list": "방 목록"
@@ -259,7 +263,6 @@
       "savingCleaningChanges": "저장 중..."
     },
     "detail": {
-      "admissionYear": "학번",
       "cleaningService": "위탁청소",
       "inspectionCount": "검사 횟수",
       "lastInspection": "마지막 검사일시",
@@ -268,6 +271,7 @@
       "repairAfterMoveOut": "퇴사 후 수리",
       "result": "결과",
       "roomNumber": "호실 번호",
+      "studentId": "학번",
       "type": "검사 종류",
       "unsavedCount": "변경 {{count}}건"
     },

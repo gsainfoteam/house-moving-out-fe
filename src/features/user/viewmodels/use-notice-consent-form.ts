@@ -9,7 +9,9 @@ const noticeConsentSchema = z
 export function useNoticeConsentForm(items: string[]) {
   const { control, register, formState } = useForm({
     resolver: zodResolver(noticeConsentSchema),
-    defaultValues: Object.fromEntries(items.map((_, i) => [String(i), false])),
+    defaultValues: Object.fromEntries(
+      items.map((_, i) => [String(i), import.meta.env.DEV ? true : false]),
+    ),
     mode: 'onChange',
   });
 

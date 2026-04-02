@@ -59,9 +59,11 @@
   },
   "schedule": {
     "status": {
+      "canceled": "취소",
       "draft": "예정",
       "failed": "불통",
       "no_show": "노쇼",
+      "no_show_canceled": "취소(노쇼)",
       "passed": "통과"
     }
   },

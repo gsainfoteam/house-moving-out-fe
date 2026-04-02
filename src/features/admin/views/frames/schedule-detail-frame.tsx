@@ -68,6 +68,7 @@ export function ScheduleDetailFrame() {
   if (!schedule || !targets) return <Loading containerClassName="h-full" />;
 
   const counts = countBy(targets, (target) => {
+    if (target.inspectionType === InspectionType.EMPTY) return 'empty';
     if (target.status === ApplicationStatus.PASSED) return 'passed';
     if (target.lastInspectionTime) {
       if (target.inspectionType !== InspectionType.SOLO) return 'waiting';
@@ -76,7 +77,10 @@ export function ScheduleDetailFrame() {
     if (target.inspectionType !== InspectionType.SOLO) return 'not_inspected';
     return 'solo_not_inspected';
   });
-  const genderCounts = countBy(targets, (target) => target.gender);
+  const genderCounts = countBy(
+    targets.filter((t) => t.inspectionType !== InspectionType.EMPTY),
+    (target) => target.gender,
+  );
 
   const changeSchedule = (status: ScheduleStatus) => () => {
     overlay.open(({ close }) => (

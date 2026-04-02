@@ -59,7 +59,7 @@ export function AdminLayoutFrame() {
       >
         <header className="bg-bg border-border flex shrink-0 items-center gap-6 border-b px-4 py-3">
           <Link
-            to="/admin"
+            to="/"
             className="text-text-secondary hover:bg-bg-surface hover:text-text-primary flex items-center gap-2 rounded-lg p-2 transition-colors"
           >
             <HomeIcon className="size-5 shrink-0" aria-hidden />

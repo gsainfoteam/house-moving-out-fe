@@ -149,7 +149,7 @@ function ApplicationCard() {
 
   return (
     <>
-      <LayoutCard.Body className="justify-between">
+      <LayoutCard.Body className="-mx-4 justify-between px-4">
         <StatusSteps activeStepIndex={0} />
       </LayoutCard.Body>
       <LayoutCard.Footer>
@@ -234,7 +234,7 @@ function WaitingCard({
 
   return (
     <>
-      <LayoutCard.Body className="justify-between">
+      <LayoutCard.Body className="-mx-4 justify-between px-4">
         <StatusSteps activeStepIndex={1} inspectionStartTime={inspectionStartTime} />
       </LayoutCard.Body>
       <LayoutCard.Footer>
@@ -259,7 +259,7 @@ function InProgressCard() {
 
   return (
     <>
-      <LayoutCard.Body className="justify-between">
+      <LayoutCard.Body className="-mx-4 justify-between px-4">
         <StatusSteps activeStepIndex={2} />
       </LayoutCard.Body>
       <LayoutCard.Footer>

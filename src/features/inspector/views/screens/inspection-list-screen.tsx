@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { LayoutCard, useList } from '@/common/components';
 
-import { ApplicationStatus } from '../../viewmodels';
+import { type ApplicationStatus } from '../../viewmodels';
 import { InspectionScheduleCard } from '../components';
 
 export function InspectionListScreen({ targets, isLoading }: InspectionListScreen.Props) {
@@ -34,11 +34,7 @@ export function InspectionListScreen({ targets, isLoading }: InspectionListScree
                 to="/inspector/$uuid"
                 params={{ uuid: target.uuid }}
                 className="w-full"
-                disabled={
-                  target.status === ApplicationStatus.PASSED ||
-                  target.status === ApplicationStatus.FAILED ||
-                  target.status === ApplicationStatus.NO_SHOW
-                }
+                disabled={!!target.status}
               >
                 <InspectionScheduleCard
                   time={dayjs(target.inspectionTime)}

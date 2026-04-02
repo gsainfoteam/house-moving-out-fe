@@ -59,9 +59,11 @@
   },
   "schedule": {
     "status": {
+      "canceled": "CANCELED",
       "draft": "DRAFT",
       "failed": "FAILED",
       "no_show": "NO SHOW",
+      "no_show_canceled": "CANCELED (NO SHOW)",
       "passed": "PASSED"
     }
   },
