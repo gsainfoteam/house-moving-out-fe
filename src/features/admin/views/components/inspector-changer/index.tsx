@@ -1,61 +1,101 @@
 import { useMemo, useTransition } from 'react';
 
-import { isNotNil, keyBy, mapValues } from 'es-toolkit';
+import { isNotNil, keyBy } from 'es-toolkit';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Dialog } from '@/common/components';
-import { overlay } from '@/common/lib';
+import { Button, Dialog, Loading } from '@/common/components';
+import { overlay, useOverlayContext } from '@/common/lib';
+import { cn } from '@/common/utils';
 import {
+  useApplicationsWithInspectorAndSlot,
   useChangeInspector,
   useInspectorsOfSchedule,
   type Application,
+  type Inspector,
+  type InspectionSlot,
 } from '@/features/admin/viewmodels';
-
-function ChangeFullDialog() {
-  return <Dialog.Root></Dialog.Root>;
-}
 
 function ChangeConfirmDialog({
   confirmChange,
-  close,
-  name,
+  inspector,
+  scheduleUuid,
+  application,
+  slot,
 }: {
-  confirmChange: () => Promise<void>;
-  close: () => void;
-  name: string;
+  confirmChange: (targetApplicationUuid?: string) => Promise<void>;
+  inspector: Inspector;
+  application: Application;
+  slot: InspectionSlot;
+  scheduleUuid: string;
 }) {
   const { t } = useTranslation('admin');
   const [loading, startLoading] = useTransition();
+  const { data: applications } = useApplicationsWithInspectorAndSlot(
+    scheduleUuid,
+    inspector.uuid,
+    slot.uuid,
+  );
+  const { close } = useOverlayContext();
+
+  if (!applications) return <Loading containerClassName="h-full" />;
+
+  const isFull = applications.applications.length >= 2;
+
   return (
-    <Dialog.Root>
+    <>
       <Dialog.Header>
         <Dialog.Title>{t('application.detail.changeInspector.title')}</Dialog.Title>
       </Dialog.Header>
       <Dialog.Body>
         <Dialog.Description>
-          {t('application.detail.changeInspector.description', { name })}
+          {isFull
+            ? t('application.detail.changeInspector.fullDescription', {
+                name: inspector.name,
+                previous: application.inspector.name,
+              })
+            : t('application.detail.changeInspector.description', { name: inspector.name })}
         </Dialog.Description>
       </Dialog.Body>
-      <Dialog.Footer>
+      <Dialog.Footer className={cn(isFull && 'flex-col')}>
         <Dialog.Close asChild>
           <Button disabled={loading}>{t('application.detail.changeInspector.cancel')}</Button>
         </Dialog.Close>
-        <Button
-          className="w-full"
-          variant="failed"
-          disabled={loading}
-          onClick={() =>
-            startLoading(() =>
-              confirmChange()
-                .catch(() => {})
-                .then(close),
-            )
-          }
-        >
-          {t('application.detail.changeInspector.submit')}
-        </Button>
+        {isFull ? (
+          applications.applications.map((a) => (
+            <Button
+              key={a.uuid}
+              disabled={loading}
+              onClick={() =>
+                startLoading(() =>
+                  confirmChange(a.uuid)
+                    .catch(() => {})
+                    .then(close),
+                )
+              }
+            >
+              {t('application.detail.changeInspector.reassign', {
+                roomNumber: a.targetInfo.roomNumber,
+              })}
+            </Button>
+          ))
+        ) : (
+          <Button
+            className="w-full"
+            variant="failed"
+            disabled={loading}
+            onClick={() =>
+              startLoading(() =>
+                confirmChange()
+                  .catch(() => {})
+                  .then(close),
+              )
+            }
+          >
+            {t('application.detail.changeInspector.submit')}
+          </Button>
+        )}
       </Dialog.Footer>
-    </Dialog.Root>
+    </>
   );
 }
 
@@ -80,20 +120,8 @@ export function InspectorChanger({
         ) ?? [],
     [inspectors, application.inspectionSlot.uuid],
   );
-  const inspectorFullMap = useMemo(
-    () =>
-      mapValues(
-        keyBy(availableInspectors, (i) => i.uuid),
-        (i) => i.slot.reservedCount >= i.slot.capacity,
-      ),
-    [availableInspectors],
-  );
-  const inspectorNameMap = useMemo(
-    () =>
-      mapValues(
-        keyBy(availableInspectors, (i) => i.uuid),
-        (i) => i.name,
-      ),
+  const inspectorMap = useMemo(
+    () => keyBy(availableInspectors, (i) => i.uuid),
     [availableInspectors],
   );
 
@@ -102,22 +130,22 @@ export function InspectorChanger({
       value={application.inspector.uuid}
       onChange={(e) => {
         const inspectorUuid = e.target.value;
-        return overlay.open(({ close }) =>
-          inspectorFullMap[inspectorUuid] ? (
-            <ChangeFullDialog />
-          ) : (
+        return overlay.open(() => (
+          <Dialog.Root>
             <ChangeConfirmDialog
-              close={close}
-              name={inspectorNameMap[inspectorUuid]}
-              confirmChange={() =>
+              application={application}
+              scheduleUuid={scheduleUuid}
+              inspector={inspectorMap[inspectorUuid]}
+              slot={inspectorMap[inspectorUuid].slot}
+              confirmChange={(targetApplicationUuid) =>
                 changeInspector?.({
                   params: { path: { uuid: application.uuid } },
-                  body: { inspectorUuid },
+                  body: { inspectorUuid, targetApplicationUuid },
                 })
               }
             />
-          ),
-        );
+          </Dialog.Root>
+        ));
       }}
       disabled={!changeInspector}
     >

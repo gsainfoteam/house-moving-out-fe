@@ -10,3 +10,16 @@ export const useApplications = (scheduleUuid: string, page: number, pageSize: nu
     },
   });
 };
+
+export const useApplicationsWithInspectorAndSlot = (
+  scheduleUuid: string,
+  inspectorUuid: string,
+  slotUuid: string,
+) => {
+  return $api.useQuery('get', ApiPaths.ScheduleController_findAllInspectionApplications, {
+    params: {
+      path: { uuid: scheduleUuid },
+      query: { inspectorUuid, slotUuid },
+    },
+  });
+};

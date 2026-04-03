@@ -6,6 +6,8 @@
         "cancel": "Cancel Change",
         "description": "Do you really want to change inspector to {{name}}?",
         "full": "Cannot change inspector",
+        "fullDescription": "{{name}} has already been assigned to two inspections. Please select an inspection to reassign to {{previous}}.",
+        "reassign": "Change with inspection for {{roomNumber}}",
         "submit": "Change Inspector",
         "title": "Change Inspector"
       },
