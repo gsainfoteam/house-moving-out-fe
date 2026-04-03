@@ -131,13 +131,15 @@ export function InspectorChanger({
       value={application.inspector.uuid}
       onChange={(e) => {
         const inspectorUuid = e.target.value;
+        const inspector = inspectorMap[inspectorUuid];
+        if (!inspector) return;
         return overlay.open(() => (
           <Dialog.Root>
             <ChangeConfirmDialog
               application={application}
               scheduleUuid={scheduleUuid}
-              inspector={inspectorMap[inspectorUuid]}
-              slot={inspectorMap[inspectorUuid].slot}
+              inspector={inspector}
+              slot={inspector.slot}
               confirmChange={(targetApplicationUuid) =>
                 changeInspector?.({
                   params: { path: { uuid: application.uuid } },
