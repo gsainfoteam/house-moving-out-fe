@@ -141,7 +141,7 @@ export function InspectorChanger({
               inspector={inspector}
               slot={inspector.slot}
               confirmChange={(targetApplicationUuid) =>
-                changeInspector?.({
+                changeInspector({
                   params: { path: { uuid: application.uuid } },
                   body: { inspectorUuid, targetApplicationUuid },
                 })
@@ -150,7 +150,6 @@ export function InspectorChanger({
           </Dialog.Root>
         ));
       }}
-      disabled={!changeInspector}
     >
       {availableInspectors?.map((i) => (
         <option value={i.uuid} key={i.uuid}>
