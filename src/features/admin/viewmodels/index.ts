@@ -16,4 +16,6 @@ export {
   type MoveOutScheduleWithSlots,
   type Inspector,
   ApplicationStatus,
+  type Application,
+  type InspectionSlot,
 } from '../models';

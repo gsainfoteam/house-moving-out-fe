@@ -11,6 +11,7 @@ import { Button, Dialog, Loading, Pagination } from '@/common/components';
 import { overlay } from '@/common/lib';
 
 import { useApplications, useDownloadDocuments } from '../../viewmodels';
+import { InspectorChanger } from '../components';
 
 const PAGE_SIZE = 20;
 
@@ -60,7 +61,13 @@ export function ApplicationListFrame() {
                 <td>{dayjs(a.createdAt).format('MM-DD HH:mm')}</td>
                 <td>{dayjs(a.inspectionSlot.startTime).format('ddd HH:mm')}</td>
                 <td>{t(`inspectionType.${a.inspectionCount === 1 ? 'first' : 'second'}`)}</td>
-                <td>{a.inspector.name}</td>
+                <td>
+                  {isNil(a.status) ? (
+                    <InspectorChanger application={a} scheduleUuid={uuid} />
+                  ) : (
+                    a.inspector.name
+                  )}
+                </td>
                 <td>
                   {isNil(a.status)
                     ? '-'
