@@ -15,3 +15,4 @@ export * from './use-delete-article';
 export * from './use-database-size';
 export * from './use-bulk-update-repair';
 export * from './use-change-schedule-status';
+export * from './use-change-inspector';
