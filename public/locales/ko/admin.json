@@ -6,7 +6,7 @@
         "cancel": "변경 취소",
         "description": "검사자를 {{name}}으로 변경하시겠습니까?",
         "full": "검사위원을 변경할 수 없습니다",
-        "fullDescription": "{{name}}은 이미 두개의 검사에 할당 되어있습니다. {{previous}}으로 재할당할 검사를 선택하세요.",
+        "fullDescription": "{{name}}은 이미 두 개의 검사에 할당되어 있습니다. {{previous}}으로 재할당할 검사를 선택하세요.",
         "reassign": "{{roomNumber}} 검사와 변경",
         "submit": "변경하기",
         "title": "검사자 변경"
