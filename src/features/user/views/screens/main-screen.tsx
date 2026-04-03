@@ -149,7 +149,7 @@ function ApplicationCard() {
 
   return (
     <>
-      <LayoutCard.Body className="-mx-4 justify-between px-4">
+      <LayoutCard.Body className="justify-between">
         <StatusSteps activeStepIndex={0} />
       </LayoutCard.Body>
       <LayoutCard.Footer>

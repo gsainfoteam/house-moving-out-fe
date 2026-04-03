@@ -1,3 +1,5 @@
+import { Button, LayoutCard } from '@/common/components';
+
 import { Steps } from '.';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -48,6 +50,33 @@ export const Playground: Story = {
         <Steps.Item key={index} title={step.title} description={step.description} />
       ))}
     </Steps>
+  ),
+};
+
+export const WithLayout: Story = {
+  args: {
+    activeStepIndex: 0,
+  },
+  parameters: {
+    layout: 'centered',
+  },
+  render: (args) => (
+    <div className="h-120 w-90">
+      <LayoutCard.Root>
+        <LayoutCard.Body className="justify-between">
+          <Steps activeStepIndex={args.activeStepIndex}>
+            {mockSteps.map((step, index) => (
+              <Steps.Item key={index} title={step.title} description={step.description} />
+            ))}
+          </Steps>
+        </LayoutCard.Body>
+        <LayoutCard.Footer>
+          <Button variant="outline" className="w-full">
+            버튼
+          </Button>
+        </LayoutCard.Footer>
+      </LayoutCard.Root>
+    </div>
   ),
 };
 
