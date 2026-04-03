@@ -2,6 +2,13 @@
   "application": {
     "detail": {
       "appliedAt": "신청 일시",
+      "changeInspector": {
+        "cancel": "변경 취소",
+        "description": "검사자를 {{name}}으로 변경하시겠습니까?",
+        "full": "검사위원을 변경할 수 없습니다",
+        "submit": "변경하기",
+        "title": "검사자 변경"
+      },
       "closeNote": "닫기",
       "document": "검사서",
       "downloadPdf": "PDF",

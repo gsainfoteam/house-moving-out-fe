@@ -2,6 +2,13 @@
   "application": {
     "detail": {
       "appliedAt": "Applied At",
+      "changeInspector": {
+        "cancel": "Cancel Change",
+        "description": "Do you really want to change inspector to {{name}}?",
+        "full": "Cannot change inspector",
+        "submit": "Change Inspector",
+        "title": "Change Inspector"
+      },
       "closeNote": "Close",
       "document": "Document",
       "downloadPdf": "PDF",
