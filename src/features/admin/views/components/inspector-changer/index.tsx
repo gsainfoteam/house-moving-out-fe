@@ -30,13 +30,14 @@ function ChangeConfirmDialog({
 }) {
   const { t } = useTranslation('admin');
   const [loading, startLoading] = useTransition();
-  const { data: applications } = useApplicationsWithInspectorAndSlot(
+  const { data: applications, error } = useApplicationsWithInspectorAndSlot(
     scheduleUuid,
     inspector.uuid,
     slot.uuid,
   );
   const { close } = useOverlayContext();
 
+  if (error) return <div>{t('application.error.load')}</div>;
   if (!applications) return <Loading containerClassName="h-full" />;
 
   const isFull = applications.applications.length >= 2;
