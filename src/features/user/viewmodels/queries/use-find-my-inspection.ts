@@ -19,7 +19,7 @@ export const useFindMyInspection = (enabled: boolean) => {
     {
       enabled,
       retry(count, error) {
-        if (error?.statusCode === 404 || error?.statusCode === 400) return false;
+        if (error.statusCode && [400, 403, 404].includes(error.statusCode)) return false;
         return count < 3;
       },
     },
@@ -30,6 +30,8 @@ export const useFindMyInspection = (enabled: boolean) => {
     if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
+      } else if (error?.statusCode === 403) {
+        // status
       } else if (error?.statusCode === 404) {
         // status
       } else {
@@ -78,6 +80,9 @@ export const useFindMyInspection = (enabled: boolean) => {
         }
       }
     } else if (isError) {
+      if (error?.statusCode === 403) {
+        return 'not_target' as const;
+      }
       if (error?.statusCode === 404) {
         return 'not_found' as const;
       }

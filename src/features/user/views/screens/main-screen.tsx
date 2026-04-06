@@ -66,11 +66,11 @@ function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs 
             <img src="./3d/not-period.png" alt="not-period" className="h-60" />
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
-            <LayoutCard.Title className="text-text-primary">
+            <LayoutCard.Title className="text-text-primary text-center">
               {t('steps.not_period.title')}
             </LayoutCard.Title>
             {applicationStartTime && (
-              <LayoutCard.Description>
+              <LayoutCard.Description className="text-center">
                 {t('steps.not_period.description', {
                   startTime: applicationStartTime.format('MM/DD'),
                 })}
@@ -99,10 +99,12 @@ function NotTargetCard() {
             <img src="./3d/not-period.png" alt="not-period" className="h-60" />
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
-            <LayoutCard.Title className="text-text-primary">
+            <LayoutCard.Title className="text-text-primary text-center">
               {t('steps.not_target.title')}
             </LayoutCard.Title>
-            <LayoutCard.Description>{t('steps.not_target.description')}</LayoutCard.Description>
+            <LayoutCard.Description className="text-center">
+              {t('steps.not_target.description')}
+            </LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
       </LayoutCard.Center>
@@ -126,10 +128,10 @@ function CleaningServiceCard() {
             <img src="./3d/not-period.png" alt="cleaning-service" className="h-60" />
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
-            <LayoutCard.Title className="text-text-primary">
+            <LayoutCard.Title className="text-text-primary text-center">
               {t('steps.cleaning_service.title')}
             </LayoutCard.Title>
-            <LayoutCard.Description>
+            <LayoutCard.Description className="text-center">
               {t('steps.cleaning_service.description')}
             </LayoutCard.Description>
           </LayoutCard.Text>
@@ -290,7 +292,7 @@ function FailedCard({
             <img src="./3d/failed.png" alt="failed" className="h-60" />
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
-            <LayoutCard.Title className="text-status-fail">
+            <LayoutCard.Title className="text-status-fail text-center">
               {isRetryable ? t('steps.failed.title') : t('steps.final_failed.title')}
             </LayoutCard.Title>
             <LayoutCard.Description>
@@ -372,8 +374,12 @@ function PassedCard() {
             <img src="./3d/passed.png" alt="passed" className="h-60" />
           </LayoutCard.Media>
           <LayoutCard.Text className="items-center">
-            <LayoutCard.Title className="text-primary">{t('steps.passed.title')}</LayoutCard.Title>
-            <LayoutCard.Description>{t('steps.passed.description')}</LayoutCard.Description>
+            <LayoutCard.Title className="text-primary text-center">
+              {t('steps.passed.title')}
+            </LayoutCard.Title>
+            <LayoutCard.Description className="text-center">
+              {t('steps.passed.description')}
+            </LayoutCard.Description>
           </LayoutCard.Text>
         </LayoutCard.Header>
       </LayoutCard.Center>

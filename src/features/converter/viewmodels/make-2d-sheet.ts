@@ -53,20 +53,21 @@ export const parseData = (buffer: ArrayBuffer) => {
   return buildings;
 };
 
-export const downloadSheet = (ref: HTMLTableElement) => {
+export const downloadSheet = (ref: HTMLTableElement, wide: boolean) => {
   const sheet = xlsx.utils.table_to_sheet(ref);
+  const wpx = wide ? 60 : 30;
   sheet['!cols'] = [
-    ...range(5).map(() => ({ wpx: 30 })),
+    ...range(5).map(() => ({ wpx })),
     { wpx: 3 },
-    ...range(5).map(() => ({ wpx: 30 })),
+    ...range(5).map(() => ({ wpx })),
     { wpx: 3 },
-    ...range(7).map(() => ({ wpx: 30 })),
+    ...range(7).map(() => ({ wpx })),
     { wpx: 3 },
-    ...range(7).map(() => ({ wpx: 30 })),
+    ...range(7).map(() => ({ wpx })),
     { wpx: 3 },
-    ...range(7).map(() => ({ wpx: 30 })),
+    ...range(7).map(() => ({ wpx })),
     { wpx: 3 },
-    ...range(7).map(() => ({ wpx: 30 })),
+    ...range(7).map(() => ({ wpx })),
   ];
   const workbook = xlsx.utils.book_new(sheet, 'Sheet1');
   xlsx.writeFile(workbook, 'room-list.xlsx');

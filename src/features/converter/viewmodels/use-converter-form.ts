@@ -14,9 +14,9 @@ export const useConverterForm = () => {
 
   const data = useMemo(() => (buffer ? parseData(buffer) : undefined), [buffer]);
 
-  const download = useCallback((ref: RefObject<HTMLTableElement | null>) => {
+  const download = useCallback((ref: RefObject<HTMLTableElement | null>, wide: boolean) => {
     if (!ref.current) return;
-    downloadSheet(ref.current);
+    downloadSheet(ref.current, wide);
   }, []);
 
   return { onChange, data, download };
