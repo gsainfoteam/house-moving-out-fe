@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { maxBy, range } from 'es-toolkit';
 
@@ -8,6 +8,7 @@ import { useConverterForm } from '../../viewmodels';
 
 export function ConverterFrame() {
   const { onChange, data, download } = useConverterForm();
+  const [showStudentId, setToggleStudentId] = useState(false);
   const tableRef = useRef<HTMLTableElement>(null);
   return (
     <div className="flex max-h-dvh flex-col gap-4 p-4">
@@ -20,9 +21,20 @@ export function ConverterFrame() {
           onChange={onChange}
         />
         {data && (
-          <button className="rounded-lg border px-4 py-2" onClick={() => download(tableRef)}>
-            download
-          </button>
+          <>
+            <button
+              className="rounded-lg border px-4 py-2"
+              onClick={() => setToggleStudentId((prev) => !prev)}
+            >
+              {showStudentId ? 'hide student id' : 'show student id'}
+            </button>
+            <button
+              className="rounded-lg border px-4 py-2"
+              onClick={() => download(tableRef, showStudentId)}
+            >
+              download
+            </button>
+          </>
         )}
       </div>
       {data ? (
@@ -89,7 +101,11 @@ export function ConverterFrame() {
                               {range(higher ? 3 : 2).map((i) => (
                                 <React.Fragment key={i}>
                                   <td>{room?.residents[i]?.name}</td>
-                                  <td>{room?.residents[i]?.admissionYear}</td>
+                                  <td>
+                                    {showStudentId
+                                      ? room?.residents[i]?.studentId
+                                      : room?.residents[i]?.admissionYear}
+                                  </td>
                                 </React.Fragment>
                               ))}
                               {index < 5 && <td />}
