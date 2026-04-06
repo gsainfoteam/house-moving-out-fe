@@ -13,8 +13,6 @@ export function LoginScreen({ onLogin }: LoginScreen.Props) {
       <div className="flex flex-col items-center justify-center gap-2.5">
         <img src="/3d/logo.png" alt="logo" className="size-60" />
         <h1 className="text-display text-text-primary">{t('title')}</h1>
-        <h1 className="text-display text-text-primary">{t('title')}</h1>
-        <h1 className="text-display text-text-primary">{t('title')}</h1>
         <p className="text-body text-text-secondary">{t('subtitle')}</p>
       </div>
       <Button className="mt-10" onClick={onLogin}>
