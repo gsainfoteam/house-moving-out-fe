@@ -56,8 +56,10 @@ function FilterButton({
   filter: Filter;
   onFilterChange: (filter: Filter) => void;
 }) {
+  const { t } = useTranslation('inspector');
   return (
     <Button
+      aria-label={t('filter.title')}
       className={cn('self-end', filter !== 'all' && 'bg-primary')}
       variant="subtle"
       size="icon"
