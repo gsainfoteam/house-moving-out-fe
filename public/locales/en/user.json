@@ -133,7 +133,6 @@
       "title": "You are not eligible to apply for a move-out inspection."
     },
     "passed": {
-      "button": "Go Home",
       "description": "All procedures have been completed. Thank you for your cooperation.",
       "title": "Moving Out Inspection Passed"
     },
