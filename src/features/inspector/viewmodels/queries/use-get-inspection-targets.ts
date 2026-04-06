@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react';
 
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -38,13 +37,9 @@ export const useGetInspectionTargets = () => {
   }, [error, isError, t]);
 
   const isNotFound = useMemo(() => error?.statusCode === 404, [error?.statusCode]);
-  const targets = useMemo(
-    () => data?.sort((a, b) => dayjs(a.inspectionTime).diff(dayjs(b.inspectionTime))) ?? [],
-    [data],
-  );
 
   return {
-    targets,
+    targets: data ?? [],
     isLoading,
     isNotFound,
   };

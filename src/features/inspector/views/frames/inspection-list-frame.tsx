@@ -11,12 +11,14 @@ export function InspectionListFrame() {
     useState<React.ComponentProps<typeof InspectionListScreen>['filter']>('all');
   const { targets, isLoading } = useGetInspectionTargets();
   const filteredTargets = useMemo(() => {
-    return targets.filter((target) => {
-      if (filter === 'all') return true;
-      if (filter === 'today') return dayjs(target.inspectionTime).isSame(dayjs(), 'day');
-      if (filter === 'not_completed') return isNil(target.status);
-      throw new Error(`Invalid filter: ${filter}`);
-    });
+    return [...targets]
+      .sort((a, b) => dayjs(a.inspectionTime).diff(dayjs(b.inspectionTime)))
+      .filter((target) => {
+        if (filter === 'all') return true;
+        if (filter === 'today') return dayjs(target.inspectionTime).isSame(dayjs(), 'day');
+        if (filter === 'not_completed') return isNil(target.status);
+        throw new Error(`Invalid filter: ${filter}`);
+      });
   }, [targets, filter]);
 
   return (
