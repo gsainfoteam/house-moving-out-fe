@@ -30,7 +30,7 @@ export function InspectionScheduleCard({
     >
       <div className="flex items-center gap-4">
         <span className="text-body-lg text-text-primary font-semibold tabular-nums">
-          {time.format('HH:mm')}
+          {time.format('ddd HH:mm')}
         </span>
         <div className="bg-border my-1 w-px self-stretch" aria-hidden />
         <div className="flex min-w-0 flex-col gap-1 leading-tight">
