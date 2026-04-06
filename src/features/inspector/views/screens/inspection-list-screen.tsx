@@ -4,13 +4,57 @@ import dayjs from 'dayjs';
 import { Calendar, ListFilterIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, LayoutCard, useList } from '@/common/components';
+import { Button, Drawer, LayoutCard, useList } from '@/common/components';
+import { overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 
 import { type ApplicationStatus } from '../../viewmodels';
 import { InspectionScheduleCard } from '../components';
 
 type Filter = 'all' | 'today' | 'not_completed';
+
+const FilterDrawer = ({
+  currentFilter,
+  onFilterChange,
+}: {
+  currentFilter: Filter;
+  onFilterChange: (filter: Filter) => void;
+}) => {
+  const { t } = useTranslation('inspector');
+  return (
+    <>
+      <Drawer.Header>
+        <Drawer.Title>{t('filter.title')}</Drawer.Title>
+      </Drawer.Header>
+      <Drawer.Body></Drawer.Body>
+    </>
+  );
+};
+
+function FilterButton({
+  filter,
+  onFilterChange,
+}: {
+  filter: Filter;
+  onFilterChange: (filter: Filter) => void;
+}) {
+  return (
+    <Button
+      className={cn('self-end', filter !== 'all' && 'bg-primary')}
+      variant="subtle"
+      size="icon"
+      onClick={() =>
+        overlay.open(() => (
+          <Drawer.Root>
+            <FilterDrawer currentFilter={filter} onFilterChange={onFilterChange} />
+          </Drawer.Root>
+        ))
+      }
+    >
+      <ListFilterIcon className={cn('size-4', filter !== 'all' && 'text-text-white')} />
+    </Button>
+  );
+}
 
 export function InspectionListScreen({
   targets,
@@ -30,13 +74,7 @@ export function InspectionListScreen({
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body>
-        <Button
-          className={cn('self-end', filter === 'all' && 'bg-primary')}
-          variant="subtle"
-          size="icon"
-        >
-          <ListFilterIcon className={cn('size-4', filter === 'all' && 'text-text-white')} />
-        </Button>
+        <FilterButton filter={filter} onFilterChange={onFilterChange} />
         <list.Root className="gap-3">
           <list.Empty
             icon={<Calendar />}

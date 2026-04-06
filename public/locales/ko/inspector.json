@@ -41,6 +41,9 @@
     "notFound": "퇴사 검사 정보를 찾을 수 없습니다.",
     "notInspector": "검사자 계정으로만 접근할 수 있는 페이지입니다."
   },
+  "filter": {
+    "title": "검사 일정 필터"
+  },
   "inspector": {
     "emptySchedule": "검사 일정이 없습니다.",
     "emptyScheduleDescription": "새 검사 일정을 기다리고 있습니다."

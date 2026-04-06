@@ -41,6 +41,9 @@
     "notFound": "Inspection information could not be found.",
     "notInspector": "You must be logged in as an inspector to access this page."
   },
+  "filter": {
+    "title": "Inspection schedule filter"
+  },
   "inspector": {
     "emptySchedule": "No inspection schedules.",
     "emptyScheduleDescription": "Waiting for new inspection schedules."
