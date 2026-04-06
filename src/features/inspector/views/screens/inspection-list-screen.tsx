@@ -32,7 +32,7 @@ const FilterDrawer = ({
       </Drawer.Header>
       <Drawer.Body>
         {filters.map((filter) => (
-          <Drawer.Close asChild>
+          <Drawer.Close asChild key={filter}>
             <button
               className={cn(
                 'text-body-lg text-text-primary flex w-full items-center gap-3 rounded-xl px-4 py-3',
