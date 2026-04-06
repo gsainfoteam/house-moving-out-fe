@@ -1,15 +1,23 @@
 import { Link } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
-import { Calendar } from 'lucide-react';
+import { Calendar, ListFilterIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { LayoutCard, useList } from '@/common/components';
+import { Button, LayoutCard, useList } from '@/common/components';
+import { cn } from '@/common/utils';
 
 import { type ApplicationStatus } from '../../viewmodels';
 import { InspectionScheduleCard } from '../components';
 
-export function InspectionListScreen({ targets, isLoading }: InspectionListScreen.Props) {
+type Filter = 'all' | 'today' | 'not_completed';
+
+export function InspectionListScreen({
+  targets,
+  isLoading,
+  filter,
+  onFilterChange,
+}: InspectionListScreen.Props) {
   const { t } = useTranslation('inspector');
   const list = useList(targets);
 
@@ -22,6 +30,13 @@ export function InspectionListScreen({ targets, isLoading }: InspectionListScree
         </LayoutCard.Text>
       </LayoutCard.Header>
       <LayoutCard.Body>
+        <Button
+          className={cn('self-end', filter === 'all' && 'bg-primary')}
+          variant="subtle"
+          size="icon"
+        >
+          <ListFilterIcon className={cn('size-4', filter === 'all' && 'text-text-white')} />
+        </Button>
         <list.Root className="gap-3">
           <list.Empty
             icon={<Calendar />}
@@ -63,5 +78,7 @@ export namespace InspectionListScreen {
   export type Props = {
     targets: Target[];
     isLoading: boolean;
+    filter: Filter;
+    onFilterChange: (filter: Filter) => void;
   };
 }
