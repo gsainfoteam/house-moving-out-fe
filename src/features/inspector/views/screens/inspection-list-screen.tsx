@@ -11,7 +11,11 @@ import { cn } from '@/common/utils';
 import { type ApplicationStatus } from '../../viewmodels';
 import { InspectionScheduleCard } from '../components';
 
-type Filter = 'all' | 'today' | 'not_completed';
+// t('filter.items.all')
+// t('filter.items.today')
+// t('filter.items.not_completed')
+const filters = ['all', 'today', 'not_completed'] as const;
+type Filter = (typeof filters)[number];
 
 const FilterDrawer = ({
   currentFilter,
@@ -26,7 +30,21 @@ const FilterDrawer = ({
       <Drawer.Header>
         <Drawer.Title>{t('filter.title')}</Drawer.Title>
       </Drawer.Header>
-      <Drawer.Body></Drawer.Body>
+      <Drawer.Body>
+        {filters.map((filter) => (
+          <Drawer.Close asChild>
+            <button
+              className={cn(
+                'text-body-lg text-text-primary flex w-full items-center gap-3 rounded-xl px-4 py-3',
+                filter === currentFilter && 'bg-primary text-text-white',
+              )}
+              onClick={() => onFilterChange(filter)}
+            >
+              {t(`filter.items.${filter}`)}
+            </button>
+          </Drawer.Close>
+        ))}
+      </Drawer.Body>
     </>
   );
 };
@@ -73,7 +91,7 @@ export function InspectionListScreen({
           <LayoutCard.Description>{t('list.description')}</LayoutCard.Description>
         </LayoutCard.Text>
       </LayoutCard.Header>
-      <LayoutCard.Body>
+      <LayoutCard.Body className="gap-4">
         <FilterButton filter={filter} onFilterChange={onFilterChange} />
         <list.Root className="gap-3">
           <list.Empty
@@ -81,7 +99,7 @@ export function InspectionListScreen({
             title={t('inspector.emptySchedule')}
             description={t('inspector.emptyScheduleDescription')}
           />
-          <list.Builder className="flex w-full flex-col gap-3">
+          <list.Builder className="flex w-full flex-col gap-2">
             {(target) => (
               <Link
                 to="/inspector/$uuid"

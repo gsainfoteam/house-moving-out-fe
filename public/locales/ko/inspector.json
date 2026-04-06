@@ -42,6 +42,11 @@
     "notInspector": "검사자 계정으로만 접근할 수 있는 페이지입니다."
   },
   "filter": {
+    "items": {
+      "all": "전체",
+      "not_completed": "미완료",
+      "today": "오늘"
+    },
     "title": "검사 일정 필터"
   },
   "inspector": {

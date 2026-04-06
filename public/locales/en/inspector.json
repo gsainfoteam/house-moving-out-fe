@@ -42,6 +42,11 @@
     "notInspector": "You must be logged in as an inspector to access this page."
   },
   "filter": {
+    "items": {
+      "all": "All",
+      "not_completed": "Not Completed",
+      "today": "Today"
+    },
     "title": "Inspection schedule filter"
   },
   "inspector": {
