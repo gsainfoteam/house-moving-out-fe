@@ -377,11 +377,6 @@ function PassedCard() {
           </LayoutCard.Text>
         </LayoutCard.Header>
       </LayoutCard.Center>
-      <LayoutCard.Footer>
-        <Button variant="default" className="w-full">
-          {t('steps.passed.button')}
-        </Button>
-      </LayoutCard.Footer>
     </>
   );
 }
