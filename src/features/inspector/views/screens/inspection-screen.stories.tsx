@@ -1,17 +1,25 @@
 import { useForm, useWatch } from 'react-hook-form';
 
+import { Layout } from '@/common/components';
 import { checklist } from '@/common/lib';
 
 import { InspectionScreen } from './inspection-screen';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof InspectionScreen> = {
   title: 'Inspector/InspectionScreen',
   component: InspectionScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
   argTypes: {
     isNoneChecked: { control: 'boolean' },

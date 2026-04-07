@@ -60,7 +60,7 @@ function FilterButton({
   return (
     <Button
       aria-label={t('filter.title')}
-      className={cn('self-end', filter !== 'all' && 'bg-primary')}
+      className={cn('self-start', filter !== 'all' && 'bg-primary')}
       variant="subtle"
       size="icon"
       onClick={() =>
@@ -87,14 +87,14 @@ export function InspectionListScreen({
 
   return (
     <LayoutCard.Root isLoading={isLoading}>
-      <LayoutCard.Header>
-        <LayoutCard.Text>
+      <LayoutCard.Header className="flex-row items-start justify-start">
+        <LayoutCard.Text className="flex-1">
           <LayoutCard.Title>{t('list.title')}</LayoutCard.Title>
           <LayoutCard.Description>{t('list.description')}</LayoutCard.Description>
         </LayoutCard.Text>
-      </LayoutCard.Header>
-      <LayoutCard.Body className="gap-4">
         <FilterButton filter={filter} onFilterChange={onFilterChange} />
+      </LayoutCard.Header>
+      <LayoutCard.Body>
         <list.Root className="gap-3">
           <list.Empty
             icon={<Calendar />}

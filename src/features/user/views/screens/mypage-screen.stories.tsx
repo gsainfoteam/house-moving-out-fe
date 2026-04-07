@@ -1,15 +1,23 @@
+import { Layout } from '@/common/components';
 import { Gender } from '@/features/user';
 
 import { MypageScreen } from './mypage-screen';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof MypageScreen> = {
   title: 'User/MypageScreen',
   component: MypageScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
 };
 
