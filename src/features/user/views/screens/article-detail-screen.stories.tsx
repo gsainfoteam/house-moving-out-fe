@@ -1,13 +1,22 @@
+import { Layout } from '@/common/components';
+
 import { ArticleDetailScreen } from './article-detail-screen';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof ArticleDetailScreen> = {
   title: 'User/ArticleDetailScreen',
   component: ArticleDetailScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
 };
 

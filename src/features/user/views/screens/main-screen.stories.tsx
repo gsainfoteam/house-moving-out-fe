@@ -1,15 +1,24 @@
 import dayjs from 'dayjs';
 
+import { Layout } from '@/common/components';
+
 import { MainScreen } from './main-screen';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof MainScreen> = {
   title: 'User/MainScreen',
   component: MainScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
 };
 
