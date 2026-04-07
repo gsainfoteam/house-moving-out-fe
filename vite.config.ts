@@ -60,6 +60,12 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+          runtimeCaching: [
+            {
+              handler: 'CacheFirst',
+              urlPattern: 'https://cdn.jsdeliver.net',
+            },
+          ],
         },
       }),
     ],
