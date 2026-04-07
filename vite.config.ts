@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
           runtimeCaching: [
             {
               handler: 'CacheFirst',
-              urlPattern: 'https://cdn.jsdeliver.net',
+              urlPattern: /^https:\/\/cdn\.jsdeliver\.net/,
             },
           ],
         },
