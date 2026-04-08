@@ -108,7 +108,7 @@ const DrawerContent = () => {
         )}
         <Drawer.Close asChild>
           <Link
-            to={isArticlesRoute ? '/articles' : '/'}
+            to={isArticlesRoute ? '/' : '/articles'}
             className="text-body-lg text-text-primary flex w-full items-center gap-3 py-3"
           >
             {isArticlesRoute ? (
