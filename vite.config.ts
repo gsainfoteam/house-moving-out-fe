@@ -68,7 +68,7 @@ export default defineConfig(({ mode }) => {
             'npm/@myriaddreamin/typst-ts-web-compiler@',
           ].map((urlPattern) => ({
             handler: 'CacheFirst',
-            urlPattern: new RegExp(`^https://cdn.jsdelivr.net/${urlPattern}`),
+            urlPattern: new RegExp(`^https://cdn\\.jsdelivr\\.net/${urlPattern}`),
             options: { matchOptions: { ignoreVary: true } },
           })),
         },
