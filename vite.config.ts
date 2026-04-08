@@ -63,8 +63,8 @@ export default defineConfig(({ mode }) => {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
           runtimeCaching: [
             {
-              handler: 'StaleWhileRevalidate',
-              urlPattern: 'https://cdn.jsdelivr.net',
+              handler: 'CacheFirst',
+              urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
             },
           ],
         },
