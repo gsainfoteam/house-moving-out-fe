@@ -69,7 +69,15 @@ export default defineConfig(({ mode }) => {
           ].map((urlPattern) => ({
             handler: 'CacheFirst',
             urlPattern: new RegExp(`^https://cdn\\.jsdelivr\\.net/${urlPattern}`),
-            options: { matchOptions: { ignoreVary: true } },
+            options: {
+              cacheName: 'cdn-jsdelivr-immutable',
+              matchOptions: { ignoreVary: true },
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30 * 12 * 3,
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
           })),
         },
       }),
