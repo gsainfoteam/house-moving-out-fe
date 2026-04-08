@@ -59,6 +59,7 @@ export default defineConfig(({ mode }) => {
           ],
         },
         workbox: {
+          disableDevLogs: false,
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
           runtimeCaching: [
             {
