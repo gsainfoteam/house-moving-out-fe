@@ -61,11 +61,11 @@ export default defineConfig(({ mode }) => {
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
           runtimeCaching: [
-            'gh/gsainfoteam/house-moving-out-fonts/',
-            'gh/orioncactus/pretendard/',
-            'gh/typst/typst-assets/',
-            'npm/@myriaddreamin/typst-ts-renderer/',
-            'npm/@myriaddreamin/typst-ts-web-compiler/',
+            'gh/gsainfoteam/house-moving-out-fonts@',
+            'gh/orioncactus/pretendard@',
+            'gh/typst/typst-assets@',
+            'npm/@myriaddreamin/typst-ts-renderer@',
+            'npm/@myriaddreamin/typst-ts-web-compiler@',
           ].map((urlPattern) => ({
             handler: 'CacheFirst',
             urlPattern: new RegExp(`^https://cdn.jsdelivr.net/${urlPattern}`),
