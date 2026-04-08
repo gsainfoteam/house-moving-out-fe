@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
       svgr(),
       vitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.png', 'favicon.ico', 'pwa/*.png'],
+        includeAssets: ['favicon.png', 'favicon.ico', 'pwa/*.png', 'locales/**/*.json'],
         manifest: {
           name: '하우스연합회 퇴사검사',
           short_name: '퇴사검사',
@@ -60,6 +60,25 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+          runtimeCaching: [
+            'gh/gsainfoteam/house-moving-out-fonts@',
+            'gh/orioncactus/pretendard@',
+            'gh/typst/typst-assets@',
+            'npm/@myriaddreamin/typst-ts-renderer@',
+            'npm/@myriaddreamin/typst-ts-web-compiler@',
+          ].map((urlPattern) => ({
+            handler: 'CacheFirst',
+            urlPattern: new RegExp(`^https://cdn\\.jsdelivr\\.net/${urlPattern}`),
+            options: {
+              cacheName: 'cdn-jsdelivr-immutable',
+              matchOptions: { ignoreVary: true },
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30 * 12 * 3,
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          })),
         },
       }),
     ],
