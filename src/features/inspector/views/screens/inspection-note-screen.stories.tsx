@@ -1,15 +1,24 @@
 import { useForm } from 'react-hook-form';
 
+import { Layout } from '@/common/components';
+
 import { InspectionNoteScreen } from './inspection-note-screen';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof InspectionNoteScreen> = {
   title: 'Inspector/InspectionNoteScreen',
   component: InspectionNoteScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
 };
 

@@ -1,13 +1,22 @@
+import { Layout } from '@/common/components';
+
 import { InspectionSubmitScreen } from './inspection-submit-screen';
 
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+
+const withLayout: Decorator = (Story) => (
+  <Layout onMenuOpen={() => {}}>
+    <Story />
+  </Layout>
+);
 
 const meta: Meta<typeof InspectionSubmitScreen> = {
   title: 'Inspector/InspectionSubmitScreen',
   component: InspectionSubmitScreen,
   parameters: {
-    layout: 'padded',
+    layout: 'fullscreen',
   },
+  decorators: [withLayout],
   tags: ['autodocs'],
 };
 
