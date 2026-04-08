@@ -65,6 +65,7 @@ export default defineConfig(({ mode }) => {
             {
               handler: 'CacheFirst',
               urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
+              options: { matchOptions: { ignoreVary: true } },
             },
           ],
         },
