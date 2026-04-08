@@ -26,7 +26,6 @@ export default defineConfig(({ mode }) => {
       svgr(),
       vitePWA({
         registerType: 'autoUpdate',
-        mode: 'development',
         includeAssets: ['favicon.png', 'favicon.ico', 'pwa/*.png', 'locales/**/*.json'],
         manifest: {
           name: '하우스연합회 퇴사검사',
