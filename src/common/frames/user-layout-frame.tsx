@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 
 import {
@@ -146,6 +148,25 @@ export function UserLayoutFrame() {
   const openMenu = () => {
     overlay.open(() => <DrawerContent />);
   };
+
+  useEffect(() => {
+    const html = document.querySelector('html');
+    if (!html) return;
+    const prev = html.style.overscrollBehavior;
+    html.style.overscrollBehavior = 'none';
+    return () => {
+      html.style.overscrollBehavior = prev;
+    };
+  }, []);
+
+  useEffect(() => {
+    const body = document.body;
+    const prev = body.style.backgroundColor;
+    body.style.backgroundColor = 'var(--color-bg-surface)';
+    return () => {
+      body.style.backgroundColor = prev;
+    };
+  }, []);
 
   return (
     <Layout onMenuOpen={openMenu}>
