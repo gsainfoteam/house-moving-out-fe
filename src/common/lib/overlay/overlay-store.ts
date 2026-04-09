@@ -15,13 +15,6 @@ type DeclarativeOverlayEntry = {
   isOpen: boolean;
 };
 
-function generateOverlayId(): string {
-  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-  return `overlay-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
-}
-
 type OverlayState = {
   entries: DeclarativeOverlayEntry[];
   open: (controller: OverlayController) => string;
@@ -35,7 +28,7 @@ export const useOverlayStore = create<OverlayState>((set) => ({
   entries: [],
 
   open: (controller) => {
-    const id = generateOverlayId();
+    const id = crypto.randomUUID();
     set((state) => ({
       entries: [...state.entries, { id, controller, isOpen: true }],
     }));
@@ -55,8 +48,16 @@ export const useOverlayStore = create<OverlayState>((set) => ({
   },
 }));
 
+export function useOverlayIsOpen(overlayId: string | null): boolean {
+  return useOverlayStore(
+    (state) => overlayId !== null && state.entries.some((e) => e.id === overlayId && e.isOpen),
+  );
+}
+
 export const overlay = {
   open: (controller: OverlayController) => useOverlayStore.getState().open(controller),
   close: (overlayId: string) => useOverlayStore.getState().close(overlayId),
   unmount: (overlayId: string) => useOverlayStore.getState().unmount(overlayId),
+  isOpen: (overlayId: string) =>
+    useOverlayStore.getState().entries.some((e) => e.id === overlayId && e.isOpen),
 };

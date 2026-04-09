@@ -1,4 +1,6 @@
-import { overlay } from '@/common/lib';
+import { useState } from 'react';
+
+import { overlay, useOverlayIsOpen } from '@/common/lib';
 
 import { Button } from './button';
 import { Dialog } from '../dialog';
@@ -39,6 +41,18 @@ export const DrawerInDialog: Story = {
   render: () => <DrawerInDialogDemo />,
 };
 
+export const IsOpen: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'overlay.isOpen(id)의 동작을 확인하는 스토리입니다. 오버레이가 열려 있는 동안 true, 닫히면 false를 반환합니다.',
+      },
+    },
+  },
+  render: () => <IsOpenDemo />,
+};
+
 export const ComplexStack: Story = {
   parameters: {
     docs: {
@@ -50,6 +64,40 @@ export const ComplexStack: Story = {
   },
   render: () => <ComplexStackDemo />,
 };
+
+function IsOpenDemo() {
+  const [overlayId, setOverlayId] = useState<string | null>(null);
+  const isOpen = useOverlayIsOpen(overlayId);
+
+  return (
+    <div className="relative flex min-h-screen flex-col items-center justify-center gap-4">
+      <p className="text-body text-text-secondary absolute top-8">
+        overlay.isOpen(id): <strong>{String(isOpen)}</strong>
+      </p>
+      <Button
+        onClick={() => {
+          setOverlayId(overlay.open(() => (
+            <Dialog.Root closeOnBackdrop>
+              <Dialog.Header>
+                <Dialog.Title>isOpen 테스트</Dialog.Title>
+                <Dialog.Description>
+                  이 다이얼로그가 열려 있는 동안 overlay.isOpen(id)는 true를 반환합니다.
+                </Dialog.Description>
+              </Dialog.Header>
+              <Dialog.Footer>
+                <Dialog.Close asChild>
+                  <Button>닫기</Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </Dialog.Root>
+          )));
+        }}
+      >
+        다이얼로그 열기
+      </Button>
+    </div>
+  );
+}
 
 function DialogInDrawerDemo() {
   return (
