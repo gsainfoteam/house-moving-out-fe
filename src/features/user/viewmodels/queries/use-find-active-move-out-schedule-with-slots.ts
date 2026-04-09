@@ -33,8 +33,8 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
-      } else if (error?.statusCode === 404) {
-        toast.error(t('application.error.notFound'));
+      } else if (error.statusCode && [404].includes(error.statusCode)) {
+        // handle in view
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }
@@ -70,6 +70,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
       }
       return 'success' as const;
     }
+    return 'no_schedule' as const;
   }, [data?.applicationEndTime, data?.applicationStartTime, isSuccess, now]);
 
   const applicationStartTime = useMemo(

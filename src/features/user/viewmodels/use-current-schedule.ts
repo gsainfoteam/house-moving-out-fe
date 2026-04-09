@@ -41,6 +41,7 @@ export const useCurrentSchedule = () => {
 
   const status: Status = useMemo(() => {
     if (user?.applyCleaningService) return 'cleaning_service';
+    if (scheduleStatus === 'no_schedule') return 'not_period';
     if (!user?.roomNumber) return 'not_target';
     if (scheduleStatus === 'success') {
       if (inspectionStatus === 'not_found') {
