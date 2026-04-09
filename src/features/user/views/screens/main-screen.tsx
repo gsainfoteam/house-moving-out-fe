@@ -9,6 +9,7 @@ import ModalBang from '@/assets/modal-bang.svg?react';
 import { Accordion, Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { overlay } from '@/common/lib';
 import type { checklist } from '@/common/lib';
+import { useLanguage } from '@/common/viewmodels';
 
 import { Steps } from '../components';
 
@@ -24,6 +25,27 @@ export type MainScreenStatus =
   | 'failed'
   | 'passed'
   | 'no_show';
+
+function InspectionCriteriaButton() {
+  const { t } = useTranslation('user');
+  const { currentLanguage } = useLanguage();
+
+  return (
+    <Button variant="outline" className="w-full" asChild>
+      <a
+        href={
+          currentLanguage === 'ko'
+            ? 'https://sites.google.com/view/gisthouse/home/%ED%87%B4%EC%82%AC-%EA%B2%80%EC%82%AC/%ED%87%B4%EC%82%AC-%EA%B2%80%EC%82%AC-%EA%B8%B0%EC%A4%80%ED%91%9C'
+            : 'https://sites.google.com/view/gisthouse/homeeng/moving-out-confirmation/the-standard-of-the-moving-out'
+        }
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {t('previewInspectionCriteria')}
+      </a>
+    </Button>
+  );
+}
 
 function StatusSteps({
   activeStepIndex,
@@ -80,9 +102,7 @@ function NotPeriodCard({ applicationStartTime }: { applicationStartTime?: Dayjs 
         </LayoutCard.Header>
       </LayoutCard.Center>
       <LayoutCard.Footer>
-        <Button variant="outline" className="w-full">
-          {t('steps.not_period.button')}
-        </Button>
+        <InspectionCriteriaButton />
       </LayoutCard.Footer>
     </>
   );
@@ -109,9 +129,7 @@ function NotTargetCard() {
         </LayoutCard.Header>
       </LayoutCard.Center>
       <LayoutCard.Footer>
-        <Button variant="outline" className="w-full">
-          {t('steps.not_target.button')}
-        </Button>
+        <InspectionCriteriaButton />
       </LayoutCard.Footer>
     </>
   );
@@ -138,9 +156,7 @@ function CleaningServiceCard() {
         </LayoutCard.Header>
       </LayoutCard.Center>
       <LayoutCard.Footer>
-        <Button variant="outline" className="w-full">
-          {t('steps.cleaning_service.button')}
-        </Button>
+        <InspectionCriteriaButton />
       </LayoutCard.Footer>
     </>
   );
