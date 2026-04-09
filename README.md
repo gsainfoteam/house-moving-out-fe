@@ -1,6 +1,6 @@
-# House Moving Out FE
+# GIST House Moving Out FE
 
-하우스 퇴사검사 사이트
+하우스연합회 퇴사검사 사이트
 
 ## 개발 환경 설정
 

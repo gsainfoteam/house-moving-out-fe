@@ -1,4 +1,4 @@
-# House Moving Out FE
+# GIST House Moving Out FE
 
 ## Environment & Tooling
 
