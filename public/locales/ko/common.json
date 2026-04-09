@@ -35,10 +35,10 @@
     "prev": "이전"
   },
   "pwaUpdate": {
-    "description": "새 버전이 출시되었습니다. 지금 업데이트하시겠습니까?",
+    "description": "새 버전이 준비되었습니다. 지금 새로고침하시겠습니까?",
     "dismiss": "나중에",
     "title": "업데이트 안내",
-    "update": "업데이트"
+    "update": "새로고침"
   },
   "switchToEnglish": "영어로 전환",
   "switchToKorean": "한국어로 전환"
