@@ -88,6 +88,7 @@
       "yes": "검사자"
     }
   },
+  "previewInspectionCriteria": "퇴사 검사 기준 미리보기",
   "steps": {
     "application": {
       "button": "퇴사 검사 신청하기",
@@ -95,7 +96,6 @@
       "title": "검사 신청"
     },
     "cleaning_service": {
-      "button": "퇴사 검사 기준 미리보기",
       "description": "위탁청소 신청자는 퇴사 검사를 신청할 수 없습니다.",
       "title": "위탁청소 신청자는 퇴사 검사 신청이 불가능합니다."
     },
@@ -123,12 +123,10 @@
     },
     "label": "{{number}}단계",
     "not_period": {
-      "button": "퇴사 검사 기준 미리보기",
       "description": "다음 검사 신청은 {{startTime}}부터 시작됩니다.",
       "title": "지금은 퇴사 검사 기간이 아닙니다."
     },
     "not_target": {
-      "button": "퇴사 검사 기준 미리보기",
       "description": "문의사항이 있으신 경우, 하단의 문의하기 버튼을 클릭해주세요.",
       "title": "퇴사 검사 신청 대상이 아닙니다."
     },

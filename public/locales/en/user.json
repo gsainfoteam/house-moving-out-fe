@@ -88,6 +88,7 @@
       "yes": "Inspector"
     }
   },
+  "previewInspectionCriteria": "Preview Inspection Criteria",
   "steps": {
     "application": {
       "button": "Apply Inspection",
@@ -95,7 +96,6 @@
       "title": "Apply"
     },
     "cleaning_service": {
-      "button": "Preview Inspection Criteria",
       "description": "Cleaning service applicants cannot apply for a move-out inspection.",
       "title": "Cleaning service applicants are not eligible for a move-out inspection."
     },
@@ -123,12 +123,10 @@
     },
     "label": "Step {{number}}",
     "not_period": {
-      "button": "Preview Inspection Criteria",
       "description": "The next inspection application starts from {{startTime}}.",
       "title": "It is not the moving out inspection period."
     },
     "not_target": {
-      "button": "Preview Inspection Criteria",
       "description": "If you have any questions, please click the \"Contact Us\" button below.",
       "title": "You are not eligible to apply for a move-out inspection."
     },
