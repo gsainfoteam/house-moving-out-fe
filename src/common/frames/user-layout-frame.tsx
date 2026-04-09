@@ -168,17 +168,6 @@ export function UserLayoutFrame() {
     };
   }, []);
 
-  useEffect(() => {
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (!meta) return;
-    const prev = meta.getAttribute('content');
-    meta.setAttribute('content', 'var(--color-bg-surface)');
-    return () => {
-      if (prev) meta.setAttribute('content', prev);
-      else meta.removeAttribute('content');
-    };
-  }, []);
-
   return (
     <Layout onMenuOpen={openMenu}>
       <Outlet />
