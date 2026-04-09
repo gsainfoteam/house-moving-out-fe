@@ -142,7 +142,7 @@ export function useOverlay(
             <motion.button
               type={type}
               aria-label={props['aria-label'] ?? 'Close overlay'}
-              className={cn('absolute inset-0 bg-black/10', className)}
+              className={cn('absolute inset-0', className)}
               onClick={(event) => {
                 onClick?.(event);
                 if (event.defaultPrevented) return;
