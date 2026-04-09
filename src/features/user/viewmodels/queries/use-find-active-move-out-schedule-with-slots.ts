@@ -33,7 +33,7 @@ export const useFindActiveMoveOutScheduleWithSlots = () => {
     if (isError) {
       if (error?.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
-      } else if (error.statusCode && [404].includes(error.statusCode)) {
+      } else if (error?.statusCode === 404) {
         // handle in view
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
