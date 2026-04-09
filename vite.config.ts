@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
           short_name: '퇴사검사',
           description: '하우스연합회 퇴사검사',
           theme_color: '#d68f2a',
-          background_color: '#f5f5f5',
+          background_color: '#ffffff',
           display: 'standalone',
           icons: [
             {
