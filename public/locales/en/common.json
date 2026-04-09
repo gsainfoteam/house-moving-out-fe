@@ -34,6 +34,12 @@
     "next": "Next",
     "prev": "Prev"
   },
+  "pwaUpdate": {
+    "description": "A new version is available. Would you like to update now?",
+    "dismiss": "Later",
+    "title": "Update Available",
+    "update": "Update"
+  },
   "switchToEnglish": "Switch to English",
   "switchToKorean": "Switch to Korean"
 }

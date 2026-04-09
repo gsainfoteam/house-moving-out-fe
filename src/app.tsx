@@ -5,6 +5,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { AuthProvider, type TAuthConfig } from 'react-oauth2-code-pkce';
 import { Toaster } from 'sonner';
 
+import { PwaUpdatePrompt } from './common/components';
 import { OverlayHost, OverlayProvider } from './common/lib';
 import { useAuthPrompt } from './features/auth';
 import { queryClient, router } from './main';
@@ -60,6 +61,7 @@ export function App() {
       <QueryClientProvider client={queryClient}>
         <OverlayProvider>
           <Toaster />
+          <PwaUpdatePrompt />
           <RouterProvider router={router} InnerWrap={InnerWrap} />
         </OverlayProvider>
       </QueryClientProvider>

@@ -1,5 +1,6 @@
 export * from './accordion';
 export * from './dialog';
+export * from './pwa-update-prompt';
 export * from './drawer';
 export * from './language-toggle';
 export * from './layout';
