@@ -10,10 +10,10 @@ export function LoginScreen({ onLogin }: LoginScreen.Props) {
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>
-      <div className="flex flex-col items-center justify-center gap-2.5">
+      <div className="flex flex-col items-center justify-center gap-2.5 px-4">
         <img src="/3d/logo.png" alt="logo" className="size-60" />
-        <h1 className="text-display text-text-primary">{t('title')}</h1>
-        <p className="text-body text-text-secondary">{t('subtitle')}</p>
+        <h1 className="text-display text-text-primary text-center">{t('title')}</h1>
+        <p className="text-body text-text-secondary text-center">{t('subtitle')}</p>
       </div>
       <Button className="mt-10" onClick={onLogin}>
         {t('loginButton')}
