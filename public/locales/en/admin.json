@@ -30,7 +30,7 @@
       "action": "Download all documents",
       "cancel": "Cancel",
       "download": "Download",
-      "failToGenerate": "Failed to generate document with signature. Download document only.",
+      "failToGenerate": "",
       "title": "Inspector Signature"
     },
     "error": {
