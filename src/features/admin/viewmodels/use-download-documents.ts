@@ -47,8 +47,7 @@ export const useDownloadDocuments = (scheduleUuid: string) => {
             return saveFile(new Blob([array]), `${data.title}.pdf`);
           }
           saveFile(new Blob([new Uint8Array(result)]), `${data.title}.pdf`);
-        } catch (error) {
-          console.error(error);
+        } catch {
           toast.error(t('error.internalServerError', { ns: 'common' }));
         }
       }),
