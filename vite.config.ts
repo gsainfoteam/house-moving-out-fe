@@ -71,7 +71,7 @@ export default defineConfig(({ mode }) => {
             ...['based-0.1.0'].map(
               (p) =>
                 new RegExp(
-                  `^https://packages\\.typst\\.org/preview/${p.replace(/./g, '\\.')}\\.tar\\.gz`,
+                  `^https://packages\\.typst\\.org/preview/${p.replace(/\\./g, '\\.')}\\.tar\\.gz`,
                 ),
             ),
           ].map((urlPattern) => ({
