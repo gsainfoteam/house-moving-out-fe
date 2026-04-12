@@ -26,7 +26,10 @@
       "studentNumber": "Student #",
       "type": "Inspection Type"
     },
-    "downloadDocuments": "Download all documents",
+    "downloadDocuments": {
+      "action": "Download all documents",
+      "title": "Inspector Signature"
+    },
     "error": {
       "load": "Cannot load inspection application list"
     },

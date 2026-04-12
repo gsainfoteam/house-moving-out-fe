@@ -15,7 +15,7 @@ export const useDownloadDocuments = (scheduleUuid: string) => {
   const { t } = useTranslation('admin');
 
   const download = useCallback(
-    () =>
+    (blob: Blob) =>
       startTransition(async () => {
         if (!data) return;
         try {

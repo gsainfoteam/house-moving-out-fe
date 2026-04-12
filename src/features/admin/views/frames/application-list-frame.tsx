@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState, useTransition } from 'react';
 
 import { useParams } from '@tanstack/react-router';
 
@@ -9,11 +9,73 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, Dialog, Loading, Pagination } from '@/common/components';
 import { overlay } from '@/common/lib';
+import { SignaturePad } from '@/features/inspector';
 
 import { useApplications, useDownloadDocuments } from '../../viewmodels';
 import { InspectorChanger } from '../components';
 
 const PAGE_SIZE = 20;
+
+function SignatureDialog({ onSave }: { onSave: (blob: Blob) => Promise<void> }) {
+  const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
+  const { t } = useTranslation('admin');
+  const [loading, startLoading] = useTransition();
+
+  return (
+    <>
+      <Dialog.Header>
+        <Dialog.Title>{t('application.downloadDocuments.title')}</Dialog.Title>
+      </Dialog.Header>
+      <Dialog.Body>
+        <SignaturePad ref={inspectorPadRef} />
+      </Dialog.Body>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button
+            variant="default"
+            disabled={loading}
+            onClick={() =>
+              startLoading(async () => {
+                const blob = await inspectorPadRef.current?.toBlob();
+                if (!blob) return Promise.reject(new Error('No signature'));
+                return onSave(blob).catch(() => {});
+              })
+            }
+          >
+            Save
+          </Button>
+        </Dialog.Close>
+        <Dialog.Close asChild>
+          <Button variant="outline">Cancel</Button>
+        </Dialog.Close>
+      </Dialog.Footer>
+    </>
+  );
+}
+
+function DownloadButton({
+  download,
+  isDownloading,
+}: {
+  download: (blob: Blob) => Promise<void>;
+  isDownloading: boolean;
+}) {
+  const { t } = useTranslation('admin');
+  return (
+    <Button
+      onClick={() =>
+        overlay.open(() => (
+          <Dialog.Root>
+            <SignatureDialog onSave={download} />
+          </Dialog.Root>
+        ))
+      }
+      disabled={isDownloading}
+    >
+      {t('application.downloadDocuments.action')}
+    </Button>
+  );
+}
 
 export function ApplicationListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/applications' });
@@ -28,9 +90,7 @@ export function ApplicationListFrame() {
   return (
     <main className="flex flex-col gap-4 p-4">
       <div className="flex justify-end">
-        <Button onClick={download} disabled={isDownloading}>
-          {t('application.downloadDocuments')}
-        </Button>
+        <DownloadButton download={async (blob) => download(blob)} isDownloading={isDownloading} />
       </div>
       <div className="bg-bg border-border overflow-hidden rounded-xl border">
         <table className="[&_td,&_th]:border-border w-full text-center [&_td,&_th]:border [&_td,&_th]:px-3 [&_td,&_th]:py-2">
