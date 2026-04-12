@@ -43,11 +43,11 @@ function SignatureDialog({ onSave }: { onSave: (blob: Blob) => Promise<void> }) 
               })
             }
           >
-            Save
+            {t('application.downloadDocuments.download')}
           </Button>
         </Dialog.Close>
         <Dialog.Close asChild>
-          <Button variant="outline">Cancel</Button>
+          <Button variant="outline">{t('application.downloadDocuments.cancel')}</Button>
         </Dialog.Close>
       </Dialog.Footer>
     </>

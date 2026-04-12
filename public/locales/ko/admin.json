@@ -28,6 +28,8 @@
     },
     "downloadDocuments": {
       "action": "검사서 일괄 다운로드",
+      "cancel": "취소",
+      "download": "다운로드",
       "failToGenerate": "서명된 파일을 만드는 데 실패했습니다. 검사서만 다운로드합니다.",
       "title": "검사자 서명"
     },
