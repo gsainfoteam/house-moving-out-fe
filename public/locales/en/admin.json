@@ -28,6 +28,7 @@
     },
     "downloadDocuments": {
       "action": "Download all documents",
+      "failToGenerate": "Failed to generate document with signature. Download document only.",
       "title": "Inspector Signature"
     },
     "error": {

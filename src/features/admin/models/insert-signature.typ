@@ -8,8 +8,10 @@
 #for page in range(1, pages + 1) {
   place(image(rawImage, format: "pdf", page: page))
   place(center, dx: 10.4em, dy: 10.6em, box(height: 20pt, width: 66pt, image(
-    "/assets/inspector-signature.png",
+    "/assets/signature.png",
     height: 20pt,
   )))
-  pagebreak()
+  if page < pages {
+    pagebreak()
+  }
 }
