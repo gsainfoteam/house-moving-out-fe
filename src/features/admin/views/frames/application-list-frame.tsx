@@ -20,6 +20,7 @@ function SignatureDialog({ onSave }: { onSave: (blob: Blob) => Promise<void> }) 
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
   const { t } = useTranslation('admin');
   const [loading, startLoading] = useTransition();
+  const [filled, setFilled] = useState(false);
 
   return (
     <>
@@ -27,13 +28,13 @@ function SignatureDialog({ onSave }: { onSave: (blob: Blob) => Promise<void> }) 
         <Dialog.Title>{t('application.downloadDocuments.title')}</Dialog.Title>
       </Dialog.Header>
       <Dialog.Body>
-        <SignaturePad ref={inspectorPadRef} />
+        <SignaturePad ref={inspectorPadRef} onChange={() => setFilled(true)} />
       </Dialog.Body>
       <Dialog.Footer>
         <Dialog.Close asChild>
           <Button
             variant="default"
-            disabled={loading}
+            disabled={loading || !filled}
             onClick={() =>
               startLoading(async () => {
                 const blob = await inspectorPadRef.current?.toBlob();
