@@ -21,3 +21,4 @@ export {
   ApplicationResDtoStatus as ApplicationStatus,
 } from '@/@types/api-schema';
 export { ApiPaths } from '@/@types/api-schema';
+export { default as insertSignatureContent } from './insert-signature.typ?raw';

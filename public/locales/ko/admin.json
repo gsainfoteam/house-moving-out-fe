@@ -26,7 +26,13 @@
       "studentNumber": "학번",
       "type": "검사 종류"
     },
-    "downloadDocuments": "검사서 일괄 다운로드",
+    "downloadDocuments": {
+      "action": "검사서 일괄 다운로드",
+      "cancel": "취소",
+      "download": "다운로드",
+      "failToGenerate": "",
+      "title": "검사자 서명"
+    },
     "error": {
       "load": "신청 목록을 불러올 수 없습니다"
     },
