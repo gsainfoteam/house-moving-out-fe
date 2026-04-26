@@ -157,6 +157,9 @@
         "male": "남자 검사위원"
       },
       "title": "검사위원 목록"
+    },
+    "temporaryCreate": {
+      "action": "임시 검사위원 추가"
     }
   },
   "result": {

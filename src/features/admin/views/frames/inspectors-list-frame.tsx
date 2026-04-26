@@ -9,6 +9,7 @@ import { Button, Loading } from '@/common/components';
 
 import {
   Gender,
+  ScheduleStatus,
   useDeleteInspector,
   useGetMoveOutScheduleQuery,
   useInspectorsOfSchedule,
@@ -115,11 +116,20 @@ export function InspectorsListFrame() {
           slots={femaleSlots}
         />
       </div>
-      <Button asChild>
-        <Link to="/admin/schedules/$uuid/inspectors/new" params={{ uuid }}>
-          {t('inspectors.create.action')}
-        </Link>
-      </Button>
+      {schedule.status === ScheduleStatus.DRAFT && (
+        <Button asChild>
+          <Link to="/admin/schedules/$uuid/inspectors/new" params={{ uuid }}>
+            {t('inspectors.create.action')}
+          </Link>
+        </Button>
+      )}
+      {schedule.status === ScheduleStatus.ACTIVE && (
+        <Button asChild>
+          <Link to="/admin/schedules/$uuid/inspectors/temporary" params={{ uuid }}>
+            {t('inspectors.temporaryCreate.action')}
+          </Link>
+        </Button>
+      )}
     </div>
   );
 }

@@ -158,6 +158,9 @@
         "male": "Male Inspectors"
       },
       "title": "Inspector List"
+    },
+    "temporaryCreate": {
+      "action": "Add Temporary Inspector"
     }
   },
   "result": {

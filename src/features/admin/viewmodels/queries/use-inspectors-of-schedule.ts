@@ -10,8 +10,8 @@ import { ApiPaths } from '../../models';
 export const useInspectorsOfSchedule = (scheduleUuid: string) => {
   const { data, error, isError, isLoading } = $api.useQuery(
     'get',
-    ApiPaths.ScheduleController_findInspectorsByScheduleUuid,
-    { params: { path: { uuid: scheduleUuid } } },
+    ApiPaths.InspectorController_getInspectors,
+    { params: { query: { scheduleUuid } } },
     {
       retry(count, error) {
         if (error?.statusCode === 404 || error?.statusCode === 400) return false;
