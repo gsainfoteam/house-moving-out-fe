@@ -150,13 +150,31 @@
     },
     "list": {
       "actions": {
-        "label": "액션"
+        "delete": {
+          "cancel": "취소",
+          "description": "정말 이 검사위원을 삭제하시겠습니까? 이 변경은 되돌릴 수 없습니다. 계속하시겠습니까?",
+          "submit": "삭제하기",
+          "title": "검사위원 삭제"
+        },
+        "label": "액션",
+        "updateToTemporary": {
+          "cancel": "취소",
+          "description": "자동 배정과는 상관 없이 임의로 할당 가능한 임시 검사위원으로 승격시키고자 합니다. 이 변경은 되돌릴 수 없습니다. 계속하시겠습니까?",
+          "submit": "승격하기",
+          "title": "임시 검사위원으로 승격"
+        }
       },
       "summary": {
         "female": "여자 검사위원",
         "male": "남자 검사위원"
       },
+      "temporary": {
+        "label": "임시 검사위원"
+      },
       "title": "검사위원 목록"
+    },
+    "temporaryCreate": {
+      "action": "임시 검사위원 추가"
     }
   },
   "result": {

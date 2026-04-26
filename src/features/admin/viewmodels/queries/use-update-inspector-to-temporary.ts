@@ -7,10 +7,11 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
-export const useCreateInspector = () => {
+export const useUpdateInspectorToTemporary = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('admin');
-  return $api.useMutation('post', ApiPaths.InspectorController_createInspectors, {
+
+  return $api.useMutation('patch', ApiPaths.InspectorController_updateInspectorToTemporary, {
     onSuccess: () =>
       Promise.all([
         queryClient.invalidateQueries({
@@ -23,6 +24,8 @@ export const useCreateInspector = () => {
     onError: (error) => {
       if (error.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
+      } else if (error?.statusCode === 404) {
+        toast.error(t('inspectors.error.notFound'));
       } else {
         toast.error(t('error.internalServerError', { ns: 'common' }));
       }

@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 import { Gender } from '../models';
 import { useCreateInspector } from './queries/use-create-inspector';
+import { useCreateTemporaryInspector } from './queries/use-create-temporary-inspector';
 
 const schema = z.object({
   name: z.string().min(1),
@@ -18,7 +19,7 @@ const schema = z.object({
   availableSlotUuids: z.uuid().array(),
 });
 
-export const useCreateInspectorForm = (scheduleUuid: string) => {
+const useCreateInspectorFormInternal = (scheduleUuid: string, isTemporary = false) => {
   const { register, handleSubmit, formState, setValue, getValues, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -26,19 +27,28 @@ export const useCreateInspectorForm = (scheduleUuid: string) => {
     },
   });
   const { mutateAsync: createInspector } = useCreateInspector();
+  const { mutateAsync: createTemporaryInspector } = useCreateTemporaryInspector();
   const { t } = useTranslation('admin');
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(
     async (data) => {
-      await createInspector({
-        params: { query: { scheduleUuid } },
-        body: { inspectors: [data] },
-      });
+      if (isTemporary) {
+        const sanitized = schema.omit({ availableSlotUuids: true }).parse(data);
+        await createTemporaryInspector({
+          params: { query: { scheduleUuid } },
+          body: { inspectors: [sanitized] },
+        });
+      } else {
+        await createInspector({
+          params: { query: { scheduleUuid } },
+          body: { inspectors: [data] },
+        });
+      }
       toast.success(t('inspectors.create.succeed'));
       await navigate({
         to: '/admin/schedules/$uuid/inspectors',
-        from: '/admin/schedules/$uuid/inspectors/new',
+        params: { uuid: scheduleUuid },
       });
     },
     () => {
@@ -68,3 +78,8 @@ export const useCreateInspectorForm = (scheduleUuid: string) => {
     slots,
   };
 };
+
+export const useCreateInspectorForm = (scheduleUuid: string) =>
+  useCreateInspectorFormInternal(scheduleUuid);
+export const useCreateTemporaryInspectorForm = (scheduleUuid: string) =>
+  useCreateInspectorFormInternal(scheduleUuid, true);

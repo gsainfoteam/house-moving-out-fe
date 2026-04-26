@@ -12,7 +12,7 @@ import {
   useInspectorsOfSchedule,
   type Application,
   type Inspector,
-  type InspectionSlot,
+  type SlotInfo,
 } from '@/features/admin/viewmodels';
 
 function ChangeConfirmDialog({
@@ -25,22 +25,22 @@ function ChangeConfirmDialog({
   confirmChange: (targetApplicationUuid?: string) => Promise<void>;
   inspector: Inspector;
   application: Application;
-  slot: InspectionSlot;
+  slot: SlotInfo;
   scheduleUuid: string;
 }) {
   const { t } = useTranslation('admin');
   const [loading, startLoading] = useTransition();
-  const { data: applications, error } = useApplicationsWithInspectorAndSlot(
-    scheduleUuid,
-    inspector.uuid,
-    slot.uuid,
-  );
+  const {
+    data: applications,
+    error,
+    isFetchedAfterMount,
+  } = useApplicationsWithInspectorAndSlot(scheduleUuid, inspector.uuid, slot.uuid);
   const { close } = useOverlayContext();
 
   if (error) return <div>{t('application.error.load')}</div>;
-  if (!applications) return <Loading containerClassName="h-full" />;
+  if (!applications || !isFetchedAfterMount) return <Loading containerClassName="h-full" />;
 
-  const isFull = applications.applications.length >= 2;
+  const isFull = applications.applications.length >= 2 && !inspector.isTemporary;
 
   return (
     <>
@@ -59,7 +59,9 @@ function ChangeConfirmDialog({
       </Dialog.Body>
       <Dialog.Footer className={cn(isFull && 'flex-col')}>
         <Dialog.Close asChild>
-          <Button disabled={loading}>{t('application.detail.changeInspector.cancel')}</Button>
+          <Button variant="subtle" disabled={loading}>
+            {t('application.detail.changeInspector.cancel')}
+          </Button>
         </Dialog.Close>
         {isFull ? (
           applications.applications.map((a) => (
@@ -116,9 +118,7 @@ export function InspectorChanger({
           ...i,
           slot: i.availableSlots.find((s) => s.uuid === application.inspectionSlot.uuid),
         }))
-        .filter((i): i is { [K in keyof typeof i]: NonNullable<(typeof i)[K]> } =>
-          isNotNil(i.slot),
-        ) ?? [],
+        .filter((i) => isNotNil(i.slot) || i.isTemporary) ?? [],
     [inspectors, application.inspectionSlot.uuid],
   );
   const inspectorMap = useMemo(
@@ -139,7 +139,7 @@ export function InspectorChanger({
               application={application}
               scheduleUuid={scheduleUuid}
               inspector={inspector}
-              slot={inspector.slot}
+              slot={application.inspectionSlot}
               confirmChange={(targetApplicationUuid) =>
                 changeInspector({
                   params: { path: { uuid: application.uuid } },

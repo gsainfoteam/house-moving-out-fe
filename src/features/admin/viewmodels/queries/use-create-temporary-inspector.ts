@@ -7,10 +7,10 @@ import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
 
-export const useCreateInspector = () => {
+export const useCreateTemporaryInspector = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('admin');
-  return $api.useMutation('post', ApiPaths.InspectorController_createInspectors, {
+  return $api.useMutation('post', ApiPaths.InspectorController_createTemporaryInspectors, {
     onSuccess: () =>
       Promise.all([
         queryClient.invalidateQueries({
