@@ -61,7 +61,9 @@ function UpdateInspectorToTemporaryDialog({
       </Dialog.Body>
       <Dialog.Footer>
         <Dialog.Close asChild>
-          <Button disabled={loading}>{t('cancel')}</Button>
+          <Button variant="subtle" disabled={loading}>
+            {t('cancel')}
+          </Button>
         </Dialog.Close>
         <Button
           className="w-full"
@@ -105,7 +107,9 @@ function DeleteInspectorDialog({
       </Dialog.Body>
       <Dialog.Footer>
         <Dialog.Close asChild>
-          <Button disabled={loading}>{t('cancel')}</Button>
+          <Button variant="subtle" disabled={loading}>
+            {t('cancel')}
+          </Button>
         </Dialog.Close>
         <Button
           className="w-full"

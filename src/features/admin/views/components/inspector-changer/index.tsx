@@ -59,7 +59,9 @@ function ChangeConfirmDialog({
       </Dialog.Body>
       <Dialog.Footer className={cn(isFull && 'flex-col')}>
         <Dialog.Close asChild>
-          <Button disabled={loading}>{t('application.detail.changeInspector.cancel')}</Button>
+          <Button variant="subtle" disabled={loading}>
+            {t('application.detail.changeInspector.cancel')}
+          </Button>
         </Dialog.Close>
         {isFull ? (
           applications.applications.map((a) => (
