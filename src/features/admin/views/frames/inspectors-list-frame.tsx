@@ -1,3 +1,5 @@
+import { useTransition } from 'react';
+
 import { Link, useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
@@ -5,7 +7,8 @@ import { countBy } from 'es-toolkit';
 import { ArrowLeftRight, Check, Trash } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Loading } from '@/common/components';
+import { Button, Dialog, Loading } from '@/common/components';
+import { overlay, useOverlayContext } from '@/common/lib';
 
 import {
   Gender,
@@ -36,13 +39,100 @@ const getRequiredCountSlots = (
     }));
 };
 
+function UpdateInspectorToTemporaryDialog({
+  scheduleUuid,
+  inspector,
+}: {
+  scheduleUuid: string;
+  inspector: Inspector;
+}) {
+  const { mutateAsync: updateInspectorToTemporary } = useUpdateInspectorToTemporary();
+  const [loading, startLoading] = useTransition();
+  const { close } = useOverlayContext();
+  const { t } = useTranslation('admin', { keyPrefix: 'inspectors.list.actions.updateToTemporary' });
+
+  return (
+    <>
+      <Dialog.Header>
+        <Dialog.Title>{t('title')}</Dialog.Title>
+      </Dialog.Header>
+      <Dialog.Body>
+        <Dialog.Description>{t('description')}</Dialog.Description>
+      </Dialog.Body>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button disabled={loading}>{t('cancel')}</Button>
+        </Dialog.Close>
+        <Button
+          className="w-full"
+          disabled={loading}
+          onClick={() =>
+            startLoading(() =>
+              updateInspectorToTemporary({
+                params: { query: { scheduleUuid }, path: { uuid: inspector.uuid } },
+              })
+                .then(close)
+                .catch(() => {}),
+            )
+          }
+        >
+          {t('submit')}
+        </Button>
+      </Dialog.Footer>
+    </>
+  );
+}
+
+function DeleteInspectorDialog({
+  scheduleUuid,
+  inspector,
+}: {
+  scheduleUuid: string;
+  inspector: Inspector;
+}) {
+  const { mutateAsync: deleteInspector } = useDeleteInspector();
+  const [loading, startLoading] = useTransition();
+  const { close } = useOverlayContext();
+  const { t } = useTranslation('admin', { keyPrefix: 'inspectors.list.actions.delete' });
+
+  return (
+    <>
+      <Dialog.Header>
+        <Dialog.Title>{t('title')}</Dialog.Title>
+      </Dialog.Header>
+      <Dialog.Body>
+        <Dialog.Description>{t('description')}</Dialog.Description>
+      </Dialog.Body>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button disabled={loading}>{t('cancel')}</Button>
+        </Dialog.Close>
+        <Button
+          className="w-full"
+          variant="failed"
+          disabled={loading}
+          onClick={() =>
+            startLoading(() =>
+              deleteInspector({
+                params: { query: { scheduleUuid }, path: { uuid: inspector.uuid } },
+              })
+                .then(close)
+                .catch(() => {}),
+            )
+          }
+        >
+          {t('submit')}
+        </Button>
+      </Dialog.Footer>
+    </>
+  );
+}
+
 export function InspectorsListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/inspectors/' });
   const { data: inspectors, isNotFound: isInspectorsNotFound } = useInspectorsOfSchedule(uuid);
   const { t } = useTranslation('admin');
   const { data: schedule, isNotFound: isScheduleNotFound } = useGetMoveOutScheduleQuery(uuid);
-  const { mutate: deleteInspector } = useDeleteInspector();
-  const { mutate: updateInspectorToTemporary } = useUpdateInspectorToTemporary();
 
   if (isScheduleNotFound || isInspectorsNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
@@ -94,14 +184,13 @@ export function InspectorsListFrame() {
                   <div className="flex justify-center gap-2">
                     <Button
                       size="icon"
+                      disabled={i.isTemporary}
                       onClick={() =>
-                        // TODO: add confirm modal after HMF-36
-                        updateInspectorToTemporary({
-                          params: {
-                            query: { scheduleUuid: uuid },
-                            path: { uuid: i.uuid },
-                          },
-                        })
+                        overlay.open(() => (
+                          <Dialog.Root>
+                            <UpdateInspectorToTemporaryDialog scheduleUuid={uuid} inspector={i} />
+                          </Dialog.Root>
+                        ))
                       }
                     >
                       <ArrowLeftRight />
@@ -110,13 +199,11 @@ export function InspectorsListFrame() {
                       size="icon"
                       className="bg-red-600"
                       onClick={() =>
-                        // TODO: add confirm modal after HMF-36
-                        deleteInspector({
-                          params: {
-                            query: { scheduleUuid: uuid },
-                            path: { uuid: i.uuid },
-                          },
-                        })
+                        overlay.open(() => (
+                          <Dialog.Root>
+                            <DeleteInspectorDialog scheduleUuid={uuid} inspector={i} />
+                          </Dialog.Root>
+                        ))
                       }
                     >
                       <Trash />

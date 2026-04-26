@@ -151,7 +151,19 @@
     },
     "list": {
       "actions": {
-        "label": "Actions"
+        "delete": {
+          "cancel": "Cancel",
+          "description": "Do you really want to delete this inspector? This change cannot be undone. Continue?",
+          "submit": "Delete",
+          "title": "Delete Inspector"
+        },
+        "label": "Actions",
+        "updateToTemporary": {
+          "cancel": "Cancel",
+          "description": "Do you really want to update inspector to temporary inspector which can be assigned manually? This change cannot be undone. Continue?",
+          "submit": "Update to Temporary",
+          "title": "Update Inspector to Temporary"
+        }
       },
       "summary": {
         "female": "Female Inspectors",
