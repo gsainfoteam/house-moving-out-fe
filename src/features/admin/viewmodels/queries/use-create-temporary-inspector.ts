@@ -11,14 +11,15 @@ export const useCreateTemporaryInspector = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('admin');
   return $api.useMutation('post', ApiPaths.InspectorController_createTemporaryInspectors, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.InspectorController_getInspectors],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['get', ApiPaths.ScheduleController_findInspectorsByScheduleUuid],
-      });
-    },
+    onSuccess: () =>
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ['get', ApiPaths.InspectorController_getInspectors],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ['get', ApiPaths.ScheduleController_findInspectorsByScheduleUuid],
+        }),
+      ]),
     onError: (error) => {
       if (error.statusCode === 401) {
         toast.error(t('error.unauthorized', { ns: 'common' }));
