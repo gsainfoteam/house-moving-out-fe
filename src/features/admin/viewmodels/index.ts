@@ -18,4 +18,5 @@ export {
   ApplicationStatus,
   type Application,
   type InspectionSlot,
+  type SlotInfo,
 } from '../models';
