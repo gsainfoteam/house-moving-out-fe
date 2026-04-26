@@ -48,7 +48,7 @@ const useCreateInspectorFormInternal = (scheduleUuid: string, isTemporary = fals
       toast.success(t('inspectors.create.succeed'));
       await navigate({
         to: '/admin/schedules/$uuid/inspectors',
-        from: '/admin/schedules/$uuid/inspectors/new',
+        params: { uuid: scheduleUuid },
       });
     },
     () => {
