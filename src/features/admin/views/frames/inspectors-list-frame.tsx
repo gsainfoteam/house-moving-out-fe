@@ -2,7 +2,7 @@ import { Link, useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { countBy } from 'es-toolkit';
-import { Check, Trash } from 'lucide-react';
+import { ArrowLeftRight, Check, Trash } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Loading } from '@/common/components';
@@ -13,6 +13,7 @@ import {
   useDeleteInspector,
   useGetMoveOutScheduleQuery,
   useInspectorsOfSchedule,
+  useUpdateInspectorToTemporary,
   type Inspector,
   type MoveOutScheduleWithSlots,
 } from '../../viewmodels';
@@ -41,6 +42,7 @@ export function InspectorsListFrame() {
   const { t } = useTranslation('admin');
   const { data: schedule, isNotFound: isScheduleNotFound } = useGetMoveOutScheduleQuery(uuid);
   const { mutate: deleteInspector } = useDeleteInspector();
+  const { mutate: updateInspectorToTemporary } = useUpdateInspectorToTemporary();
 
   if (isScheduleNotFound || isInspectorsNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
@@ -89,7 +91,21 @@ export function InspectorsListFrame() {
                   )}
                 </td>
                 <td className="py-1">
-                  <div className="flex justify-center">
+                  <div className="flex justify-center gap-2">
+                    <Button
+                      size="icon"
+                      onClick={() =>
+                        // TODO: add confirm modal after HMF-36
+                        updateInspectorToTemporary({
+                          params: {
+                            query: { scheduleUuid: uuid },
+                            path: { uuid: i.uuid },
+                          },
+                        })
+                      }
+                    >
+                      <ArrowLeftRight />
+                    </Button>
                     <Button
                       size="icon"
                       className="bg-red-600"
