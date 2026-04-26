@@ -157,6 +157,9 @@
         "female": "Female Inspectors",
         "male": "Male Inspectors"
       },
+      "temporary": {
+        "label": "Temporary"
+      },
       "title": "Inspector List"
     },
     "temporaryCreate": {

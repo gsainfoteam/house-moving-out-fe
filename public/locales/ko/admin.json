@@ -156,6 +156,9 @@
         "female": "여자 검사위원",
         "male": "남자 검사위원"
       },
+      "temporary": {
+        "label": "임시 검사위원"
+      },
       "title": "검사위원 목록"
     },
     "temporaryCreate": {

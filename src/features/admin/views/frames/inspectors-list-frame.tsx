@@ -2,7 +2,7 @@ import { Link, useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { countBy } from 'es-toolkit';
-import { Trash } from 'lucide-react';
+import { Check, Trash } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Loading } from '@/common/components';
@@ -60,6 +60,7 @@ export function InspectorsListFrame() {
               <th>{t('inspectors.create.studentNumber.label')}</th>
               <th>{t('inspectors.create.gender.label')}</th>
               <th>{t('inspectors.create.slots.label')}</th>
+              <th>{t('inspectors.list.temporary.label')}</th>
               <th>{t('inspectors.list.actions.label')}</th>
             </tr>
           </thead>
@@ -79,6 +80,13 @@ export function InspectorsListFrame() {
                   )
                     .map((r) => `${r.start.format('ddd HH:mm')}~${r.end.format('ddd HH:mm')}`)
                     .join('\n')}
+                </td>
+                <td>
+                  {i.isTemporary && (
+                    <div className="flex items-center justify-center">
+                      <Check />
+                    </div>
+                  )}
                 </td>
                 <td className="py-1">
                   <div className="flex justify-center">
