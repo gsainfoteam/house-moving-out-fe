@@ -4,6 +4,7 @@ export * from './use-create-inspector-form';
 export * from './use-manage-cleaning-service';
 export * from './use-article-form';
 export * from './use-download-documents';
+export * from './use-download-application-excel';
 export {
   ArticleType,
   InspectionType,

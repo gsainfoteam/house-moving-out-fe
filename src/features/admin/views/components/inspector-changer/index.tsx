@@ -46,8 +46,6 @@ function ChangeConfirmDialog({
     <>
       <Dialog.Header>
         <Dialog.Title>{t('application.detail.changeInspector.title')}</Dialog.Title>
-      </Dialog.Header>
-      <Dialog.Body>
         <Dialog.Description>
           {isFull
             ? t('application.detail.changeInspector.fullDescription', {
@@ -56,7 +54,7 @@ function ChangeConfirmDialog({
               })
             : t('application.detail.changeInspector.description', { name: inspector.name })}
         </Dialog.Description>
-      </Dialog.Body>
+      </Dialog.Header>
       <Dialog.Footer className={cn(isFull && 'flex-col')}>
         <Dialog.Close asChild>
           <Button variant="subtle" disabled={loading}>

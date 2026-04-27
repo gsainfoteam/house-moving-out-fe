@@ -11,10 +11,25 @@ import { Button, Dialog, Loading, Pagination } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { SignaturePad } from '@/features/inspector';
 
-import { useApplications, useDownloadDocuments } from '../../viewmodels';
+import {
+  useApplications,
+  useDownloadApplicationExcel,
+  useDownloadDocuments,
+} from '../../viewmodels';
 import { InspectorChanger } from '../components';
 
 const PAGE_SIZE = 20;
+
+function DownloadExcelButton({ scheduleUuid }: { scheduleUuid: string }) {
+  const { t } = useTranslation('admin');
+  const { download, isDownloading } = useDownloadApplicationExcel(scheduleUuid);
+
+  return (
+    <Button disabled={isDownloading} onClick={download}>
+      {t('application.downloadDocuments.downloadExcel')}
+    </Button>
+  );
+}
 
 function SignatureDialog({ onSave }: { onSave: (blob: Blob) => Promise<void> }) {
   const inspectorPadRef = useRef<SignaturePad.Handle | null>(null);
@@ -90,7 +105,8 @@ export function ApplicationListFrame() {
 
   return (
     <main className="flex flex-col gap-4 p-4">
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2">
+        <DownloadExcelButton scheduleUuid={uuid} />
         <DownloadButton download={async (blob) => download(blob)} isDownloading={isDownloading} />
       </div>
       <div className="bg-bg border-border overflow-hidden rounded-xl border">
