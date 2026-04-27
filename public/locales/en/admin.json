@@ -243,6 +243,13 @@
         "title": "Change Status"
       },
       "completed": "Complete",
+      "delete": {
+        "action": "Delete",
+        "cancel": "Cancel",
+        "description": "Do you really want to delete this moving out inspection? This change cannot be undone. Continue?",
+        "submit": "Delete",
+        "title": "Delete Moving Out Schedule"
+      },
       "error": "Cannot load moving out inspection information",
       "notFound": "Moving out inspection not found.",
       "summary": {

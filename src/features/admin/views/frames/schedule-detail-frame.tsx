@@ -16,6 +16,7 @@ import {
   ApplicationStatus,
   useChangeScheduleStatus,
   ScheduleStatus,
+  useDeleteSchedule,
 } from '../../viewmodels';
 import { ScheduleStatusBadge } from '../components';
 
@@ -32,12 +33,14 @@ function ChangeScheduleDialog({
   const [loading, startLoading] = useTransition();
   return (
     <Dialog.Root>
-      <Dialog.Header>{t('schedule.detail.changeSchedule.title')}</Dialog.Header>
-      <Dialog.Body>
-        {t('schedule.detail.changeSchedule.description', {
-          status: t(`schedule.status.${status.toLowerCase()}`),
-        })}
-      </Dialog.Body>
+      <Dialog.Header>
+        <Dialog.Title>{t('schedule.detail.changeSchedule.title')}</Dialog.Title>
+        <Dialog.Description>
+          {t('schedule.detail.changeSchedule.description', {
+            status: t(`schedule.status.${status.toLowerCase()}`),
+          })}
+        </Dialog.Description>
+      </Dialog.Header>
       <Dialog.Footer>
         <Dialog.Close asChild>
           <Button variant="failed">{t('schedule.detail.changeSchedule.cancel')}</Button>
@@ -55,12 +58,47 @@ function ChangeScheduleDialog({
   );
 }
 
+function DeleteScheduleDialog({
+  onDelete,
+  close,
+}: {
+  onDelete: () => Promise<void>;
+  close: () => void;
+}) {
+  const { t } = useTranslation('admin');
+  const [loading, startLoading] = useTransition();
+  return (
+    <Dialog.Root>
+      <Dialog.Header>
+        <Dialog.Title>{t('schedule.detail.delete.title')}</Dialog.Title>
+        <Dialog.Description>{t('schedule.detail.delete.description')}</Dialog.Description>
+      </Dialog.Header>
+      <Dialog.Footer>
+        <Dialog.Close asChild>
+          <Button variant="subtle" disabled={loading}>
+            {t('schedule.detail.delete.cancel')}
+          </Button>
+        </Dialog.Close>
+        <Button
+          variant="failed"
+          disabled={loading}
+          onClick={() => startLoading(() => onDelete().then(close))}
+          className="w-full"
+        >
+          {t('schedule.detail.delete.submit')}
+        </Button>
+      </Dialog.Footer>
+    </Dialog.Root>
+  );
+}
+
 export function ScheduleDetailFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/' });
   const { data: schedule, isNotFound, error } = useGetMoveOutScheduleQuery(uuid);
   const { data: targets, isNotFound: targetNotFound, error: targetError } = useTargets(uuid);
   const { t } = useTranslation('admin');
   const { changeScheduleStatus, isPending: updatingStatus } = useChangeScheduleStatus(uuid);
+  const { deleteSchedule, isPending: deletingStatus } = useDeleteSchedule(uuid);
 
   if (isNotFound || targetNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
@@ -127,6 +165,23 @@ export function ScheduleDetailFrame() {
                 onClick={changeSchedule(ScheduleStatus.COMPLETED)}
               >
                 {t('schedule.detail.completed')}
+              </Button>
+            )}
+            {(schedule.status === ScheduleStatus.CANCELED ||
+              schedule.status === ScheduleStatus.COMPLETED) && (
+              <Button
+                disabled={deletingStatus}
+                variant="failed"
+                onClick={() =>
+                  overlay.open(({ close }) => (
+                    <DeleteScheduleDialog
+                      onDelete={() => deleteSchedule().then(close)}
+                      close={close}
+                    />
+                  ))
+                }
+              >
+                {t('schedule.detail.delete.action')}
               </Button>
             )}
           </div>
