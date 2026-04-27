@@ -1,6 +1,6 @@
 import { useTransition } from 'react';
 
-import { useParams } from '@tanstack/react-router';
+import { useNavigate, useParams } from '@tanstack/react-router';
 
 import dayjs from 'dayjs';
 import { countBy } from 'es-toolkit';
@@ -99,6 +99,7 @@ export function ScheduleDetailFrame() {
   const { t } = useTranslation('admin');
   const { changeScheduleStatus, isPending: updatingStatus } = useChangeScheduleStatus(uuid);
   const { deleteSchedule, isPending: deletingStatus } = useDeleteSchedule(uuid);
+  const navigate = useNavigate();
 
   if (isNotFound || targetNotFound)
     return <div className="p-4">{t('schedule.detail.notFound')}</div>;
@@ -175,7 +176,11 @@ export function ScheduleDetailFrame() {
                 onClick={() =>
                   overlay.open(({ close }) => (
                     <DeleteScheduleDialog
-                      onDelete={() => deleteSchedule().then(close)}
+                      onDelete={() =>
+                        deleteSchedule()
+                          .then(close)
+                          .then(() => navigate({ to: '/admin/schedules' }))
+                      }
                       close={close}
                     />
                   ))
