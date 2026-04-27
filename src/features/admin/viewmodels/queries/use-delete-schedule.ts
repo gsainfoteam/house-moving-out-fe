@@ -8,7 +8,7 @@ export const useDeleteSchedule = (uuid: string) => {
   const queryClient = useQueryClient();
 
   const api = $api.useMutation('delete', ApiPaths.ScheduleController_removeMoveOutSchedule, {
-    onSuccess: () => {
+    onSuccess: () =>
       Promise.all([
         queryClient.invalidateQueries({
           queryKey: ['get', ApiPaths.ScheduleController_findAllMoveOutSchedules],
@@ -16,8 +16,7 @@ export const useDeleteSchedule = (uuid: string) => {
         queryClient.invalidateQueries({
           queryKey: ['get', ApiPaths.ScheduleController_findMoveOutScheduleWithSlots],
         }),
-      ]);
-    },
+      ]),
   });
 
   const deleteSchedule = () => api.mutateAsync({ params: { path: { uuid } } });
