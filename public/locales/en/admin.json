@@ -30,6 +30,7 @@
       "action": "Download all documents",
       "cancel": "Cancel",
       "download": "Download",
+      "downloadExcel": "Download Excel",
       "failToGenerate": "",
       "title": "Inspector Signature"
     },

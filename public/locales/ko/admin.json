@@ -30,6 +30,7 @@
       "action": "검사서 일괄 다운로드",
       "cancel": "취소",
       "download": "다운로드",
+      "downloadExcel": "목록 엑셀 다운로드",
       "failToGenerate": "",
       "title": "검사자 서명"
     },
