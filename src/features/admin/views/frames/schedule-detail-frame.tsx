@@ -177,9 +177,7 @@ export function ScheduleDetailFrame() {
                   overlay.open(({ close }) => (
                     <DeleteScheduleDialog
                       onDelete={() =>
-                        deleteSchedule()
-                          .then(close)
-                          .then(() => navigate({ to: '/admin/schedules' }))
+                        deleteSchedule().then(() => navigate({ to: '/admin/schedules' }))
                       }
                       close={close}
                     />
