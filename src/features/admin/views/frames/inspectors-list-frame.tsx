@@ -55,10 +55,8 @@ function UpdateInspectorToTemporaryDialog({
     <>
       <Dialog.Header>
         <Dialog.Title>{t('title')}</Dialog.Title>
-      </Dialog.Header>
-      <Dialog.Body>
         <Dialog.Description>{t('description')}</Dialog.Description>
-      </Dialog.Body>
+      </Dialog.Header>
       <Dialog.Footer>
         <Dialog.Close asChild>
           <Button variant="subtle" disabled={loading}>
