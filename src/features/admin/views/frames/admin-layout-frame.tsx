@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { LanguageToggle } from '@/common/components';
 import { cn } from '@/common/utils';
+import { useAuth } from '@/features/auth';
 
 import { useDatabaseSize } from '../../viewmodels';
 
@@ -47,6 +48,7 @@ function DatabaseSizeBar() {
 
 export function AdminLayoutFrame() {
   const { t } = useTranslation('admin');
+  const { isSuperAdmin } = useAuth();
 
   return (
     <>
@@ -78,6 +80,14 @@ export function AdminLayoutFrame() {
             >
               {t('article.list.nav')}
             </Link>
+            {isSuperAdmin && (
+              <Link
+                to="/admin/admins"
+                className="text-body text-text-secondary hover:bg-bg-surface hover:text-primary rounded-lg px-3 py-2 font-medium transition-colors"
+              >
+                {t('admins.nav')}
+              </Link>
+            )}
           </nav>
           <DatabaseSizeBar />
           <div className="px-2">

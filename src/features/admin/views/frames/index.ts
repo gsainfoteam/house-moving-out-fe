@@ -14,3 +14,4 @@ export * from './create-article-frame';
 export * from './edit-article-frame';
 export * from './room-list-frame';
 export * from './time-list-frame';
+export * from './admin-management-frame';
