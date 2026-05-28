@@ -1,23 +1,33 @@
 {
   "admins": {
-    "nav": "관리자 관리",
-    "title": "관리자 관리",
-    "add": "관리자 추가",
-    "empty": "등록된 관리자가 없습니다.",
-    "columns": {
-      "name": "이름",
-      "email": "이메일",
-      "studentNumber": "학번",
-      "role": "역할",
-      "createdAt": "등록일",
-      "actions": "작업"
+    "actions": {
+      "delete": {
+        "cancel": "취소",
+        "description": "{{name}}님의 관리자 권한을 해제하시겠습니까?",
+        "submit": "삭제",
+        "title": "관리자 삭제"
+      },
+      "transfer": {
+        "cancel": "취소",
+        "description": "최고 관리자 권한이 {{name}}님에게 이전됩니다. 본인은 일반 관리자로 변경됩니다.",
+        "submit": "위임",
+        "title": "최고 관리자 위임"
+      }
     },
-    "role": {
-      "superadmin": "최고 관리자",
-      "admin": "관리자"
+    "add": "관리자 추가",
+    "columns": {
+      "actions": "작업",
+      "createdAt": "등록일",
+      "email": "이메일",
+      "name": "이름",
+      "role": "역할",
+      "studentNumber": "학번"
     },
     "create": {
-      "title": "관리자 추가",
+      "cancel": "취소",
+      "error": {
+        "formError": "입력 칸을 확인해주세요."
+      },
       "name": {
         "label": "이름",
         "placeholder": "이름을 입력해주세요"
@@ -27,29 +37,19 @@
         "placeholder": "8자리 학번"
       },
       "submit": "추가",
-      "cancel": "취소",
       "success": "관리자가 추가되었습니다.",
-      "error": {
-        "formError": "입력 칸을 확인해주세요."
-      }
+      "title": "관리자 추가"
     },
-    "actions": {
-      "delete": {
-        "title": "관리자 삭제",
-        "description": "{{name}}님의 관리자 권한을 해제하시겠습니까?",
-        "submit": "삭제",
-        "cancel": "취소"
-      },
-      "transfer": {
-        "title": "최고 관리자 위임",
-        "description": "최고 관리자 권한이 {{name}}님에게 이전됩니다. 본인은 일반 관리자로 변경됩니다.",
-        "submit": "위임",
-        "cancel": "취소"
-      }
-    },
+    "empty": "등록된 관리자가 없습니다.",
     "error": {
       "conflict": "요청을 처리할 수 없습니다. 사용자 정보를 확인해주세요."
-    }
+    },
+    "nav": "관리자 관리",
+    "role": {
+      "admin": "관리자",
+      "superadmin": "최고 관리자"
+    },
+    "title": "관리자 관리"
   },
   "application": {
     "detail": {

@@ -1,23 +1,33 @@
 {
   "admins": {
-    "nav": "Admin management",
-    "title": "Admin management",
-    "add": "Add admin",
-    "empty": "No admins registered.",
-    "columns": {
-      "name": "Name",
-      "email": "Email",
-      "studentNumber": "Student #",
-      "role": "Role",
-      "createdAt": "Added at",
-      "actions": "Actions"
+    "actions": {
+      "delete": {
+        "cancel": "Cancel",
+        "description": "Remove admin privileges from {{name}}?",
+        "submit": "Remove",
+        "title": "Remove admin"
+      },
+      "transfer": {
+        "cancel": "Cancel",
+        "description": "Super admin role will be transferred to {{name}}. You will become a regular admin.",
+        "submit": "Transfer",
+        "title": "Transfer super admin"
+      }
     },
-    "role": {
-      "superadmin": "Super admin",
-      "admin": "Admin"
+    "add": "Add admin",
+    "columns": {
+      "actions": "Actions",
+      "createdAt": "Added at",
+      "email": "Email",
+      "name": "Name",
+      "role": "Role",
+      "studentNumber": "Student #"
     },
     "create": {
-      "title": "Add admin",
+      "cancel": "Cancel",
+      "error": {
+        "formError": "Please check the form fields."
+      },
       "name": {
         "label": "Name",
         "placeholder": "Enter name"
@@ -27,29 +37,19 @@
         "placeholder": "8-digit student number"
       },
       "submit": "Add",
-      "cancel": "Cancel",
       "success": "Admin has been added.",
-      "error": {
-        "formError": "Please check the form fields."
-      }
+      "title": "Add admin"
     },
-    "actions": {
-      "delete": {
-        "title": "Remove admin",
-        "description": "Remove admin privileges from {{name}}?",
-        "submit": "Remove",
-        "cancel": "Cancel"
-      },
-      "transfer": {
-        "title": "Transfer super admin",
-        "description": "Super admin role will be transferred to {{name}}. You will become a regular admin.",
-        "submit": "Transfer",
-        "cancel": "Cancel"
-      }
-    },
+    "empty": "No admins registered.",
     "error": {
       "conflict": "Could not process the request. Please verify user information."
-    }
+    },
+    "nav": "Admin management",
+    "role": {
+      "admin": "Admin",
+      "superadmin": "Super admin"
+    },
+    "title": "Admin management"
   },
   "application": {
     "detail": {
