@@ -43,7 +43,7 @@ function CreateAdminDialog() {
       <Dialog.Header>
         <Dialog.Title>{t('title')}</Dialog.Title>
       </Dialog.Header>
-      <Dialog.Body className="flex flex-col gap-4">
+      <Dialog.Body className="flex flex-col gap-4 overflow-y-visible">
         <label>
           {t('name.label')}
           <Input
