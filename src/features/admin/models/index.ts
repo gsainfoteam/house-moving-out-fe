@@ -12,6 +12,10 @@ export type UpdateArticleVisibilityRequest = components['schemas']['UpdateArticl
 export type MoveOutScheduleWithSlots = components['schemas']['MoveOutScheduleWithSlotsResDto'];
 export type Inspector = components['schemas']['InspectorResDto'];
 export type Application = components['schemas']['ApplicationResDto'];
+export type AdminListItem = components['schemas']['AdminListItemDto'];
+export type AdminList = components['schemas']['AdminListDto'];
+export type CreateAdminRequest = components['schemas']['CreateAdminDto'];
+export type TransferSuperAdminRequest = components['schemas']['TransferSuperAdminDto'];
 export {
   CreateMoveOutScheduleWithTargetsFormDtoCurrentSeason as Season,
   CreateMoveOutScheduleWithTargetsFormDtoResidentGenderByHouseFloorKey as Gender,
@@ -20,6 +24,7 @@ export {
   PathsArticleGetParametersQueryType as ArticleType,
   ArticleDtoLanguage as ArticleLanguage,
   ApplicationResDtoStatus as ApplicationStatus,
+  UserDtoRole,
 } from '@/@types/api-schema';
 export { ApiPaths } from '@/@types/api-schema';
 export { default as insertSignatureContent } from './insert-signature.typ?raw';

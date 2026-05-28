@@ -1,4 +1,56 @@
 {
+  "admins": {
+    "actions": {
+      "delete": {
+        "cancel": "Cancel",
+        "description": "Remove admin privileges from {{name}}?",
+        "submit": "Remove",
+        "title": "Remove admin"
+      },
+      "transfer": {
+        "cancel": "Cancel",
+        "description": "Super admin role will be transferred to {{name}}. You will become a regular admin.",
+        "submit": "Transfer",
+        "title": "Transfer super admin"
+      }
+    },
+    "add": "Add admin",
+    "columns": {
+      "actions": "Actions",
+      "createdAt": "Added at",
+      "email": "Email",
+      "name": "Name",
+      "role": "Role",
+      "studentNumber": "Student #"
+    },
+    "create": {
+      "cancel": "Cancel",
+      "error": {
+        "formError": "Please check the form fields."
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "studentNumber": {
+        "label": "Student #",
+        "placeholder": "8-digit student number"
+      },
+      "submit": "Add",
+      "success": "Admin has been added.",
+      "title": "Add admin"
+    },
+    "empty": "No admins registered.",
+    "error": {
+      "conflict": "Could not process the request. Please verify user information."
+    },
+    "nav": "Admin management",
+    "role": {
+      "admin": "Admin",
+      "superadmin": "Super admin"
+    },
+    "title": "Admin management"
+  },
   "application": {
     "detail": {
       "appliedAt": "Applied At",

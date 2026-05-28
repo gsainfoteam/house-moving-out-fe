@@ -41,9 +41,14 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
     return userData;
   }, [userData, userError, isLoading, token]);
 
-  const isAdmin = useMemo(
-    () => (user === undefined ? undefined : user?.role === UserDtoRole.ADMIN),
+  const isSuperAdmin = useMemo(
+    () => (user === undefined ? undefined : user?.role === UserDtoRole.SUPERADMIN),
     [user],
+  );
+
+  const isAdmin = useMemo(
+    () => isSuperAdmin || (user === undefined ? undefined : user?.role === UserDtoRole.ADMIN),
+    [user, isSuperAdmin],
   );
 
   const isInspector = useMemo(
@@ -61,6 +66,7 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
     user,
     isInspector,
     isAdmin,
+    isSuperAdmin,
     refetchUser,
     idpLogIn,
     idpLogOut,

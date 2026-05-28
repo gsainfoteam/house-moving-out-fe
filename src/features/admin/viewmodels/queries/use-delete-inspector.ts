@@ -16,9 +16,6 @@ export const useDeleteInspector = () => {
         queryClient.invalidateQueries({
           queryKey: ['get', ApiPaths.InspectorController_getInspectors],
         }),
-        queryClient.invalidateQueries({
-          queryKey: ['get', ApiPaths.ScheduleController_findInspectorsByScheduleUuid],
-        }),
       ]),
     onError: (error) => {
       if (error.statusCode === 401) {
