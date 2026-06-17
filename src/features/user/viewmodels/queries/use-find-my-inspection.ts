@@ -50,7 +50,11 @@ export const useFindMyInspection = (enabled: boolean) => {
     [data, isSuccess],
   );
 
-  const applicationUuid = useMemo(() => (isSuccess ? data.uuid : undefined), [data, isSuccess]);
+  const applicationUuid = useMemo(
+    () =>
+      isSuccess ? (data.status === ApplicationStatus.CANCELED ? undefined : data.uuid) : undefined,
+    [data, isSuccess],
+  );
 
   const inspectionCount = useMemo(
     () => (isSuccess ? data.inspectionCount : undefined),
