@@ -69,6 +69,8 @@ export const useFindMyInspection = (enabled: boolean) => {
         return 'failed' as const;
       } else if (data.status === ApplicationStatus.NO_SHOW) {
         return 'no_show' as const;
+      } else if (data.status === ApplicationStatus.CANCELED) {
+        return 'canceled' as const;
       } else if (isNil(data.status)) {
         const startTime = dayjs(data.inspectionSlot.startTime);
         const endTime = dayjs(data.inspectionSlot.endTime);
