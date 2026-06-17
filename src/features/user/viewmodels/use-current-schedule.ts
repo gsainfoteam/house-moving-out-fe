@@ -17,7 +17,8 @@ type Status =
   | 'in_progress'
   | 'failed'
   | 'passed'
-  | 'no_show';
+  | 'no_show'
+  | 'canceled';
 
 export const useCurrentSchedule = () => {
   const { user } = useAuth();
@@ -44,7 +45,7 @@ export const useCurrentSchedule = () => {
     if (scheduleStatus === 'no_schedule') return 'not_period';
     if (!user?.roomNumber) return 'not_target';
     if (scheduleStatus === 'success') {
-      if (inspectionStatus === 'not_found') {
+      if (inspectionStatus === 'not_found' || inspectionStatus === 'canceled') {
         return 'application';
       }
       return inspectionStatus ?? 'not_period';
