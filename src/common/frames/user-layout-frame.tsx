@@ -140,7 +140,7 @@ const DrawerContent = () => {
           </button>
         </Drawer.Close>
         <div className="text-body-sm text-text-secondary mt-2">
-          Version: {import.meta.env.version}
+          {t('version', { version: import.meta.env.version ?? 'unknown' })}
         </div>
       </Drawer.Body>
     </Drawer.Root>

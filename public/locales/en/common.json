@@ -41,5 +41,6 @@
     "update": "Refresh"
   },
   "switchToEnglish": "Switch to English",
-  "switchToKorean": "Switch to Korean"
+  "switchToKorean": "Switch to Korean",
+  "version": "Version: {{version}}"
 }
