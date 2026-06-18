@@ -9,7 +9,6 @@ import ModalBang from '@/assets/modal-bang.svg?react';
 import { Accordion, Button, Dialog, LayoutCard, SwitchCase } from '@/common/components';
 import { overlay } from '@/common/lib';
 import type { checklist } from '@/common/lib';
-import { useLanguage } from '@/common/viewmodels';
 
 import { Steps } from '../components';
 
@@ -28,19 +27,10 @@ export type MainScreenStatus =
 
 function InspectionCriteriaButton() {
   const { t } = useTranslation('user');
-  const { currentLanguage } = useLanguage();
 
   return (
     <Button variant="outline" className="w-full" asChild>
-      <a
-        href={
-          currentLanguage === 'ko'
-            ? 'https://sites.google.com/view/gisthouse/home/%ED%87%B4%EC%82%AC-%EA%B2%80%EC%82%AC/%ED%87%B4%EC%82%AC-%EA%B2%80%EC%82%AC-%EA%B8%B0%EC%A4%80%ED%91%9C'
-            : 'https://sites.google.com/view/gisthouse/homeeng/moving-out-confirmation/the-standard-of-the-moving-out'
-        }
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://www.gist-house.org/moving-out" target="_blank" rel="noopener noreferrer">
         {t('previewInspectionCriteria')}
       </a>
     </Button>
