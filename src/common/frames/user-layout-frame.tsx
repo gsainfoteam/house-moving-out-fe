@@ -139,6 +139,9 @@ const DrawerContent = () => {
             {t('fab.languageChange')}
           </button>
         </Drawer.Close>
+        <div className="text-body-sm text-text-secondary mt-2">
+          {t('version', { version: import.meta.env.version ?? 'unknown' })}
+        </div>
       </Drawer.Body>
     </Drawer.Root>
   );
