@@ -113,9 +113,9 @@ export function ApplicationStatusChanger({ application }: { application: Applica
           key={option.value || 'unprocessed'}
           disabled={option.status === null}
         >
-          {isNil(option.status)
+          {!option.value
             ? t('application.detail.changeStatus.unprocessed')
-            : t(`result.${option.status.toLowerCase()}`)}
+            : t(`result.${option.value.toLowerCase()}`)}
         </option>
       ))}
     </select>

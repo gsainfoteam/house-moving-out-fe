@@ -11,12 +11,12 @@ const EDITABLE_STATUSES = new Set<Application['status'] | null>([
 
 export const STATUS_OPTIONS = [
   { value: '', status: null },
-  { value: AdminApplicationStatus.PASSED, status: AdminApplicationStatus.PASSED },
-  { value: AdminApplicationStatus.FAILED, status: AdminApplicationStatus.FAILED },
-  {
-    value: AdminApplicationStatus.NO_SHOW,
-    status: AdminApplicationStatus.NO_SHOW,
-  },
+  { value: ApplicationStatus.PASSED, status: AdminApplicationStatus.PASSED },
+  { value: ApplicationStatus.FAILED, status: AdminApplicationStatus.FAILED },
+  { value: ApplicationStatus.NO_SHOW, status: AdminApplicationStatus.NO_SHOW },
+  { value: ApplicationStatus.NO_SHOW_CANCELED, status: null },
+  { value: ApplicationStatus.PENDING_NO_SHOW, status: null },
+  { value: ApplicationStatus.CANCELED, status: null },
 ] as const;
 
 export function isEditableApplicationStatus(
