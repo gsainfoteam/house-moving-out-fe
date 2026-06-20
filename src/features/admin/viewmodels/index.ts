@@ -18,6 +18,7 @@ export {
   type MoveOutScheduleWithSlots,
   type Inspector,
   ApplicationStatus,
+  AdminApplicationStatus,
   type Application,
   type InspectionSlot,
   type SlotInfo,

@@ -16,6 +16,7 @@ export * from './use-database-size';
 export * from './use-bulk-update-repair';
 export * from './use-change-schedule-status';
 export * from './use-change-inspector';
+export * from './use-change-application-status';
 export * from './use-update-inspector-to-temporary';
 export * from './use-delete-schedule';
 export * from './use-list-admins';
