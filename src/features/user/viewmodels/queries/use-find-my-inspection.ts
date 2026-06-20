@@ -100,7 +100,7 @@ export const useFindMyInspection = (enabled: boolean) => {
   }, [data, error, isError, isSuccess, now]);
 
   const isApplicationUpdatable = useMemo(() => {
-    return isSuccess && (status === 'waiting' || !status);
+    return isSuccess && status === 'waiting';
   }, [isSuccess, status]);
 
   return {

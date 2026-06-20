@@ -7,7 +7,7 @@ import { isNil } from 'es-toolkit';
 import { Download, InfoIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Dialog, Loading, Pagination } from '@/common/components';
+import { Button, Checkbox, Dialog, Loading, Pagination } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { SignaturePad } from '@/features/inspector';
 
@@ -97,7 +97,9 @@ function DownloadButton({
 export function ApplicationListFrame() {
   const { uuid } = useParams({ from: '/_auth-required/admin/schedules/$uuid/applications' });
   const [page, setPage] = useState(1);
-  const { data, error } = useApplications(uuid, page, PAGE_SIZE);
+  const [includePast, setIncludePast] = useState(false);
+  const [includeCanceled, setIncludeCanceled] = useState(false);
+  const { data, error } = useApplications(uuid, page, PAGE_SIZE, includePast, includeCanceled);
   const { download, isDownloading } = useDownloadDocuments(uuid);
   const { t } = useTranslation('admin');
 
@@ -106,7 +108,27 @@ export function ApplicationListFrame() {
 
   return (
     <main className="flex flex-col gap-4 p-4">
-      <div className="flex justify-end gap-2">
+      <div className="flex items-center justify-end gap-2">
+        <label className="flex items-center gap-2">
+          <Checkbox
+            checked={includePast}
+            onChange={() => {
+              setIncludePast(!includePast);
+              setPage(1);
+            }}
+          />
+          {t('application.filters.includePast')}
+        </label>
+        <label className="flex items-center gap-2">
+          <Checkbox
+            checked={includeCanceled}
+            onChange={() => {
+              setIncludeCanceled(!includeCanceled);
+              setPage(1);
+            }}
+          />
+          {t('application.filters.includeCanceled')}
+        </label>
         <DownloadExcelButton scheduleUuid={uuid} />
         <DownloadButton download={async (blob) => download(blob)} isDownloading={isDownloading} />
       </div>

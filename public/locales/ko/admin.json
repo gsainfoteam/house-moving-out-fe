@@ -99,6 +99,10 @@
     "error": {
       "load": "신청 목록을 불러올 수 없습니다"
     },
+    "filters": {
+      "includeCanceled": "취소 신청 포함",
+      "includePast": "과거 신청 포함"
+    },
     "list": "신청 목록",
     "time": "신청 현황"
   },
