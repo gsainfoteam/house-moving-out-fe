@@ -24,7 +24,7 @@ export function TimeSelect({ slot, value, onChange }: TimeSelect.Props) {
       type="button"
       disabled={isClosed}
       aria-pressed={!isClosed && isSelected}
-      aria-disabled={isClosed}
+      aria-disabled={isClosed || isPast}
       className={cn(TimeSelect.slotStyles({ state }))}
       onClick={() => !isClosed && !isPast && onChange(slot)}
     >
