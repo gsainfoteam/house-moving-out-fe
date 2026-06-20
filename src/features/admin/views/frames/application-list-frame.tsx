@@ -110,13 +110,22 @@ export function ApplicationListFrame() {
     <main className="flex flex-col gap-4 p-4">
       <div className="flex items-center justify-end gap-2">
         <label className="flex items-center gap-2">
-          <Checkbox checked={includePast} onChange={() => setIncludePast(!includePast)} />
+          <Checkbox
+            checked={includePast}
+            onChange={() => {
+              setIncludePast(!includePast);
+              setPage(1);
+            }}
+          />
           {t('application.filters.includePast')}
         </label>
         <label className="flex items-center gap-2">
           <Checkbox
             checked={includeCanceled}
-            onChange={() => setIncludeCanceled(!includeCanceled)}
+            onChange={() => {
+              setIncludeCanceled(!includeCanceled);
+              setPage(1);
+            }}
           />
           {t('application.filters.includeCanceled')}
         </label>
