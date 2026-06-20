@@ -15,7 +15,7 @@ function ChangeStatusConfirmDialog({
   status,
 }: {
   application: Application;
-  status: (typeof STATUS_OPTIONS)[number]['status'];
+  status: NonNullable<(typeof STATUS_OPTIONS)[number]['status']>;
 }) {
   const { t } = useTranslation('admin');
   const [loading, startLoading] = useTransition();
@@ -97,10 +97,12 @@ export function ApplicationStatusChanger({ application }: { application: Applica
         const nextValue = e.target.value;
         const option = STATUS_OPTIONS.find((item) => item.value === nextValue);
         if (!option) return;
+        const status = option.status;
+        if (isNil(status)) return;
 
         overlay.open(() => (
           <Dialog.Root>
-            <ChangeStatusConfirmDialog application={application} status={option.status} />
+            <ChangeStatusConfirmDialog application={application} status={status} />
           </Dialog.Root>
         ));
       }}
