@@ -108,7 +108,11 @@ export function ApplicationStatusChanger({ application }: { application: Applica
       }}
     >
       {STATUS_OPTIONS.map((option) => (
-        <option value={option.value} key={option.value || 'unprocessed'}>
+        <option
+          value={option.value}
+          key={option.value || 'unprocessed'}
+          disabled={option.status === null}
+        >
           {isNil(option.status)
             ? t('application.detail.changeStatus.unprocessed')
             : t(`result.${option.status.toLowerCase()}`)}
