@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { cn, cv } from '@/common/utils';
@@ -8,8 +9,15 @@ import type { VariantProps } from 'tailwind-variants';
 export function TimeSelect({ slot, value, onChange }: TimeSelect.Props) {
   const { t } = useTranslation('user');
   const isSelected = value === slot.uuid;
+  const isPast = slot.startTime.isBefore(dayjs());
   const isClosed = slot.isClosed;
-  const state: TimeSelect.SlotState = isClosed ? 'closed' : isSelected ? 'selected' : 'default';
+  const state: TimeSelect.SlotState = isPast
+    ? 'past'
+    : isClosed
+      ? 'closed'
+      : isSelected
+        ? 'selected'
+        : 'default';
 
   return (
     <button
@@ -18,7 +26,7 @@ export function TimeSelect({ slot, value, onChange }: TimeSelect.Props) {
       aria-pressed={!isClosed && isSelected}
       aria-disabled={isClosed}
       className={cn(TimeSelect.slotStyles({ state }))}
-      onClick={() => !isClosed && onChange(slot)}
+      onClick={() => !isClosed && !isPast && onChange(slot)}
     >
       {isClosed && (
         <span className="text-caption bg-bg-surface text-text-secondary absolute top-1 right-1 rounded-md px-1 py-0.5">
@@ -53,6 +61,9 @@ export namespace TimeSelect {
         ],
         selected: ['font-semibold inset-ring-2 inset-ring-primary bg-primary-light text-primary'],
         default: ['bg-bg text-text-primary inset-ring-1 inset-ring-border'],
+        past: [
+          'bg-bg-surface text-text-secondary cursor-not-allowed line-through inset-ring-1 inset-ring-border',
+        ],
       },
     },
   });
