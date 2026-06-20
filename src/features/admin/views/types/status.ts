@@ -10,7 +10,7 @@ const EDITABLE_STATUSES = new Set<Application['status'] | null>([
 ]);
 
 export const STATUS_OPTIONS = [
-  { value: '', status: null },
+  { value: 'unprocessed', status: null },
   { value: ApplicationStatus.PASSED, status: AdminApplicationStatus.PASSED },
   { value: ApplicationStatus.FAILED, status: AdminApplicationStatus.FAILED },
   { value: ApplicationStatus.NO_SHOW, status: AdminApplicationStatus.NO_SHOW },

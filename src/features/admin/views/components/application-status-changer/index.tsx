@@ -89,10 +89,11 @@ function ChangeStatusConfirmDialog({
 export function ApplicationStatusChanger({ application }: { application: Application }) {
   const { t } = useTranslation('admin');
 
+  console.log(application.status);
   return (
     <select
       className="mx-auto"
-      value={application.status}
+      value={application.status ?? 'unprocessed'}
       onChange={(e) => {
         const nextValue = e.target.value;
         const option = STATUS_OPTIONS.find((item) => item.value === nextValue);
@@ -108,12 +109,8 @@ export function ApplicationStatusChanger({ application }: { application: Applica
       }}
     >
       {STATUS_OPTIONS.map((option) => (
-        <option
-          value={option.value}
-          key={option.value || 'unprocessed'}
-          disabled={option.status === null}
-        >
-          {!option.value
+        <option value={option.value} key={option.value} disabled={option.status === null}>
+          {option.value === 'unprocessed'
             ? t('application.detail.changeStatus.unprocessed')
             : t(`result.${option.value.toLowerCase()}`)}
         </option>
