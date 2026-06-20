@@ -4,3 +4,4 @@ export * from './schedule-card';
 export * from './article-form';
 export * from './schedule-status-badge';
 export * from './inspector-changer';
+export * from './application-status-changer';

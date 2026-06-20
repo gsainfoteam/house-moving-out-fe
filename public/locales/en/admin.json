@@ -63,6 +63,16 @@
         "submit": "Change Inspector",
         "title": "Change Inspector"
       },
+      "changeStatus": {
+        "cancel": "Cancel",
+        "commentLabel": "Additional comment",
+        "commentPlaceholder": "Enter the reason for the status change",
+        "description": "Change the inspection result for room {{roomNumber}} to \"{{status}}\"?",
+        "forbidden": "Cannot change the status for this inspection",
+        "submit": "Change",
+        "title": "Change Inspection Result",
+        "unprocessed": "Unprocessed"
+      },
       "closeNote": "Close",
       "document": "Document",
       "downloadPdf": "PDF",

@@ -24,6 +24,7 @@ export {
   PathsArticleGetParametersQueryType as ArticleType,
   ArticleDtoLanguage as ArticleLanguage,
   ApplicationResDtoStatus as ApplicationStatus,
+  UpdateInspectionStatusByAdminDtoStatus as AdminApplicationStatus,
   UserDtoRole,
 } from '@/@types/api-schema';
 export { ApiPaths } from '@/@types/api-schema';
