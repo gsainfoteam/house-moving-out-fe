@@ -99,6 +99,10 @@
     "error": {
       "load": "Cannot load inspection application list"
     },
+    "filters": {
+      "includeCanceled": "Include canceled applications",
+      "includePast": "Include past applications"
+    },
     "list": "Inspection Application List",
     "time": "Application Summary"
   },
