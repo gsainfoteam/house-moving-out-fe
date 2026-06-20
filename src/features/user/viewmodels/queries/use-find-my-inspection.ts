@@ -73,9 +73,12 @@ export const useFindMyInspection = (enabled: boolean) => {
         return 'failed' as const;
       } else if (data.status === ApplicationStatus.NO_SHOW) {
         return 'no_show' as const;
-      } else if (data.status === ApplicationStatus.CANCELED) {
+      } else if (
+        data.status === ApplicationStatus.CANCELED ||
+        data.status === ApplicationStatus.NO_SHOW_CANCELED
+      ) {
         return 'canceled' as const;
-      } else if (isNil(data.status)) {
+      } else if (isNil(data.status) || data.status === ApplicationStatus.PENDING_NO_SHOW) {
         const startTime = dayjs(data.inspectionSlot.startTime);
         const endTime = dayjs(data.inspectionSlot.endTime);
 
@@ -93,7 +96,12 @@ export const useFindMyInspection = (enabled: boolean) => {
         return 'not_found' as const;
       }
     }
+    return 'not_found' as const;
   }, [data, error, isError, isSuccess, now]);
+
+  const isApplicationUpdatable = useMemo(() => {
+    return isSuccess && (status === 'waiting' || !status);
+  }, [isSuccess, status]);
 
   return {
     applicationUuid,
@@ -104,5 +112,6 @@ export const useFindMyInspection = (enabled: boolean) => {
     inspectionCount,
     failedItems,
     status,
+    isApplicationUpdatable,
   };
 };

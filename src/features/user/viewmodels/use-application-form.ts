@@ -35,7 +35,7 @@ export const useApplicationForm = ({
   const navigate = useNavigate();
   const { inspectionDays, inspectionSlotsByDayTimestamp, isLoading, isError, isSuccess } =
     useFindActiveMoveOutScheduleWithSlots();
-  const { inspectionStartTime, inspectionSlotUuid, applicationUuid, failedItems } =
+  const { inspectionStartTime, inspectionSlotUuid, applicationUuid, isApplicationUpdatable } =
     useFindMyInspection(isSuccess);
   const { mutateAsync: applyInspection } = useApplyInspection({
     onSuccess: onApplySuccess,
@@ -57,13 +57,13 @@ export const useApplicationForm = ({
   });
 
   useEffect(() => {
-    if (inspectionStartTime && inspectionSlotUuid && failedItems === null) {
+    if (inspectionStartTime && inspectionSlotUuid && isApplicationUpdatable) {
       form.reset({
         inspectionDayTimestamp: inspectionStartTime.startOf('day').valueOf(),
         inspectionSlotUuid,
       });
     }
-  }, [inspectionStartTime, inspectionSlotUuid, form, failedItems]);
+  }, [inspectionStartTime, inspectionSlotUuid, form, isApplicationUpdatable]);
 
   const inspectionDayTimestamp = useWatch({
     control: form.control,
@@ -80,7 +80,7 @@ export const useApplicationForm = ({
     if (inspectionSlotUuid === null) return;
 
     const request =
-      applicationUuid && failedItems === null
+      applicationUuid && isApplicationUpdatable
         ? updateInspection({
             params: { path: { uuid: applicationUuid } },
             body: { inspectionSlotUuid },
