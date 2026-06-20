@@ -8,7 +8,7 @@ import { Button, Drawer, LayoutCard, useList } from '@/common/components';
 import { overlay } from '@/common/lib';
 import { cn } from '@/common/utils';
 
-import { type ApplicationStatus } from '../../viewmodels';
+import { ApplicationStatus } from '../../viewmodels';
 import { InspectionScheduleCard } from '../components';
 
 // t('filter.items.all')
@@ -107,7 +107,7 @@ export function InspectionListScreen({
                 to="/inspector/$uuid"
                 params={{ uuid: target.uuid }}
                 className="w-full"
-                disabled={!!target.status}
+                disabled={!!target.status && target.status !== ApplicationStatus.PENDING_NO_SHOW}
               >
                 <InspectionScheduleCard
                   time={dayjs(target.inspectionTime)}
