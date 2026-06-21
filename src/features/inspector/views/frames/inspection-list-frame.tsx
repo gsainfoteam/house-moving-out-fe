@@ -8,7 +8,7 @@ import { InspectionListScreen } from '../screens';
 
 export function InspectionListFrame() {
   const [filter, setFilter] =
-    useState<React.ComponentProps<typeof InspectionListScreen>['filter']>('all');
+    useState<React.ComponentProps<typeof InspectionListScreen>['filter']>('not_completed');
   const { targets, isLoading } = useGetInspectionTargets();
   const filteredTargets = useMemo(() => {
     return [...targets]
