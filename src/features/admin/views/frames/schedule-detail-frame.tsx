@@ -108,7 +108,7 @@ export function ScheduleDetailFrame() {
 
   const counts = countBy(targets, (target) => {
     if (target.inspectionType === InspectionType.EMPTY) return 'empty';
-    if (target.status === ApplicationStatus.PASSED) return 'passed';
+    if (target.status === ApplicationStatus.PASSED || target.applyCleaningService) return 'passed';
     if (target.lastInspectionTime) {
       if (target.inspectionType !== InspectionType.SOLO) return 'waiting';
       return 'solo_waiting';
@@ -117,9 +117,12 @@ export function ScheduleDetailFrame() {
     return 'solo_not_inspected';
   });
   const genderCounts = countBy(
-    targets.filter((t) => t.inspectionType !== InspectionType.EMPTY),
+    targets.filter((t) => t.inspectionType !== InspectionType.EMPTY && !t.applyCleaningService),
     (target) => target.gender,
   );
+  const cleaningServiceCount = targets.filter(
+    (t) => t.inspectionType !== InspectionType.EMPTY && t.applyCleaningService,
+  ).length;
 
   const changeSchedule = (status: ScheduleStatus) => () => {
     overlay.open(({ close }) => (
@@ -252,11 +255,17 @@ export function ScheduleDetailFrame() {
               <span className="font-medium">{counts.passed ?? 0}</span>
             </div>
             <div className="text-body text-text-primary flex justify-between">
-              <span className="text-text-secondary">{t('schedule.statistics.progress')}</span>
-              <span className="font-medium">
-                {targets.length ? Math.ceil(((counts.passed ?? 0) / targets.length) * 100) : 0}%
+              <span className="text-text-secondary">
+                {t('schedule.statistics.all_cleaning_service')}
               </span>
+              <span className="font-medium">{cleaningServiceCount}</span>
             </div>
+          </div>
+          <div className="text-body text-text-primary mt-1 flex justify-between border-t border-gray-100 pt-3">
+            <span className="text-text-secondary">{t('schedule.statistics.progress')}</span>
+            <span className="font-medium">
+              {targets.length ? Math.ceil(((counts.passed ?? 0) / targets.length) * 100) : 0}%
+            </span>
           </div>
         </div>
       </section>

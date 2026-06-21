@@ -335,6 +335,7 @@
     "statistics": {
       "all_not_inspected": "All not inspected",
       "all_passed": "All passed",
+      "all_cleaning_service": "Cleaning service rooms",
       "all_single_target": "All not inspected single",
       "all_waiting_target": "All waiting inspection",
       "count": "Male/Female target count",
