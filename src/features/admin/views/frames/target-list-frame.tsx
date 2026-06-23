@@ -88,6 +88,8 @@ export function TargetListFrame() {
             {targets
               .filter((t) => t.inspectionType !== InspectionType.EMPTY)
               .map((target) => {
+                const cleaningServiceApplied =
+                  isDraftCleaning(target.uuid) ?? target.applyCleaningService;
                 return (
                   <tr key={target.roomNumber}>
                     <td className={cn('[&&]:border-r-2')}>{target.roomNumber}</td>
@@ -113,7 +115,7 @@ export function TargetListFrame() {
                         {isEditable ? (
                           <Checkbox
                             className="scale-100"
-                            checked={isDraftCleaning(target.uuid) ?? target.applyCleaningService}
+                            checked={cleaningServiceApplied}
                             onChange={(event) => {
                               handleCleaningServiceChange(
                                 target.uuid,
@@ -124,7 +126,7 @@ export function TargetListFrame() {
                             disabled={!isEditable || isSaving}
                             aria-label={t('target.detail.cleaningService')}
                           />
-                        ) : target.applyCleaningService ? (
+                        ) : cleaningServiceApplied ? (
                           <Check
                             className="text-primary size-5"
                             aria-label={t('target.detail.cleaningService')}
@@ -157,7 +159,11 @@ export function TargetListFrame() {
                       </div>
                     </td>
                     <td>
-                      {isNil(target.status) ? '-' : t(`result.${target.status.toLowerCase()}`)}
+                      {cleaningServiceApplied
+                        ? t('result.passed')
+                        : isNil(target.status)
+                          ? '-'
+                          : t(`result.${target.status.toLowerCase()}`)}
                     </td>
                     <td>
                       {target.lastInspectionTime

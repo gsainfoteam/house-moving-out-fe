@@ -334,6 +334,7 @@
     "statistics": {
       "all_not_inspected": "전체 퇴사검사 미이행 수",
       "all_passed": "검사 완료된 방 수",
+      "all_cleaning_service": "위탁청소 방 수",
       "all_single_target": "전체 1인퇴사 검사 수",
       "all_waiting_target": "검사 예정 방 수",
       "count": "남자층/여자층 검사대상 수",
