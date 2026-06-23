@@ -93,7 +93,7 @@
       "cancel": "Cancel",
       "download": "Download",
       "downloadExcel": "Download Excel",
-      "failToGenerate": "",
+      "failToGenerate": "Failed to generate inspection documents. If the problem persists, please contact the administrator.",
       "title": "Inspector Signature"
     },
     "error": {

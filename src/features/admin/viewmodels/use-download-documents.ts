@@ -24,26 +24,24 @@ export const useDownloadDocuments = (scheduleUuid: string) => {
         const response = await api
           .GET(ApiPaths.ScheduleController_downloadInspectionDocuments, {
             params: { path: { uuid: scheduleUuid } },
-            parseAs: 'arrayBuffer',
           })
           .catch(() => null);
         if (!response?.data) {
           toast.error(t('error.internalServerError', { ns: 'common' }));
           return;
         }
-        const array = new Uint8Array(response.data);
+        const pdf = await fetch(response.data.url, {
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        });
+        const array = new Uint8Array(await pdf.arrayBuffer());
         await $typst.mapShadow('/assets/signature.png', await blob.bytes());
-        const stringPages = response.response.headers.get('X-Total-Pages');
-        if (!stringPages) {
-          toast.warning(t('application.downloadDocuments.failToGenerate'));
-          return saveFile(new Blob([array]), `${data.title}.pdf`);
-        }
-        const pages = Number.parseInt(stringPages);
         const result = await $typst.pdf({
           mainContent: insertSignatureContent,
           inputs: {
             pdfData: `"${array.toBase64()}"`,
-            pdfPages: `${pages}`,
+            pdfPages: `${response.data.pages}`,
           },
         });
         if (!result) {
