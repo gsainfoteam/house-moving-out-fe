@@ -5,7 +5,7 @@ import { useAuth } from '@/features/auth';
 import { MypageScreen } from '../screens';
 
 export function MypageFrame() {
-  const { user, isInspector, logOut } = useAuth({ showToast: true });
+  const { user, isInspector, logOut } = useAuth();
   const router = useRouter();
 
   return (
@@ -20,7 +20,7 @@ export function MypageFrame() {
       applyCleaningService={user?.applyCleaningService}
       isInspector={isInspector ?? undefined}
       onBack={() => router.history.back()}
-      onLogout={() => logOut({})}
+      onLogout={logOut}
     />
   );
 }

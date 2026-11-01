@@ -15,7 +15,7 @@ export const Route = createFileRoute('/_auth-required/admin')({
 });
 
 function AdminLayout() {
-  const { isAdmin } = useAuth({ showToast: true });
+  const { isAdmin } = useAuth();
 
   if (isAdmin === undefined) return <Loading />;
   if (!isAdmin) return <Navigate to="/" replace />;

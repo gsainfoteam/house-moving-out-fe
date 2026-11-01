@@ -9,7 +9,7 @@ export const Route = createFileRoute('/_auth-required/admin/admins/')({
 });
 
 function AdminsRoute() {
-  const { isAdmin, isSuperAdmin } = useAuth({ showToast: true });
+  const { isAdmin, isSuperAdmin } = useAuth();
 
   if (isAdmin === undefined || isSuperAdmin === undefined) return <Loading />;
   if (!isAdmin) return <Navigate to="/" replace />;

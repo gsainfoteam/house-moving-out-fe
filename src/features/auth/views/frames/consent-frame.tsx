@@ -1,10 +1,10 @@
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 
-import { useAuthPrompt, useConsentForm, type RequiredConsents } from '../../viewmodels';
+import { useConsentForm, useRequiredConsents, type RequiredConsents } from '../../viewmodels';
 import { ConsentScreen } from '../screens';
 
 export function ConsentFrame() {
-  const requiredConsents = useAuthPrompt((state) => state.requiredConsents);
+  const requiredConsents = useRequiredConsents();
   if (!requiredConsents) {
     return null;
   }

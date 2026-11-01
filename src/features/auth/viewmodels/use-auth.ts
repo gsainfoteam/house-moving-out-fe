@@ -1,45 +1,21 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
-import { useNavigate } from '@tanstack/react-router';
-
-import { useTranslation } from 'react-i18next';
-import { useAuthContext } from 'react-oauth2-code-pkce';
-import { toast } from 'sonner';
+import { useAccount } from '@gsainfoteam/account-react';
 
 import { UserDtoRole } from '../models';
-import { useLogin, useLogout, useUser } from './queries';
-import { useToken } from './stores';
+import { useUser } from './queries';
 
-export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => {
-  const { token: idpToken, logIn: idpLogIn, logOut: idpLogOut } = useAuthContext();
-  const { mutate: logInMutate, ...logInMutation } = useLogin({ showToast });
-  const { mutate: logOut, ...logOutMutation } = useLogout({ showToast });
-  const { token } = useToken();
+export const useAuth = () => {
+  const { status, error, login, logout } = useAccount();
   const { data: userData, isLoading, error: userError, refetch: refetchUser } = useUser();
-  const { t } = useTranslation('auth');
-  const navigate = useNavigate();
-
-  const logIn = useCallback(
-    (...args: Parameters<typeof logInMutate>) => {
-      if (!idpToken) {
-        navigate({ to: '/auth/login' });
-        if (showToast) {
-          toast.error(t('error.noIdpToken'));
-        }
-        return;
-      }
-
-      return logInMutate(...args);
-    },
-    [idpToken, navigate, showToast, t, logInMutate],
-  );
 
   const user = useMemo(() => {
-    if (!token) return null;
+    if (status === 'loading') return undefined;
+    if (status === 'unauthenticated') return null;
     if (isLoading) return undefined;
     if (userError) return null;
     return userData;
-  }, [userData, userError, isLoading, token]);
+  }, [status, userData, userError, isLoading]);
 
   const isSuperAdmin = useMemo(
     () => (user === undefined ? undefined : user?.role === UserDtoRole.SUPERADMIN),
@@ -57,22 +33,22 @@ export const useAuth = ({ showToast = false }: { showToast?: boolean } = {}) => 
   );
 
   useEffect(() => {
-    if (!token) return;
+    if (status !== 'authenticated') return;
 
     refetchUser();
-  }, [refetchUser, token]);
+  }, [refetchUser, status]);
+
+  const logIn = useCallback(() => login({ returnTo: '/auth/login' }), [login]);
+  const logOut = useCallback(() => logout(), [logout]);
 
   return {
     user,
+    loginError: error,
     isInspector,
     isAdmin,
     isSuperAdmin,
     refetchUser,
-    idpLogIn,
-    idpLogOut,
     logIn,
     logOut,
-    logInMutation,
-    logOutMutation,
   };
 };

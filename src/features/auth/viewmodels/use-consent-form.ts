@@ -1,10 +1,11 @@
+import { useNavigate } from '@tanstack/react-router';
+
+import { AccountError, useAccount } from '@gsainfoteam/account-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useAuthContext } from 'react-oauth2-code-pkce';
+import { toast } from 'sonner';
 import { z } from 'zod';
-
-import { useAuth } from './use-auth';
 
 import type { RequiredConsents } from '../models';
 import type { TFunction } from 'i18next';
@@ -24,9 +25,9 @@ const createConsentSchema = (t: TFunction<'auth'>) =>
 export type ConsentFormData = z.infer<ReturnType<typeof createConsentSchema>>;
 
 export const useConsentForm = (requiredConsents: RequiredConsents, formData?: ConsentFormData) => {
-  const { token } = useAuthContext();
   const { t } = useTranslation('auth');
-  const { logIn } = useAuth({ showToast: true });
+  const { retryLogin } = useAccount();
+  const navigate = useNavigate();
 
   const consentSchema = createConsentSchema(t);
 
@@ -58,16 +59,16 @@ export const useConsentForm = (requiredConsents: RequiredConsents, formData?: Co
   };
 
   const onSubmit = form.handleSubmit(async (data) => {
-    await logIn({
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: {
-        agreedToPrivacy: data.privacy,
-        agreedToTerms: data.tos,
-        privacyVersion: data.privacyVersion,
-        termsVersion: data.tosVersion,
-      },
+    await retryLogin({
+      agreedToPrivacy: data.privacy,
+      agreedToTerms: data.tos,
+      privacyVersion: data.privacyVersion,
+      termsVersion: data.tosVersion,
+    }).catch((error: unknown) => {
+      // 그새 약관이 또 바뀌었으면 새 거절이 와서 이 화면이 그 내용으로 다시 그려진다. ticket 이 만료됐으면 IdP 로그인부터 다시 한다
+      if (AccountError.is(error, 'session_rejected')) return;
+      toast.error(t('error.loginFailed'));
+      navigate({ to: '/auth/login' });
     });
   });
 

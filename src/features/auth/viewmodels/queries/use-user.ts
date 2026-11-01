@@ -1,17 +1,18 @@
+import { useAccount } from '@gsainfoteam/account-react';
+
 import { $api } from '@/common/lib';
 
 import { ApiPaths } from '../../models';
-import { useToken } from '../stores';
 
 export const useUser = () => {
-  const { token } = useToken();
+  const { status } = useAccount();
 
   return $api.useQuery(
     'get',
     ApiPaths.UserController_getMe,
     {},
     {
-      enabled: !!token,
+      enabled: status === 'authenticated',
     },
   );
 };
