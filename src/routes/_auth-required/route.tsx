@@ -1,9 +1,22 @@
-import { createFileRoute, Navigate, Outlet, useRouter } from '@tanstack/react-router';
+import { createFileRoute, Navigate, Outlet, redirect, useRouter } from '@tanstack/react-router';
+
+import { AccountError } from '@gsainfoteam/account-react';
 
 import { Loading } from '@/common/components';
-import { useAuth } from '@/features/auth';
+import { account } from '@/common/lib';
+import { useAuth, useAuthRedirect } from '@/features/auth';
 
 export const Route = createFileRoute('/_auth-required')({
+  beforeLoad: async ({ location }) => {
+    try {
+      await account.requireAuth({ returnTo: location.href });
+    } catch (error) {
+      if (!AccountError.is(error)) throw error;
+      useAuthRedirect.getState().setRedirect(location.href);
+      throw redirect({ to: '/auth/login', search: { redirect: location.href } });
+    }
+  },
+  pendingComponent: Loading,
   component: AuthRequiredLayout,
 });
 
