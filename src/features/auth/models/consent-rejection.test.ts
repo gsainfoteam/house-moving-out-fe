@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import { ConsentRejectionSchema } from '.';
 
-// house-moving-out-be 의 auth.spec.ts 가 확인하는 403 details 와 같은 모양이다
 const details = {
   message: 'Consent required for first login',
   errorCode: 'CONSENT_REQUIRED',

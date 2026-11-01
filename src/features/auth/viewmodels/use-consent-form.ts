@@ -65,7 +65,6 @@ export const useConsentForm = (requiredConsents: RequiredConsents, formData?: Co
       privacyVersion: data.privacyVersion,
       termsVersion: data.tosVersion,
     }).catch((error: unknown) => {
-      // 그새 약관이 또 바뀌었으면 새 거절이 와서 이 화면이 그 내용으로 다시 그려진다. ticket 이 만료됐으면 IdP 로그인부터 다시 한다
       if (AccountError.is(error, 'session_rejected')) return;
       toast.error(t('error.loginFailed'));
       navigate({ to: '/auth/login' });

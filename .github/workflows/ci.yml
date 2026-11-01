@@ -20,7 +20,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # build 가 staging swagger 로 API 타입을 만들고 tsc 까지 돌린다
       - name: Build
         run: bun run build -- --mode staging
         env:
