@@ -58,7 +58,7 @@ function ConsentInnerFrame({ requiredConsents }: { requiredConsents: RequiredCon
       onPrivacyTermsClick={() => handleTermsClick('privacy', privacyVersion)}
       onTosTermsClick={() => handleTermsClick('tos', tosVersion)}
       onSubmit={onSubmit}
-      isSubmitDisabled={!formState.isValid}
+      isSubmitDisabled={!formState.isValid || formState.isSubmitting}
     />
   );
 }
