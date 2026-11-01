@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
-    "@gsainfoteam/account-react": "^0.4.0",
+    "@gsainfoteam/account-react": "^0.5.0",
     "@hookform/resolvers": "^5.2.2",
     "@myriaddreamin/typst.react": "^0.7.0-rc2",
     "@myriaddreamin/typst.ts": "^0.7.0-rc2",
