@@ -25,7 +25,7 @@ export function LoginFrame() {
     <LoginScreen
       onLogin={() => {
         useAuthRedirect.getState().setRedirect(redirect);
-        logIn();
+        logIn().catch(() => toast.error(t('error.loginFailed')));
       }}
     />
   );

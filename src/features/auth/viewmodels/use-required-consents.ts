@@ -6,5 +6,5 @@ export const useRequiredConsents = (): RequiredConsents | null => {
   const { error, canRetryLogin } = useAccount();
   if (error?.code !== 'session_rejected' || !canRetryLogin) return null;
 
-  return (error.details as ConsentRequiredError).requiredConsents;
+  return (error.details as Partial<ConsentRequiredError> | undefined)?.requiredConsents ?? null;
 };

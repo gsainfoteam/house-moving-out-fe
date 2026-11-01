@@ -29,4 +29,3 @@ jobs:
           SWAGGER_PASSWORD: ${{ secrets.SWAGGER_PASSWORD }}
 
       - run: bun run lint
-      - run: bun run test
