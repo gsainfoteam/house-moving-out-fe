@@ -14,9 +14,6 @@
 `.env` 파일에 다음 환경 변수들이 필요합니다:
 
 - `VITE_IDP_CLIENT_ID`
-- `VITE_IDP_REDIRECT_URI`
-- `VITE_IDP_AUTHORIZE_URL`
-- `VITE_IDP_TOKEN_URL`
 - `VITE_API_BASE_URL`
 - `SWAGGER_USER`
 - `SWAGGER_PASSWORD`
@@ -27,8 +24,10 @@
 
 ### 설치
 
+`@gsainfoteam/account-react`는 GitHub Packages에서 받으므로 `read:packages` 권한이 있는 토큰이 필요합니다.
+
 ```bash
-bun install
+NODE_AUTH_TOKEN=$(gh auth token) bun install
 ```
 
 ### 개발 서버 실행

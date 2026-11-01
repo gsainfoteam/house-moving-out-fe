@@ -9,6 +9,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      packages: read
     steps:
       - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
@@ -18,6 +19,7 @@ jobs:
           VITE_IDP_CLIENT_ID: ${{ secrets.VITE_IDP_CLIENT_ID }}
           SWAGGER_USER: ${{ secrets.SWAGGER_USER }}
           SWAGGER_PASSWORD: ${{ secrets.SWAGGER_PASSWORD }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bun install
           bun run build -- --mode production
