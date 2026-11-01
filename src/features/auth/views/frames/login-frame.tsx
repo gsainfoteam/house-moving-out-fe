@@ -19,7 +19,6 @@ export function LoginFrame() {
     toast.error(t('error.loginFailed'));
   }, [loginError, requiredConsents, t]);
 
-  // IdP 에서 돌아온 로그인을 백엔드가 약관 동의를 요구하며 거절했다
   if (requiredConsents) return <Navigate to="/auth/consent" replace />;
 
   return (
